@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIFDROP — Кейсы</title>
+    <style>
+        /* --- Дизайн в стиле BULLDROP --- */
+        body {
+            background-color: #060913;
+            color: #f1f5f9;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 12px;
+        }
+
+        .bulldrop-app {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #0b0f19;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+            box-sizing: border-box;
+        }
+
+        /* Шапка сайта */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #141b2d;
+        }
+        .logo-icon { font-size: 1.8rem; }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #ffaa00, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Экраны (Переключаются скриптом) */
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        /* Сетка кейсов Bulldrop */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .case-card {
+            background: #111726;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .case-card:hover { transform: translateY(-3px); border-color: #ffaa00; }
+
+        .case-img {
+            height: 90px;
+            background: radial-gradient(circle, #1a233a 0%, #111726 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .case-name { font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0; }
+        .case-price { color: #ffaa00; font-weight: 800; font-size: 0.9rem; }
+
+        /* Экран Рулетки */
+        .back-btn {
+            background: #141b2d;
+            color: #94a3b8;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .roulette-container {
+            background: #111726;
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
+        }
+
+        /* Окно самой ленты */
+        .tape-window {
+            position: relative;
+            width: 100%;
+            height: 90px;
+            background: #060913;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid #141b2d;
+        }
+
+        /* Стрелка по центру рулетки */
+        .tape-pointer {
+            position: absolute;
+            top: 0; left: 50%;
+            width: 4px; height: 100%;
+            background: #ff5500;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 8px #ff5500;
+        }
+
+        .tape-track {
+            display: flex;
+            position: absolute;
+            left: 0; top: 5px;
+            height: 80px;
+            will-change: transform;
+        }
+
+        .tape-item {
+            width: 76px;
+            height: 80px;
+            background: #1a233a;
+            margin: 0 3px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-sizing: border-box;
+            border-bottom: 3px solid #64748b;
+        }
+
+        .open-btn {
+            background: linear-gradient(90deg, #ffaa00, #ff5500);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 800;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+        }
+
+        /* Экран выигрыша */
+        .win-box { display: none; margin-top: 15px; }
+        .win-icon { font-size: 3.5rem; }
+        .win-title { font-size: 1.2rem; font-weight: 800; margin: 8px 0; }
+    </style>
+</head>
+<body>
+
+<div class="bulldrop-app">
+    <!-- Шапка -->
+    <div class="header">
+        <span class="logo-icon">🐂</span>
+        <span class="logo-text">MIFDROP</span>
+    </div>
+
+    <!-- ЭКРАН 1: Список кейсов -->
+    <div class="screen active" id="catalogScreen">
+        <div class="cases-grid">
+            <div class="case-card" onclick="goToRoulette('fable')">
+                <div class="case-img">📦</div>
+                <h3 class="case-name">Fable Case</h3>
+                <span class="case-price">100 G</span>
+            </div>
+            <div class="case-card" onclick="goToRoulette('scorpion')">
+                <div class="case-img">🦂</div>
+                <h3 class="case-name">Scorpion Case</h3>
+                <span class="case-price">120 G</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН 2: Страница с рулеткой -->
+    <div class="screen" id="rouletteScreen">
+        <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+
+        <div class="roulette-container">
+            <h2 id="caseTitle" style="margin:0; font-size:1.2rem; text-transform:uppercase;">Открытие кейса</h2>
+
+            <!-- Блок рулетки -->
+            <div id="spinArea">
+                <div class="tape-window">
+                    <div class="tape-pointer"></div>
+                    <div class="tape-track" id="tapeTrack"></div>
+                </div>
+                <button class="open-btn" id="startBtn" onclick="spinRoulette()">Открыть кейс</button>
+            </div>
+
+            <!-- Блок выпавшего скина -->
+            <div class="win-box" id="winBox">
+                <div class="win-icon" id="winIcon">🎁</div>
+                <div class="win-title" id="winTitle">Название скина</div>
+                <button class="back-btn" onclick="goToCatalog()" style="margin-top:10px;">В инвентарь</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Набор скинов под MIFDROP
+    const skinsData = {
+        fable: [
+            { name: "AWM | Genesis", emo: "🔫", color: "#eb4b4b" },
+            { name: "M4 | Lizard", emo: "🔫", color: "#d32ce6" },
+            { name: "Butterfly | Legacy", emo: "🦋", color: "#eb4b4b" }
+        ],
+        scorpion: [
+            { name: "Karambit | Claw", emo: "🔪", color: "#eb4b4b" },
+            { name: "AKR | Carbon", emo: "🔫", color: "#d32ce6" },
+            { name: "M40 | Quake", emo: "🔫", color: "#4b69ff" }
+        ]
+    };
+
+    let activeCase = 'fable';
+    let running = false;
+
+    // 1. Переход на страницу рулетки
+    function goToRoulette(type) {
+        if(running) return;
+        activeCase = type;
+
+        document.getElementById('caseTitle').innerText = type === 'fable' ? "Fable Case" : "Scorpion Case";
+        document.getElementById('catalogScreen').classList.remove('active');
+        document.getElementById('rouletteScreen').classList.add('active');
+
+        document.getElementById('spinArea').style.display = 'block';
+        document.getElementById('winBox').style.display = 'none';
+        document.getElementById('startBtn').style.display = 'inline-block';
+
+        // Создаем ленту рулетки из 30 случайных предметов
+        const track = document.getElementById('tapeTrack');
+        track.innerHTML = '';
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0px)';
+
+        const skins = skinsData[activeCase];
+
+        for (let i = 0; i < 30; i++) {
+            const randomSkin = skins[Math.floor(Math.random() * skins.length)];
+            const item = document.createElement('div');
+            item.className = 'tape-item';
+            item.style.borderBottomColor = randomSkin.color;
+            item.innerHTML = randomSkin.emo;
+            item.dataset.name = randomSkin.name;
+            item.dataset.emo = randomSkin.emo;
+            track.appendChild(item);
+        }
+    }
+    // 2. Возврат к каталогу кейсов
+    function goToCatalog() {
+        if(running) return;
+        document.getElementById('rouletteScreen').classList.remove('active');
+        document.getElementById('catalogScreen').classList.add('active');
+    }
+
+    // 3. Анимация кручения рулетки
+    function spinRoulette() {
+        if (running) return;
+        running = true;
+
+        const track = document.getElementById('tapeTrack');
+        const startBtn = document.getElementById('startBtn');
+        startBtn.style.display = 'none';
+
+        const itemWidth = 82;
+        const prizeIndex = 24;
+
+        const windowWidth = document.querySelector('.tape-window').offsetWidth;
+        const targetLeft = -(prizeIndex * itemWidth) + (windowWidth / 2) - (itemWidth / 2);
+
+        track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
+        track.style.transform = `translateX(${targetLeft}px)`;
+
+        setTimeout(() => {
+            const items = track.querySelectorAll('.tape-item');
+            const winningItem = items[prizeIndex];
+
+            document.getElementById('spinArea').style.display = 'none';
+            document.getElementById('winBox').style.display = 'block';
+            document.getElementById('winIcon').innerText = winningItem.dataset.emo;
+            document.getElementById('winTitle').innerText = winningItem.dataset.name;
+
+            running = false;
+        }, 4000);
+    }
+</script>
+</body>
+</html>
