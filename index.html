@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIFDROP — Кейсы</title>
     <style>
-        /* --- Дизайн в стиле BULLDROP --- */
+        /* --- Дизайн в стиле MIFDROP --- */
         body {
             background-color: #060913;
             color: #f1f5f9;
@@ -13,9 +13,8 @@
             margin: 0;
             padding: 12px;
         }
-
         .bulldrop-app {
-            max-width: 480px;
+            max-width: 1500px;
             margin: 0 auto;
             background: #0b0f19;
             border-radius: 16px;
@@ -23,16 +22,19 @@
             border: 1px solid rgba(255,255,255,0.03);
             box-sizing: border-box;
         }
-
         /* Шапка сайта */
         .header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-between;
             margin-bottom: 20px;
             padding-bottom: 12px;
             border-bottom: 1px solid #141b2d;
+        }
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         .logo-icon { font-size: 1.8rem; }
         .logo-text {
@@ -44,18 +46,54 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        /* Экраны (Переключаются скриптом) */
+        /* Кнопка открытия инвентаря в шапке */
+        .inv-toggle-btn {
+            background: #141b2d;
+            color: #94a3b8;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .inv-toggle-btn:hover {
+            background: #1a233a;
+            color: #f1f5f9;
+            border-color: #ffaa00;
+        }
+        .right-header-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        /* Виджет баланса */
+        .balance-box {
+            background: #111726;
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 800;
+            color: #ffaa00;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 10px rgba(255, 170, 0, 0.05);
+        }
+        /* Экраны */
         .screen { display: none; }
         .screen.active { display: block; }
-
-        /* Сетка кейсов Bulldrop */
+        /* Сетка кейсов */
         .cases-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
-
         .case-card {
             background: #111726;
             border-radius: 12px;
@@ -66,7 +104,6 @@
             transition: transform 0.2s;
         }
         .case-card:hover { transform: translateY(-3px); border-color: #ffaa00; }
-
         .case-img {
             height: 90px;
             background: radial-gradient(circle, #1a233a 0%, #111726 100%);
@@ -77,11 +114,9 @@
             font-size: 2.8rem;
             margin-bottom: 10px;
         }
-
         .case-name { font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0; }
         .case-price { color: #ffaa00; font-weight: 800; font-size: 0.9rem; }
-
-        /* Экран Рулетки */
+        /* Экран Рулетки и Кнопки */
         .back-btn {
             background: #141b2d;
             color: #94a3b8;
@@ -94,14 +129,12 @@
             margin-bottom: 15px;
             text-transform: uppercase;
         }
-
         .roulette-container {
             background: #111726;
             border-radius: 12px;
             padding: 20px 12px;
             text-align: center;
         }
-
         /* Окно самой ленты */
         .tape-window {
             position: relative;
@@ -113,7 +146,6 @@
             margin: 20px 0;
             border: 1px solid #141b2d;
         }
-
         /* Стрелка по центру рулетки */
         .tape-pointer {
             position: absolute;
@@ -124,7 +156,6 @@
             z-index: 10;
             box-shadow: 0 0 8px #ff5500;
         }
-
         .tape-track {
             display: flex;
             position: absolute;
@@ -132,7 +163,6 @@
             height: 80px;
             will-change: transform;
         }
-
         .tape-item {
             width: 76px;
             height: 80px;
@@ -145,9 +175,8 @@
             justify-content: center;
             font-size: 1.5rem;
             box-sizing: border-box;
-            border-bottom: 3px solid #64748b;
+            border-bottom: 4px solid #64748b;
         }
-
         .open-btn {
             background: linear-gradient(90deg, #ffaa00, #ff5500);
             color: #000;
@@ -159,24 +188,142 @@
             cursor: pointer;
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+            transition: all 0.3s;
         }
-
+        .open-btn:disabled {
+            background: #272e3f;
+            color: #64748b;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
         /* Экран выигрыша */
-        .win-box { display: none; margin-top: 15px; }
-        .win-icon { font-size: 3.5rem; }
+        .win-box { display: none; margin-top: 15px; padding: 15px; border-radius: 10px; }
+        .win-icon { font-size: 3.5rem; filter: drop-shadow(0 0 12px var(--glow-color)); }
         .win-title { font-size: 1.2rem; font-weight: 800; margin: 8px 0; }
+        .win-rarity { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        /* Кнопки действий при выигрыше */
+        .win-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .sell-btn {
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
+            transition: all 0.2s;
+        }
+        .sell-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+        .keep-btn {
+            background: #141b2d;
+            color: #f1f5f9;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .keep-btn:hover { background: #1a233a; }
+        /* БЛОК СОДЕРЖИМОГО КЕЙСА */
+        .case-preview-section {
+            margin-top: 25px;
+            text-align: left;
+        }
+        .preview-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #64748b;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .preview-item {
+            background: #111726;
+            border: 1px solid rgba(255,255,255,0.02);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            box-sizing: border-box;
+            border-bottom: 3px solid #64748b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .preview-icon { font-size: 1.4rem; margin-bottom: 4px; }
+        .preview-name { font-size: 0.65rem; font-weight: 700; color: #94a3b8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+
+        /* СТИЛИ ДЛЯ ЭКРАНА ИНВЕНТАРЯ */
+        .inventory-container {
+            background: #111726;
+            border-radius: 12px;
+            padding: 20px 16px;
+        }
+        .inventory-empty-text {
+            color: #64748b;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 40px 0;
+        }
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .inv-sell-btn {
+            background: linear-gradient(90deg, #ffaa00, #ff5500);
+            color: #000;
+            border: none;
+            padding: 4px 8px;
+            font-weight: 800;
+            font-size: 0.65rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 6px;
+            text-transform: uppercase;
+            width: 100%;
+            transition: transform 0.1s;
+        }
+        .inv-sell-btn:hover {
+            transform: scale(1.03);
+        }
     </style>
 </head>
 <body>
-
 <div class="bulldrop-app">
     <!-- Шапка -->
     <div class="header">
-        <span class="logo-icon">🐂</span>
-        <span class="logo-text">MIFDROP</span>
+        <div class="logo-block">
+            <span class="logo-icon">🐂</span>
+            <span class="logo-text">MIFDROP</span>
+        </div>
+        <div class="right-header-block">
+            <button class="inv-toggle-btn" id="invBtn" onclick="goToInventory()">🎒 Инвентарь</button>
+            <div class="balance-box">
+                <span id="balanceValue">1000</span><span>G</span>
+            </div>
+        </div>
     </div>
 
-    <!-- ЭКРАН 1: Список кейсов -->
+    <!-- ЭКРАН 1: Главная страница с каталогом кейсов -->
     <div class="screen active" id="catalogScreen">
         <div class="cases-grid">
             <div class="case-card" onclick="goToRoulette('fable')">
@@ -195,11 +342,8 @@
     <!-- ЭКРАН 2: Страница с рулеткой -->
     <div class="screen" id="rouletteScreen">
         <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
-
         <div class="roulette-container">
             <h2 id="caseTitle" style="margin:0; font-size:1.2rem; text-transform:uppercase;">Открытие кейса</h2>
-
-            <!-- Блок рулетки -->
             <div id="spinArea">
                 <div class="tape-window">
                     <div class="tape-pointer"></div>
@@ -207,103 +351,258 @@
                 </div>
                 <button class="open-btn" id="startBtn" onclick="spinRoulette()">Открыть кейс</button>
             </div>
-
-            <!-- Блок выпавшего скина -->
             <div class="win-box" id="winBox">
                 <div class="win-icon" id="winIcon">🎁</div>
                 <div class="win-title" id="winTitle">Название скина</div>
-                <button class="back-btn" onclick="goToCatalog()" style="margin-top:10px;">В инвентарь</button>
+                <div class="win-rarity" id="winRarity">Редкость</div>
+                <div class="win-actions">
+                    <button class="sell-btn" id="sellBtn" onclick="sellCurrentSkin()">Продать за -- G</button>
+                    <button class="keep-btn" onclick="keepCurrentSkin()">Оставить</button>
+                </div>
+            </div>
+        </div>
+        <div class="case-preview-section" id="previewSection">
+            <div class="preview-title">Содержимое кейса</div>
+            <div class="preview-grid" id="previewGrid"></div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН 3: Страница Инвентаря -->
+    <div class="screen" id="inventoryScreen">
+        <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+        <div class="inventory-container">
+            <h2 style="margin:0 0 15px 0; font-size:1.2rem; text-transform:uppercase;">Ваш инвентарь</h2>
+            <div id="inventoryContent">
+                <div class="inventory-empty-text">Ваш инвентарь пуст. Откройте кейсы, чтобы выбить скины!</div>
             </div>
         </div>
     </div>
-</div>
+
+</div> <!-- Конец основного контейнера .bulldrop-app -->
 
 <script>
-    // Набор скинов под MIFDROP
-    const skinsData = {
-        fable: [
-            { name: "AWM | Genesis", emo: "🔫", color: "#eb4b4b" },
-            { name: "M4 | Lizard", emo: "🔫", color: "#d32ce6" },
-            { name: "Butterfly | Legacy", emo: "🦋", color: "#eb4b4b" }
-        ],
-        scorpion: [
-            { name: "Karambit | Claw", emo: "🔪", color: "#eb4b4b" },
-            { name: "AKR | Carbon", emo: "🔫", color: "#d32ce6" },
-            { name: "M40 | Quake", emo: "🔫", color: "#4b69ff" }
-        ]
-    };
-
-    let activeCase = 'fable';
+    // Состояние приложения
+    let balance = 1000;
+    let myInventory = [];
+    let currentCase = null;
+    let currentWonSkin = null;
     let running = false;
 
-    // 1. Переход на страницу рулетки
-    function goToRoulette(type) {
-        if(running) return;
-        activeCase = type;
+    // Конфигурация редкостей предметов
+    const rarityInfo = {
+        rare: { name: 'Rare', color: '#4b69ff', sellPrice: 20 },
+        epic: { name: 'Epic', color: '#8847ff', sellPrice: 50 },
+        legendary: { name: 'Legendary', color: '#d32ce6', sellPrice: 150 },
+        arcane: { name: 'Arcane', color: '#eb4b4b', sellPrice: 500 }
+    };
 
-        document.getElementById('caseTitle').innerText = type === 'fable' ? "Fable Case" : "Scorpion Case";
-        document.getElementById('catalogScreen').classList.remove('active');
-        document.getElementById('rouletteScreen').classList.add('active');
+    // База данных кейсов
+    const casesData = {
+        fable: {
+            name: "Fable Case",
+            price: 100,
+            items: [
+                { name: "P350 Neon", emo: "🔫", rarity: "rare" },
+                { name: "G22 Nest", emo: "🔫", rarity: "rare" },
+                { name: "M4 Lizard", emo: "🦅", rarity: "epic" },
+                { name: "AKR Tiger", emo: "🐯", rarity: "legendary" },
+                { name: "AWM Scratch", emo: "🎯", rarity: "arcane" }
+            ]
+        },
+        scorpion: {
+            name: "Scorpion Case",
+            price: 120,
+            items: [
+                { name: "USP Genesis", emo: "🔥", rarity: "rare" },
+                { name: "M40 Grizzly", emo: "🐻", rarity: "rare" },
+                { name: "AKR Carbon", emo: "🖤", rarity: "epic" },
+                { name: "Fabm Parrot", emo: "🦜", rarity: "legendary" },
+                { name: "Karambit Claw", emo: "🔪", rarity: "arcane" }
+            ]
+        }
+    };
 
+    function updateBalanceDisplay() {
+        document.getElementById('balanceValue').innerText = balance;
+    }
+
+    // Переключение экранов
+    function switchScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function goToCatalog() {
+        if (running) return;
+        switchScreen('catalogScreen');
+    }
+
+    function goToInventory() {
+        if (running) return;
+        switchScreen('inventoryScreen');
+        renderInventory();
+    }
+
+    function goToRoulette(caseKey) {
+        if (running) return;
+        currentCase = casesData[caseKey];
+        switchScreen('rouletteScreen');
+
+        document.getElementById('caseTitle').innerText = currentCase.name;
         document.getElementById('spinArea').style.display = 'block';
         document.getElementById('winBox').style.display = 'none';
-        document.getElementById('startBtn').style.display = 'inline-block';
 
-        // Создаем ленту рулетки из 30 случайных предметов
+        const previewGrid = document.getElementById('previewGrid');
+        previewGrid.innerHTML = '';
+        currentCase.items.forEach(item => {
+            const rMeta = rarityInfo[item.rarity];
+            const color = rMeta.color;
+            previewGrid.innerHTML += `
+                <div class="preview-item" style="border-bottom-color: ${color}">
+                    <div class="preview-icon">${item.emo}</div>
+                    <div class="preview-name">${item.name}</div>
+                    <div style="font-size: 0.65rem; color: #ffaa00; font-weight: 800; margin-top: 4px;">${rMeta.sellPrice} G</div>
+                </div>
+            `;
+        });
+
         const track = document.getElementById('tapeTrack');
-        track.innerHTML = '';
         track.style.transition = 'none';
         track.style.transform = 'translateX(0px)';
-
-        const skins = skinsData[activeCase];
-
-        for (let i = 0; i < 30; i++) {
-            const randomSkin = skins[Math.floor(Math.random() * skins.length)];
-            const item = document.createElement('div');
-            item.className = 'tape-item';
-            item.style.borderBottomColor = randomSkin.color;
-            item.innerHTML = randomSkin.emo;
-            item.dataset.name = randomSkin.name;
-            item.dataset.emo = randomSkin.emo;
-            track.appendChild(item);
-        }
-    }
-    // 2. Возврат к каталогу кейсов
-    function goToCatalog() {
-        if(running) return;
-        document.getElementById('rouletteScreen').classList.remove('active');
-        document.getElementById('catalogScreen').classList.add('active');
+        track.innerHTML = '';
     }
 
-    // 3. Анимация кручения рулетки
     function spinRoulette() {
-        if (running) return;
+        if (running || !currentCase) return;
+        if (balance < currentCase.price) {
+            alert("Недостаточно баланса!");
+            return;
+        }
+
+        balance -= currentCase.price;
+        updateBalanceDisplay();
         running = true;
 
-        const track = document.getElementById('tapeTrack');
         const startBtn = document.getElementById('startBtn');
-        startBtn.style.display = 'none';
+        startBtn.disabled = true;
 
-        const itemWidth = 82;
-        const prizeIndex = 24;
+        const track = document.getElementById('tapeTrack');
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0px)';
+        track.innerHTML = '';
 
+        const totalItemsCount = 70;
+        const itemsList = [];
+        for (let i = 0; i < totalItemsCount; i++) {
+            const randomItem = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+            itemsList.push(randomItem);
+        }
+
+        const prizeIndex = 29;
+
+        itemsList.forEach((item) => {
+            const color = rarityInfo[item.rarity].color;
+            const div = document.createElement('div');
+            div.className = 'tape-item';
+            div.style.borderBottomColor = color;
+            div.innerHTML = `<span>${item.emo}</span>`;
+            div.dataset.name = item.name;
+            div.dataset.emo = item.emo;
+            div.dataset.rarity = item.rarity;
+            track.appendChild(div);
+        });
+
+        const itemWidth = 76 + 6;
         const windowWidth = document.querySelector('.tape-window').offsetWidth;
-        const targetLeft = -(prizeIndex * itemWidth) + (windowWidth / 2) - (itemWidth / 2);
-
-        track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
-        track.style.transform = `translateX(${targetLeft}px)`;
+        const targetLeft = -((prizeIndex * itemWidth) - (windowWidth / 2) + (itemWidth / 2));
 
         setTimeout(() => {
-            const items = track.querySelectorAll('.tape-item');
-            const winningItem = items[prizeIndex];
+            track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
+            track.style.transform = `translateX(${targetLeft}px)`;
+        }, 50);
+
+        setTimeout(() => {
+            const winningItem = track.children[prizeIndex];
+            const rarityKey = winningItem.dataset.rarity;
+            const rMeta = rarityInfo[rarityKey];
+
+            currentWonSkin = {
+                name: winningItem.dataset.name,
+                emo: winningItem.dataset.emo,
+                rarity: rarityKey
+            };
+
+            const winBox = document.getElementById('winBox');
+            winBox.style.display = 'block';
+            winBox.style.setProperty('--glow-color', rMeta.color);
+            winBox.style.border = `1px solid ${rMeta.color}33`;
+            winBox.style.background = `radial-gradient(circle at center, ${rMeta.color}15 0%, #111726 100%)`;
 
             document.getElementById('spinArea').style.display = 'none';
-            document.getElementById('winBox').style.display = 'block';
             document.getElementById('winIcon').innerText = winningItem.dataset.emo;
             document.getElementById('winTitle').innerText = winningItem.dataset.name;
 
+            const txtRarity = document.getElementById('winRarity');
+            txtRarity.innerText = rMeta.name;
+            txtRarity.style.color = rMeta.color;
+
+            document.getElementById('sellBtn').innerText = `Продать за ${rMeta.sellPrice} G`;
+
+            startBtn.disabled = false;
             running = false;
-        }, 4000);
+        }, 4100);
+    }
+
+    function sellCurrentSkin() {
+        if (running || !currentWonSkin) return;
+        const price = rarityInfo[currentWonSkin.rarity].sellPrice;
+        balance += price;
+        updateBalanceDisplay();
+        currentWonSkin = null;
+        goToCatalog();
+    }
+
+    function keepCurrentSkin() {
+        if (running || !currentWonSkin) return;
+        myInventory.push(currentWonSkin);
+        currentWonSkin = null;
+        goToInventory();
+    }
+
+    function renderInventory() {
+        const container = document.getElementById('inventoryContent');
+        if (myInventory.length === 0) {
+            container.innerHTML = '<div class="inventory-empty-text">Ваш инвентарь пуст. Откройте кейсы, чтобы выбить скины!</div>';
+            return;
+        }
+
+        let html = '<div class="inventory-grid">';
+        myInventory.forEach((item, index) => {
+            const rMeta = rarityInfo[item.rarity];
+            const color = rMeta.color;
+            html += `
+                <div class="preview-item" style="border-bottom-color: ${color}; padding: 12px 6px;">
+                    <div class="preview-icon" style="font-size: 1.8rem;">${item.emo}</div>
+                    <div class="preview-name" style="font-size: 0.75rem;">${item.name}</div>
+                    <div style="font-size: 0.65rem; color: ${color}; font-weight: bold; text-transform: uppercase; margin-top: 4px;">${rMeta.name}</div>
+                    <button class="inv-sell-btn" onclick="sellFromInventory(${index})">Продать: ${rMeta.sellPrice}G</button>
+                </div>
+            `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    // Функция продажи предмета прямо из инвентаря
+    function sellFromInventory(index) {
+        const item = myInventory[index];
+        const price = rarityInfo[item.rarity].sellPrice;
+
+        balance += price; // Начисляем золото на баланс
+        updateBalanceDisplay(); // Обновляем баланс в шапке сайта
+
+        myInventory.splice(index, 1); // Удаляем предмет из инвентаря по индексу
+        renderInventory(); // Перерисовываем обновленный инвентарь
     }
 </script>
 </body>
