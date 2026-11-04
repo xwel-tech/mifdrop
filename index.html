@@ -255,7 +255,7 @@
     }
     .preview-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 8px;
     }
     .preview-item {
@@ -270,9 +270,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+      min-width: 0;
+      min-height: 108px;
     }
     .preview-icon { font-size: 1.4rem; margin-bottom: 4px; }
-    .preview-name { font-size: 0.65rem; font-weight: 700; color: #94a3b8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+    .preview-name { font-size: 0.65rem; font-weight: 700; color: #94a3b8; overflow-wrap: break-word; white-space: normal; line-height: 1.25; width: 100%; }
 
     /* СТИЛИ ДЛЯ ЭКРАНА ИНВЕНТАРЯ */
     .inventory-container {
@@ -289,7 +291,7 @@
     }
     .inventory-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
     }
     .inv-sell-btn {
@@ -421,6 +423,16 @@
         <h3 class="case-name">Scorpion Case</h3>
         <span class="case-price">120 G</span>
       </div>
+      <div class="case-card" onclick="goToRoulette('origin')">
+        <div class="case-img">🌌</div>
+        <h3 class="case-name">Ориджин</h3>
+        <span class="case-price">500 G</span>
+      </div>
+      <div class="case-card" onclick="goToRoulette('furious')">
+        <div class="case-img">🌋</div>
+        <h3 class="case-name">Фуриос</h3>
+        <span class="case-price">70 G</span>
+      </div>
     </div>
   </div>
 
@@ -488,6 +500,7 @@
   let upgradeSourceIndex = null;
   let upgradeSourceItem = null;
   let upgradeTargetItem = null;
+  let upgradeTargets = [];
   let currentUpgradeChance = 0;
 
   // Конфигурация редкостей предметов
@@ -508,7 +521,23 @@
         { name: "G22 Nest", emo: "🔫", rarity: "rare" },
         { name: "M4 Lizard", emo: "🦅", rarity: "epic" },
         { name: "AKR Tiger", emo: "🐯", rarity: "legendary" },
-        { name: "AWM Scratch", emo: "🎯", rarity: "arcane" }
+        { name: "AWM Scratch", emo: "🎯", rarity: "arcane" },
+        { name: 'M110 "Cyber"', emo: '🤖', rarity: 'rare', price: 7 },
+        { name: 'G22 "Starfall"', emo: '🌠', rarity: 'rare', price: 7 },
+        { name: 'Desert Eagle "Ace"', emo: '🥇', rarity: 'rare', price: 11 },
+        { name: 'TEC-9 "Fable"', emo: '📖', rarity: 'legendary', price: 20 },
+        { name: 'M4 "Lizard"', emo: '🦎', rarity: 'legendary', price: 20 },
+        { name: 'MP7 "Lich"', emo: '🧙', rarity: 'legendary', price: 21 },
+        { name: 'UMP45 "Cerberus"', emo: '🐺', rarity: 'epic', price: 24 },
+        { name: 'FN FAL "Tactical"', emo: '🎖️', rarity: 'epic', price: 27 },
+        { name: 'USP "Pisces"', emo: '♓', rarity: 'epic', price: 29 },
+        { name: 'F/S "Venom"', emo: '🐍', rarity: 'arcane', price: 60 },
+        { name: 'M4 "Samurai"', emo: '⚔️', rarity: 'arcane', price: 102 },
+        { name: 'StatTrak™ M4 "Lizard"', emo: '🦎', rarity: 'legendary', price: 110 },
+        { name: 'StatTrak™ MP7 "Lich"', emo: '🧙', rarity: 'legendary', price: 112 },
+        { name: 'StatTrak™ TEC-9 "Fable"', emo: '📖', rarity: 'legendary', price: 125 },
+        { name: 'StatTrak™ F/S "Venom"', emo: '🐍', rarity: 'arcane', price: 233 },
+        { name: 'StatTrak™ M4 "Samurai"', emo: '⚔️', rarity: 'arcane', price: 575 }
       ]
     },
     scorpion: {
@@ -519,13 +548,80 @@
         { name: "M40 Grizzly", emo: "🐻", rarity: "rare" },
         { name: "AKR Carbon", emo: "🖤", rarity: "epic" },
         { name: "Fabm Parrot", emo: "🦜", rarity: "legendary" },
-        { name: "Karambit Claw", emo: "🔪", rarity: "arcane" }
+        { name: "Karambit Claw", emo: "🔪", rarity: "arcane" },
+        { name: 'MP7 "Banana"', emo: '🍌', rarity: 'rare', price: 38 },
+        { name: 'FabM "Parrot"', emo: '🦜', rarity: 'epic', price: 40 },
+        { name: 'G22 "Carbon"', emo: '⚫', rarity: 'rare', price: 50 },
+        { name: 'M4 "Night Wolf"', emo: '🐺', rarity: 'legendary', price: 50 },
+        { name: 'F/S "Wraith"', emo: '👻', rarity: 'epic', price: 64 },
+        { name: 'MP7 "Graffiti"', emo: '🎨', rarity: 'legendary', price: 65 },
+        { name: 'AWM "Dragon"', emo: '🐲', rarity: 'legendary', price: 77 },
+        { name: 'AKR12 "Carbon"', emo: '⚫', rarity: 'epic', price: 87 },
+        { name: 'P90 "Samurai"', emo: '⚔️', rarity: 'arcane', price: 133 },
+        { name: 'AKR "Nano"', emo: '🔬', rarity: 'rare', price: 181 },
+        { name: 'StatTrak™ MP7 "Graffiti"', emo: '🎨', rarity: 'legendary', price: 290 },
+        { name: 'StatTrak™ M4 "Night Wolf"', emo: '🐺', rarity: 'legendary', price: 320 },
+        { name: 'AKR "Dragon"', emo: '🐲', rarity: 'arcane', price: 366 },
+        { name: 'StatTrak™ AWM "Dragon"', emo: '🐲', rarity: 'legendary', price: 495 },
+        { name: 'Scorpion "Veil"', emo: '🦂', rarity: 'arcane', price: 624 },
+        { name: 'StatTrak™ P90 "Samurai"', emo: '⚔️', rarity: 'arcane', price: 640 }
+      ]
+    },
+    // Цены у предметов ниже свои собственные (поле price), взятые из
+    // скриншотов и округлённые до целого — они перекрывают цену по редкости.
+    origin: {
+      name: "Ориджин",
+      price: 500,
+      items: [
+        { name: 'SM1014 "Pathfinder"', emo: '🧭', rarity: 'rare', price: 450 },
+        { name: 'AKR12 "Pixel Camouflage"', emo: '🕹️', rarity: 'rare', price: 469 },
+        { name: 'AWM "Phoenix"', emo: '🔥', rarity: 'rare', price: 520 },
+        { name: 'G22 "Nest"', emo: '🥚', rarity: 'arcane', price: 711 },
+        { name: 'AKR12 "Railgun"', emo: '⚡', rarity: 'legendary', price: 940 },
+        { name: 'M16 "Winged"', emo: '🕊️', rarity: 'legendary', price: 960 },
+        { name: 'M4 "Necromancer"', emo: '💀', rarity: 'legendary', price: 1000 },
+        { name: 'P90 "Ghoul"', emo: '👻', rarity: 'epic', price: 2100 },
+        { name: 'UMP45 "Cyberpunk"', emo: '🌆', rarity: 'epic', price: 2400 },
+        { name: 'P350 "Neon"', emo: '💡', rarity: 'epic', price: 2638 },
+        { name: 'StatTrak™ G22 "Nest"', emo: '🥚', rarity: 'arcane', price: 6000 },
+        { name: 'AKR "Treasure Hunter"', emo: '💰', rarity: 'arcane', price: 8075 },
+        { name: 'M9 Bayonet "Ancient"', emo: '🗡️', rarity: 'arcane', price: 8749 },
+        { name: 'StatTrak™ M4 "Necromancer"', emo: '💀', rarity: 'legendary', price: 12990 },
+        { name: 'StatTrak™ M16 "Winged"', emo: '🕊️', rarity: 'legendary', price: 13246 },
+        { name: 'StatTrak™ AKR12 "Railgun"', emo: '⚡', rarity: 'legendary', price: 13276 }
+      ]
+    },
+    furious: {
+      name: "Фуриос",
+      price: 70,
+      items: [
+        { name: 'Desert Eagle "Red Dragon"', emo: '🐉', rarity: 'rare', price: 33 },
+        { name: 'AWM "Scratch"', emo: '🐾', rarity: 'rare', price: 44 },
+        { name: 'M4 "PRO"', emo: '🏆', rarity: 'rare', price: 73 },
+        { name: 'UMP45 "Shark"', emo: '🦈', rarity: 'rare', price: 80 },
+        { name: 'AWM "Gear"', emo: '⚙️', rarity: 'legendary', price: 84 },
+        { name: 'FAMAS "Beagle"', emo: '🐶', rarity: 'epic', price: 84 },
+        { name: 'AKR "Sport"', emo: '🏅', rarity: 'epic', price: 89 },
+        { name: 'SM1014 "Necromancer"', emo: '💀', rarity: 'legendary', price: 90 },
+        { name: 'UMP45 "Winged"', emo: '🕊️', rarity: 'legendary', price: 91 },
+        { name: 'M40 "Quake"', emo: '💥', rarity: 'epic', price: 95 },
+        { name: 'StatTrak™ Desert Eagle "Red Dragon"', emo: '🐉', rarity: 'rare', price: 183 },
+        { name: 'StatTrak™ AWM "Scratch"', emo: '🐾', rarity: 'rare', price: 260 },
+        { name: 'StatTrak™ SM1014 "Necromancer"', emo: '💀', rarity: 'legendary', price: 320 },
+        { name: 'P350 "Forest Spirit"', emo: '🌲', rarity: 'arcane', price: 450 },
+        { name: 'FAMAS "Fury"', emo: '💢', rarity: 'arcane', price: 461 },
+        { name: 'StatTrak™ UMP45 "Winged"', emo: '🕊️', rarity: 'legendary', price: 466 }
       ]
     }
   };
 
+  // Форматирует число с разделителем тысяч — цены новых кейсов доходят до 13000+
+  function formatPrice(n) {
+    return Math.round(n).toLocaleString('ru-RU');
+  }
+
   function updateBalanceDisplay() {
-    document.getElementById('balanceValue').innerText = balance;
+    document.getElementById('balanceValue').innerText = formatPrice(balance);
   }
 
   // Сохранение и восстановление прогресса (баланс + инвентарь), чтобы
@@ -598,7 +694,7 @@
                 <div class="preview-item" style="border-bottom-color: ${color}">
                     <div class="preview-icon">${item.emo}</div>
                     <div class="preview-name">${item.name}</div>
-                    <div style="font-size: 0.65rem; color: #ffaa00; font-weight: 800; margin-top: 4px;">${rMeta.sellPrice} G</div>
+                    <div style="font-size: 0.65rem; color: #ffaa00; font-weight: 800; margin-top: 4px;">${formatPrice(itemPrice(item))} G</div>
                 </div>
             `;
     });
@@ -647,6 +743,7 @@
       div.dataset.name = item.name;
       div.dataset.emo = item.emo;
       div.dataset.rarity = item.rarity;
+      div.dataset.price = itemPrice(item);
       track.appendChild(div);
     });
 
@@ -663,11 +760,13 @@
       const winningItem = track.children[prizeIndex];
       const rarityKey = winningItem.dataset.rarity;
       const rMeta = rarityInfo[rarityKey];
+      const wonPrice = Number(winningItem.dataset.price);
 
       currentWonSkin = {
         name: winningItem.dataset.name,
         emo: winningItem.dataset.emo,
-        rarity: rarityKey
+        rarity: rarityKey,
+        price: wonPrice
       };
 
       const winBox = document.getElementById('winBox');
@@ -684,7 +783,7 @@
       txtRarity.innerText = rMeta.name;
       txtRarity.style.color = rMeta.color;
 
-      document.getElementById('sellBtn').innerText = `Продать за ${rMeta.sellPrice} G`;
+      document.getElementById('sellBtn').innerText = `Продать за ${formatPrice(wonPrice)} G`;
 
       startBtn.disabled = false;
       running = false;
@@ -693,7 +792,7 @@
 
   function sellCurrentSkin() {
     if (running || !currentWonSkin) return;
-    const price = rarityInfo[currentWonSkin.rarity].sellPrice;
+    const price = itemPrice(currentWonSkin);
     balance += price;
     updateBalanceDisplay();
     currentWonSkin = null;
@@ -725,7 +824,7 @@
                     <div class="preview-icon" style="font-size: 1.8rem;">${item.emo}</div>
                     <div class="preview-name" style="font-size: 0.75rem;">${item.name}</div>
                     <div style="font-size: 0.65rem; color: ${color}; font-weight: bold; text-transform: uppercase; margin-top: 4px;">${rMeta.name}</div>
-                    <button class="inv-sell-btn" onclick="sellFromInventory(${index})">Продать: ${rMeta.sellPrice}G</button>
+                    <button class="inv-sell-btn" onclick="sellFromInventory(${index})">Продать: ${formatPrice(itemPrice(item))}G</button>
                 </div>
             `;
     });
@@ -736,7 +835,7 @@
   // Функция продажи предмета прямо из инвентаря
   function sellFromInventory(index) {
     const item = myInventory[index];
-    const price = rarityInfo[item.rarity].sellPrice;
+    const price = itemPrice(item);
 
     balance += price; // Начисляем золото на баланс
     updateBalanceDisplay(); // Обновляем баланс в шапке сайта
@@ -763,7 +862,7 @@
   }
 
   function itemPrice(item) {
-    return rarityInfo[item.rarity].sellPrice;
+    return (item.price !== undefined && item.price !== null) ? item.price : rarityInfo[item.rarity].sellPrice;
   }
 
   function goToUpgrade() {
@@ -791,7 +890,7 @@
                 <div class="preview-item upg-pick-item" style="border-bottom-color:${rMeta.color}" onclick="selectUpgradeSource(${index})">
                     <div class="preview-icon">${item.emo}</div>
                     <div class="preview-name">${item.name}</div>
-                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${rMeta.sellPrice} G</div>
+                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${formatPrice(itemPrice(item))} G</div>
                 </div>
             `;
     });
@@ -819,14 +918,16 @@
       return;
     }
 
+    upgradeTargets = targets; // запоминаем список, чтобы выбрать по индексу (в именах скинов бывают кавычки)
+
     html += '<div class="preview-title">Шаг 2. Выберите, что хотите получить</div><div class="inventory-grid">';
-    targets.forEach(item => {
+    targets.forEach((item, idx) => {
       const rMeta = rarityInfo[item.rarity];
       html += `
-                <div class="preview-item upg-pick-item" style="border-bottom-color:${rMeta.color}" onclick="selectUpgradeTarget('${item.name}')">
+                <div class="preview-item upg-pick-item" style="border-bottom-color:${rMeta.color}" onclick="selectUpgradeTarget(${idx})">
                     <div class="preview-icon">${item.emo}</div>
                     <div class="preview-name">${item.name}</div>
-                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${rMeta.sellPrice} G</div>
+                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${formatPrice(itemPrice(item))} G</div>
                 </div>
             `;
     });
@@ -834,8 +935,8 @@
     box.innerHTML = html;
   }
 
-  function selectUpgradeTarget(name) {
-    upgradeTargetItem = getAllItems().find(it => it.name === name);
+  function selectUpgradeTarget(idx) {
+    upgradeTargetItem = upgradeTargets[idx];
     renderUpgradeConfirm();
   }
 
@@ -857,7 +958,7 @@
         <div class="upgrade-slot" style="border-bottom-color:${srcColor}">
           <div class="upgrade-slot-icon">${upgradeSourceItem.emo}</div>
           <div class="upgrade-slot-name">${upgradeSourceItem.name}</div>
-          <div class="upgrade-slot-price" style="color:${srcColor}">${sourcePrice} G</div>
+          <div class="upgrade-slot-price" style="color:${srcColor}">${formatPrice(sourcePrice)} G</div>
         </div>
         <div class="upgrade-arrow-block">
           <span class="upgrade-arrow">→</span>
@@ -867,7 +968,7 @@
         <div class="upgrade-slot" style="border-bottom-color:${tgtColor}">
           <div class="upgrade-slot-icon">${upgradeTargetItem.emo}</div>
           <div class="upgrade-slot-name">${upgradeTargetItem.name}</div>
-          <div class="upgrade-slot-price" style="color:${tgtColor}">${targetPrice} G</div>
+          <div class="upgrade-slot-price" style="color:${tgtColor}">${formatPrice(targetPrice)} G</div>
         </div>
       </div>
       <div class="upgrade-meter" id="upgradeMeter">
