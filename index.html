@@ -557,13 +557,13 @@
   <!-- Шапка -->
   <div class="header">
     <div class="logo-block">
-      <span class="logo-icon">🐂</span>
+      <span class="logo-icon">🍀</span>
       <span class="logo-text">MIFDROP</span>
     </div>
     <div class="right-header-block">
-      <button class="inv-toggle-btn" id="promoBtn" onclick="goToPromo()">🎟️ Промокоды</button>
+      <button class="inv-toggle-btn" id="promoBtn" onclick="goToPromo()">🔑 Промокоды</button>
       <button class="inv-toggle-btn" id="invBtn" onclick="goToInventory()">🎒 Инвентарь</button>
-      <button class="inv-toggle-btn" id="upgBtn" onclick="goToUpgrade()">⚡ Апгрейд</button>
+      <button class="inv-toggle-btn" id="upgBtn" onclick="goToUpgrade()">🚀 Апгрейд</button>
       <div class="balance-box">
         <span id="balanceValue">1000</span><span>G</span>
       </div>
@@ -575,7 +575,7 @@
   <div class="screen active" id="catalogScreen">
     <div class="cases-grid">
       <div class="case-card" onclick="goToRoulette('fable')">
-        <div class="case-img">📦</div>
+        <div class="case-img">🐍</div>
         <h3 class="case-name">Fable Case</h3>
         <span class="case-price" id="price-fable">100 G</span>
       </div>
@@ -585,12 +585,12 @@
         <span class="case-price" id="price-scorpion">120 G</span>
       </div>
       <div class="case-card" onclick="goToRoulette('origin')">
-        <div class="case-img">🌌</div>
+        <div class="case-img">💀</div>
         <h3 class="case-name">Ориджин</h3>
         <span class="case-price" id="price-origin">500 G</span>
       </div>
       <div class="case-card" onclick="goToRoulette('furious')">
-        <div class="case-img">🌋</div>
+        <div class="case-img">🦅</div>
         <h3 class="case-name">Фуриос</h3>
         <span class="case-price" id="price-furious">70 G</span>
       </div>
@@ -694,14 +694,14 @@
 
 <script>
   // Состояние приложения
-  let balance = 1000;
+  let balance = 500;
   let myInventory = [];
   let currentCase = null;
   let currentWonSkin = null;
   let running = false;
 
   // Состояние апгрейда
-  const HOUSE_EDGE = 0.9; // даёт площадке небольшое преимущество, как на реальных сайтах
+  const HOUSE_EDGE = 0.8; // даёт площадке небольшое преимущество, как на реальных сайтах
   let upgradeRunning = false;
   let upgradeSourceIndex = null;
   let upgradeSourceItem = null;
@@ -791,7 +791,7 @@
         { name: 'P350 "Neon"', emo: '💡', rarity: 'epic', price: 2638 },
         { name: 'StatTrak™ G22 "Nest"', emo: '🥚', rarity: 'arcane', price: 6000 },
         { name: 'AKR "Treasure Hunter"', emo: '💰', rarity: 'arcane', price: 8075 },
-        { name: 'M9 Bayonet "Ancient"', emo: '🗡️', rarity: 'arcane', price: 8749 },
+        { name: 'M9 Bayonet "Ancient"', emo: '🔪', rarity: 'arcane', price: 8749 },
         { name: 'StatTrak™ M4 "Necromancer"', emo: '💀', rarity: 'legendary', price: 12990 },
         { name: 'StatTrak™ M16 "Winged"', emo: '🕊️', rarity: 'legendary', price: 13246 },
         { name: 'StatTrak™ AKR12 "Railgun"', emo: '⚡', rarity: 'legendary', price: 13276 }
