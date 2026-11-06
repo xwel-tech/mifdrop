@@ -2,559 +2,263 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
   <title>MIFDROP — Кейсы</title>
   <style>
+    :root { color-scheme: dark; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
     /* --- Дизайн в стиле MIFDROP --- */
-    body {
-      background-color: #060913;
-      color: #f1f5f9;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 12px;
-    }
-    .bulldrop-app {
-      max-width: 1500px;
-      margin: 0 auto;
-      background: #0b0f19;
-      border-radius: 16px;
-      padding: 16px;
-      border: 1px solid rgba(255,255,255,0.03);
-      box-sizing: border-box;
-    }
-    /* Шапка сайта */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #141b2d;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .logo-block {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    body { background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 12px; }
+    .bulldrop-app { max-width: 1500px; margin: 0 auto; background: #0b0f19; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.03); box-sizing: border-box; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #141b2d; flex-wrap: wrap; gap: 10px; }
+    .logo-block { display: flex; align-items: center; gap: 12px; }
     .logo-icon { font-size: 1.8rem; }
-    .logo-text {
-      font-size: 1.3rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, #ffaa00, #ff5500);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    /* Кнопка открытия инвентаря в шапке */
-    .inv-toggle-btn {
-      background: #141b2d;
-      color: #94a3b8;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .inv-toggle-btn:hover {
-      background: #1a233a;
-      color: #f1f5f9;
-      border-color: #ffaa00;
-    }
-    .right-header-block {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    /* Виджет баланса */
-    .balance-box {
-      background: #111726;
-      border: 1px solid rgba(255, 170, 0, 0.2);
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-weight: 800;
-      color: #ffaa00;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 10px rgba(255, 170, 0, 0.05);
-    }
-    /* Экраны */
+    .logo-text { font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: linear-gradient(90deg, #ffaa00, #ff5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .inv-toggle-btn { background: #141b2d; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+    .inv-toggle-btn:hover { background: #1a233a; color: #f1f5f9; border-color: #ffaa00; }
+    .right-header-block { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .balance-box { background: #111726; border: 1px solid rgba(255, 170, 0, 0.2); padding: 6px 14px; border-radius: 8px; font-weight: 800; color: #ffaa00; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 0 10px rgba(255, 170, 0, 0.05); }
     .screen { display: none; }
     .screen.active { display: block; }
-    /* Сетка кейсов */
-    .cases-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    .case-card {
-      background: #111726;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.04);
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+    .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .case-card { background: #111726; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); padding: 12px; text-align: center; cursor: pointer; transition: transform 0.2s; }
     .case-card:hover { transform: translateY(-3px); border-color: #ffaa00; }
-    .case-img {
-      height: 90px;
-      background: radial-gradient(circle, #1a233a 0%, #111726 100%);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      margin-bottom: 10px;
-    }
+    .case-img { height: 90px; background: radial-gradient(circle, #1a233a 0%, #111726 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; margin-bottom: 10px; }
     .case-name { font-size: 0.95rem; font-weight: 700; margin: 0 0 4px 0; }
     .case-price { color: #ffaa00; font-weight: 800; font-size: 0.9rem; }
-    /* Экран Рулетки и Кнопки */
-    .back-btn {
-      background: #141b2d;
-      color: #94a3b8;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.8rem;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-    }
-    .roulette-container {
-      background: #111726;
-      border-radius: 12px;
-      padding: 20px 12px;
-      text-align: center;
-    }
-    /* Окно самой ленты */
-    .tape-window {
-      position: relative;
-      width: 100%;
-      height: 90px;
-      background: #060913;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 20px 0;
-      border: 1px solid #141b2d;
-    }
-    /* Стрелка по центру рулетки */
-    .tape-pointer {
-      position: absolute;
-      top: 0; left: 50%;
-      width: 4px; height: 100%;
-      background: #ff5500;
-      transform: translateX(-50%);
-      z-index: 10;
-      box-shadow: 0 0 8px #ff5500;
-    }
-    .tape-track {
-      display: flex;
-      position: absolute;
-      left: 0; top: 5px;
-      height: 80px;
-      will-change: transform;
-    }
-    .tape-item {
-      width: 76px;
-      height: 80px;
-      background: #1a233a;
-      margin: 0 3px;
-      border-radius: 6px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      box-sizing: border-box;
-      border-bottom: 4px solid #64748b;
-    }
-    .open-btn {
-      background: linear-gradient(90deg, #ffaa00, #ff5500);
-      color: #000;
-      border: none;
-      padding: 12px 30px;
-      font-weight: 800;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      text-transform: uppercase;
-      box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
-      transition: all 0.3s;
-    }
-    .open-btn:disabled {
-      background: #272e3f;
-      color: #64748b;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-    /* Блок с кнопками открытия (обычное + быстрое) */
-    .spin-actions {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .quick-open-btn {
-      background: #141b2d;
-      color: #ffaa00;
-      border: 1px solid rgba(255, 170, 0, 0.35);
-      padding: 12px 22px;
-      font-weight: 800;
-      font-size: 0.85rem;
-      border-radius: 8px;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      transition: all 0.2s;
-    }
-    .quick-open-btn:hover {
-      background: linear-gradient(90deg, #ffaa00, #ff5500);
-      color: #000;
-      border-color: transparent;
-    }
-    .quick-open-btn:disabled {
-      background: #272e3f;
-      color: #64748b;
-      cursor: not-allowed;
-      border-color: transparent;
-    }
-    /* Экран выигрыша */
+    .back-btn { background: #141b2d; color: #94a3b8; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase; }
+    .roulette-container { background: #111726; border-radius: 12px; padding: 20px 12px; text-align: center; }
+    .tape-window { position: relative; width: 100%; height: 90px; background: #060913; border-radius: 8px; overflow: hidden; margin: 20px 0; border: 1px solid #141b2d; }
+    .tape-pointer { position: absolute; top: 0; left: 50%; width: 4px; height: 100%; background: #ff5500; transform: translateX(-50%); z-index: 10; box-shadow: 0 0 8px #ff5500; }
+    .tape-track { display: flex; position: absolute; left: 0; top: 5px; height: 80px; will-change: transform; }
+    .tape-item { width: 76px; height: 80px; background: #1a233a; margin: 0 3px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-sizing: border-box; border-bottom: 4px solid #64748b; }
+    .open-btn { background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border: none; padding: 12px 30px; font-weight: 800; font-size: 1rem; border-radius: 8px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3); transition: all 0.3s; }
+    .open-btn:disabled { background: #272e3f; color: #64748b; cursor: not-allowed; box-shadow: none; }
+    .spin-actions { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .quick-open-btn { background: #141b2d; color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.35); padding: 12px 22px; font-weight: 800; font-size: 0.85rem; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px; transition: all 0.2s; }
+    .quick-open-btn:hover { background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border-color: transparent; }
+    .quick-open-btn:disabled { background: #272e3f; color: #64748b; cursor: not-allowed; border-color: transparent; }
+
+    /* ПЕРЕКЛЮЧАТЕЛЬ БЫСТРОГО ОТКРЫТИЯ */
+    .quick-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; padding: 6px 4px; }
+    .quick-toggle-label { font-size: 0.85rem; font-weight: 800; color: #ffaa00; text-transform: uppercase; letter-spacing: 0.3px; }
+    .switch { position: relative; width: 52px; height: 28px; border-radius: 14px; background: #eb4b4b; transition: background 0.2s; flex-shrink: 0; }
+    .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .switch.on { background: #16c784; }
+    .switch.on::after { transform: translateX(24px); }
+    /* НОВЫЙ ДИЗАЙН ПОЛЗУНКА: надпись внутри, кружок скользит */
+    .quick-toggle { position: relative; display: block; width: 224px; height: 44px; padding: 0; gap: 0; border-radius: 22px; background: #eb4b4b; cursor: pointer; user-select: none; transition: background 0.25s; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.25); }
+    .quick-toggle.on { background: #16c784; }
+    .quick-toggle::before { content: ''; position: absolute; top: 4px; left: 4px; width: 36px; height: 36px; border-radius: 50%; background: #fff; transition: transform 0.25s cubic-bezier(0.3, 0, 0.3, 1); box-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+    .quick-toggle.on::before { transform: translateX(180px); }
+    .quick-toggle .switch { display: none; }
+    .quick-toggle-label { position: absolute; top: 0; bottom: 0; left: 46px; right: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; color: #fff; letter-spacing: 0.4px; text-transform: uppercase; white-space: nowrap; transition: left 0.25s, right 0.25s; }
+    .quick-toggle.on .quick-toggle-label { left: 10px; right: 46px; }
+    /* Компактные ленты для мульти-открытия с анимацией */
+    .tape-window.compact { height: 56px; margin: 6px 0; }
+    .tape-window.compact .tape-track { top: 5px; height: 46px; }
+    .tape-window.compact .tape-item { width: 50px; height: 46px; font-size: 1.1rem; border-bottom-width: 3px; }
+    /* Результат мульти-открытия — всегда по центру */
+    .multi-win-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .multi-win-grid .preview-item { width: calc((100% - 32px) / 5); }
+
+    /* МУЛЬТИ-ОТКРЫТИЕ */
+    .multi-actions { display: flex; justify-content: center; align-items: stretch; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .multi-label { flex-basis: 100%; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #64748b; }
+    .multi-open-btn { background: #141b2d; color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.35); padding: 8px 18px; font-weight: 800; font-size: 0.9rem; border-radius: 8px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; min-width: 78px; }
+    .multi-open-btn small { display: block; font-size: 0.65rem; font-weight: 700; color: #94a3b8; margin-top: 2px; }
+    .multi-open-btn:hover { background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border-color: transparent; }
+    .multi-open-btn:hover small { color: #000; }
+    .multi-open-btn:disabled { background: #272e3f; color: #64748b; cursor: not-allowed; border-color: transparent; }
+    .multi-open-btn:disabled small { color: #64748b; }
+
     .win-box { display: none; margin-top: 15px; padding: 15px; border-radius: 10px; }
     .win-icon { font-size: 2.4rem; margin-bottom: 6px; }
     .win-title { font-size: 1.2rem; font-weight: 800; margin: 8px 0; }
     .win-rarity { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-    /* Кнопки действий при выигрыше */
-    .win-actions {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-    .sell-btn {
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-weight: 800;
-      font-size: 0.85rem;
-      border-radius: 6px;
-      cursor: pointer;
-      text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2);
-      transition: all 0.2s;
-    }
+    .win-actions { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+    .sell-btn { background: linear-gradient(90deg, #00c6ff, #0072ff); color: #fff; border: none; padding: 10px 20px; font-weight: 800; font-size: 0.85rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2); transition: all 0.2s; }
     .sell-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
-    .keep-btn {
-      background: #141b2d;
-      color: #f1f5f9;
-      border: 1px solid rgba(255,255,255,0.05);
-      padding: 10px 20px;
-      font-weight: 800;
-      font-size: 0.85rem;
-      border-radius: 6px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
+    .keep-btn { background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,255,255,0.05); padding: 10px 20px; font-weight: 800; font-size: 0.85rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
     .keep-btn:hover { background: #1a233a; }
-    /* БЛОК СОДЕРЖИМОГО КЕЙСА */
-    .case-preview-section {
-      margin-top: 25px;
-      text-align: left;
-    }
-    .preview-title {
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #64748b;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      padding-left: 4px;
-    }
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 8px;
-    }
-    .preview-item {
-      background: #111726;
-      border: 1px solid rgba(255,255,255,0.02);
-      border-radius: 8px;
-      padding: 8px 4px;
-      text-align: center;
-      box-sizing: border-box;
-      border-bottom: 3px solid #64748b;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      min-width: 0;
-      min-height: 108px;
-    }
+    .case-preview-section { margin-top: 25px; text-align: left; }
+    .preview-title { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 1px; margin-bottom: 10px; padding-left: 4px; }
+    .preview-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .preview-item { background: #111726; border: 1px solid rgba(255,255,255,0.02); border-radius: 8px; padding: 8px 4px; text-align: center; box-sizing: border-box; border-bottom: 3px solid #64748b; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-width: 0; min-height: 108px; }
     .preview-icon { font-size: 1.4rem; margin-bottom: 4px; }
     .preview-name { font-size: 0.65rem; font-weight: 700; color: #94a3b8; overflow-wrap: break-word; white-space: normal; line-height: 1.25; width: 100%; }
-
-    /* СТИЛИ ДЛЯ ЭКРАНА ИНВЕНТАРЯ */
-    .inventory-container {
-      background: #111726;
-      border-radius: 12px;
-      padding: 20px 16px;
-    }
-    .inventory-empty-text {
-      color: #64748b;
-      text-align: center;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 40px 0;
-    }
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .inv-sell-btn {
-      background: linear-gradient(90deg, #ffaa00, #ff5500);
-      color: #000;
-      border: none;
-      padding: 4px 8px;
-      font-weight: 800;
-      font-size: 0.65rem;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-top: 6px;
-      text-transform: uppercase;
-      width: 100%;
-      transition: transform 0.1s;
-    }
-    .inv-sell-btn:hover {
-      transform: scale(1.03);
-    }
-
-    /* СТИЛИ ДЛЯ ЭКРАНА ПРОМОКОДОВ */
-    .promo-input-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .promo-input {
-      flex: 1;
-      min-width: 180px;
-      background: #0b0f19;
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #f1f5f9;
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      outline: none;
-      box-sizing: border-box;
-      transition: border-color 0.2s;
-    }
-    .promo-input::placeholder {
-      color: #64748b;
-      text-transform: none;
-      letter-spacing: normal;
-      font-weight: 500;
-    }
+    .inventory-container { background: #111726; border-radius: 12px; padding: 20px 16px; }
+    .inventory-empty-text { color: #64748b; text-align: center; font-weight: 600; font-size: 0.95rem; padding: 40px 0; }
+    .inventory-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .inv-sell-btn { background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border: none; padding: 4px 8px; font-weight: 800; font-size: 0.65rem; border-radius: 4px; cursor: pointer; margin-top: 6px; text-transform: uppercase; width: 100%; transition: transform 0.1s; }
+    .inv-sell-btn:hover { transform: scale(1.03); }
+    .promo-input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .promo-input { flex: 1; min-width: 180px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.08); color: #f1f5f9; padding: 12px 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; outline: none; box-sizing: border-box; transition: border-color 0.2s; }
+    .promo-input::placeholder { color: #64748b; text-transform: none; letter-spacing: normal; font-weight: 500; }
     .promo-input:focus { border-color: #ffaa00; }
     .promo-submit-btn { padding: 12px 24px; font-size: 0.9rem; white-space: nowrap; }
-    .promo-message {
-      display: none;
-      margin-top: 12px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.85rem;
-    }
-    .promo-success {
-      background: rgba(22, 199, 132, 0.1);
-      border: 1px solid rgba(22, 199, 132, 0.3);
-      color: #16c784;
-    }
-    .promo-error {
-      background: rgba(235, 75, 75, 0.1);
-      border: 1px solid rgba(235, 75, 75, 0.3);
-      color: #eb4b4b;
-    }
-    .promo-status-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .promo-status-item {
-      background: #0b0f19;
-      border: 1px solid rgba(255,255,255,0.04);
-      border-bottom: 3px solid #64748b;
-      border-radius: 8px;
-      padding: 12px 10px;
-      text-align: center;
-      transition: border-color 0.2s;
-    }
+    .promo-message { display: none; margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+    .promo-success { background: rgba(22, 199, 132, 0.1); border: 1px solid rgba(22, 199, 132, 0.3); color: #16c784; }
+    .promo-error { background: rgba(235, 75, 75, 0.1); border: 1px solid rgba(235, 75, 75, 0.3); color: #eb4b4b; }
+    .promo-status-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .promo-status-item { background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid #64748b; border-radius: 8px; padding: 12px 10px; text-align: center; transition: border-color 0.2s; }
     .promo-status-item.promo-used { border-bottom-color: #16c784; }
     .promo-status-amount { font-weight: 800; color: #ffaa00; font-size: 0.95rem; margin-bottom: 4px; }
     .promo-status-flag { font-size: 0.75rem; color: #94a3b8; font-weight: 700; }
     .promo-status-item.promo-used .promo-status-flag { color: #16c784; }
-
-    /* СТИЛИ ДЛЯ ЭКРАНА ПРОФИЛЯ */
     .profile-btn { border-color: rgba(255, 170, 0, 0.35); }
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 18px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid #141b2d;
-    }
-    .profile-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ffaa00, #ff5500);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      flex-shrink: 0;
-    }
-    .profile-name-block {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      flex: 1;
-      min-width: 200px;
-    }
-    .profile-name-input {
-      text-transform: none;
-      letter-spacing: normal;
-      max-width: 220px;
-    }
+    .profile-header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid #141b2d; }
+    .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #ffaa00, #ff5500); display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+    .profile-name-block { display: flex; gap: 10px; flex-wrap: wrap; flex: 1; min-width: 200px; }
+    .profile-name-input { text-transform: none; letter-spacing: normal; max-width: 220px; }
     .profile-save-btn { padding: 10px 18px; font-size: 0.8rem; }
-    .profile-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .profile-stat-card {
-      background: #0b0f19;
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 10px;
-      padding: 14px 12px;
-      text-align: center;
-    }
-    .profile-stat-label {
-      font-size: 0.7rem;
-      color: #64748b;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
+    .profile-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .profile-stat-card { background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; padding: 14px 12px; text-align: center; }
+    .profile-stat-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
     .profile-stat-value { font-size: 1rem; font-weight: 800; }
     .profile-stat-sub { font-size: 0.75rem; color: #94a3b8; font-weight: 700; margin-top: 4px; }
-
-    /* СТИЛИ ДЛЯ ЭКРАНА АПГРЕЙДА */
-    .upg-pick-item {
-      cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s;
-    }
-    .upg-pick-item:hover {
-      transform: translateY(-2px);
-    }
-    .upg-back-link {
-      cursor: pointer;
-    }
+    /* ===== ДИЗАЙН АПГРЕЙДА ===== */
+    .upg-steps { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 18px 0; flex-wrap: wrap; }
+    .upg-step { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; }
+    .upg-step-num { width: 22px; height: 22px; border-radius: 50%; background: #141b2d; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; }
+    .upg-step.active { color: #ffaa00; }
+    .upg-step.active .upg-step-num { background: linear-gradient(135deg, #ffaa00, #ff5500); color: #000; border-color: transparent; box-shadow: 0 0 10px rgba(255,120,0,0.45); }
+    .upg-step.done { color: #16c784; }
+    .upg-step.done .upg-step-num { background: #16c784; color: #000; border-color: transparent; }
+    .upg-step-line { width: 28px; height: 2px; background: #141b2d; border-radius: 2px; }
+    .upg-step-line.done { background: #16c784; }
+    .upg-back-link { cursor: pointer; display: inline-block; transition: color 0.15s; }
     .upg-back-link:hover { color: #ffaa00; }
-    .upgrade-compare {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin: 18px 0 6px 0;
-      flex-wrap: wrap;
+    .upg-hint { color: #64748b; font-size: 0.78rem; font-weight: 600; margin: -4px 0 14px 4px; text-align: left; }
+
+    .upg-card { position: relative; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 10px; padding: 12px 4px 8px; text-align: center; cursor: pointer; overflow: hidden; min-width: 0; min-height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-sizing: border-box; transition: transform 0.15s, box-shadow 0.15s; }
+    .upg-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 65%); opacity: 0.16; pointer-events: none; }
+    .upg-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 0 1px var(--c); }
+    .upg-card-icon { position: relative; font-size: 1.8rem; margin-bottom: 4px; }
+    .upg-card-price { position: relative; font-size: 0.72rem; font-weight: 800; color: #ffaa00; margin-top: 4px; }
+    .upg-card-mult { position: relative; font-size: 0.62rem; font-weight: 800; color: #64748b; margin-top: 1px; }
+    .upg-card-badge { position: absolute; top: 5px; right: 5px; z-index: 1; font-size: 0.6rem; font-weight: 800; padding: 2px 5px; border-radius: 5px; background: rgba(0,0,0,0.6); }
+    .upg-toolbar { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+    .upg-chip { background: #141b2d; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); padding: 5px 11px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
+    .upg-chip:hover { color: #f1f5f9; border-color: #ffaa00; }
+    .upg-chip.active { background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border-color: transparent; }
+    .upg-chip.sep-after { margin-right: 12px; }
+    .upg-chip.sep-before { margin-left: 12px; }
+    .upg-recap { display: flex; align-items: center; justify-content: center; gap: 8px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 10px; padding: 8px 12px; margin: 0 auto 12px; max-width: 360px; font-size: 0.8rem; font-weight: 700; }
+    .upg-recap b { color: #ffaa00; }
+
+    .upg-arena { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 6px 0 16px 0; }
+    .upg-side { position: relative; width: 140px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 12px; padding: 14px 8px; box-sizing: border-box; overflow: hidden; transition: filter 0.4s, transform 0.4s, box-shadow 0.4s; }
+    .upg-side::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 70%); opacity: 0.2; pointer-events: none; }
+    .upg-side > * { position: relative; }
+    .upg-side-tag { font-size: 0.6rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .upg-side-icon { font-size: 2.6rem; margin-bottom: 6px; }
+    .upg-side-name { font-size: 0.75rem; font-weight: 700; color: #f1f5f9; line-height: 1.25; overflow-wrap: anywhere; }
+    .upg-side-price { font-size: 0.82rem; font-weight: 800; margin-top: 6px; }
+    .upg-side.dim { filter: grayscale(1) brightness(0.55); transform: scale(0.94); }
+    .upg-side.glow { transform: scale(1.06); box-shadow: 0 0 30px var(--c); }
+
+    .upg-wheel-wrap { display: flex; align-items: center; justify-content: center; }
+    .upg-wheel { position: relative; width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#16c784 0deg, #16c784 var(--deg), #272e3f var(--deg), #272e3f 360deg); box-shadow: 0 0 24px rgba(255,170,0,0.12); transition: box-shadow 0.4s; }
+    .upg-wheel::after { content: ''; position: absolute; inset: 0; border-radius: 50%; z-index: 1; pointer-events: none; background: repeating-conic-gradient(from 0deg, rgba(6,9,19,0.85) 0deg 0.7deg, transparent 0.7deg 7.2deg); }
+    .upg-wheel.win { box-shadow: 0 0 46px rgba(22,199,132,0.65); }
+    .upg-wheel.lose { box-shadow: 0 0 46px rgba(235,75,75,0.6); }
+    .upg-wheel-core { position: absolute; inset: 16px; border-radius: 50%; z-index: 2; background: radial-gradient(circle, #141b2d 0%, #0b0f19 100%); box-shadow: inset 0 0 18px rgba(0,0,0,0.65); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .upg-core-chance { font-size: 2rem; font-weight: 900; color: #f1f5f9; line-height: 1; transition: color 0.3s; }
+    .upg-core-label { font-size: 0.6rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+    .upg-core-mult { font-size: 0.9rem; font-weight: 800; color: #ffaa00; margin-top: 6px; }
+    .upg-needle-wrap { position: absolute; inset: 0; z-index: 3; transform: rotate(0deg); pointer-events: none; }
+    .upg-needle-bar { position: absolute; top: -8px; left: 50%; width: 5px; height: 34px; transform: translateX(-50%); background: #fff; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 18px rgba(255,85,0,0.6); }
+    .upg-stats { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .upg-stat { background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-radius: 8px; padding: 7px 12px; font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.4px; }
+    .upg-stat b { color: #ffaa00; margin-left: 4px; }
+    .upg-go-btn { padding: 14px 48px; font-size: 1.05rem; letter-spacing: 0.5px; }
+    @keyframes upgPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .upg-result { animation: upgPop 0.35s ease-out; }
+    @media (max-width: 560px) {
+      .upg-wheel-wrap { order: -1; flex-basis: 100%; }
+      .upg-wheel { width: 180px; height: 180px; }
+      .upg-side { width: calc(50% - 8px); }
     }
-    .upgrade-slot {
-      flex: 1;
-      min-width: 110px;
-      max-width: 150px;
-      background: #0b0f19;
-      border-radius: 10px;
-      padding: 14px 8px;
-      border-bottom: 3px solid #64748b;
-      box-sizing: border-box;
-    }
-    .upgrade-slot-icon { font-size: 2rem; margin-bottom: 6px; }
-    .upgrade-slot-name {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .upgrade-slot-price { font-size: 0.75rem; font-weight: 800; margin-top: 4px; }
-    .upgrade-arrow-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      min-width: 70px;
-    }
-    .upgrade-arrow { font-size: 1.4rem; color: #64748b; }
-    .upgrade-multiplier { font-size: 1rem; font-weight: 800; color: #ffaa00; }
-    .upgrade-chance { font-size: 0.75rem; color: #94a3b8; font-weight: 700; }
-    .upgrade-meter {
-      position: relative;
-      width: 100%;
-      height: 30px;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 18px 0 18px 0;
-      display: flex;
-      background: #060913;
-      border: 1px solid #141b2d;
-    }
-    .upgrade-meter-win { height: 100%; background: linear-gradient(90deg, #16c784, #0f9d68); }
-    .upgrade-meter-lose { height: 100%; background: #272e3f; flex: 1; }
-    .upgrade-needle {
-      position: absolute;
-      top: -4px;
-      width: 4px;
-      height: 38px;
-      background: #fff;
-      left: 0%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 8px rgba(255,255,255,0.8);
-      border-radius: 2px;
-    }
+    /* ===== ДИЗАЙН ПРОМОКОДОВ ===== */
+    .promo-hero { text-align: center; margin-bottom: 18px; }
+    .promo-hero-icon { width: 64px; height: 64px; margin: 0 auto 10px; border-radius: 50%; background: linear-gradient(135deg, #ffaa00, #ff5500); display: flex; align-items: center; justify-content: center; font-size: 1.9rem; box-shadow: 0 0 28px rgba(255,120,0,0.35); }
+    .promo-hero-title { margin: 0 0 6px 0; font-size: 1.2rem; text-transform: uppercase; }
+    .promo-hero-sub { margin: 0 auto; max-width: 420px; color: #64748b; font-size: 0.85rem; font-weight: 600; line-height: 1.4; }
+    .promo-input-wrap { display: flex; align-items: center; gap: 8px; background: #0b0f19; border: 2px dashed rgba(255,170,0,0.35); border-radius: 12px; padding: 6px 6px 6px 14px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .promo-input-wrap:focus-within { border-color: #ffaa00; box-shadow: 0 0 0 3px rgba(255,170,0,0.12); }
+    .promo-input-wrap.err { border-color: #eb4b4b; box-shadow: 0 0 0 3px rgba(235,75,75,0.12); }
+    .promo-input-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .promo-input-wrap .promo-input { background: transparent; border: none; padding: 10px 4px; min-width: 0; }
+    .promo-input-wrap .promo-submit-btn { padding: 10px 20px; font-size: 0.85rem; border-radius: 9px; }
+    .promo-shake { animation: promoShake 0.4s; }
+    @keyframes promoShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-7px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+    .promo-msg-pop { animation: upgPop 0.3s ease-out; }
+    .balance-pulse { animation: balancePulse 0.8s; }
+    @keyframes balancePulse { 0% { transform: scale(1); } 30% { transform: scale(1.14); box-shadow: 0 0 24px rgba(22,199,132,0.6); } 100% { transform: scale(1); } }
+    .promo-progress { margin: 24px 0 12px 0; }
+    .promo-progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .promo-progress-count { font-size: 0.75rem; font-weight: 800; color: #94a3b8; }
+    .promo-progress-bar { height: 8px; border-radius: 6px; background: #0b0f19; border: 1px solid #141b2d; overflow: hidden; }
+    .promo-progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, #ffaa00, #ff5500); border-radius: 6px; transition: width 0.5s; }
+    .promo-earned { font-size: 0.75rem; font-weight: 700; color: #64748b; margin-top: 8px; }
+    .promo-earned b { color: #ffaa00; }
+    .promo-ticket { position: relative; display: flex; align-items: stretch; background: #0b0f19; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; min-height: 78px; transition: transform 0.2s, border-color 0.2s; }
+    .promo-ticket:hover { transform: translateY(-2px); border-color: rgba(255,170,0,0.4); }
+    .promo-ticket-stub { position: relative; flex: 0 0 46%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 6px; background: linear-gradient(135deg, rgba(255,170,0,0.16), rgba(255,85,0,0.05)); border-right: 2px dashed rgba(255,255,255,0.1); }
+    .promo-ticket-stub::before, .promo-ticket-stub::after { content: ''; position: absolute; right: -8px; width: 12px; height: 12px; border-radius: 50%; background: #111726; }
+    .promo-ticket-stub::before { top: -7px; }
+    .promo-ticket-stub::after { bottom: -7px; }
+    .promo-ticket-icon { font-size: 1.2rem; margin-bottom: 2px; }
+    .promo-ticket-amount { font-size: 1rem; font-weight: 900; color: #ffaa00; line-height: 1.1; white-space: nowrap; }
+    .promo-ticket-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 8px 10px; min-width: 0; }
+    .promo-ticket-name { font-size: 0.72rem; font-weight: 800; color: #f1f5f9; text-transform: uppercase; letter-spacing: 0.5px; }
+    .promo-ticket-flag { font-size: 0.68rem; font-weight: 700; color: #94a3b8; }
+    .promo-ticket.used .promo-ticket-stub { background: linear-gradient(135deg, rgba(22,199,132,0.18), rgba(22,199,132,0.04)); }
+    .promo-ticket.used .promo-ticket-amount, .promo-ticket.used .promo-ticket-flag { color: #16c784; }
+
+    /* ===== ДИЗАЙН ГЛАВНОЙ (КЕЙСЫ) ===== */
+    .cases-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+    .cs-hero { position: relative; overflow: hidden; border-radius: 14px; padding: 18px 16px; margin-bottom: 18px; background: linear-gradient(135deg, #141b2d 0%, #111726 55%, rgba(255,85,0,0.2) 100%); border: 1px solid rgba(255,170,0,0.15); }
+    .cs-hero::before { content: '🍀'; position: absolute; right: -8px; top: -20px; font-size: 7rem; opacity: 0.08; transform: rotate(15deg); pointer-events: none; }
+    .cs-hero-title { margin: 0 0 4px 0; font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+    .cs-hero-title span { background: linear-gradient(90deg, #ffaa00, #ff5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cs-hero-sub { color: #94a3b8; font-size: 0.82rem; font-weight: 600; margin: 0 0 12px 0; }
+    .cs-hero-stats { display: flex; gap: 8px; flex-wrap: wrap; }
+    .cs-stat { background: rgba(6,9,19,0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 6px 10px; font-size: 0.7rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.3px; }
+    .cs-stat b { color: #ffaa00; margin-left: 5px; }
+    .cs-card { position: relative; display: flex; flex-direction: column; background: #111726; border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+    .cs-card::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.09), transparent); transform: skewX(-20deg); transition: left 0.6s; pointer-events: none; }
+    .cs-card:hover { transform: translateY(-4px); border-color: var(--c); box-shadow: 0 10px 28px rgba(0,0,0,0.45), 0 0 22px -4px var(--c); }
+    .cs-card:hover::after { left: 130%; }
+    .cs-art { position: relative; height: 120px; display: flex; align-items: center; justify-content: center; background: #0b0f19; }
+    .cs-art::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 65%, var(--c) 0%, transparent 70%); opacity: 0.3; transition: opacity 0.2s; }
+    .cs-card:hover .cs-art::before { opacity: 0.55; }
+    .cs-emoji { position: relative; font-size: 3.6rem; animation: csFloat 3s ease-in-out infinite; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5)); }
+    @keyframes csFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    .cs-badge { position: absolute; top: 8px; left: 8px; z-index: 2; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; background: rgba(0,0,0,0.6); color: var(--c); border: 1px solid var(--c); }
+    .cs-body { padding: 10px 10px 12px; display: flex; flex-direction: column; gap: 8px; text-align: center; }
+    .cs-name { font-size: 0.95rem; font-weight: 800; margin: 0; }
+    .cs-meta { font-size: 0.68rem; font-weight: 700; color: #64748b; }
+    .cs-meta b { color: #f1f5f9; }
+    .cs-top { display: flex; justify-content: center; gap: 5px; }
+    .cs-top span { width: 28px; height: 28px; border-radius: 7px; background: #0b0f19; border-bottom: 2px solid var(--rc); display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .cs-price { margin-top: 2px; background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; font-weight: 900; font-size: 0.85rem; padding: 9px 0; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.3px; box-shadow: 0 4px 14px rgba(255,85,0,0.28); transition: filter 0.2s; }
+    .cs-card:hover .cs-price { filter: brightness(1.1); }
+    .cs-card.poor .cs-price { background: #272e3f; color: #94a3b8; box-shadow: none; }
+
     @media (max-width: 420px) {
       .inv-toggle-btn { padding: 6px 9px; font-size: 0.75rem; }
       .right-header-block { gap: 8px; }
       .balance-box { padding: 6px 10px; font-size: 0.85rem; }
       .promo-status-grid { grid-template-columns: 1fr; }
       .profile-stats-grid { grid-template-columns: 1fr; }
+      .multi-open-btn { padding: 8px 12px; min-width: 64px; }
     }
   </style>
 </head>
 <body>
 <div class="bulldrop-app">
-  <!-- Шапка -->
   <div class="header">
     <div class="logo-block">
       <span class="logo-icon">🍀</span>
@@ -571,33 +275,12 @@
     </div>
   </div>
 
-  <!-- ЭКРАН 1: Главная страница с каталогом кейсов -->
   <div class="screen active" id="catalogScreen">
-    <div class="cases-grid">
-      <div class="case-card" onclick="goToRoulette('fable')">
-        <div class="case-img">🐍</div>
-        <h3 class="case-name">Fable Case</h3>
-        <span class="case-price" id="price-fable">100 G</span>
-      </div>
-      <div class="case-card" onclick="goToRoulette('scorpion')">
-        <div class="case-img">🦂</div>
-        <h3 class="case-name">Scorpion Case</h3>
-        <span class="case-price" id="price-scorpion">120 G</span>
-      </div>
-      <div class="case-card" onclick="goToRoulette('origin')">
-        <div class="case-img">💀</div>
-        <h3 class="case-name">Ориджин</h3>
-        <span class="case-price" id="price-origin">500 G</span>
-      </div>
-      <div class="case-card" onclick="goToRoulette('furious')">
-        <div class="case-img">🦅</div>
-        <h3 class="case-name">Фуриос</h3>
-        <span class="case-price" id="price-furious">70 G</span>
-      </div>
-    </div>
+    <div class="cs-hero" id="catalogHero"></div>
+    <div class="preview-title">Доступные кейсы</div>
+    <div class="cases-grid" id="casesGrid"></div>
   </div>
 
-  <!-- ЭКРАН 2: Страница с рулеткой -->
   <div class="screen" id="rouletteScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -607,9 +290,29 @@
           <div class="tape-pointer"></div>
           <div class="tape-track" id="tapeTrack"></div>
         </div>
+        <div id="multiTapes"></div>
         <div class="spin-actions">
           <button class="open-btn" id="startBtn" onclick="spinRoulette()">Открыть кейс</button>
-          <button class="quick-open-btn" id="quickBtn" onclick="quickOpenCase()">⚡ Быстрое открытие</button>
+          <div class="quick-toggle" id="quickToggle" role="switch" aria-checked="false" onclick="toggleQuickMode()">
+            <span class="quick-toggle-label">⚡ Быстрое открытие</span>
+            <span class="switch" id="quickSwitch"></span>
+          </div>
+        </div>
+        <div class="multi-actions" id="multiActions">
+          <div class="multi-label">Мульти-открытие</div>
+          <button class="multi-open-btn" data-count="2" onclick="multiOpenCase(2)">x2<small></small></button>
+          <button class="multi-open-btn" data-count="3" onclick="multiOpenCase(3)">x3<small></small></button>
+          <button class="multi-open-btn" data-count="5" onclick="multiOpenCase(5)">x5<small></small></button>
+          <button class="multi-open-btn" data-count="10" onclick="multiOpenCase(10)">x10<small></small></button>
+        </div>
+      </div>
+      <div class="win-box" id="multiWinBox">
+        <div class="win-title" id="multiWinTitle">Выпало предметов</div>
+        <div class="win-rarity" id="multiWinSum" style="color:#ffaa00;"></div>
+        <div class="multi-win-grid" id="multiWinGrid"></div>
+        <div class="win-actions">
+          <button class="sell-btn" id="multiSellBtn" onclick="sellAllMultiSkins()">Продать всё</button>
+          <button class="keep-btn" onclick="keepAllMultiSkins()">Оставить всё</button>
         </div>
       </div>
       <div class="win-box" id="winBox">
@@ -628,7 +331,6 @@
     </div>
   </div>
 
-  <!-- ЭКРАН 3: Страница Инвентаря -->
   <div class="screen" id="inventoryScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -639,7 +341,6 @@
     </div>
   </div>
 
-  <!-- ЭКРАН 4: Страница Апгрейда -->
   <div class="screen" id="upgradeScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -648,23 +349,32 @@
     </div>
   </div>
 
-  <!-- ЭКРАН 5: Страница Промокодов -->
   <div class="screen" id="promoScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
-      <h2 style="margin:0 0 8px 0; font-size:1.2rem; text-transform:uppercase;">Промокоды</h2>
-      <p style="color:#64748b; font-size:0.85rem; margin:0 0 18px 0; font-weight:600;">Введите промокод, чтобы получить бонусные G. Каждый промокод можно активировать только один раз на аккаунт.</p>
-      <div class="promo-input-row">
-        <input type="text" id="promoInput" class="promo-input" placeholder="Введите промокод" maxlength="40" onkeydown="if(event.key==='Enter') redeemPromoCode()">
+      <div class="promo-hero">
+        <div class="promo-hero-icon">🎁</div>
+        <h2 class="promo-hero-title">Промокоды</h2>
+        <p class="promo-hero-sub">Введите промокод и получите бонусные G. Каждый код можно активировать только один раз на аккаунт.</p>
+      </div>
+      <div class="promo-input-wrap" id="promoInputWrap">
+        <span class="promo-input-icon">🔑</span>
+        <input type="text" id="promoInput" class="promo-input" placeholder="Введите промокод" maxlength="40" autocomplete="off" spellcheck="false" oninput="document.getElementById('promoInputWrap').classList.remove('err')" onkeydown="if(event.key==='Enter') redeemPromoCode()">
         <button class="open-btn promo-submit-btn" onclick="redeemPromoCode()">Активировать</button>
       </div>
       <div class="promo-message" id="promoMessage"></div>
-      <div class="preview-title" style="margin-top:24px;">Ваши бонусы</div>
+      <div class="promo-progress">
+        <div class="promo-progress-top">
+          <span class="preview-title" style="margin:0;">Ваши бонусы</span>
+          <span class="promo-progress-count" id="promoProgressCount"></span>
+        </div>
+        <div class="promo-progress-bar"><div class="promo-progress-fill" id="promoProgressFill"></div></div>
+        <div class="promo-earned" id="promoEarned"></div>
+      </div>
       <div class="promo-status-grid" id="promoStatusGrid"></div>
     </div>
   </div>
 
-  <!-- ЭКРАН 6: Страница Профиля -->
   <div class="screen" id="profileScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -690,18 +400,20 @@
     </div>
   </div>
 
-</div> <!-- Конец основного контейнера .bulldrop-app -->
+</div>
 
 <script>
   // Состояние приложения
   let balance = 500;
   let myInventory = [];
   let currentCase = null;
+  let currentCaseKey = null;
   let currentWonSkin = null;
+  let currentWonSkins = [];
   let running = false;
 
   // Состояние апгрейда
-  const HOUSE_EDGE = 1.0; // даёт площадке небольшое преимущество, как на реальных сайтах
+  const HOUSE_EDGE = 1.0;
   let upgradeRunning = false;
   let upgradeSourceIndex = null;
   let upgradeSourceItem = null;
@@ -709,7 +421,6 @@
   let upgradeTargets = [];
   let currentUpgradeChance = 0;
 
-  // Конфигурация редкостей предметов
   const rarityInfo = {
     rare: { name: 'Rare', color: '#4b69ff', sellPrice: 20 },
     epic: { name: 'Epic', color: '#8847ff', sellPrice: 50 },
@@ -717,7 +428,6 @@
     arcane: { name: 'Arcane', color: '#eb4b4b', sellPrice: 500 }
   };
 
-  // База данных кейсов
   const casesData = {
     fable: {
       name: "Fable Case",
@@ -773,8 +483,6 @@
         { name: 'StatTrak™ P90 "Samurai"', emo: '⚔️', rarity: 'arcane', price: 640 }
       ]
     },
-    // Цены у предметов ниже свои собственные (поле price), взятые из
-    // скриншотов и округлённые до целого — они перекрывают цену по редкости.
     origin: {
       name: "Ориджин",
       price: 500,
@@ -821,24 +529,22 @@
     }
   };
 
-  // Форматирует число с разделителем тысяч — цены новых кейсов доходят до 13000+
   function formatPrice(n) {
     return Math.round(n).toLocaleString('ru-RU');
   }
 
   function updateBalanceDisplay() {
     document.getElementById('balanceValue').innerText = formatPrice(balance);
+    updateCatalogAfford();
   }
 
-  // Сохранение и восстановление прогресса (баланс + инвентарь), чтобы
-  // переход между экранами и обновление страницы (F5) его не сбрасывали.
   function saveProgress() {
     try {
       localStorage.setItem('mifdrop_balance', JSON.stringify(balance));
       localStorage.setItem('mifdrop_inventory', JSON.stringify(myInventory));
-    } catch (e) {
-      // localStorage недоступен (приватный режим и т.п.) — просто не сохраняем
-    }
+      // Выпавшие, но ещё не проданные/не сохранённые предметы тоже не теряются при F5
+      localStorage.setItem('mifdrop_pending', JSON.stringify({ single: currentWonSkin, multi: currentWonSkins }));
+    } catch (e) {}
   }
 
   function loadProgress() {
@@ -847,23 +553,34 @@
       const savedInventory = localStorage.getItem('mifdrop_inventory');
       if (savedBalance !== null) balance = JSON.parse(savedBalance);
       if (savedInventory !== null) myInventory = JSON.parse(savedInventory);
-    } catch (e) {
-      // данные повреждены — продолжаем с значениями по умолчанию
-    }
+      // Если страницу обновили до нажатия «Продать/Оставить» — невыбранный дроп уходит в инвентарь
+      const savedPending = localStorage.getItem('mifdrop_pending');
+      if (savedPending) {
+        const p = JSON.parse(savedPending);
+        if (p && p.single) myInventory.push(p.single);
+        if (p && Array.isArray(p.multi)) myInventory.push(...p.multi);
+      }
+    } catch (e) {}
   }
 
-  // Переключение экранов
   function switchScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
+    if (screenId === 'catalogScreen') renderCatalog();
+    try { localStorage.setItem('mifdrop_ui', JSON.stringify({ screen: screenId, caseKey: currentCaseKey })); } catch (e) {}
   }
 
   // Если игрок уходит со страницы кейса, не нажав "Оставить" или "Продать",
-  // выигранный предмет всё равно не теряется — он автоматически уходит в инвентарь.
+  // выигранные предметы автоматически уходят в инвентарь.
   function autoResolvePendingWin() {
     if (currentWonSkin) {
       myInventory.push(currentWonSkin);
       currentWonSkin = null;
+      saveProgress();
+    }
+    if (currentWonSkins.length) {
+      myInventory.push(...currentWonSkins);
+      currentWonSkins = [];
       saveProgress();
     }
   }
@@ -885,10 +602,16 @@
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
     currentCase = casesData[caseKey];
+    currentCaseKey = caseKey;
     switchScreen('rouletteScreen');
 
     document.getElementById('caseTitle').innerText = currentCase.name;
     document.getElementById('spinArea').style.display = 'block';
+    document.getElementById('multiWinBox').style.display = 'none';
+    document.querySelectorAll('.multi-open-btn').forEach(btn => {
+      const n = Number(btn.dataset.count);
+      btn.querySelector('small').innerText = formatPrice(currentCase.price * n) + ' G';
+    });
     document.getElementById('winBox').style.display = 'none';
 
     const previewGrid = document.getElementById('previewGrid');
@@ -911,7 +634,6 @@
     track.innerHTML = '';
   }
 
-  // Мгновенное открытие кейса — сразу определяет приз без анимации ленты
   function quickOpenCase() {
     if (running || upgradeRunning || !currentCase) return;
     if (balance < currentCase.price) {
@@ -945,7 +667,174 @@
     document.getElementById('sellBtn').innerText = `Продать за ${formatPrice(wonPrice)} G`;
   }
 
+  // ===== Переключатель быстрого открытия: вкл — «Открыть кейс» срабатывает мгновенно =====
+  let quickMode = false;
+
+  function renderQuickToggle() {
+    document.getElementById('quickSwitch').classList.toggle('on', quickMode);
+    document.getElementById('quickToggle').classList.toggle('on', quickMode);
+    document.getElementById('quickToggle').setAttribute('aria-checked', quickMode ? 'true' : 'false');
+  }
+
+  function toggleQuickMode() {
+    if (running) return;
+    quickMode = !quickMode;
+    try { localStorage.setItem('mifdrop_quick_mode', quickMode ? '1' : '0'); } catch (e) {}
+    renderQuickToggle();
+  }
+
+  function loadQuickMode() {
+    try { quickMode = localStorage.getItem('mifdrop_quick_mode') === '1'; } catch (e) {}
+    renderQuickToggle();
+  }
+
+  // ========================= МУЛЬТИ-ОТКРЫТИЕ =========================
+  function setMultiButtonsDisabled(state) {
+    document.querySelectorAll('.multi-open-btn').forEach(b => b.disabled = state);
+  }
+
+  // Открывает сразу N кейсов (2, 3, 5, 10) — без анимации ленты, как быстрое открытие
+  function multiOpenCase(count) {
+    if (running || upgradeRunning || !currentCase) return;
+    if (!quickMode) { multiSpinCase(count); return; }
+    const totalCost = currentCase.price * count;
+    if (balance < totalCost) {
+      alert("Недостаточно баланса!");
+      return;
+    }
+
+    balance -= totalCost;
+    updateBalanceDisplay();
+    saveProgress();
+
+    currentWonSkins = [];
+    for (let i = 0; i < count; i++) {
+      const item = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+      const skin = { name: item.name, emo: item.emo, rarity: item.rarity, price: itemPrice(item) };
+      currentWonSkins.push(skin);
+      updateBestDrop(skin);
+    }
+
+    showMultiResult(count);
+  }
+
+  function showMultiResult(count) {
+    const totalPrice = currentWonSkins.reduce((sum, s) => sum + s.price, 0);
+
+    let html = '';
+    currentWonSkins.forEach(skin => {
+      const color = rarityInfo[skin.rarity].color;
+      html += `
+                <div class="preview-item" style="border-bottom-color: ${color}">
+                    <div class="preview-icon">${skin.emo}</div>
+                    <div class="preview-name">${skin.name}</div>
+                    <div style="font-size: 0.65rem; color: ${color}; font-weight: bold; text-transform: uppercase; margin-top: 4px;">${rarityInfo[skin.rarity].name}</div>
+                    <div style="font-size: 0.65rem; color: #ffaa00; font-weight: 800; margin-top: 2px;">${formatPrice(skin.price)} G</div>
+                </div>
+            `;
+    });
+    document.getElementById('multiWinGrid').innerHTML = html;
+    document.getElementById('multiWinTitle').innerText = `Открыто кейсов: ${count}`;
+    document.getElementById('multiWinSum').innerText = `Общая стоимость: ${formatPrice(totalPrice)} G`;
+    document.getElementById('multiSellBtn').innerText = `Продать всё за ${formatPrice(totalPrice)} G`;
+
+    document.getElementById('spinArea').style.display = 'none';
+    const box = document.getElementById('multiWinBox');
+    box.style.display = 'block';
+    box.style.border = '1px solid rgba(255, 170, 0, 0.2)';
+    box.style.background = 'radial-gradient(circle at center, rgba(255, 170, 0, 0.08) 0%, #111726 100%)';
+  }
+
+  // Мульти-открытие с анимацией (когда «Быстрое открытие» выключено): N лент крутятся одновременно
+  function multiSpinCase(count) {
+    const totalCost = currentCase.price * count;
+    if (balance < totalCost) {
+      alert("Недостаточно баланса!");
+      return;
+    }
+
+    balance -= totalCost;
+    updateBalanceDisplay();
+    saveProgress();
+    running = true;
+    document.getElementById('startBtn').disabled = true;
+    setMultiButtonsDisabled(true);
+
+    const singleTape = document.querySelector('#spinArea > .tape-window');
+    singleTape.style.display = 'none';
+    const wrap = document.getElementById('multiTapes');
+    wrap.innerHTML = '';
+
+    const prizeIndex = 29;
+    const step = 50 + 6;
+    const won = [];
+    const tracks = [];
+
+    for (let t = 0; t < count; t++) {
+      const win = document.createElement('div');
+      win.className = 'tape-window compact';
+      const pointer = document.createElement('div');
+      pointer.className = 'tape-pointer';
+      const track = document.createElement('div');
+      track.className = 'tape-track';
+      for (let i = 0; i < 70; i++) {
+        const item = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+        const div = document.createElement('div');
+        div.className = 'tape-item';
+        div.style.borderBottomColor = rarityInfo[item.rarity].color;
+        div.innerHTML = `<span>${item.emo}</span>`;
+        track.appendChild(div);
+        if (i === prizeIndex) {
+          won.push({ name: item.name, emo: item.emo, rarity: item.rarity, price: itemPrice(item) });
+        }
+      }
+      win.appendChild(pointer);
+      win.appendChild(track);
+      wrap.appendChild(win);
+      tracks.push(track);
+    }
+
+    const windowWidth = wrap.firstChild.offsetWidth;
+    const targetLeft = -((prizeIndex * step) - (windowWidth / 2) + (step / 2));
+
+    setTimeout(() => {
+      tracks.forEach(tr => {
+        tr.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
+        tr.style.transform = `translateX(${targetLeft}px)`;
+      });
+    }, 50);
+
+    setTimeout(() => {
+      currentWonSkins = won;
+      won.forEach(s => updateBestDrop(s));
+      wrap.innerHTML = '';
+      singleTape.style.display = '';
+      document.getElementById('startBtn').disabled = false;
+      setMultiButtonsDisabled(false);
+      running = false;
+      showMultiResult(count);
+    }, 4100);
+  }
+
+  function sellAllMultiSkins() {
+    if (running || !currentWonSkins.length) return;
+    balance += currentWonSkins.reduce((sum, s) => sum + itemPrice(s), 0);
+    updateBalanceDisplay();
+    currentWonSkins = [];
+    saveProgress();
+    resetCaseScreen();
+  }
+
+  function keepAllMultiSkins() {
+    if (running || !currentWonSkins.length) return;
+    myInventory.push(...currentWonSkins);
+    currentWonSkins = [];
+    saveProgress();
+    resetCaseScreen();
+  }
+
   function spinRoulette() {
+    if (quickMode) { quickOpenCase(); return; }
     if (running || !currentCase) return;
     if (balance < currentCase.price) {
       alert("Недостаточно баланса!");
@@ -961,6 +850,7 @@
     startBtn.disabled = true;
     const quickBtn = document.getElementById('quickBtn');
     if (quickBtn) quickBtn.disabled = true;
+    setMultiButtonsDisabled(true);
 
     const track = document.getElementById('tapeTrack');
     track.style.transition = 'none';
@@ -1030,8 +920,44 @@
 
       startBtn.disabled = false;
       if (quickBtn) quickBtn.disabled = false;
+      setMultiButtonsDisabled(false);
       running = false;
     }, 4100);
+  }
+
+  // ===== Полное сохранение: восстановление экрана и автосейв =====
+  function restoreUI() {
+    try {
+      const raw = localStorage.getItem('mifdrop_ui');
+      if (!raw) return;
+      const ui = JSON.parse(raw);
+      if (ui.screen === 'rouletteScreen' && casesData[ui.caseKey]) goToRoulette(ui.caseKey);
+      else if (ui.screen === 'inventoryScreen') goToInventory();
+      else if (ui.screen === 'upgradeScreen') goToUpgrade();
+      else if (ui.screen === 'promoScreen') goToPromo();
+      else if (ui.screen === 'profileScreen') goToProfile();
+    } catch (e) {}
+  }
+
+  function addPersistenceListeners() {
+    window.addEventListener('beforeunload', saveProgress);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') saveProgress();
+    });
+    const nameInput = document.getElementById('usernameInput');
+    nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') saveUsername(); });
+    nameInput.addEventListener('change', saveUsername);
+  }
+
+  // Возвращает экран текущего кейса в исходное состояние (без выхода на главную)
+  function resetCaseScreen() {
+    document.getElementById('winBox').style.display = 'none';
+    document.getElementById('multiWinBox').style.display = 'none';
+    document.getElementById('spinArea').style.display = 'block';
+    const track = document.getElementById('tapeTrack');
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0px)';
+    track.innerHTML = '';
   }
 
   function sellCurrentSkin() {
@@ -1041,7 +967,7 @@
     updateBalanceDisplay();
     currentWonSkin = null;
     saveProgress();
-    goToCatalog();
+    resetCaseScreen();
   }
 
   function keepCurrentSkin() {
@@ -1049,7 +975,7 @@
     myInventory.push(currentWonSkin);
     currentWonSkin = null;
     saveProgress();
-    goToInventory();
+    resetCaseScreen();
   }
 
   function renderInventory() {
@@ -1076,21 +1002,19 @@
     container.innerHTML = html;
   }
 
-  // Функция продажи предмета прямо из инвентаря
   function sellFromInventory(index) {
     const item = myInventory[index];
     const price = itemPrice(item);
 
-    balance += price; // Начисляем золото на баланс
-    updateBalanceDisplay(); // Обновляем баланс в шапке сайта
+    balance += price;
+    updateBalanceDisplay();
 
-    myInventory.splice(index, 1); // Удаляем предмет из инвентаря по индексу
+    myInventory.splice(index, 1);
     saveProgress();
-    renderInventory(); // Перерисовываем обновленный инвентарь
+    renderInventory();
   }
 
   // ========================= АПГРЕЙД =========================
-  // Собираем единый список всех предметов из всех кейсов (без повторов по имени)
   function getAllItems() {
     const seen = new Set();
     const list = [];
@@ -1109,7 +1033,6 @@
     return (item.price !== undefined && item.price !== null) ? item.price : rarityInfo[item.rarity].sellPrice;
   }
 
-  // Пересчитывает цену каждого кейса как среднюю цену всех скинов внутри него
   function recalcCasePrices() {
     Object.values(casesData).forEach(c => {
       const total = c.items.reduce((sum, it) => sum + itemPrice(it), 0);
@@ -1117,13 +1040,61 @@
     });
   }
 
-  // Подставляет пересчитанные цены кейсов в карточки каталога
-  function renderCatalogPrices() {
-    const idsByKey = { fable: 'price-fable', scorpion: 'price-scorpion', origin: 'price-origin', furious: 'price-furious' };
-    Object.keys(idsByKey).forEach(key => {
-      const el = document.getElementById(idsByKey[key]);
-      if (el && casesData[key]) el.innerText = formatPrice(casesData[key].price) + ' G';
+  const caseStyle = {
+    fable: { c: '#8847ff', badge: 'Популярный', emo: '🐍' },
+    scorpion: { c: '#ff8a00', badge: 'Классика', emo: '🦂' },
+    origin: { c: '#eb4b4b', badge: 'VIP', emo: '💀' },
+    furious: { c: '#4b69ff', badge: 'Старт', emo: '🦅' }
+  };
+
+  // Рисует главную: баннер со статистикой и карточки кейсов (цена, топ-дроп, три самых дорогих скина)
+  function renderCatalog() {
+    const hero = document.getElementById('catalogHero');
+    const grid = document.getElementById('casesGrid');
+    if (!hero || !grid) return;
+
+    const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
+    hero.innerHTML = `
+      <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
+      <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
+      <div class="cs-hero-stats">
+        <div class="cs-stat">🎒 Предметов<b>${myInventory.length}</b></div>
+        <div class="cs-stat">💰 Инвентарь<b>${formatPrice(invValue)} G</b></div>
+        <div class="cs-stat">🏆 Лучший дроп<b>${bestDrop ? formatPrice(bestDrop.price) + ' G' : '—'}</b></div>
+      </div>
+    `;
+
+    let html = '';
+    Object.keys(casesData).forEach((key, i) => {
+      const c = casesData[key];
+      const st = caseStyle[key] || { c: '#ffaa00', badge: '', emo: '📦' };
+      const sorted = [...c.items].sort((a, b) => itemPrice(b) - itemPrice(a));
+      const top = sorted.slice(0, 3).map(it => `<span style="--rc:${rarityInfo[it.rarity].color}">${it.emo}</span>`).join('');
+      html += `
+        <div class="cs-card ${balance < c.price ? 'poor' : ''}" data-price="${c.price}" style="--c:${st.c}" onclick="goToRoulette('${key}')">
+          ${st.badge ? `<div class="cs-badge">${st.badge}</div>` : ''}
+          <div class="cs-art"><div class="cs-emoji" style="animation-delay:${(-i * 0.7).toFixed(1)}s">${st.emo}</div></div>
+          <div class="cs-body">
+            <h3 class="cs-name">${c.name}</h3>
+            <div class="cs-meta">Дроп до <b>${formatPrice(itemPrice(sorted[0]))} G</b></div>
+            <div class="cs-top">${top}</div>
+            <div class="cs-price">${formatPrice(c.price)} G</div>
+          </div>
+        </div>
+      `;
     });
+    grid.innerHTML = html;
+  }
+
+  // Серые цены у кейсов, на которые не хватает баланса
+  function updateCatalogAfford() {
+    document.querySelectorAll('.cs-card').forEach(el => {
+      el.classList.toggle('poor', balance < Number(el.dataset.price));
+    });
+  }
+
+  function renderCatalogPrices() {
+    renderCatalog();
   }
 
   function goToUpgrade() {
@@ -1136,24 +1107,53 @@
     renderUpgradeStep1();
   }
 
+  let upgradeFilter = 'all';
+  let upgradeSort = 'asc';
+
+  function upgStepsHTML(n) {
+    const labels = ['Предмет', 'Цель', 'Апгрейд'];
+    let h = '<div class="upg-steps">';
+    labels.forEach((l, i) => {
+      const st = i + 1;
+      const cls = st < n ? 'done' : (st === n ? 'active' : '');
+      h += `<div class="upg-step ${cls}"><span class="upg-step-num">${st < n ? '✓' : st}</span><span>${l}</span></div>`;
+      if (i < 2) h += `<div class="upg-step-line ${st < n ? 'done' : ''}"></div>`;
+    });
+    return h + '</div>';
+  }
+
+  function upgChance(src, tgt) {
+    return Math.max(2, Math.min(95, Math.round((src / tgt) * 100 * HOUSE_EDGE)));
+  }
+
+  function upgChanceColor(c) {
+    return c >= 50 ? '#16c784' : (c >= 25 ? '#ffaa00' : '#eb4b4b');
+  }
+
+  function upgMult(src, tgt) {
+    const m = tgt / src;
+    return m.toFixed(m >= 10 ? 1 : 2);
+  }
+
   // Шаг 1: выбор своего предмета из инвентаря
   function renderUpgradeStep1() {
     const box = document.getElementById('upgradeContent');
+    let html = upgStepsHTML(1);
     if (myInventory.length === 0) {
-      box.innerHTML = '<div class="inventory-empty-text">Нужен хотя бы один предмет в инвентаре. Откройте кейс и оставьте предмет себе!</div>';
+      box.innerHTML = html + '<div class="inventory-empty-text">Нужен хотя бы один предмет в инвентаре. Откройте кейс и оставьте предмет себе!</div>';
       return;
     }
-
-    let html = '<div class="preview-title">Шаг 1. Выберите предмет для апгрейда</div><div class="inventory-grid">';
+    html += '<div class="preview-title">Выберите предмет для апгрейда</div>';
+    html += '<div class="upg-hint">Чем дороже цель, тем выше множитель и ниже шанс успеха.</div>';
+    html += '<div class="inventory-grid">';
     myInventory.forEach((item, index) => {
-      const rMeta = rarityInfo[item.rarity];
+      const color = rarityInfo[item.rarity].color;
       html += `
-                <div class="preview-item upg-pick-item" style="border-bottom-color:${rMeta.color}" onclick="selectUpgradeSource(${index})">
-                    <div class="preview-icon">${item.emo}</div>
-                    <div class="preview-name">${item.name}</div>
-                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${formatPrice(itemPrice(item))} G</div>
-                </div>
-            `;
+        <div class="upg-card" style="--c:${color}" onclick="selectUpgradeSource(${index})">
+          <div class="upg-card-icon">${item.emo}</div>
+          <div class="preview-name">${item.name}</div>
+          <div class="upg-card-price">${formatPrice(itemPrice(item))} G</div>
+        </div>`;
     });
     html += '</div>';
     box.innerHTML = html;
@@ -1165,32 +1165,57 @@
     renderUpgradeStep2();
   }
 
-  // Шаг 2: выбор желаемого предмета (дороже исходного)
+  function setUpgradeFilter(f) { upgradeFilter = f; renderUpgradeStep2(); }
+  function setUpgradeSort(s) { upgradeSort = s; renderUpgradeStep2(); }
+
+  // Шаг 2: выбор цели (дороже исходного) с фильтром по редкости и сортировкой
   function renderUpgradeStep2() {
     const box = document.getElementById('upgradeContent');
     const sourcePrice = itemPrice(upgradeSourceItem);
-    const targets = getAllItems().filter(it => itemPrice(it) > sourcePrice);
+    const srcColor = rarityInfo[upgradeSourceItem.rarity].color;
+    const all = getAllItems().filter(it => itemPrice(it) > sourcePrice);
 
-    let html = '<div class="preview-title upg-back-link" onclick="renderUpgradeStep1()">← Выбрать другой предмет</div>';
+    let html = upgStepsHTML(2);
+    html += '<div class="preview-title upg-back-link" onclick="renderUpgradeStep1()">← Выбрать другой предмет</div>';
+    html += `<div class="upg-recap" style="--c:${srcColor}"><span>${upgradeSourceItem.emo}</span><span>${upgradeSourceItem.name}</span><b>${formatPrice(sourcePrice)} G</b></div>`;
 
-    if (targets.length === 0) {
-      html += '<div class="inventory-empty-text">Это максимальная редкость — апгрейдить дальше некуда.</div>';
-      box.innerHTML = html;
+    if (all.length === 0) {
+      box.innerHTML = html + '<div class="inventory-empty-text">Это максимальная цена — апгрейдить дальше некуда.</div>';
       return;
     }
 
-    upgradeTargets = targets; // запоминаем список, чтобы выбрать по индексу (в именах скинов бывают кавычки)
+    const filters = [['all', 'Все'], ['rare', 'Rare'], ['epic', 'Epic'], ['legendary', 'Legendary'], ['arcane', 'Arcane']];
+    html += '<div class="upg-toolbar">';
+    filters.forEach(([key, label]) => {
+      html += `<button class="upg-chip ${key === 'all' ? 'sep-after' : ''} ${upgradeFilter === key ? 'active' : ''}" onclick="setUpgradeFilter('${key}')">${label}</button>`;
+    });
+    html += `<button class="upg-chip sep-before ${upgradeSort === 'asc' ? 'active' : ''}" onclick="setUpgradeSort('asc')">Цена ↑</button>`;
+    html += `<button class="upg-chip ${upgradeSort === 'desc' ? 'active' : ''}" onclick="setUpgradeSort('desc')">Цена ↓</button>`;
+    html += '</div>';
 
-    html += '<div class="preview-title">Шаг 2. Выберите, что хотите получить</div><div class="inventory-grid">';
+    let targets = all.filter(it => upgradeFilter === 'all' || it.rarity === upgradeFilter);
+    targets.sort((a, b) => upgradeSort === 'asc' ? itemPrice(a) - itemPrice(b) : itemPrice(b) - itemPrice(a));
+    upgradeTargets = targets; // выбор по индексу (в именах скинов бывают кавычки)
+
+    html += '<div class="preview-title">Выберите, что хотите получить</div>';
+    if (targets.length === 0) {
+      html += '<div class="inventory-empty-text">Нет подходящих предметов этой редкости.</div>';
+      box.innerHTML = html;
+      return;
+    }
+    html += '<div class="inventory-grid">';
     targets.forEach((item, idx) => {
-      const rMeta = rarityInfo[item.rarity];
+      const color = rarityInfo[item.rarity].color;
+      const tp = itemPrice(item);
+      const ch = upgChance(sourcePrice, tp);
       html += `
-                <div class="preview-item upg-pick-item" style="border-bottom-color:${rMeta.color}" onclick="selectUpgradeTarget(${idx})">
-                    <div class="preview-icon">${item.emo}</div>
-                    <div class="preview-name">${item.name}</div>
-                    <div style="font-size: 0.65rem; color: ${rMeta.color}; font-weight: 800; margin-top: 4px;">${formatPrice(itemPrice(item))} G</div>
-                </div>
-            `;
+        <div class="upg-card" style="--c:${color}" onclick="selectUpgradeTarget(${idx})">
+          <div class="upg-card-badge" style="color:${upgChanceColor(ch)}">${ch}%</div>
+          <div class="upg-card-icon">${item.emo}</div>
+          <div class="preview-name">${item.name}</div>
+          <div class="upg-card-price">${formatPrice(tp)} G</div>
+          <div class="upg-card-mult">x${upgMult(sourcePrice, tp)}</div>
+        </div>`;
     });
     html += '</div>';
     box.innerHTML = html;
@@ -1201,93 +1226,65 @@
     renderUpgradeConfirm();
   }
 
-  // Шаг 3: подтверждение — показываем шанс, множитель и шкалу апгрейда
+  // Шаг 3: арена — предмет, колесо шанса и цель
   function renderUpgradeConfirm() {
     const box = document.getElementById('upgradeContent');
-    const sourcePrice = itemPrice(upgradeSourceItem);
-    const targetPrice = itemPrice(upgradeTargetItem);
-    const chance = Math.max(2, Math.min(95, Math.round((sourcePrice / targetPrice) * 100 * HOUSE_EDGE)));
-    const multiplier = (targetPrice / sourcePrice).toFixed(2);
+    const sp = itemPrice(upgradeSourceItem);
+    const tp = itemPrice(upgradeTargetItem);
+    const chance = upgChance(sp, tp);
+    const mult = upgMult(sp, tp);
     currentUpgradeChance = chance;
 
     const srcColor = rarityInfo[upgradeSourceItem.rarity].color;
     const tgtColor = rarityInfo[upgradeTargetItem.rarity].color;
 
-    const html = `
+    box.innerHTML = `
+      ${upgStepsHTML(3)}
       <div class="preview-title upg-back-link" onclick="renderUpgradeStep2()">← Выбрать другую цель</div>
-      <div class="upgrade-compare">
-        <div class="upgrade-slot" style="border-bottom-color:${srcColor}">
-          <div class="upgrade-slot-icon">${upgradeSourceItem.emo}</div>
-          <div class="upgrade-slot-name">${upgradeSourceItem.name}</div>
-          <div class="upgrade-slot-price" style="color:${srcColor}">${formatPrice(sourcePrice)} G</div>
+      <div class="upg-arena">
+        <div class="upg-side" id="upgSideSrc" style="--c:${srcColor}">
+          <div class="upg-side-tag">Вы отдаёте</div>
+          <div class="upg-side-icon">${upgradeSourceItem.emo}</div>
+          <div class="upg-side-name">${upgradeSourceItem.name}</div>
+          <div class="upg-side-price" style="color:${srcColor}">${formatPrice(sp)} G</div>
         </div>
-        <div class="upgrade-arrow-block">
-          <span class="upgrade-arrow">→</span>
-          <span class="upgrade-multiplier">x${multiplier}</span>
-          <span class="upgrade-chance">${chance}% шанс</span>
+        <div class="upg-wheel-wrap">
+          <div class="upg-wheel" id="upgWheel" style="--deg:${(chance * 3.6).toFixed(2)}deg">
+            <div class="upg-wheel-core">
+              <div class="upg-core-chance" id="upgCoreChance">${chance}%</div>
+              <div class="upg-core-label" id="upgCoreLabel">шанс успеха</div>
+              <div class="upg-core-mult">x${mult}</div>
+            </div>
+            <div class="upg-needle-wrap" id="upgNeedle"><div class="upg-needle-bar"></div></div>
+          </div>
         </div>
-        <div class="upgrade-slot" style="border-bottom-color:${tgtColor}">
-          <div class="upgrade-slot-icon">${upgradeTargetItem.emo}</div>
-          <div class="upgrade-slot-name">${upgradeTargetItem.name}</div>
-          <div class="upgrade-slot-price" style="color:${tgtColor}">${formatPrice(targetPrice)} G</div>
+        <div class="upg-side" id="upgSideTgt" style="--c:${tgtColor}">
+          <div class="upg-side-tag">Вы получите</div>
+          <div class="upg-side-icon">${upgradeTargetItem.emo}</div>
+          <div class="upg-side-name">${upgradeTargetItem.name}</div>
+          <div class="upg-side-price" style="color:${tgtColor}">${formatPrice(tp)} G</div>
         </div>
       </div>
-      <div class="upgrade-meter" id="upgradeMeter">
-        <div class="upgrade-meter-win" style="width:${chance}%"></div>
-        <div class="upgrade-meter-lose"></div>
-        <div class="upgrade-needle" id="upgradeNeedle"></div>
+      <div class="upg-stats">
+        <div class="upg-stat">Множитель<b>x${mult}</b></div>
+        <div class="upg-stat">Шанс<b>${chance}%</b></div>
+        <div class="upg-stat">Прибыль<b>+${formatPrice(tp - sp)} G</b></div>
       </div>
-      <button class="open-btn" id="upgradeStartBtn" onclick="startUpgrade()">Улучшить</button>
+      <button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()">🚀 Улучшить</button>
     `;
-    box.innerHTML = html;
   }
 
   function startUpgrade() {
     if (upgradeRunning) return;
     upgradeRunning = true;
 
-    const btn = document.getElementById('upgradeStartBtn');
-    btn.disabled = true;
+    document.getElementById('upgradeStartBtn').disabled = true;
+    document.querySelectorAll('.upg-back-link').forEach(el => el.style.pointerEvents = 'none');
 
-    const needle = document.getElementById('upgradeNeedle');
-    needle.style.transition = 'none';
-    needle.style.left = '50%';
-
-    // Результат определяется один раз, здесь же — шанс остаётся прежним.
+    // Результат определяется один раз и сразу сохраняется — обновление страницы его не отменит
     const roll = Math.random() * 100;
     const win = roll < currentUpgradeChance;
 
-    // Стрелка несколько раз "мечется" туда-сюда по шкале для азарта
-    // и только в конце плавно останавливается ровно на точке roll —
-    // итог и шанс при этом не меняются, это чисто визуальный эффект.
-    const jumps = [
-      { pos: 82 + Math.random() * 13, dur: 0.45 },
-      { pos: 5 + Math.random() * 12, dur: 0.42 },
-      { pos: 78 + Math.random() * 17, dur: 0.4 },
-      { pos: 8 + Math.random() * 15, dur: 0.37 },
-      { pos: 60 + Math.random() * 25, dur: 0.34 },
-      { pos: 15 + Math.random() * 20, dur: 0.32 },
-      { pos: roll, dur: 1 }
-    ];
-
-    let delay = 50;
-    jumps.forEach(step => {
-      setTimeout(() => {
-        needle.style.transition = `left ${step.dur}s cubic-bezier(0.3, 0, 0.3, 1)`;
-        needle.style.left = step.pos.toFixed(2) + '%';
-      }, delay);
-      delay += step.dur * 1000;
-    });
-
-    setTimeout(() => {
-      finishUpgrade(win);
-    }, delay + 150);
-  }
-
-  function finishUpgrade(win) {
-    upgradeRunning = false;
-
-    // Исходный предмет в любом случае уходит из инвентаря
     myInventory.splice(upgradeSourceIndex, 1);
     if (win) {
       myInventory.push(upgradeTargetItem);
@@ -1295,38 +1292,62 @@
     }
     saveProgress();
 
+    const needle = document.getElementById('upgNeedle');
+    const total = 360 * 6 + roll * 3.6;
+    needle.style.transition = 'transform 5s cubic-bezier(0.12, 0.6, 0.08, 1)';
+    void needle.offsetWidth;
+    needle.style.transform = `rotate(${total}deg)`;
+    document.getElementById('upgCoreLabel').innerText = 'крутим...';
+
+    setTimeout(() => {
+      document.getElementById('upgWheel').classList.add(win ? 'win' : 'lose');
+      const coreChance = document.getElementById('upgCoreChance');
+      coreChance.innerText = win ? 'УСПЕХ' : 'ПРОМАХ';
+      coreChance.style.fontSize = '1.35rem';
+      coreChance.style.color = win ? '#16c784' : '#eb4b4b';
+      document.getElementById('upgCoreLabel').innerText = win ? 'предмет получен' : 'предмет потерян';
+      document.getElementById('upgSideTgt').classList.add(win ? 'glow' : 'dim');
+      document.getElementById('upgSideSrc').classList.add(win ? 'dim' : 'glow');
+    }, 5100);
+
+    setTimeout(() => finishUpgrade(win), 6500);
+  }
+
+  function finishUpgrade(win) {
+    upgradeRunning = false;
+
     const box = document.getElementById('upgradeContent');
     const item = win ? upgradeTargetItem : upgradeSourceItem;
     const rMeta = rarityInfo[item.rarity];
+    const sp = itemPrice(upgradeSourceItem);
+    const tp = itemPrice(upgradeTargetItem);
 
-    const html = win ? `
-      <div class="win-box" style="display:block; border:1px solid ${rMeta.color}33; background: radial-gradient(circle at center, ${rMeta.color}15 0%, #111726 100%);">
-        <div class="win-icon">${item.emo}</div>
-        <div class="win-title">Апгрейд успешен!</div>
-        <div class="win-rarity" style="color:${rMeta.color}">Вы получили: ${item.name}</div>
+    box.innerHTML = win ? `
+      <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid ${rMeta.color}44; background: radial-gradient(circle at center, ${rMeta.color}20 0%, #111726 100%);">
+        <div class="win-icon" style="font-size:3.4rem;">${item.emo}</div>
+        <div class="win-title" style="color:#16c784;">Апгрейд успешен!</div>
+        <div class="win-rarity" style="color:${rMeta.color}">${item.name} · ${rMeta.name}</div>
+        <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sp)} G → ${formatPrice(tp)} G (x${upgMult(sp, tp)})</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Улучшить ещё</button>
           <button class="keep-btn" onclick="goToInventory()">В инвентарь</button>
         </div>
       </div>
     ` : `
-      <div class="win-box" style="display:block; border:1px solid #64748b33; background: radial-gradient(circle at center, #64748b15 0%, #111726 100%);">
-        <div class="win-icon">💀</div>
-        <div class="win-title">Не повезло</div>
-        <div class="win-rarity" style="color:#94a3b8">Предмет потерян</div>
+      <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid #eb4b4b44; background: radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%);">
+        <div class="win-icon" style="font-size:3.4rem;">💀</div>
+        <div class="win-title" style="color:#eb4b4b;">Не повезло</div>
+        <div class="win-rarity" style="color:#94a3b8">Потерян: ${item.emo} ${item.name}</div>
+        <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${currentUpgradeChance}% — в следующий раз повезёт</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Попробовать снова</button>
           <button class="keep-btn" onclick="goToInventory()">В инвентарь</button>
         </div>
       </div>
     `;
-    box.innerHTML = html;
   }
 
   // ========================= ПРОМОКОДЫ =========================
-  // У сайта нет сервера/логина, поэтому «аккаунт» — это браузер пользователя:
-  // список использованных промокодов хранится в localStorage точно так же,
-  // как баланс и инвентарь, и переживает обновление страницы (F5).
   const promoCodes = {
     'MIFDROP100': 100,
     'MIFDROP1000': 1000,
@@ -1337,20 +1358,14 @@
   let usedPromoCodes = [];
 
   function savePromoProgress() {
-    try {
-      localStorage.setItem('mifdrop_used_promocodes', JSON.stringify(usedPromoCodes));
-    } catch (e) {
-      // localStorage недоступен — не сохраняем
-    }
+    try { localStorage.setItem('mifdrop_used_promocodes', JSON.stringify(usedPromoCodes)); } catch (e) {}
   }
 
   function loadPromoProgress() {
     try {
       const saved = localStorage.getItem('mifdrop_used_promocodes');
       if (saved !== null) usedPromoCodes = JSON.parse(saved);
-    } catch (e) {
-      // данные повреждены — продолжаем с пустым списком
-    }
+    } catch (e) {}
   }
 
   function goToPromo() {
@@ -1359,31 +1374,60 @@
     switchScreen('promoScreen');
     document.getElementById('promoInput').value = '';
     document.getElementById('promoMessage').style.display = 'none';
+    document.getElementById('promoInputWrap').classList.remove('err');
     renderPromoStatus();
   }
+
+  const promoTiers = { 100: ['🎟️', 'Стартовый'], 1000: ['🎫', 'Бонусный'], 5000: ['💎', 'Крупный'], 50000: ['👑', 'Джекпот'] };
 
   // Показывает, какие бонусы уже получены, не раскрывая сами коды
   function renderPromoStatus() {
     const grid = document.getElementById('promoStatusGrid');
+    const keys = Object.keys(promoCodes);
     let html = '';
-    Object.keys(promoCodes).forEach(code => {
+    let earned = 0;
+    let usedCount = 0;
+    keys.forEach(code => {
       const amount = promoCodes[code];
       const used = usedPromoCodes.includes(code);
+      if (used) { earned += amount; usedCount++; }
+      const t = promoTiers[amount] || ['🎁', 'Бонус'];
       html += `
-                <div class="promo-status-item ${used ? 'promo-used' : ''}">
-                    <div class="promo-status-amount">+${formatPrice(amount)} G</div>
-                    <div class="promo-status-flag">${used ? '✅ Активирован' : '🔒 Не активирован'}</div>
+                <div class="promo-ticket ${used ? 'used' : ''}">
+                    <div class="promo-ticket-stub">
+                        <div class="promo-ticket-icon">${t[0]}</div>
+                        <div class="promo-ticket-amount">+${formatPrice(amount)} G</div>
+                    </div>
+                    <div class="promo-ticket-body">
+                        <div class="promo-ticket-name">${t[1]}</div>
+                        <div class="promo-ticket-flag">${used ? '✅ Активирован' : '🔒 Не активирован'}</div>
+                    </div>
                 </div>
             `;
     });
     grid.innerHTML = html;
+    document.getElementById('promoProgressCount').innerText = `${usedCount} / ${keys.length}`;
+    document.getElementById('promoProgressFill').style.width = (keys.length ? (usedCount / keys.length) * 100 : 0) + '%';
+    document.getElementById('promoEarned').innerHTML = `Получено по промокодам: <b>${formatPrice(earned)} G</b>`;
   }
 
   function showPromoMessage(text, type) {
     const msgBox = document.getElementById('promoMessage');
-    msgBox.innerText = text;
-    msgBox.className = 'promo-message promo-' + type;
+    msgBox.innerText = (type === 'success' ? '✅ ' : '⚠️ ') + text;
+    msgBox.className = 'promo-message promo-' + type + ' promo-msg-pop';
     msgBox.style.display = 'block';
+
+    const wrap = document.getElementById('promoInputWrap');
+    wrap.classList.remove('promo-shake', 'err');
+    if (type === 'error') {
+      void wrap.offsetWidth;
+      wrap.classList.add('err', 'promo-shake');
+    } else {
+      const bal = document.querySelector('.balance-box');
+      bal.classList.remove('balance-pulse');
+      void bal.offsetWidth;
+      bal.classList.add('balance-pulse');
+    }
   }
 
   function redeemPromoCode() {
@@ -1451,8 +1495,8 @@
     }
   }
 
-  // Запоминает самый дорогой предмет, когда-либо выпавший игроку (кейсы + апгрейд)
   function updateBestDrop(skin) {
+    saveProgress();
     const price = itemPrice(skin);
     if (!bestDrop || price > itemPrice(bestDrop)) {
       bestDrop = { name: skin.name, emo: skin.emo, rarity: skin.rarity, price: price };
@@ -1507,7 +1551,6 @@
     msgBox.style.display = 'block';
   }
 
-  // Восстанавливаем баланс, инвентарь, промокоды, профиль и лучший дроп при загрузке / обновлении страницы (F5)
   loadProgress();
   loadPromoProgress();
   loadUsername();
@@ -1515,6 +1558,10 @@
   recalcCasePrices();
   updateBalanceDisplay();
   renderCatalogPrices();
+  loadQuickMode();
+  saveProgress();
+  restoreUI();
+  addPersistenceListeners();
   document.getElementById('profileBtnName').innerText = username;
 </script>
 </body>
