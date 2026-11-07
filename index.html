@@ -254,6 +254,14 @@
     .cs-card:hover .cs-price { filter: brightness(1.1); }
     .cs-card.poor .cs-price { background: #272e3f; color: #94a3b8; box-shadow: none; }
 
+    /* ===== КОНТРАКТЫ ===== */
+    .upg-card.sel { box-shadow: 0 0 0 2px #16c784, 0 0 18px rgba(22,199,132,0.45); transform: translateY(-2px); }
+    .upg-card.sel::after { content: '✓'; position: absolute; top: 5px; right: 5px; z-index: 1; width: 18px; height: 18px; border-radius: 50%; background: #16c784; color: #04150f; font-size: 0.7rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+    .contract-actions { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+    .contract-spin { padding: 44px 0; }
+    .contract-spin-emo { display: inline-block; font-size: 4.5rem; line-height: 1; animation: csFloat 0.6s ease-in-out infinite; filter: drop-shadow(0 0 18px rgba(255,170,0,0.6)); }
+    .contract-spin-text { margin-top: 14px; color: #94a3b8; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+
     /* ===== САПЁР ===== */
     .mines-hint { color: #64748b; font-size: 0.8rem; font-weight: 600; margin: 0 auto 16px; max-width: 460px; line-height: 1.4; }
     .mines-controls { display: flex; flex-wrap: wrap; gap: 18px 28px; justify-content: center; text-align: left; margin-bottom: 16px; transition: opacity 0.2s; }
@@ -380,6 +388,7 @@
       <button class="inv-toggle-btn" id="promoBtn" onclick="goToPromo()">🔑 Промокоды</button>
       <button class="inv-toggle-btn" id="upgBtn" onclick="goToUpgrade()">🚀 Апгрейд</button>
       <button class="inv-toggle-btn" id="minesBtn" onclick="goToMines()">💣 Сапёр</button>
+      <button class="inv-toggle-btn" id="contractsBtn" onclick="goToContracts()">📜 Контракты</button>
       <div class="balance-box">
         <span id="balanceValue">1000</span><span>G</span>
       </div>
@@ -449,6 +458,14 @@
     <div class="roulette-container">
       <h2 style="margin:0 0 15px 0; font-size:1.2rem; text-transform:uppercase;">Апгрейд предметов</h2>
       <div id="upgradeContent"></div>
+    </div>
+  </div>
+
+  <div class="screen" id="contractsScreen">
+    <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+    <div class="roulette-container">
+      <h2 style="margin:0 0 6px 0; font-size:1.2rem; text-transform:uppercase;">Контракты</h2>
+      <div id="contractsContent"></div>
     </div>
   </div>
 
@@ -1318,6 +1335,7 @@
       else if (ui.screen === 'upgradeScreen') goToUpgrade();
       else if (ui.screen === 'promoScreen') goToPromo();
       else if (ui.screen === 'minesScreen') goToMines();
+      else if (ui.screen === 'contractsScreen') goToContracts();
     } catch (e) {}
   }
 
@@ -1820,9 +1838,172 @@
     `;
   }
 
+  // ========================= КОНТРАКТЫ =========================
+  const CONTRACT_SIZE = 10;   // сколько предметов отдаём
+  const CONTRACT_MIN = 0.45;  // результат не дешевле 45% суммы (разброс не больше 55%)
+  const CONTRACT_MAX = 1.55;  // и не дороже 155% суммы
+  let contractSel = [];       // индексы выбранных предметов инвентаря
+  let contractSort = 'asc';
+  let contractView = 'select'; // select | spin | result
+  let contractResult = null;
+
+  // Кандидаты на результат: предметы с ценой в пределах ±55% от суммы контракта.
+  // Выбор среди них полностью случайный (равные шансы), игрок на него не влияет.
+  function contractCandidates(sum) {
+    const all = getAllItems();
+    const lo = sum * CONTRACT_MIN, hi = sum * CONTRACT_MAX;
+    const inRange = all.filter(it => { const pr = itemPrice(it); return pr >= lo && pr <= hi; });
+    if (inRange.length) return inRange;
+    // в диапазоне нет ни одного предмета — берём ближайшие по цене
+    return all.map(it => ({ it, d: Math.abs(Math.log(itemPrice(it) / sum)) })).sort((x, y) => x.d - y.d).slice(0, 3).map(x => x.it);
+  }
+
+  function goToContracts() {
+    if (running || upgradeRunning) return;
+    autoResolvePendingWin();
+    switchScreen('contractsScreen');
+    contractSel = [];
+    contractView = 'select';
+    contractResult = null;
+    renderContracts();
+  }
+
+  function resetContracts() {
+    contractSel = [];
+    contractView = 'select';
+    contractResult = null;
+    renderContracts();
+  }
+
+  function setContractSort(v) { contractSort = v; renderContracts(); }
+  function clearContractSel() { contractSel = []; renderContracts(); }
+
+  function autoContractSel() {
+    const order = myInventory.map((it, i) => i).sort((a, b) => itemPrice(myInventory[a]) - itemPrice(myInventory[b]));
+    contractSel = order.slice(0, CONTRACT_SIZE);
+    renderContracts();
+  }
+
+  function toggleContractItem(i) {
+    if (contractView !== 'select' || !myInventory[i]) return;
+    const pos = contractSel.indexOf(i);
+    if (pos >= 0) contractSel.splice(pos, 1);
+    else if (contractSel.length < CONTRACT_SIZE) contractSel.push(i);
+    else { alert('Уже выбрано ' + CONTRACT_SIZE + ' предметов'); return; }
+    renderContracts();
+  }
+
+  function renderContracts() {
+    const box = document.getElementById('contractsContent');
+
+    if (contractView === 'spin') {
+      box.innerHTML = '<div class="contract-spin"><div class="contract-spin-emo" id="contractSpinEmo">📜</div><div class="contract-spin-text">Подписываем контракт…</div></div>';
+      return;
+    }
+
+    if (contractView === 'result' && contractResult) {
+      const { item, sum } = contractResult;
+      const price = itemPrice(item);
+      const rMeta = rarityInfo[item.rarity];
+      const diff = price - sum;
+      const up = diff > 0;
+      const head = up ? ['Контракт выгоден!', '#16c784'] : (diff < 0 ? ['Контракт невыгоден', '#eb4b4b'] : ['Обмен ровно по цене', '#94a3b8']);
+      box.innerHTML = `
+        <div class="win-box upg-result" style="display:block; margin-top:12px; border:1px solid ${rMeta.color}44; background: radial-gradient(circle at center, ${rMeta.color}20 0%, #111726 100%);">
+          <div class="win-icon" style="font-size:3.4rem;">${item.emo}</div>
+          <div class="win-title" style="color:${head[1]};">${head[0]}</div>
+          <div class="win-rarity" style="color:${rMeta.color}">${item.name} · ${rMeta.name}</div>
+          <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sum)} G → ${formatPrice(price)} G (${fmtMult(price / sum)})</div>
+          <div style="color:${head[1]}; font-weight:800; font-size:0.85rem; margin-top:4px;">${diff >= 0 ? '+' : '−'}${formatPrice(Math.abs(diff))} G</div>
+          <div class="win-actions">
+            <button class="sell-btn" onclick="resetContracts()">Новый контракт</button>
+            <button class="keep-btn" onclick="goToProfile()">В профиль</button>
+          </div>
+        </div>`;
+      return;
+    }
+
+    let html = '<div class="mines-hint">Отдайте 10 предметов и получите один случайный. Его цена отличается от суммы контракта не больше чем на 55%: он может оказаться дороже или дешевле.</div>';
+    if (myInventory.length < CONTRACT_SIZE) {
+      box.innerHTML = html + `<div class="inventory-empty-text">Для контракта нужно минимум ${CONTRACT_SIZE} предметов. Сейчас у вас: ${myInventory.length}.</div>`;
+      return;
+    }
+
+    const n = contractSel.length;
+    const sum = contractSel.reduce((a, i) => a + itemPrice(myInventory[i]), 0);
+    const stat = (l, v) => `<div class="upg-stat">${l}<b>${v}</b></div>`;
+    let stats = stat('Выбрано', n + ' / ' + CONTRACT_SIZE) + stat('Сумма', formatPrice(sum) + ' G');
+    if (n === CONTRACT_SIZE) {
+      stats += stat('Разброс', '±55%') + stat('Результат', formatPrice(sum * CONTRACT_MIN) + ' – ' + formatPrice(sum * CONTRACT_MAX) + ' G');
+    }
+    html += '<div class="upg-stats">' + stats + '</div>';
+    if (n === CONTRACT_SIZE) html += '<div class="mines-hint" style="margin-top:-6px;">Предмет выпадает случайно, выбрать его нельзя.</div>';
+
+    html += `<div class="contract-actions">
+      <button class="open-btn cash" ${n === CONTRACT_SIZE ? '' : 'disabled'} onclick="signContract()">Подписать контракт</button>
+      <button class="keep-btn" onclick="autoContractSel()">10 дешёвых</button>
+      <button class="keep-btn" onclick="clearContractSel()" ${n ? '' : 'disabled'}>Сбросить</button>
+    </div>`;
+
+    html += '<div class="preview-title">Ваши предметы</div>';
+    html += `<div class="upg-toolbar">
+      <button class="upg-chip ${contractSort === 'asc' ? 'active' : ''}" onclick="setContractSort('asc')">Цена ↑</button>
+      <button class="upg-chip ${contractSort === 'desc' ? 'active' : ''}" onclick="setContractSort('desc')">Цена ↓</button>
+    </div>`;
+    const list = myInventory.map((item, index) => ({ item, index }));
+    list.sort((a, b) => contractSort === 'asc' ? itemPrice(a.item) - itemPrice(b.item) : itemPrice(b.item) - itemPrice(a.item));
+    html += '<div class="inventory-grid">';
+    list.forEach(({ item, index }) => {
+      const color = rarityInfo[item.rarity].color;
+      html += `
+        <div class="upg-card ${contractSel.includes(index) ? 'sel' : ''}" style="--c:${color}" onclick="toggleContractItem(${index})">
+          <div class="upg-card-icon">${item.emo}</div>
+          <div class="preview-name">${item.name}</div>
+          <div class="upg-card-price">${formatPrice(itemPrice(item))} G</div>
+        </div>`;
+    });
+    html += '</div>';
+    box.innerHTML = html;
+  }
+
+  function signContract() {
+    if (upgradeRunning || contractView !== 'select' || contractSel.length !== CONTRACT_SIZE) return;
+    const idxs = [...contractSel];
+    if (idxs.some(i => !myInventory[i])) { resetContracts(); return; }
+    const sum = idxs.reduce((a, i) => a + itemPrice(myInventory[i]), 0);
+    const cands = contractCandidates(sum);
+
+    // Результат определяется сразу и сохраняется — обновление страницы его не отменит
+    const out = cands[Math.floor(Math.random() * cands.length)];
+    const newItem = { name: out.name, emo: out.emo, rarity: out.rarity, price: itemPrice(out) };
+
+    idxs.sort((a, b) => b - a).forEach(i => myInventory.splice(i, 1));
+    myInventory.push(newItem);
+    updateBestDrop(newItem);
+    saveProgress();
+
+    contractResult = { item: newItem, sum };
+    contractSel = [];
+    contractView = 'spin';
+    upgradeRunning = true; // блокирует переходы по разделам на время анимации
+    renderContracts();
+
+    const emojis = getAllItems().map(it => it.emo);
+    const timer = setInterval(() => {
+      const el = document.getElementById('contractSpinEmo');
+      if (el) el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    }, 90);
+    setTimeout(() => {
+      clearInterval(timer);
+      upgradeRunning = false;
+      contractView = 'result';
+      renderContracts();
+    }, 2400);
+  }
+
   // ========================= САПЁР =========================
   const MINES_SIZE = 25;          // поле 5 x 5
-  const MINES_EDGE = 0.97;        // небольшое преимущество казино
+  const MINES_EDGE = 0.85;        // преимущество казино 15%: чем меньше число, тем меньше выплаты
   const MINES_OPTIONS = [3, 6, 9, 15, 18, 21, 24];
   let minesCount = 3;
   let minesGame = null;           // { bet, m, mines:[], revealed:[], over, lost, hit }
@@ -1835,7 +2016,8 @@
     if (k <= 0) return 1;
     let x = MINES_EDGE;
     for (let i = 0; i < k; i++) x *= (MINES_SIZE - i) / (MINES_SIZE - m - i);
-    return x;
+    // Пол: после любой выигранной клетки выплата не меньше ставки (минимум +2% за каждую)
+    return Math.max(x, 1 + 0.02 * k);
   }
 
   function minesPayout(g) { return Math.floor(g.bet * minesMult(g.m, g.revealed.length)); }
