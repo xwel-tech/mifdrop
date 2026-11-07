@@ -401,6 +401,54 @@
       .profile-stats-grid { grid-template-columns: 1fr; }
       .multi-open-btn { padding: 8px 12px; min-width: 64px; }
     }
+    /* ===== ОБЛОЖКИ КЕЙСОВ ===== */
+    .cs-art svg, .free-art svg, .case-head-art svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: transform 0.35s; }
+    .cs-card:hover .cs-art svg, .free-banner:hover .free-art svg { transform: scale(1.06); }
+    #catalogScreen .cs-art { height: 132px; overflow: hidden; }
+    .free-art, .case-head-art { position: relative; overflow: hidden; }
+    .cv-float { animation: csFloat 3.2s ease-in-out infinite; }
+    /* ===== РАЗДЕЛЫ КАТАЛОГА ===== */
+    .cs-section { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #f1f5f9; }
+    .cs-section:first-child { margin-top: 0; }
+    .cs-section::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,170,0,0.35), transparent); }
+    .cs-section span { background: linear-gradient(90deg, #ffaa00, #ff5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .cs-section i { font-style: normal; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: #141b2d; color: #64748b; border: 1px solid rgba(255,255,255,0.05); }
+    /* ===== ДИЗАЙН ЭКРАНА КЕЙСА ===== */
+    #rouletteScreen { --c: #ffaa00; }
+    #rouletteScreen .roulette-container { position: relative; overflow: hidden; border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); background: radial-gradient(circle at 50% -10%, color-mix(in srgb, var(--c) 22%, transparent) 0%, #111726 62%); box-shadow: 0 0 34px -14px var(--c); }
+    .case-head { display: flex; align-items: center; justify-content: center; gap: 14px; text-align: left; margin-bottom: 4px; }
+    .case-head-art { width: 64px; height: 64px; flex-shrink: 0; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; background: radial-gradient(circle at 50% 70%, color-mix(in srgb, var(--c) 55%, transparent) 0%, #0b0f19 75%); border: 1px solid color-mix(in srgb, var(--c) 50%, transparent); box-shadow: 0 0 24px -4px var(--c); animation: csFloat 3s ease-in-out infinite; }
+    .case-head-title { margin: 0; font-size: 1.35rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; }
+    .case-head-sub { margin-top: 5px; font-size: 0.75rem; font-weight: 700; color: #94a3b8; }
+    .case-head-sub b { color: #ffaa00; }
+    #rouletteScreen .tape-window { border-color: color-mix(in srgb, var(--c) 30%, #141b2d); box-shadow: inset 0 0 26px rgba(0,0,0,0.7); }
+    #rouletteScreen .tape-window::before, #rouletteScreen .tape-window::after { content: ''; position: absolute; top: 0; bottom: 0; width: 18%; z-index: 9; pointer-events: none; }
+    #rouletteScreen .tape-window::before { left: 0; background: linear-gradient(90deg, #060913 0%, transparent 100%); }
+    #rouletteScreen .tape-window::after { right: 0; background: linear-gradient(270deg, #060913 0%, transparent 100%); }
+    #rouletteScreen .tape-pointer { width: 3px; background: linear-gradient(180deg, #ffaa00, #ff5500); box-shadow: 0 0 12px #ff5500, 0 0 26px rgba(255,85,0,0.5); }
+    #rouletteScreen .tape-pointer::before, #rouletteScreen .tape-pointer::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); border: 7px solid transparent; }
+    #rouletteScreen .tape-pointer::before { top: 0; border-top-color: #ff5500; }
+    #rouletteScreen .tape-pointer::after { bottom: 0; border-bottom-color: #ff5500; }
+    .tape-item { --c: #64748b; position: relative; overflow: hidden; background: linear-gradient(180deg, #1a233a 0%, #111726 100%); border: 1px solid rgba(255,255,255,0.04); border-bottom-width: 4px; }
+    .tape-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 100%, var(--c) 0%, transparent 75%); opacity: 0.4; pointer-events: none; }
+    .tape-item > span { position: relative; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.5)); }
+    .tape-item.idle { opacity: 0.7; }
+    #rouletteScreen .open-btn { padding: 14px 38px; font-size: 1.05rem; letter-spacing: 0.5px; }
+    #rouletteScreen .open-btn:not(:disabled):hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 22px rgba(255,85,0,0.45); }
+    #rouletteScreen .multi-actions { padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.07); }
+    #rouletteScreen .multi-open-btn { padding: 10px 20px; border-radius: 10px; font-size: 1rem; }
+    #rouletteScreen .case-preview-section { margin-top: 22px; }
+    #rouletteScreen .preview-title { display: flex; align-items: center; gap: 10px; }
+    #rouletteScreen .preview-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent); }
+    .pv-card { position: relative; overflow: hidden; padding: 16px 4px 10px; transition: transform 0.15s, box-shadow 0.15s; }
+    .pv-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 68%); opacity: 0.2; pointer-events: none; transition: opacity 0.2s; }
+    .pv-card > * { position: relative; }
+    .pv-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 0 1px var(--c); }
+    .pv-card:hover::before { opacity: 0.38; }
+    .pv-card .preview-icon { font-size: 1.9rem; margin-bottom: 6px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); }
+    .pv-chance { position: absolute; top: 5px; left: 6px; font-size: 0.58rem; font-weight: 800; color: #94a3b8; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 5px; }
+    .pv-price { font-size: 0.72rem; font-weight: 800; color: #ffaa00; margin-top: 6px; }
+    @media (max-width: 560px) { .case-head-art { width: 52px; height: 52px; font-size: 2rem; } #rouletteScreen .preview-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } #rouletteScreen .multi-win-grid .preview-item { width: calc((100% - 16px) / 3); } }
   </style>
 </head>
 <body>
@@ -430,14 +478,13 @@
   <div class="screen active" id="catalogScreen">
     <div class="cs-hero" id="catalogHero"></div>
     <div id="freeCaseBlock"></div>
-    <div class="preview-title">Доступные кейсы</div>
     <div class="cases-grid" id="casesGrid"></div>
   </div>
 
   <div class="screen" id="rouletteScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
-      <h2 id="caseTitle" style="margin:0; font-size:1.2rem; text-transform:uppercase;">Открытие кейса</h2>
+      <div class="case-head"><div class="case-head-art"><span id="caseEmo">🎁</span></div><div class="case-head-info"><h2 id="caseTitle" class="case-head-title">Открытие кейса</h2><div class="case-head-sub" id="caseSub"></div></div></div>
       <div id="spinArea">
         <div class="tape-window">
           <div class="tape-pointer"></div>
@@ -823,6 +870,102 @@
         { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497, weight: 72 }
       ]
     },
+    knives: {
+      name: "Фарм ножей",
+      price: 16,
+      fixed: true,
+      items: [
+        { name: 'USP "Ignite"', emo: '🔥', rarity: 'rare', price: 0.91, weight: 117103 },
+        { name: 'Akimbo Uzi "No Escape"', emo: '🚫', rarity: 'rare', price: 0.95, weight: 15963 },
+        { name: 'P350 "Ink Spree"', emo: '🖋️', rarity: 'rare', price: 0.98, weight: 39217 },
+        { name: 'FabM "Hercules"', emo: '💪', rarity: 'rare', price: 0.99, weight: 31337 },
+        { name: 'AWM "Eye of Horus"', emo: '👁️', rarity: 'rare', price: 1, weight: 56328 },
+        { name: 'S3 FabM "Cloud Lily"', emo: '☁️', rarity: 'rare', price: 1, weight: 11625 },
+        { name: 'M4 "Kachi"', emo: '🎴', rarity: 'rare', price: 1, weight: 97682 },
+        { name: 'M40 "Wyvern"', emo: '🐉', rarity: 'rare', price: 1.03, weight: 62315 },
+        { name: 'MP7 "Rebellion"', emo: '✊', rarity: 'rare', price: 1.03, weight: 71533 },
+        { name: 'TEC-9 "Tropic"', emo: '🌴', rarity: 'rare', price: 1.08, weight: 91983 },
+        { name: 'VAL "Forge"', emo: '⚒️', rarity: 'rare', price: 1.1, weight: 48904 },
+        { name: 'MP7 "Ridge"', emo: '⛰️', rarity: 'rare', price: 1.15, weight: 58277 },
+        { name: 'AKR12 "Shark"', emo: '🦈', rarity: 'rare', price: 1.23, weight: 30478 },
+        { name: 'M40 "Grip"', emo: '🤝', rarity: 'rare', price: 1.29, weight: 66445 },
+        { name: 'M16 "Needle"', emo: '🪡', rarity: 'rare', price: 1.29, weight: 111236 },
+        { name: 'P350 "Oni"', emo: '👹', rarity: 'rare', price: 1.3, weight: 101878 },
+        { name: 'FAMAS "Handcraft"', emo: '🛠️', rarity: 'rare', price: 1.37, weight: 21556 },
+        { name: 'Desert Eagle "Wildflower"', emo: '🌼', rarity: 'rare', price: 1.4, weight: 28655 },
+        { name: 'M4 "Demon"', emo: '😈', rarity: 'rare', price: 1.43, weight: 146149 },
+        { name: 'G22 "Flock"', emo: '🐦', rarity: 'rare', price: 1.43, weight: 3481073 },
+        { name: 'P90 "Purple Mist"', emo: '🟣', rarity: 'rare', price: 1.45, weight: 36055 },
+        { name: 'TEC-9 "Needle"', emo: '🧵', rarity: 'rare', price: 1.5, weight: 68869 },
+        { name: 'G22 "Lion Lord"', emo: '🦁', rarity: 'rare', price: 1.5, weight: 38346 },
+        { name: 'USP "Griffin"', emo: '🦅', rarity: 'rare', price: 1.57, weight: 59156 },
+        { name: 'TEC-9 "Iris"', emo: '🌷', rarity: 'rare', price: 1.6, weight: 17865 },
+        { name: 'P90 "Lotus Frieze"', emo: '🪷', rarity: 'rare', price: 1.7, weight: 214391 },
+        { name: 'FN FAL "Splash"', emo: '💦', rarity: 'rare', price: 1.9, weight: 14397 },
+        { name: 'P350 "Sandspirit"', emo: '🏜️', rarity: 'rare', price: 1.9, weight: 35477 },
+        { name: 'G22 "Reindeer Sweater"', emo: '🦌', rarity: 'rare', price: 2, weight: 24608 },
+        { name: 'FabM "Streak"', emo: '⚡', rarity: 'rare', price: 2.05, weight: 15016 },
+        { name: 'M110 "Centipede"', emo: '🐛', rarity: 'rare', price: 2.07, weight: 10111 },
+        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.17, weight: 154827 },
+        { name: 'SM1014 "Wave"', emo: '🌊', rarity: 'rare', price: 2.2, weight: 40138 },
+        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66, weight: 4920 },
+        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.68, weight: 14161 },
+        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.84, weight: 10537 },
+        { name: 'Kunai "Fire Horse"', emo: '🥷', rarity: 'arcane', price: 955, weight: 24854 },
+        { name: 'Sting "Meld"', emo: '🗡️', rarity: 'arcane', price: 993.99, weight: 24854 },
+        { name: 'Flip "Magnalium"', emo: '🔪', rarity: 'arcane', price: 1034.99, weight: 24854 }
+      ]
+    },
+    bomj: {
+      name: "Бомж",
+      price: 2.4,
+      boost: 0.7, // поднять шансы дорогих скинов: вес × цена^0.7 (0 = шансы по остаткам)
+      fixed: true,
+      items: [
+        { name: 'FabM "Cursed Fire"', emo: '🔥', rarity: 'uncommon', price: 0.22, weight: 1110301 },
+        { name: 'M40 "Cursed Fire"', emo: '🎯', rarity: 'uncommon', price: 0.26, weight: 1110658 },
+        { name: 'M60 "Turret"', emo: '🗼', rarity: 'uncommon', price: 0.33, weight: 519008 },
+        { name: 'SM1014 "Bolt"', emo: '🔩', rarity: 'uncommon', price: 0.34, weight: 509761 },
+        { name: 'AKR12 "Roar"', emo: '🦁', rarity: 'uncommon', price: 0.39, weight: 1049294 },
+        { name: 'F/S "Zap"', emo: '⚡', rarity: 'uncommon', price: 0.45, weight: 519592 },
+        { name: 'G22 "Scale"', emo: '🐍', rarity: 'uncommon', price: 0.46, weight: 1099246 },
+        { name: 'Desert Eagle "Glory"', emo: '🏅', rarity: 'uncommon', price: 0.79, weight: 463011 },
+        { name: 'TEC-9 "Dalmatian"', emo: '🐕', rarity: 'uncommon', price: 1.3, weight: 211779 },
+        { name: 'FabM "Waste"', emo: '🗑️', rarity: 'uncommon', price: 1.32, weight: 192002 },
+        { name: 'FN FAL "Aquamarine"', emo: '💧', rarity: 'uncommon', price: 1.53, weight: 175864 },
+        { name: 'USP "Line"', emo: '📏', rarity: 'uncommon', price: 1.86, weight: 281680 },
+        { name: 'P350 "Rhino"', emo: '🦏', rarity: 'uncommon', price: 0.34, weight: 774641 },
+        { name: 'AKR "Worm"', emo: '🪱', rarity: 'uncommon', price: 0.52, weight: 2201020 },
+        { name: 'MP5 "Dusk"', emo: '🌆', rarity: 'uncommon', price: 0.74, weight: 257376 },
+        { name: 'M110 "Pursuit"', emo: '🏃', rarity: 'uncommon', price: 0.79, weight: 289004 },
+        { name: 'MP7 "Dawn"', emo: '🌅', rarity: 'uncommon', price: 0.79, weight: 281311 },
+        { name: 'AWM "Elevation"', emo: '⛰️', rarity: 'uncommon', price: 0.8, weight: 828505 },
+        { name: 'AKR "Scale"', emo: '🐲', rarity: 'uncommon', price: 0.8, weight: 1111594 },
+        { name: 'FAMAS "Gunsmoke"', emo: '💨', rarity: 'uncommon', price: 1.35, weight: 248033 },
+        { name: 'G22 "Yellow Line"', emo: '🟡', rarity: 'uncommon', price: 3, weight: 102299 },
+        { name: 'P350 "Nano"', emo: '🔬', rarity: 'uncommon', price: 3.4, weight: 103923 },
+        { name: 'AKR12 "Spring"', emo: '🌸', rarity: 'uncommon', price: 3.49, weight: 116716 },
+        { name: 'USP "Ray"', emo: '☀️', rarity: 'uncommon', price: 3.79, weight: 118331 },
+        { name: 'M40 "PRO"', emo: '🏆', rarity: 'uncommon', price: 7.86, weight: 50759 },
+        { name: 'AKR12 "Mechanic"', emo: '🔧', rarity: 'uncommon', price: 7.88, weight: 23952 },
+        { name: 'M16 "Facet"', emo: '💎', rarity: 'uncommon', price: 7.89, weight: 35858 },
+        { name: 'Desert Eagle "Winner"', emo: '🥇', rarity: 'uncommon', price: 8.79, weight: 28160 },
+        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.2, weight: 155251 },
+        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.29, weight: 10540 },
+        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.5, weight: 14164 },
+        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66, weight: 4920 },
+        { name: 'FAMAS "Autumn"', emo: '🍂', rarity: 'epic', price: 10, weight: 2446 },
+        { name: 'MAC10 "Tempest"', emo: '🌪️', rarity: 'epic', price: 10, weight: 3240 },
+        { name: 'M16 "Challenger"', emo: '🥊', rarity: 'epic', price: 11.43, weight: 3104 },
+        { name: 'P90 "Data Flow"', emo: '📡', rarity: 'epic', price: 11.44, weight: 952 },
+        { name: 'VAL "Iron Wolf"', emo: '🐺', rarity: 'epic', price: 11.47, weight: 1453 },
+        { name: 'TEC-9 "Neo Core"', emo: '🔋', rarity: 'epic', price: 11.5, weight: 1111 },
+        { name: 'P90 "Z-50 F.U.J.I.N."', emo: '🏯', rarity: 'epic', price: 11.9, weight: 1836 },
+        { name: 'M40 "Venom Shade"', emo: '🕸️', rarity: 'epic', price: 13.4, weight: 2541 },
+        { name: 'USP "Chameleon"', emo: '🦎', rarity: 'legendary', price: 37, weight: 4622 },
+        { name: 'Berettas "Damascus"', emo: '🗡️', rarity: 'legendary', price: 37.8, weight: 11425 }
+      ]
+    },
     fragments: {
       name: "Fragments",
       price: 0,
@@ -937,7 +1080,7 @@
     const top = sorted.slice(0, 3).map(it => `<span style="--rc:${rarityInfo[it.rarity].color}">${it.emo}</span>`).join('');
     box.innerHTML = `
       <div class="free-banner ${ok ? '' : 'used'}" onclick="goToRoulette('fragments')">
-        <div class="free-art"><div class="cs-emoji">🧩</div></div>
+        <div class="free-art">${caseCover('fragments', '34 18 132 108')}</div>
         <div class="free-info">
           <div class="free-tag">Бесплатно · раз в сутки</div>
           <h3 class="free-name">${c.name}</h3>
@@ -1030,6 +1173,11 @@
     switchScreen('rouletteScreen');
 
     document.getElementById('caseTitle').innerText = currentCase.name;
+    const hst = caseStyle[caseKey] || (currentCase.free ? { c: '#16c784', emo: '🧩' } : { c: '#ffaa00', emo: '📦' });
+    document.getElementById('rouletteScreen').style.setProperty('--c', hst.c);
+    document.querySelector('.case-head-art').innerHTML = caseCover(caseKey, '34 18 132 108');
+    const topPrice = Math.max(...currentCase.items.map(itemPrice));
+    document.getElementById('caseSub').innerHTML = (currentCase.free ? 'Бесплатно · раз в сутки' : 'Цена <b>' + formatPrice(currentCase.price) + ' G</b>') + ' · Дроп до <b>' + formatPrice(topPrice) + ' G</b>';
     document.getElementById('spinArea').style.display = 'block';
     document.getElementById('multiWinBox').style.display = 'none';
     document.querySelectorAll('.multi-open-btn').forEach(btn => {
@@ -1056,7 +1204,44 @@
     track.style.transition = 'none';
     track.style.transform = 'translateX(0px)';
     track.innerHTML = '';
+    fillIdleTape();
+    renderCasePreview();
     updateFreeCaseUI();
+  }
+
+  // Лента в ожидании: показывает предметы кейса вместо пустой полосы
+  function fillIdleTape() {
+    const track = document.getElementById('tapeTrack');
+    if (!track || !currentCase) return;
+    const items = [...currentCase.items].sort(() => Math.random() - 0.5);
+    let html = '';
+    for (let i = 0; i < 24; i++) {
+      const it = items[i % items.length];
+      const col = rarityInfo[it.rarity].color;
+      html += `<div class="tape-item idle" style="--c:${col}; border-bottom-color:${col}"><span>${it.emo}</span></div>`;
+    }
+    track.innerHTML = html;
+  }
+
+  // Содержимое кейса: от дорогих к дешёвым, с шансом выпадения каждого предмета
+  function renderCasePreview() {
+    const c = currentCase;
+    const grid = document.getElementById('previewGrid');
+    if (!c || !grid) return;
+    const weighted = c.items.some(it => it.weight);
+    const total = weighted ? c.items.reduce((s, it) => s + (it.weight || 0), 0) : c.items.length;
+    const list = [...c.items].sort((a, b) => itemPrice(b) - itemPrice(a));
+    grid.innerHTML = list.map(it => {
+      const col = rarityInfo[it.rarity].color;
+      const ch = (weighted ? (it.weight || 0) : 1) / total * 100;
+      const chTxt = ch >= 10 ? ch.toFixed(1) : (ch >= 1 ? ch.toFixed(2) : ch.toFixed(3));
+      return `<div class="preview-item pv-card" style="--c:${col}; border-bottom-color:${col}">
+        <div class="pv-chance">${chTxt}%</div>
+        <div class="preview-icon">${it.emo}</div>
+        <div class="preview-name">${escHTML(it.name)}</div>
+        <div class="pv-price">${formatPrice(itemPrice(it))} G</div>
+      </div>`;
+    }).join('');
   }
 
   function quickOpenCase() {
@@ -1208,6 +1393,7 @@
         const div = document.createElement('div');
         div.className = 'tape-item';
         div.style.borderBottomColor = rarityInfo[item.rarity].color;
+        div.style.setProperty('--c', rarityInfo[item.rarity].color);
         div.innerHTML = `<span>${item.emo}</span>`;
         track.appendChild(div);
         if (i === prizeIndex) {
@@ -1298,6 +1484,7 @@
       const div = document.createElement('div');
       div.className = 'tape-item';
       div.style.borderBottomColor = color;
+      div.style.setProperty('--c', color);
       div.innerHTML = `<span>${item.emo}</span>`;
       div.dataset.name = item.name;
       div.dataset.emo = item.emo;
@@ -1386,6 +1573,7 @@
     track.style.transition = 'none';
     track.style.transform = 'translateX(0px)';
     track.innerHTML = '';
+    fillIdleTape();
     updateFreeCaseUI();
   }
 
@@ -1546,12 +1734,54 @@
     return (item.price !== undefined && item.price !== null) ? item.price : rarityInfo[item.rarity].sellPrice;
   }
 
+  // Целевой возврат игроку (RTP): цена = мат. ожидание / RTP, преимущество площадки = 1 − RTP
+  const CASE_RTP = 0.92;
+
+  // Мат. ожидание кейса: по весам (weight), если заданы, иначе равновероятно
+  function caseEV(c) {
+    const weighted = c.items.some(it => it.weight);
+    const total = weighted ? c.items.reduce((s, it) => s + (it.weight || 0), 0) : c.items.length;
+    return c.items.reduce((s, it) => s + itemPrice(it) * (weighted ? (it.weight || 0) : 1), 0) / total;
+  }
+
+  // Красивое округление цены: шаг зависит от величины
+  function niceCasePrice(x) {
+    const step = x >= 10000 ? 100 : x >= 1000 ? 10 : x >= 100 ? 5 : x >= 10 ? 1 : x >= 1 ? 0.1 : 0.05;
+    return Math.max(step, parseFloat((Math.round(x / step) * step).toFixed(2)));
+  }
+
+  // Реальный возврат игроку с учётом убывающих шансов (цены кейсов при этом не меняются)
+  // Ручные цены кейсов (имеют приоритет над авторасчётом)
+  const CASE_PRICE_OVERRIDE = {};
+
+  const DROP_RTP = 0.75;
+
+  // Чем дороже скин, тем он реже: вес = цена^(-k). Наклон k подбирается так, чтобы RTP кейса был равен DROP_RTP.
+  function applyDropWeights(c) {
+    const target = c.price * DROP_RTP;
+    const evAt = k => {
+      let s = 0, t = 0;
+      c.items.forEach(it => { const w = Math.pow(itemPrice(it), -k); s += itemPrice(it) * w; t += w; });
+      return s / t;
+    };
+    if (evAt(0) <= target) return;
+    let lo = 0, hi = 4;
+    for (let i = 0; i < 40; i++) {
+      const mid = (lo + hi) / 2;
+      if (evAt(mid) > target) lo = mid; else hi = mid;
+    }
+    const k = (lo + hi) / 2;
+    c.items.forEach(it => { it.weight = Math.pow(itemPrice(it), -k); });
+  }
+
   function recalcCasePrices() {
-    Object.values(casesData).forEach(c => {
-      if (c.free) { c.price = 0; return; }
-      if (c.fixed) return; // цена задана вручную
-      const total = c.items.reduce((sum, it) => sum + itemPrice(it), 0);
-      c.price = Math.round(total / c.items.length);
+    Object.entries(casesData).forEach(([key, c]) => {
+      if (c.free) { c.price = 0; c.rtp = null; return; }
+      if (c.boost) c.items.forEach(it => { it.weight = (it.weight || 1) * Math.pow(itemPrice(it), c.boost); });
+      const ev = caseEV(c);
+      c.price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(ev / CASE_RTP); // цена считается как раньше (по равным шансам)
+      if (!c.items.some(it => it.weight)) { applyDropWeights(c); c.price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(caseEV(c) / CASE_RTP); } // цена пересчитывается по фактическим шансам // кейсы без заданных шансов получают убывающие
+      c.rtp = Math.round(caseEV(c) / c.price * 100);
     });
   }
 
@@ -1562,7 +1792,9 @@
     furious: { c: '#4b69ff', badge: 'Старт', emo: '🦅' },
     arcane: { c: '#d32ce6', badge: 'Новинка', emo: '🔮' },
     gloves: { c: '#16c784', badge: 'Перчатки', emo: '🧤' },
-    nameless: { c: '#ffc83d', badge: 'Люкс', emo: '👑', gold: true }
+    nameless: { c: '#ffc83d', badge: 'Люкс', emo: '👑', gold: true },
+    knives: { c: '#ff4d4d', badge: 'Фарм', emo: '🔪' },
+    bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' }
   };
 
   // Рисует главную: баннер со статистикой и карточки кейсов (цена, топ-дроп, три самых дорогих скина)
@@ -1584,8 +1816,14 @@
     `;
 
     let html = '';
+    let shown = 0; // первые 4 платных кейса — Standoff cases, остальные — Custom
+    const STANDOFF_COUNT = 4;
+    const paidCount = Object.keys(casesData).filter(k => !casesData[k].free).length;
     Object.keys(casesData).forEach((key, i) => {
       if (casesData[key].free) return; // бесплатный кейс выводится отдельным баннером выше
+      if (shown === 0) html += `<div class="cs-section"><span>Standoff cases</span><i>${Math.min(STANDOFF_COUNT, paidCount)}</i></div>`;
+      if (shown === STANDOFF_COUNT) html += `<div class="cs-section"><span>Custom</span><i>${paidCount - STANDOFF_COUNT}</i></div>`;
+      shown++;
       const c = casesData[key];
       const st = caseStyle[key] || { c: '#ffaa00', badge: '', emo: '📦' };
       const sorted = [...c.items].sort((a, b) => itemPrice(b) - itemPrice(a));
@@ -1593,7 +1831,7 @@
       html += `
         <div class="cs-card ${balance < c.price ? 'poor' : ''} ${st.gold ? 'gold' : ''}" data-price="${c.price}" style="--c:${st.c}" onclick="goToRoulette('${key}')">
           ${st.badge ? `<div class="cs-badge">${st.badge}</div>` : ''}
-          <div class="cs-art"><div class="cs-emoji" style="animation-delay:${(-i * 0.7).toFixed(1)}s">${st.emo}</div></div>
+          <div class="cs-art">${caseCover(key)}</div>
           <div class="cs-body">
             <h3 class="cs-name">${c.name}</h3>
             <div class="cs-meta">Дроп до <b>${formatPrice(itemPrice(sorted[0]))} G</b></div>
@@ -1604,6 +1842,43 @@
       `;
     });
     grid.innerHTML = html;
+  }
+
+  // Обложка кейса: векторный SVG (куб-кейс с светом из щели, лучами и гравировкой-эмблемой) в цвете кейса
+  function caseCover(key, vb) {
+    const cc = casesData[key];
+    const st = caseStyle[key] || (cc && cc.free ? { c: '#16c784', emo: '🧩' } : { c: '#ffaa00', emo: '📦' });
+    const c = st.c, p = 'cv' + key, hi = st.gold ? '#fff0b0' : '#ffffff';
+    const rays = [-58, -34, -10, 12, 36, 60].map(a => {
+      const x1 = (100 + 120 * Math.tan((a - 4) * Math.PI / 180)).toFixed(1);
+      const x2 = (100 + 120 * Math.tan((a + 4) * Math.PI / 180)).toFixed(1);
+      return `<polygon points="100,62 ${x1},-60 ${x2},-60" fill="url(#${p}r)"/>`;
+    }).join('');
+    const star = (x, y, s, o) => `<path d="M${x} ${y - s}L${x + s * .28} ${y - s * .28}L${x + s} ${y}L${x + s * .28} ${y + s * .28}L${x} ${y + s}L${x - s * .28} ${y + s * .28}L${x - s} ${y}L${x - s * .28} ${y - s * .28}Z" fill="${hi}" opacity="${o}"/>`;
+    const L = '58,56 100,78 100,122 58,100', R = '100,78 142,56 142,100 100,122', T = '100,34 142,56 100,78 58,56';
+    return `<svg viewBox="${vb || '0 0 200 130'}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="${p}g" cx="50%" cy="62%" r="62%"><stop offset="0" stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>
+        <linearGradient id="${p}r" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${c}" stop-opacity=".5"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient>
+        <filter id="${p}w"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/></filter>
+        <filter id="${p}b" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+      <rect width="200" height="130" fill="#0b0f19"/>
+      <rect width="200" height="130" fill="url(#${p}g)"/>
+      ${rays}
+      <ellipse cx="100" cy="122" rx="54" ry="9" fill="${c}" opacity=".45" filter="url(#${p}b)"/>
+      <g class="cv-float">
+        <polygon points="${L}" fill="${c}"/><polygon points="${L}" fill="#000" opacity=".28"/>
+        <polygon points="${R}" fill="${c}"/><polygon points="${R}" fill="#000" opacity=".52"/>
+        <polygon points="${T}" fill="${c}"/><polygon points="${T}" fill="${hi}" opacity=".22"/>
+        <polyline points="58,69 100,91 142,69" fill="none" stroke="${hi}" stroke-width="5" opacity=".75" filter="url(#${p}b)"/>
+        <polyline points="58,69 100,91 142,69" fill="none" stroke="${hi}" stroke-width="1.6"/>
+        <polyline points="58,56 100,34 142,56 142,100 100,122 58,100 58,56 M100,78 L100,122 M58,56 L100,78 L142,56" fill="none" stroke="${hi}" stroke-opacity=".4" stroke-width=".8"/>
+        <g transform="translate(79 97) skewY(27.65)"><text x="0" y="0" font-size="24" text-anchor="middle" dominant-baseline="central" filter="url(#${p}w)" opacity=".95">${st.emo}</text></g>
+        ${star(100, 56, 5, .9)}
+      </g>
+      ${star(30, 34, 4, .8)}${star(172, 48, 3, .7)}${star(158, 20, 2.5, .6)}${star(44, 92, 2.5, .6)}${star(150, 108, 3, .5)}
+    </svg>`;
   }
 
   // Серые цены у кейсов, на которые не хватает баланса
