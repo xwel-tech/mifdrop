@@ -7,6 +7,7 @@
   <title>MIFDROP — Кейсы</title>
   <style>
     :root { color-scheme: dark; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
     /* --- Дизайн в стиле MIFDROP --- */
     body { background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 12px; }
     .bulldrop-app { max-width: 1500px; margin: 0 auto; background: #0b0f19; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.03); box-sizing: border-box; }
@@ -79,6 +80,7 @@
     .win-actions { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
     .sell-btn { background: linear-gradient(90deg, #00c6ff, #0072ff); color: #fff; border: none; padding: 10px 20px; font-weight: 800; font-size: 0.85rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0, 114, 255, 0.2); transition: all 0.2s; }
     .sell-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+    .sell-btn:disabled { background: #272e3f; color: #64748b; cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
     .keep-btn { background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,255,255,0.05); padding: 10px 20px; font-weight: 800; font-size: 0.85rem; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
     .keep-btn:hover { background: #1a233a; }
     .case-preview-section { margin-top: 25px; text-align: left; }
@@ -117,6 +119,11 @@
     .profile-stat-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
     .profile-stat-value { font-size: 1rem; font-weight: 800; }
     .profile-stat-sub { font-size: 0.75rem; color: #94a3b8; font-weight: 700; margin-top: 4px; }
+    /* ИНВЕНТАРЬ В ПРОФИЛЕ */
+    .profile-inv-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid #141b2d; }
+    .profile-inv-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .profile-inv-head .preview-title span { color: #ffaa00; }
+    .profile-inv-head .sell-btn { padding: 8px 16px; font-size: 0.75rem; }
     /* ===== ДИЗАЙН АПГРЕЙДА ===== */
     .upg-steps { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 18px 0; flex-wrap: wrap; }
     .upg-step { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; }
@@ -247,6 +254,111 @@
     .cs-card:hover .cs-price { filter: brightness(1.1); }
     .cs-card.poor .cs-price { background: #272e3f; color: #94a3b8; box-shadow: none; }
 
+    /* ===== САПЁР ===== */
+    .mines-hint { color: #64748b; font-size: 0.8rem; font-weight: 600; margin: 0 auto 16px; max-width: 460px; line-height: 1.4; }
+    .mines-controls { display: flex; flex-wrap: wrap; gap: 18px 28px; justify-content: center; text-align: left; margin-bottom: 16px; transition: opacity 0.2s; }
+    .mines-controls.locked { opacity: 0.45; pointer-events: none; }
+    .mines-block { min-width: 0; }
+    .mines-bet-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .mines-bet-input { flex: 0 1 130px; min-width: 90px; padding: 9px 12px; text-align: center; letter-spacing: 0; }
+    .mines-block .upg-toolbar { justify-content: flex-start; margin-bottom: 0; }
+    .mines-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; max-width: 380px; margin: 0 auto 18px; }
+    .mines-cell { position: relative; aspect-ratio: 1; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); border-bottom: 3px solid #272e3f; background: #0b0f19; color: #f1f5f9; font-size: 1.7rem; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: transform 0.12s, border-color 0.12s, background 0.2s; }
+    .mines-cell::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c, #64748b) 0%, transparent 70%); opacity: 0.12; pointer-events: none; }
+    .mines-cell > span { position: relative; line-height: 1; }
+    .mines-cell:not(:disabled):hover { transform: translateY(-3px); border-color: #ffaa00; }
+    .mines-cell:disabled { cursor: default; }
+    .mines-cell.safe { --c: #16c784; border-bottom-color: #16c784; background: #0f2a22; }
+    .mines-cell.safe::before { opacity: 0.45; }
+    .mines-cell.mine { --c: #eb4b4b; border-bottom-color: #eb4b4b; background: #2a1216; }
+    .mines-cell.mine::before { opacity: 0.5; }
+    .mines-cell.dim { opacity: 0.45; }
+    .mines-cell.hit { box-shadow: 0 0 22px rgba(235,75,75,0.7); }
+    .mines-cell.pop { animation: upgPop 0.3s ease-out; }
+    .open-btn.cash { background: linear-gradient(90deg, #16c784, #0fa56b); color: #04150f; box-shadow: 0 4px 15px rgba(22,199,132,0.3); }
+    .open-btn.cash:disabled { background: #272e3f; color: #64748b; box-shadow: none; }
+    @media (max-width: 420px) { .mines-cell { font-size: 1.4rem; } .mines-grid { gap: 6px; } }
+
+    /* ===== БЕСПЛАТНЫЙ КЕЙС (Fragments) ===== */
+    .free-banner { --c: #16c784; position: relative; overflow: hidden; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; padding: 14px 16px; border-radius: 14px; cursor: pointer; background: linear-gradient(135deg, #0f2a22 0%, #111726 62%); border: 1px solid rgba(22,199,132,0.45); box-shadow: 0 0 26px -8px rgba(22,199,132,0.55); transition: transform 0.2s, box-shadow 0.2s; }
+    .free-banner::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(22,199,132,0.18), transparent); transform: skewX(-20deg); animation: goldShine 3.6s ease-in-out infinite; pointer-events: none; }
+    .free-banner:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.45), 0 0 28px -4px var(--c); }
+    .free-art { position: relative; width: 84px; height: 84px; flex-shrink: 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 65%, rgba(22,199,132,0.55) 0%, transparent 70%), #0b0f19; }
+    .free-art .cs-emoji { font-size: 3rem; }
+    .free-info { position: relative; flex: 1; min-width: 180px; }
+    .free-tag { display: inline-block; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; background: var(--c); color: #04150f; }
+    .free-name { margin: 0 0 3px 0; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+    .free-sub { color: #94a3b8; font-size: 0.78rem; font-weight: 700; margin-bottom: 8px; }
+    .free-banner .cs-top { justify-content: flex-start; }
+    .free-btn { position: relative; background: linear-gradient(90deg, #16c784, #0fa56b); color: #04150f; font-weight: 900; font-size: 0.85rem; padding: 12px 20px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; box-shadow: 0 4px 14px rgba(22,199,132,0.3); }
+    .free-banner.used { border-color: rgba(255,255,255,0.08); box-shadow: none; background: linear-gradient(135deg, #141b2d 0%, #111726 62%); }
+    .free-banner.used::after { display: none; }
+    .free-banner.used .free-tag { background: #272e3f; color: #94a3b8; }
+    .free-banner.used .free-btn { background: #272e3f; color: #94a3b8; box-shadow: none; }
+    .free-note { margin-top: 12px; font-size: 0.85rem; font-weight: 800; color: #16c784; }
+    .free-note.used { color: #94a3b8; }
+    .free-note b { color: #f1f5f9; }
+
+    /* ===== ОКНО ПОДТВЕРЖДЕНИЯ ===== */
+    .modal-overlay { position: fixed; inset: 0; z-index: 1100; display: flex; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; background: rgba(6,9,19,0.78); backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .modal-overlay.show { opacity: 1; pointer-events: auto; }
+    .modal-box { width: 100%; max-width: 360px; box-sizing: border-box; text-align: center; background: radial-gradient(circle at 50% 0%, rgba(255,170,0,0.12) 0%, #111726 70%); border: 1px solid rgba(255,170,0,0.3); border-radius: 14px; padding: 26px 20px 22px; box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 30px -8px rgba(255,170,0,0.35); transform: scale(0.9); transition: transform 0.2s; }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-icon { font-size: 2.6rem; margin-bottom: 8px; }
+    .modal-title { font-size: 1.1rem; font-weight: 800; line-height: 1.3; margin-bottom: 8px; }
+    .modal-sub { color: #94a3b8; font-size: 0.9rem; font-weight: 700; }
+    .modal-sub b { color: #ffaa00; }
+
+    /* ===== УВЕДОМЛЕНИЕ ===== */
+    .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); z-index: 1000; background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,170,0,0.35); border-radius: 10px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* ===== ДИЗАЙН ПРОФИЛЯ ===== */
+    .pf-hero { --rc: #4b69ff; position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 16px; padding: 20px 16px 22px; border-radius: 14px; background: linear-gradient(135deg, #141b2d 0%, #111726 55%, rgba(255,85,0,0.18) 100%); border: 1px solid rgba(255,170,0,0.15); }
+    .pf-hero::before { content: '🍀'; position: absolute; right: -8px; top: -22px; font-size: 7rem; opacity: 0.07; transform: rotate(15deg); pointer-events: none; }
+    .pf-avatar-wrap { position: relative; flex-shrink: 0; margin-bottom: 6px; }
+    .pf-avatar-wrap .profile-avatar { width: 76px; height: 76px; font-size: 2.3rem; box-shadow: 0 0 0 3px #0b0f19, 0 0 0 5px var(--rc), 0 0 26px var(--rc); }
+    .pf-rank { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); white-space: nowrap; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; background: #0b0f19; color: var(--rc); border: 1px solid var(--rc); }
+    .pf-hero-main { position: relative; flex: 1; min-width: 220px; }
+    .pf-hero-label { font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .pf-hero-main .profile-name-block { min-width: 0; }
+    .pf-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 10px; }
+    .pf-stat { position: relative; overflow: hidden; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 10px; padding: 12px 8px; text-align: center; min-width: 0; }
+    .pf-stat::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 70%); opacity: 0.14; pointer-events: none; }
+    .pf-stat > * { position: relative; }
+    .pf-stat-icon { font-size: 1.3rem; margin-bottom: 4px; }
+    .pf-stat .profile-stat-value { overflow-wrap: anywhere; }
+    .pf-best { --c: #64748b; position: relative; overflow: hidden; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 12px; padding: 14px 16px; }
+    .pf-best::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 12% 50%, var(--c) 0%, transparent 60%); opacity: 0.2; pointer-events: none; }
+    .pf-best > * { position: relative; }
+    .pf-best-icon { font-size: 2.8rem; line-height: 1; filter: drop-shadow(0 0 12px var(--c)); }
+    .pf-best-info { flex: 1; min-width: 140px; }
+    .pf-best-name { font-size: 1rem; font-weight: 800; color: var(--c); overflow-wrap: anywhere; }
+    .pf-best-price { font-size: 1.2rem; font-weight: 900; color: #ffaa00; white-space: nowrap; }
+    .profile-inv-section { margin-top: 24px; }
+    .pf-sort { justify-content: flex-start; margin-bottom: 12px; }
+    .pf-item { position: relative; overflow: hidden; background: #0b0f19; transition: transform 0.15s, box-shadow 0.15s; }
+    .pf-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 65%); opacity: 0.16; pointer-events: none; }
+    .pf-item > * { position: relative; }
+    .pf-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 0 1px var(--c); }
+    @media (max-width: 560px) {
+      .pf-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .profile-inv-section .inventory-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    /* ===== ЗОЛОТОЙ КЕЙС (Nameless) ===== */
+    .cs-card.gold { background: linear-gradient(160deg, #1f1808 0%, #111726 62%); border-color: rgba(255,200,61,0.5); box-shadow: 0 0 28px -6px rgba(255,200,61,0.5), inset 0 0 0 1px rgba(255,200,61,0.14); }
+    .cs-card.gold::after { background: linear-gradient(100deg, transparent, rgba(255,226,122,0.28), transparent); animation: goldShine 3.4s ease-in-out infinite; }
+    @keyframes goldShine { 0% { left: -60%; } 55%, 100% { left: 130%; } }
+    .cs-card.gold .cs-art { background: radial-gradient(circle at 50% 100%, #2b200a 0%, #0b0f19 75%); }
+    .cs-card.gold .cs-art::before { opacity: 0.55; background: radial-gradient(circle at 50% 60%, #ffc83d 0%, transparent 68%); }
+    .cs-card.gold .cs-emoji { filter: drop-shadow(0 0 16px rgba(255,200,61,0.85)); }
+    .cs-card.gold .cs-badge { background: linear-gradient(90deg, #ffe27a, #d99a00); color: #2a1d00; border-color: transparent; }
+    .cs-card.gold .cs-name { background: linear-gradient(90deg, #fff3b0, #ffc83d, #ffe27a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px; }
+    .cs-card.gold .cs-top span { background: #1a1405; }
+    .cs-card.gold .cs-price { background: linear-gradient(90deg, #ffe27a, #d99a00); box-shadow: 0 4px 16px rgba(255,200,61,0.4); }
+    .cs-card.gold.poor .cs-price { background: #272e3f; color: #94a3b8; box-shadow: none; }
+
     @media (max-width: 420px) {
       .inv-toggle-btn { padding: 6px 9px; font-size: 0.75rem; }
       .right-header-block { gap: 8px; }
@@ -266,8 +378,8 @@
     </div>
     <div class="right-header-block">
       <button class="inv-toggle-btn" id="promoBtn" onclick="goToPromo()">🔑 Промокоды</button>
-      <button class="inv-toggle-btn" id="invBtn" onclick="goToInventory()">🎒 Инвентарь</button>
       <button class="inv-toggle-btn" id="upgBtn" onclick="goToUpgrade()">🚀 Апгрейд</button>
+      <button class="inv-toggle-btn" id="minesBtn" onclick="goToMines()">💣 Сапёр</button>
       <div class="balance-box">
         <span id="balanceValue">1000</span><span>G</span>
       </div>
@@ -277,6 +389,7 @@
 
   <div class="screen active" id="catalogScreen">
     <div class="cs-hero" id="catalogHero"></div>
+    <div id="freeCaseBlock"></div>
     <div class="preview-title">Доступные кейсы</div>
     <div class="cases-grid" id="casesGrid"></div>
   </div>
@@ -331,21 +444,38 @@
     </div>
   </div>
 
-  <div class="screen" id="inventoryScreen">
-    <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
-    <div class="inventory-container">
-      <h2 style="margin:0 0 15px 0; font-size:1.2rem; text-transform:uppercase;">Ваш инвентарь</h2>
-      <div id="inventoryContent">
-        <div class="inventory-empty-text">Ваш инвентарь пуст. Откройте кейсы, чтобы выбить скины!</div>
-      </div>
-    </div>
-  </div>
-
   <div class="screen" id="upgradeScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
       <h2 style="margin:0 0 15px 0; font-size:1.2rem; text-transform:uppercase;">Апгрейд предметов</h2>
       <div id="upgradeContent"></div>
+    </div>
+  </div>
+
+  <div class="screen" id="minesScreen">
+    <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+    <div class="roulette-container">
+      <h2 style="margin:0 0 6px 0; font-size:1.2rem; text-transform:uppercase;">Сапёр</h2>
+      <div class="mines-hint">Открывай клетки и забирай выигрыш, пока не нарвался на мину. Чем больше мин, тем выше множитель.</div>
+      <div class="mines-controls" id="minesControls">
+        <div class="mines-block">
+          <div class="preview-title">Ставка</div>
+          <div class="mines-bet-row">
+            <input type="number" id="minesBet" class="promo-input mines-bet-input" min="1" step="1" value="100" inputmode="numeric" oninput="updateMinesStats()">
+            <button class="upg-chip" onclick="adjustMinesBet('half')">½</button>
+            <button class="upg-chip" onclick="adjustMinesBet('double')">x2</button>
+            <button class="upg-chip" onclick="adjustMinesBet('max')">Макс</button>
+          </div>
+        </div>
+        <div class="mines-block">
+          <div class="preview-title">Количество мин</div>
+          <div class="upg-toolbar" id="minesCountBar"></div>
+        </div>
+      </div>
+      <div class="upg-stats" id="minesStats"></div>
+      <div class="mines-grid" id="minesGrid"></div>
+      <button class="open-btn" id="minesActionBtn" onclick="minesAction()">Начать игру</button>
+      <div class="win-box" id="minesResult"></div>
     </div>
   </div>
 
@@ -378,23 +508,36 @@
   <div class="screen" id="profileScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
-      <div class="profile-header">
-        <div class="profile-avatar">👤</div>
-        <div class="profile-name-block">
+      <div class="pf-hero" id="pfHero">
+        <div class="pf-avatar-wrap"><div class="profile-avatar" id="pfAvatar">👤</div><div class="pf-rank" id="pfRank">Новичок</div></div>
+        <div class="pf-hero-main"><div class="pf-hero-label">Никнейм</div><div class="profile-name-block">
           <input type="text" id="usernameInput" class="promo-input profile-name-input" maxlength="20" placeholder="Ваш никнейм">
-          <button class="open-btn profile-save-btn" onclick="saveUsername()">Сохранить</button>
+          <button class="open-btn profile-save-btn" onclick="saveUsername()">Сохранить</button></div>
         </div>
       </div>
       <div class="promo-message" id="profileMessage"></div>
-      <div class="profile-stats-grid">
-        <div class="profile-stat-card">
-          <div class="profile-stat-label">Баланс</div>
-          <div class="profile-stat-value" id="profileBalanceValue" style="color:#ffaa00;">0 G</div>
-        </div>
-        <div class="profile-stat-card">
-          <div class="profile-stat-label">Лучший дроп</div>
-          <div class="profile-stat-value" id="profileBestDropValue">—</div>
+      <div class="pf-stats">
+        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon">💰</div><div class="profile-stat-label">Баланс</div><div class="profile-stat-value" id="profileBalanceValue" style="color:#ffaa00;">0 G</div></div>
+        <div class="pf-stat" style="--c:#4b69ff"><div class="pf-stat-icon">🎒</div><div class="profile-stat-label">Предметов</div><div class="profile-stat-value" id="profileItemsValue">0</div></div>
+        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon">💎</div><div class="profile-stat-label">Инвентарь</div><div class="profile-stat-value" id="profileInvValue" style="color:#16c784;">0 G</div></div>
+        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon">🔑</div><div class="profile-stat-label">Промокоды</div><div class="profile-stat-value" id="profilePromoValue">0 / 0</div></div>
+      </div>
+      <div class="pf-best" id="pfBest">
+        <div class="pf-best-icon" id="pfBestIcon">🏆</div>
+        <div class="pf-best-info">
+          <div class="profile-stat-label" style="margin-bottom:4px;">Лучший дроп</div>
+          <div class="pf-best-name" id="profileBestDropValue">—</div>
           <div class="profile-stat-sub" id="profileBestDropPrice"></div>
+        </div>
+        <div class="pf-best-price" id="pfBestPrice"></div>
+      </div>
+      <div class="profile-inv-section">
+        <div class="profile-inv-head">
+          <div class="preview-title" style="margin:0;">Инвентарь <span id="profileInvCount"></span></div>
+          <button class="sell-btn" id="sellAllInvBtn" onclick="sellAllInventory()">Продать всё</button>
+        </div>
+        <div id="inventoryContent">
+          <div class="inventory-empty-text">Ваш инвентарь пуст. Откройте кейсы, чтобы выбить скины!</div>
         </div>
       </div>
     </div>
@@ -422,10 +565,12 @@
   let currentUpgradeChance = 0;
 
   const rarityInfo = {
+    uncommon: { name: 'Uncommon', color: '#2f9fe0', sellPrice: 0.05 },
     rare: { name: 'Rare', color: '#4b69ff', sellPrice: 20 },
     epic: { name: 'Epic', color: '#8847ff', sellPrice: 50 },
     legendary: { name: 'Legendary', color: '#d32ce6', sellPrice: 150 },
-    arcane: { name: 'Arcane', color: '#eb4b4b', sellPrice: 500 }
+    arcane: { name: 'Arcane', color: '#eb4b4b', sellPrice: 500 },
+    gold: { name: 'Gold', color: '#ffc83d', sellPrice: 20000 }
   };
 
   const casesData = {
@@ -526,11 +671,247 @@
         { name: 'FAMAS "Fury"', emo: '💢', rarity: 'arcane', price: 461 },
         { name: 'StatTrak™ UMP45 "Winged"', emo: '🕊️', rarity: 'legendary', price: 466 }
       ]
+    },
+    arcane: {
+      name: "Arcane",
+      price: 1000,
+      items: [
+        { name: 'Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'rare', price: 135 },
+        { name: 'Akimbo Uzi "Ravage"', emo: '💥', rarity: 'rare', price: 140.99 },
+        { name: 'SPAS "Glide"', emo: '🪂', rarity: 'rare', price: 188 },
+        { name: 'Berettas "Contender"', emo: '🏁', rarity: 'rare', price: 188 },
+        { name: 'AKR12 "Hanami"', emo: '🌸', rarity: 'rare', price: 189 },
+        { name: 'M16 "Raiva"', emo: '😡', rarity: 'rare', price: 195 },
+        { name: 'UMP45 "Beast"', emo: '🦁', rarity: 'rare', price: 197.66 },
+        { name: 'M4A1 "Bubblegum"', emo: '🍬', rarity: 'rare', price: 198 },
+        { name: 'StatTrak™ Akimbo Uzi "Overdrive Red"', emo: '🏎️', rarity: 'epic', price: 207 },
+        { name: 'VAL "Widow’s Weave"', emo: '🕷️', rarity: 'epic', price: 217.97 },
+        { name: 'StatTrak™ F/S "Venom"', emo: '🐍', rarity: 'epic', price: 237.95 },
+        { name: 'SM1014 "Freezing Gasp"', emo: '🧊', rarity: 'epic', price: 248 },
+        { name: 'AWM "Venom"', emo: '🐍', rarity: 'epic', price: 262 },
+        { name: 'AKR12 "Emberbird"', emo: '🔥', rarity: 'epic', price: 290 },
+        { name: 'AKR "Genesis"', emo: '🧬', rarity: 'epic', price: 295 },
+        { name: 'StatTrak™ M16 "Shogun Stripes"', emo: '🏯', rarity: 'epic', price: 323 },
+        { name: 'AKR "Tag King"', emo: '🎨', rarity: 'epic', price: 337.78 },
+        { name: 'AKR "Dragon"', emo: '🐲', rarity: 'epic', price: 339.99 },
+        { name: 'AWM "Stickerbomb"', emo: '🏷️', rarity: 'epic', price: 349 },
+        { name: 'StatTrak™ M16 "Raiva"', emo: '😡', rarity: 'epic', price: 350 },
+        { name: 'StatTrak™ Berettas "Contender"', emo: '🏁', rarity: 'epic', price: 350 },
+        { name: 'StatTrak™ FabM "BOOM"', emo: '💣', rarity: 'epic', price: 352.99 },
+        { name: 'MP5 "Contender"', emo: '🏁', rarity: 'epic', price: 353.88 },
+        { name: 'AWM "Spectral"', emo: '👁️', rarity: 'epic', price: 365.99 },
+        { name: 'AKR "Mirage Menace"', emo: '🌵', rarity: 'legendary', price: 1607.99 },
+        { name: 'StatTrak™ M4A1 "Treasure Hunter"', emo: '💰', rarity: 'legendary', price: 1699 },
+        { name: 'StatTrak™ AKR "Twilight"', emo: '🌆', rarity: 'legendary', price: 1700 },
+        { name: 'M4A1 "Paladin"', emo: '🛡️', rarity: 'legendary', price: 1780 },
+        { name: 'StatTrak™ VAL "Orbit"', emo: '🛰️', rarity: 'legendary', price: 1800 },
+        { name: 'AKR "Vermilion"', emo: '🟥', rarity: 'legendary', price: 1919.9 },
+        { name: 'StatTrak™ AKR12 "Emberbird"', emo: '🔥', rarity: 'legendary', price: 1981 },
+        { name: 'StatTrak™ Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'legendary', price: 1995 },
+        { name: 'StatTrak™ M4A1 "Sparkling Gaze"', emo: '✨', rarity: 'legendary', price: 2000 },
+        { name: 'StatTrak™ Desert Eagle "Fusion Core"', emo: '⚛️', rarity: 'legendary', price: 2000 },
+        { name: 'AWM "Nebula"', emo: '🌌', rarity: 'legendary', price: 2050 },
+        { name: 'M110 "Celestial Beast"', emo: '🌙', rarity: 'legendary', price: 2149 },
+        { name: 'AKR "Treasure Hunter"', emo: '💰', rarity: 'arcane', price: 7800 },
+        { name: 'StatTrak™ S3 AKR12 "Year of the Horse"', emo: '🐴', rarity: 'arcane', price: 7995.77 },
+        { name: 'G22 "Impulse"', emo: '⚡', rarity: 'arcane', price: 8987 },
+        { name: 'StatTrak™ M4A1 "Impact"', emo: '💢', rarity: 'arcane', price: 9399 },
+        { name: 'StatTrak™ M4 "Dire Wolf"', emo: '🐺', rarity: 'arcane', price: 9885 },
+        { name: 'StatTrak™ USP "Top Secret"', emo: '🕵️', rarity: 'arcane', price: 12200 },
+        { name: 'StatTrak™ TEC-9 "Glitch"', emo: '📺', rarity: 'arcane', price: 12900 },
+        { name: 'StatTrak™ AKR "Mirage Menace"', emo: '🌵', rarity: 'arcane', price: 12980 },
+        { name: 'StatTrak™ M60 "Mecha"', emo: '🤖', rarity: 'arcane', price: 14489 },
+        { name: 'AWM "2 Years Red"', emo: '🎂', rarity: 'arcane', price: 16400 },
+        { name: 'F/S "Poison"', emo: '☠️', rarity: 'arcane', price: 16494 },
+        { name: 'StatTrak™ USP "Geometric"', emo: '🔷', rarity: 'arcane', price: 16499 }
+      ]
+    },
+    gloves: {
+      name: "Gloves Case",
+      price: 1000,
+      items: [
+        { name: 'Gloves "Hanami"', emo: '🌸', rarity: 'rare', price: 600 },
+        { name: 'Gloves "Overheat"', emo: '🔥', rarity: 'rare', price: 625 },
+        { name: 'Gloves "Ironclad"', emo: '🛡️', rarity: 'rare', price: 655 },
+        { name: 'Gloves "Camo"', emo: '🪖', rarity: 'rare', price: 658 },
+        { name: 'Gloves "Acid"', emo: '🧪', rarity: 'epic', price: 950 },
+        { name: 'Gloves "Polymer"', emo: '🧬', rarity: 'epic', price: 970 },
+        { name: 'Gloves "Marble"', emo: '🏛️', rarity: 'epic', price: 977.9 },
+        { name: 'Gloves "Fossil"', emo: '🦴', rarity: 'epic', price: 995 },
+        { name: 'Gloves "Royal Rose"', emo: '🌹', rarity: 'legendary', price: 1600 },
+        { name: 'Gloves "Rebellion"', emo: '✊', rarity: 'legendary', price: 1600 },
+        { name: 'Gloves "Shatter"', emo: '💎', rarity: 'legendary', price: 1663 },
+        { name: 'Gloves "Punk"', emo: '🎸', rarity: 'legendary', price: 1694 },
+        { name: 'Gloves "Lincoln"', emo: '🎩', rarity: 'legendary', price: 1745 },
+        { name: 'Gloves "Year Of The Tiger"', emo: '🐯', rarity: 'legendary', price: 1800 },
+        { name: 'Gloves "Templar"', emo: '⚜️', rarity: 'legendary', price: 1820.99 },
+        { name: 'Gloves "Ravage"', emo: '💥', rarity: 'legendary', price: 1840 },
+        { name: 'Gloves "Plague"', emo: '☣️', rarity: 'arcane', price: 3979.99 },
+        { name: 'Gloves "Pink Noise"', emo: '🎧', rarity: 'arcane', price: 3999 },
+        { name: 'Gloves "Retro Wave"', emo: '🌇', rarity: 'arcane', price: 4010 },
+        { name: 'Gloves "Wildstyle"', emo: '🎨', rarity: 'arcane', price: 4669.99 },
+        { name: 'Gloves "Haunt"', emo: '👻', rarity: 'arcane', price: 5304.95 },
+        { name: 'Gloves "Geometric"', emo: '🔷', rarity: 'arcane', price: 6840 },
+        { name: 'Gloves "Autumn"', emo: '🍂', rarity: 'arcane', price: 7298 },
+        { name: 'Gloves "Neuro"', emo: '🧠', rarity: 'arcane', price: 10950 },
+        { name: 'Gloves "Impulse"', emo: '⚡', rarity: 'arcane', price: 13000 }
+      ]
+    },
+    nameless: {
+      name: "Nameless",
+      price: 50000,
+      items: [
+        { name: 'Charm "V2"', emo: '🆚', rarity: 'gold', price: 11989.5 },
+        { name: 'Charm "Black Spot"', emo: '☠️', rarity: 'gold', price: 15622 },
+        { name: 'Charm "Ochpochmak"', emo: '🔺', rarity: 'gold', price: 17489 },
+        { name: 'G22 "Relic"', emo: '🏺', rarity: 'gold', price: 29440 },
+        { name: 'FN FAL "Leather"', emo: '🧥', rarity: 'gold', price: 33740 },
+        { name: 'USP "Genesis"', emo: '🧬', rarity: 'gold', price: 50000 },
+        { name: 'Mallard "PRO Gold"', emo: '🦆', rarity: 'gold', price: 61347 },
+        { name: 'MAC10 "Ruby Shadow"', emo: '🔴', rarity: 'gold', price: 65988 },
+        { name: 'Dual Daggers "Harmony"', emo: '☯️', rarity: 'gold', price: 75000 },
+        { name: 'AWM "Sport V2"', emo: '🏁', rarity: 'gold', price: 79999 },
+        { name: 'Desert Eagle "Aureate"', emo: '🦅', rarity: 'gold', price: 81000 },
+        { name: 'Flash "Solar"', emo: '☀️', rarity: 'gold', price: 87636 },
+        { name: 'AWM "Treasure Hunter"', emo: '💰', rarity: 'gold', price: 103797 },
+        { name: 'Sting "Mimicry"', emo: '🦎', rarity: 'gold', price: 124989 },
+        { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497 }
+      ]
+    },
+    fragments: {
+      name: "Fragments",
+      price: 0,
+      free: true,
+      items: [
+        { name: 'Uncommon Fragment', emo: '🧩', rarity: 'uncommon', price: 0.05, weight: 17412275 },
+        { name: 'Rare Fragment', emo: '🧩', rarity: 'rare', price: 0.2, weight: 2797266 },
+        { name: 'Epic Fragment', emo: '🧩', rarity: 'epic', price: 0.8, weight: 700672 },
+        { name: 'Legendary Fragment', emo: '🧩', rarity: 'legendary', price: 8.25, weight: 44937 },
+        { name: 'Arcane Fragment', emo: '🧩', rarity: 'arcane', price: 69.59, weight: 6330 },
+        { name: 'Nameless Fragment', emo: '🧩', rarity: 'gold', price: 9000, weight: 128 }
+      ]
     }
   };
 
+  // Выбор предмета: если у предметов кейса задан вес (weight) — по шансам, иначе равновероятно
+  function pickItem(c) {
+    const items = c.items;
+    if (items.some(it => it.weight)) {
+      const total = items.reduce((sum, it) => sum + (it.weight || 0), 0);
+      let r = Math.random() * total;
+      for (const it of items) {
+        r -= (it.weight || 0);
+        if (r < 0) return it;
+      }
+      return items[items.length - 1];
+    }
+    return items[Math.floor(Math.random() * items.length)];
+  }
+
   function formatPrice(n) {
+    if (Math.abs(n) < 100 && Math.round(n * 100) % 100 !== 0) {
+      return (Math.round(n * 100) / 100).toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
     return Math.round(n).toLocaleString('ru-RU');
+  }
+
+  // ===== Бесплатный кейс: одно открытие в сутки (до полуночи по местному времени) =====
+  let freeUsedKey = null;
+
+  function todayKey() {
+    const d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  }
+
+  function loadFreeCase() {
+    try { freeUsedKey = localStorage.getItem('mifdrop_free_case'); } catch (e) {}
+  }
+
+  function canOpenFree() {
+    return freeUsedKey !== todayKey();
+  }
+
+  function markFreeUsed() {
+    freeUsedKey = todayKey();
+    try { localStorage.setItem('mifdrop_free_case', freeUsedKey); } catch (e) {}
+  }
+
+  function timeLeftStr() {
+    const now = new Date();
+    const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    const sec = Math.max(0, Math.floor((next - now) / 1000));
+    const pad = n => String(n).padStart(2, '0');
+    return pad(Math.floor(sec / 3600)) + ':' + pad(Math.floor(sec % 3600 / 60)) + ':' + pad(sec % 60);
+  }
+
+  function freeBtnText() {
+    return canOpenFree() ? 'Открыть бесплатно' : 'Через ' + timeLeftStr();
+  }
+
+  // Проверка перед открытием: бесплатный кейс можно открыть раз в сутки
+  function checkFreeCase() {
+    if (!currentCase || !currentCase.free) return true;
+    if (!canOpenFree()) {
+      alert('Бесплатный кейс уже открыт сегодня. Следующий через ' + timeLeftStr());
+      return false;
+    }
+    markFreeUsed();
+    return true;
+  }
+
+  // Состояние экрана кейса: у бесплатного нет мульти-открытия, кнопка блокируется после использования
+  function updateFreeCaseUI() {
+    const free = !!(currentCase && currentCase.free);
+    const multi = document.getElementById('multiActions');
+    multi.style.display = free ? 'none' : '';
+    let note = document.getElementById('freeNote');
+    if (!note) {
+      note = document.createElement('div');
+      note.id = 'freeNote';
+      note.className = 'free-note';
+      multi.insertAdjacentElement('beforebegin', note);
+    }
+    note.style.display = free ? 'block' : 'none';
+    const btn = document.getElementById('startBtn');
+    if (free) {
+      const ok = canOpenFree();
+      note.className = 'free-note' + (ok ? '' : ' used');
+      note.innerHTML = ok ? '🎁 Бесплатное открытие доступно (1 раз в сутки)' : '⏳ Следующее открытие через <b>' + timeLeftStr() + '</b>';
+      if (!running) btn.disabled = !ok;
+    } else if (!running) {
+      btn.disabled = false;
+    }
+  }
+
+  function renderFreeBanner() {
+    const box = document.getElementById('freeCaseBlock');
+    const c = casesData.fragments;
+    if (!box || !c) return;
+    const ok = canOpenFree();
+    const sorted = [...c.items].sort((a, b) => itemPrice(b) - itemPrice(a));
+    const top = sorted.slice(0, 3).map(it => `<span style="--rc:${rarityInfo[it.rarity].color}">${it.emo}</span>`).join('');
+    box.innerHTML = `
+      <div class="free-banner ${ok ? '' : 'used'}" onclick="goToRoulette('fragments')">
+        <div class="free-art"><div class="cs-emoji">🧩</div></div>
+        <div class="free-info">
+          <div class="free-tag">Бесплатно · раз в сутки</div>
+          <h3 class="free-name">${c.name}</h3>
+          <div class="free-sub">Дроп до <b style="color:#f1f5f9;">${formatPrice(itemPrice(sorted[0]))} G</b></div>
+          <div class="cs-top">${top}</div>
+        </div>
+        <div class="free-btn" id="freeBtn">${freeBtnText()}</div>
+      </div>
+    `;
+  }
+
+  function freeTick() {
+    const banner = document.querySelector('.free-banner');
+    if (banner) {
+      banner.classList.toggle('used', !canOpenFree());
+      const b = document.getElementById('freeBtn');
+      if (b) b.innerText = freeBtnText();
+    }
+    if (currentCase && currentCase.free && !running && document.getElementById('rouletteScreen').classList.contains('active')) updateFreeCaseUI();
   }
 
   function updateBalanceDisplay() {
@@ -591,11 +972,9 @@
     switchScreen('catalogScreen');
   }
 
+  // Инвентарь теперь живёт в профиле: старые вызовы ведут туда
   function goToInventory() {
-    if (running || upgradeRunning) return;
-    autoResolvePendingWin();
-    switchScreen('inventoryScreen');
-    renderInventory();
+    goToProfile();
   }
 
   function goToRoulette(caseKey) {
@@ -632,10 +1011,12 @@
     track.style.transition = 'none';
     track.style.transform = 'translateX(0px)';
     track.innerHTML = '';
+    updateFreeCaseUI();
   }
 
   function quickOpenCase() {
     if (running || upgradeRunning || !currentCase) return;
+    if (!checkFreeCase()) return;
     if (balance < currentCase.price) {
       alert("Недостаточно баланса!");
       return;
@@ -645,7 +1026,7 @@
     updateBalanceDisplay();
     saveProgress();
 
-    const item = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+    const item = pickItem(currentCase);
     const rMeta = rarityInfo[item.rarity];
     const wonPrice = itemPrice(item);
 
@@ -695,7 +1076,7 @@
 
   // Открывает сразу N кейсов (2, 3, 5, 10) — без анимации ленты, как быстрое открытие
   function multiOpenCase(count) {
-    if (running || upgradeRunning || !currentCase) return;
+    if (running || upgradeRunning || !currentCase || currentCase.free) return;
     if (!quickMode) { multiSpinCase(count); return; }
     const totalCost = currentCase.price * count;
     if (balance < totalCost) {
@@ -709,7 +1090,7 @@
 
     currentWonSkins = [];
     for (let i = 0; i < count; i++) {
-      const item = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+      const item = pickItem(currentCase);
       const skin = { name: item.name, emo: item.emo, rarity: item.rarity, price: itemPrice(item) };
       currentWonSkins.push(skin);
       updateBestDrop(skin);
@@ -778,7 +1159,7 @@
       const track = document.createElement('div');
       track.className = 'tape-track';
       for (let i = 0; i < 70; i++) {
-        const item = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+        const item = pickItem(currentCase);
         const div = document.createElement('div');
         div.className = 'tape-item';
         div.style.borderBottomColor = rarityInfo[item.rarity].color;
@@ -836,6 +1217,7 @@
   function spinRoulette() {
     if (quickMode) { quickOpenCase(); return; }
     if (running || !currentCase) return;
+    if (!checkFreeCase()) return;
     if (balance < currentCase.price) {
       alert("Недостаточно баланса!");
       return;
@@ -860,7 +1242,7 @@
     const totalItemsCount = 70;
     const itemsList = [];
     for (let i = 0; i < totalItemsCount; i++) {
-      const randomItem = currentCase.items[Math.floor(Math.random() * currentCase.items.length)];
+      const randomItem = pickItem(currentCase);
       itemsList.push(randomItem);
     }
 
@@ -932,10 +1314,10 @@
       if (!raw) return;
       const ui = JSON.parse(raw);
       if (ui.screen === 'rouletteScreen' && casesData[ui.caseKey]) goToRoulette(ui.caseKey);
-      else if (ui.screen === 'inventoryScreen') goToInventory();
+      else if (ui.screen === 'inventoryScreen' || ui.screen === 'profileScreen') goToProfile();
       else if (ui.screen === 'upgradeScreen') goToUpgrade();
       else if (ui.screen === 'promoScreen') goToPromo();
-      else if (ui.screen === 'profileScreen') goToProfile();
+      else if (ui.screen === 'minesScreen') goToMines();
     } catch (e) {}
   }
 
@@ -958,6 +1340,7 @@
     track.style.transition = 'none';
     track.style.transform = 'translateX(0px)';
     track.innerHTML = '';
+    updateFreeCaseUI();
   }
 
   function sellCurrentSkin() {
@@ -978,19 +1361,46 @@
     resetCaseScreen();
   }
 
+  // ===== Инвентарь (внутри профиля) =====
+  let invSort = 'new';
+  const rarityOrder = { uncommon: -1, rare: 0, epic: 1, legendary: 2, arcane: 3, gold: 4 };
+
+  function setInvSort(s) { invSort = s; renderInventory(); }
+
+  // Ранг игрока по лучшему дропу
+  function getRank() {
+    const p = bestDrop ? itemPrice(bestDrop) : 0;
+    const tiers = [[50000, 'Магнат', '#ffc83d'], [10000, 'Легенда', '#eb4b4b'], [1000, 'Мастер', '#d32ce6'], [100, 'Игрок', '#8847ff'], [0, 'Новичок', '#4b69ff']];
+    return tiers.find(t => p >= t[0]);
+  }
   function renderInventory() {
     const container = document.getElementById('inventoryContent');
+    const sellAllBtn = document.getElementById('sellAllInvBtn');
+    document.getElementById('profileInvCount').innerText = `(${myInventory.length})`;
+
     if (myInventory.length === 0) {
+      sellAllBtn.disabled = true;
+      sellAllBtn.innerText = 'Продать всё';
       container.innerHTML = '<div class="inventory-empty-text">Ваш инвентарь пуст. Откройте кейсы, чтобы выбить скины!</div>';
       return;
     }
 
-    let html = '<div class="inventory-grid">';
-    myInventory.forEach((item, index) => {
+    const total = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
+    sellAllBtn.disabled = false;
+    sellAllBtn.innerText = `Продать всё за ${formatPrice(total)} G`;
+
+    const sorts = [['new', 'Новые'], ['desc', 'Цена ↓'], ['asc', 'Цена ↑'], ['rarity', 'Редкость']];
+    const list = myInventory.map((item, index) => ({ item, index }));
+    if (invSort === 'desc') list.sort((a, b) => itemPrice(b.item) - itemPrice(a.item));
+    else if (invSort === 'asc') list.sort((a, b) => itemPrice(a.item) - itemPrice(b.item));
+    else if (invSort === 'rarity') list.sort((a, b) => (rarityOrder[b.item.rarity] || 0) - (rarityOrder[a.item.rarity] || 0) || itemPrice(b.item) - itemPrice(a.item));
+    else list.reverse();
+    let html = '<div class="upg-toolbar pf-sort">' + sorts.map(([k, l]) => `<button class="upg-chip ${invSort === k ? 'active' : ''}" onclick="setInvSort('${k}')">${l}</button>`).join('') + '</div><div class="inventory-grid">';
+    list.forEach(({ item, index }) => {
       const rMeta = rarityInfo[item.rarity];
       const color = rMeta.color;
       html += `
-                <div class="preview-item" style="border-bottom-color: ${color}; padding: 12px 6px;">
+                <div class="preview-item pf-item" style="--c:${color}; border-bottom-color: ${color}; padding: 12px 6px;">
                     <div class="preview-icon" style="font-size: 1.8rem;">${item.emo}</div>
                     <div class="preview-name" style="font-size: 0.75rem;">${item.name}</div>
                     <div style="font-size: 0.65rem; color: ${color}; font-weight: bold; text-transform: uppercase; margin-top: 4px;">${rMeta.name}</div>
@@ -1003,15 +1413,71 @@
   }
 
   function sellFromInventory(index) {
-    const item = myInventory[index];
-    const price = itemPrice(item);
-
-    balance += price;
-    updateBalanceDisplay();
-
+    if (running || upgradeRunning || !myInventory[index]) return;
+    balance += itemPrice(myInventory[index]);
     myInventory.splice(index, 1);
+    updateBalanceDisplay();
     saveProgress();
-    renderInventory();
+    renderProfile();
+  }
+
+  // Всплывающее уведомление вместо alert/confirm (в окне предпросмотра браузерные диалоги блокируются)
+  function showToast(text) {
+    let t = document.getElementById('toast');
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.innerText = '⚠️ ' + text;
+    t.classList.add('show');
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+  window.alert = showToast;
+
+  // Продать все предметы из инвентаря разом: первый клик просит подтверждение, второй продаёт
+  let sellAllConfirmed = false;
+
+  function openSellAllModal(total) {
+    let m = document.getElementById('sellAllModal');
+    if (!m) {
+      m = document.createElement('div');
+      m.id = 'sellAllModal';
+      m.className = 'modal-overlay';
+      m.onclick = e => { if (e.target === m) closeSellAllModal(); };
+      document.body.appendChild(m);
+    }
+    m.innerHTML = `
+      <div class="modal-box">
+        <div class="modal-icon">💰</div>
+        <div class="modal-title">Вы точно хотите продать предметы?</div>
+        <div class="modal-sub">${myInventory.length} шт. за <b>${formatPrice(total)} G</b></div>
+        <div class="win-actions">
+          <button class="sell-btn" onclick="confirmSellAll()">Да, продать</button>
+          <button class="keep-btn" onclick="closeSellAllModal()">Отмена</button>
+        </div>
+      </div>`;
+    void m.offsetWidth;
+    m.classList.add('show');
+  }
+
+  function closeSellAllModal() {
+    const m = document.getElementById('sellAllModal');
+    if (m) m.classList.remove('show');
+  }
+
+  function confirmSellAll() {
+    sellAllConfirmed = true;
+    closeSellAllModal();
+    sellAllInventory();
+  }
+  function sellAllInventory() {
+    if (running || upgradeRunning || !myInventory.length) return;
+    const total = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
+    if (!sellAllConfirmed) { openSellAllModal(total); return; }
+    sellAllConfirmed = false;
+    balance += total;
+    myInventory = [];
+    updateBalanceDisplay();
+    saveProgress();
+    renderProfile();
   }
 
   // ========================= АПГРЕЙД =========================
@@ -1020,8 +1486,9 @@
     const list = [];
     Object.values(casesData).forEach(c => {
       c.items.forEach(it => {
-        if (!seen.has(it.name)) {
-          seen.add(it.name);
+        const k = it.name + '|' + itemPrice(it);
+        if (!seen.has(k)) {
+          seen.add(k);
           list.push(it);
         }
       });
@@ -1035,6 +1502,7 @@
 
   function recalcCasePrices() {
     Object.values(casesData).forEach(c => {
+      if (c.free) { c.price = 0; return; }
       const total = c.items.reduce((sum, it) => sum + itemPrice(it), 0);
       c.price = Math.round(total / c.items.length);
     });
@@ -1044,7 +1512,10 @@
     fable: { c: '#8847ff', badge: 'Популярный', emo: '🐍' },
     scorpion: { c: '#ff8a00', badge: 'Классика', emo: '🦂' },
     origin: { c: '#eb4b4b', badge: 'VIP', emo: '💀' },
-    furious: { c: '#4b69ff', badge: 'Старт', emo: '🦅' }
+    furious: { c: '#4b69ff', badge: 'Старт', emo: '🦅' },
+    arcane: { c: '#d32ce6', badge: 'Новинка', emo: '🔮' },
+    gloves: { c: '#16c784', badge: 'Перчатки', emo: '🧤' },
+    nameless: { c: '#ffc83d', badge: 'Люкс', emo: '👑', gold: true }
   };
 
   // Рисует главную: баннер со статистикой и карточки кейсов (цена, топ-дроп, три самых дорогих скина)
@@ -1052,6 +1523,7 @@
     const hero = document.getElementById('catalogHero');
     const grid = document.getElementById('casesGrid');
     if (!hero || !grid) return;
+    renderFreeBanner();
 
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = `
@@ -1066,12 +1538,13 @@
 
     let html = '';
     Object.keys(casesData).forEach((key, i) => {
+      if (casesData[key].free) return; // бесплатный кейс выводится отдельным баннером выше
       const c = casesData[key];
       const st = caseStyle[key] || { c: '#ffaa00', badge: '', emo: '📦' };
       const sorted = [...c.items].sort((a, b) => itemPrice(b) - itemPrice(a));
       const top = sorted.slice(0, 3).map(it => `<span style="--rc:${rarityInfo[it.rarity].color}">${it.emo}</span>`).join('');
       html += `
-        <div class="cs-card ${balance < c.price ? 'poor' : ''}" data-price="${c.price}" style="--c:${st.c}" onclick="goToRoulette('${key}')">
+        <div class="cs-card ${balance < c.price ? 'poor' : ''} ${st.gold ? 'gold' : ''}" data-price="${c.price}" style="--c:${st.c}" onclick="goToRoulette('${key}')">
           ${st.badge ? `<div class="cs-badge">${st.badge}</div>` : ''}
           <div class="cs-art"><div class="cs-emoji" style="animation-delay:${(-i * 0.7).toFixed(1)}s">${st.emo}</div></div>
           <div class="cs-body">
@@ -1184,7 +1657,7 @@
       return;
     }
 
-    const filters = [['all', 'Все'], ['rare', 'Rare'], ['epic', 'Epic'], ['legendary', 'Legendary'], ['arcane', 'Arcane']];
+    const filters = [['all', 'Все'], ['rare', 'Rare'], ['epic', 'Epic'], ['legendary', 'Legendary'], ['arcane', 'Arcane'], ['gold', 'Gold']];
     html += '<div class="upg-toolbar">';
     filters.forEach(([key, label]) => {
       html += `<button class="upg-chip ${key === 'all' ? 'sep-after' : ''} ${upgradeFilter === key ? 'active' : ''}" onclick="setUpgradeFilter('${key}')">${label}</button>`;
@@ -1330,7 +1803,7 @@
         <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sp)} G → ${formatPrice(tp)} G (x${upgMult(sp, tp)})</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Улучшить ещё</button>
-          <button class="keep-btn" onclick="goToInventory()">В инвентарь</button>
+          <button class="keep-btn" onclick="goToProfile()">В профиль</button>
         </div>
       </div>
     ` : `
@@ -1341,10 +1814,232 @@
         <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${currentUpgradeChance}% — в следующий раз повезёт</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Попробовать снова</button>
-          <button class="keep-btn" onclick="goToInventory()">В инвентарь</button>
+          <button class="keep-btn" onclick="goToProfile()">В профиль</button>
         </div>
       </div>
     `;
+  }
+
+  // ========================= САПЁР =========================
+  const MINES_SIZE = 25;          // поле 5 x 5
+  const MINES_EDGE = 0.97;        // небольшое преимущество казино
+  const MINES_OPTIONS = [3, 6, 9, 15, 18, 21, 24];
+  let minesCount = 3;
+  let minesGame = null;           // { bet, m, mines:[], revealed:[], over, lost, hit }
+  let minesLastIdx = -1;
+
+  function minesActive() { return !!(minesGame && !minesGame.over); }
+
+  // Множитель после k безопасных клеток: произведение шансов на каждом шаге, с учётом преимущества
+  function minesMult(m, k) {
+    if (k <= 0) return 1;
+    let x = MINES_EDGE;
+    for (let i = 0; i < k; i++) x *= (MINES_SIZE - i) / (MINES_SIZE - m - i);
+    return x;
+  }
+
+  function minesPayout(g) { return Math.floor(g.bet * minesMult(g.m, g.revealed.length)); }
+  function fmtMult(x) { return 'x' + (x >= 100 ? x.toFixed(0) : x.toFixed(2)); }
+  function getMinesBet() { return Math.max(0, Math.floor(Number(document.getElementById('minesBet').value) || 0)); }
+
+  function saveMines() {
+    try {
+      if (minesActive()) localStorage.setItem('mifdrop_mines', JSON.stringify(minesGame));
+      else localStorage.removeItem('mifdrop_mines');
+    } catch (e) {}
+  }
+
+  // Незавершённая игра не теряется при обновлении страницы
+  function loadMines() {
+    try {
+      const raw = localStorage.getItem('mifdrop_mines');
+      if (!raw) return;
+      const g = JSON.parse(raw);
+      if (g && g.bet > 0 && Array.isArray(g.mines) && Array.isArray(g.revealed)) {
+        g.over = false;
+        minesGame = g;
+        minesCount = g.m;
+      }
+    } catch (e) {}
+  }
+
+  function goToMines() {
+    if (running || upgradeRunning) return;
+    autoResolvePendingWin();
+    switchScreen('minesScreen');
+    updateMinesUI();
+  }
+
+  function setMinesCount(n) {
+    if (minesActive()) return;
+    minesCount = n;
+    renderMinesCountBar();
+    updateMinesStats();
+  }
+
+  function adjustMinesBet(kind) {
+    if (minesActive()) return;
+    const input = document.getElementById('minesBet');
+    let v = getMinesBet();
+    if (kind === 'half') v = Math.max(1, Math.floor(v / 2));
+    else if (kind === 'double') v = Math.max(1, v * 2);
+    else v = Math.max(1, Math.floor(balance));
+    input.value = Math.min(v, Math.max(1, Math.floor(balance)));
+    updateMinesStats();
+  }
+
+  function renderMinesCountBar() {
+    document.getElementById('minesCountBar').innerHTML = MINES_OPTIONS.map(n =>
+      `<button class="upg-chip ${n === minesCount ? 'active' : ''}" onclick="setMinesCount(${n})">💣 ${n}</button>`).join('');
+  }
+
+  function updateMinesStats() {
+    const stat = (l, v) => `<div class="upg-stat">${l}<b>${v}</b></div>`;
+    let html;
+    if (minesActive()) {
+      const g = minesGame, k = g.revealed.length, safeLeft = MINES_SIZE - g.m - k;
+      html = stat('Ставка', formatPrice(g.bet) + ' G') + stat('Множитель', fmtMult(minesMult(g.m, k))) + stat('Выигрыш', formatPrice(minesPayout(g)) + ' G');
+      if (safeLeft > 0) html += stat('Шанс клетки', Math.round(safeLeft / (MINES_SIZE - k) * 100) + '%') + stat('Следующий', fmtMult(minesMult(g.m, k + 1)));
+    } else {
+      html = stat('Ставка', formatPrice(getMinesBet()) + ' G') +
+        stat('Шанс клетки', Math.round((MINES_SIZE - minesCount) / MINES_SIZE * 100) + '%') +
+        stat('Первый ход', fmtMult(minesMult(minesCount, 1))) +
+        stat('Максимум', fmtMult(minesMult(minesCount, MINES_SIZE - minesCount)));
+    }
+    document.getElementById('minesStats').innerHTML = html;
+  }
+
+  function renderMinesGrid() {
+    const g = minesGame;
+    let html = '';
+    for (let i = 0; i < MINES_SIZE; i++) {
+      let cls = 'mines-cell', inner = '', dis = true;
+      if (g) {
+        const isRev = g.revealed.includes(i), isMine = g.mines.includes(i);
+        if (!g.over) {
+          dis = isRev;
+          if (isRev) { cls += ' safe'; inner = '💎'; }
+        } else if (isMine) {
+          cls += ' mine' + (i === g.hit ? ' hit' : ' dim');
+          inner = i === g.hit ? '💥' : '💣';
+        } else {
+          cls += ' safe' + (isRev ? '' : ' dim');
+          inner = '💎';
+        }
+        if (i === minesLastIdx) cls += ' pop';
+      }
+      html += `<button class="${cls}" ${dis ? 'disabled' : ''} onclick="clickMinesCell(${i})"><span>${inner}</span></button>`;
+    }
+    document.getElementById('minesGrid').innerHTML = html;
+  }
+
+  function updateMinesActionBtn() {
+    const btn = document.getElementById('minesActionBtn');
+    if (minesActive()) {
+      const k = minesGame.revealed.length;
+      btn.className = 'open-btn cash';
+      btn.disabled = k === 0;
+      btn.innerText = k === 0 ? 'Откройте клетку' : `Забрать ${formatPrice(minesPayout(minesGame))} G`;
+    } else {
+      btn.className = 'open-btn';
+      btn.disabled = false;
+      btn.innerText = 'Начать игру';
+    }
+  }
+
+  function updateMinesUI() {
+    const active = minesActive();
+    if (active) document.getElementById('minesBet').value = minesGame.bet;
+    document.getElementById('minesControls').classList.toggle('locked', active);
+    renderMinesCountBar();
+    renderMinesGrid();
+    updateMinesStats();
+    updateMinesActionBtn();
+  }
+
+  function showMinesResult(win, bet, payout, mult) {
+    const box = document.getElementById('minesResult');
+    box.classList.remove('upg-result');
+    void box.offsetWidth;
+    box.classList.add('upg-result');
+    box.style.display = 'block';
+    if (win) {
+      const profit = payout - bet;
+      box.style.border = '1px solid #16c78444';
+      box.style.background = 'radial-gradient(circle at center, #16c78420 0%, #111726 100%)';
+      box.innerHTML = `
+        <div class="win-icon">💎</div>
+        <div class="win-title" style="color:#16c784;">Вы забрали ${formatPrice(payout)} G</div>
+        <div class="win-rarity" style="color:#ffaa00; margin-bottom:0;">${fmtMult(mult)} · прибыль ${profit >= 0 ? '+' : ''}${formatPrice(profit)} G</div>`;
+    } else {
+      box.style.border = '1px solid #eb4b4b44';
+      box.style.background = 'radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%)';
+      box.innerHTML = `
+        <div class="win-icon">💥</div>
+        <div class="win-title" style="color:#eb4b4b;">Мина! Ставка потеряна</div>
+        <div class="win-rarity" style="color:#94a3b8; margin-bottom:0;">−${formatPrice(bet)} G</div>`;
+    }
+  }
+
+  function minesAction() {
+    if (minesActive()) cashOutMines();
+    else startMines();
+  }
+
+  function startMines() {
+    if (minesActive()) return;
+    const bet = getMinesBet();
+    if (bet < 1) { alert('Введите ставку от 1 G'); return; }
+    if (bet > balance) { alert('Недостаточно баланса!'); return; }
+
+    balance -= bet;
+    updateBalanceDisplay();
+
+    const idx = Array.from({ length: MINES_SIZE }, (_, i) => i);
+    for (let i = idx.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [idx[i], idx[j]] = [idx[j], idx[i]];
+    }
+    minesGame = { bet, m: minesCount, mines: idx.slice(0, minesCount), revealed: [], over: false, lost: false, hit: -1 };
+    minesLastIdx = -1;
+    document.getElementById('minesResult').style.display = 'none';
+    saveMines();
+    saveProgress();
+    updateMinesUI();
+  }
+
+  function clickMinesCell(i) {
+    if (!minesActive() || minesGame.revealed.includes(i)) return;
+    const g = minesGame;
+    minesLastIdx = i;
+    if (g.mines.includes(i)) {
+      g.over = true;
+      g.lost = true;
+      g.hit = i;
+      saveMines();
+      showMinesResult(false, g.bet, 0, 0);
+      updateMinesUI();
+      return;
+    }
+    g.revealed.push(i);
+    if (g.revealed.length === MINES_SIZE - g.m) { cashOutMines(); return; } // открыты все безопасные клетки
+    saveMines();
+    updateMinesUI();
+  }
+
+  function cashOutMines() {
+    if (!minesActive() || minesGame.revealed.length === 0) return;
+    const g = minesGame;
+    const payout = minesPayout(g);
+    const mult = minesMult(g.m, g.revealed.length);
+    balance += payout;
+    g.over = true;
+    minesLastIdx = -1;
+    updateBalanceDisplay();
+    saveMines();
+    saveProgress();
+    showMinesResult(true, g.bet, payout, mult);
+    updateMinesUI();
   }
 
   // ========================= ПРОМОКОДЫ =========================
@@ -1513,8 +2208,19 @@
   }
 
   function renderProfile() {
+    renderInventory();
     document.getElementById('usernameInput').value = username;
     document.getElementById('profileBalanceValue').innerText = formatPrice(balance) + ' G';
+    const invValue = myInventory.reduce((s, it) => s + itemPrice(it), 0);
+    document.getElementById('profileItemsValue').innerText = myInventory.length;
+    document.getElementById('profileInvValue').innerText = formatPrice(invValue) + ' G';
+    document.getElementById('profilePromoValue').innerText = usedPromoCodes.length + ' / ' + Object.keys(promoCodes).length;
+    const rank = getRank();
+    document.getElementById('pfHero').style.setProperty('--rc', rank[2]);
+    document.getElementById('pfRank').innerText = rank[1];
+    document.getElementById('pfBestIcon').innerText = '🏆';
+    document.getElementById('pfBestPrice').innerText = '';
+    document.getElementById('pfBest').style.setProperty('--c', '#64748b');
 
     const valueBox = document.getElementById('profileBestDropValue');
     const priceBox = document.getElementById('profileBestDropPrice');
@@ -1525,9 +2231,12 @@
       return;
     }
     const rMeta = rarityInfo[bestDrop.rarity];
-    valueBox.innerText = `${bestDrop.emo} ${bestDrop.name}`;
+    valueBox.innerText = bestDrop.name;
     valueBox.style.color = rMeta.color;
-    priceBox.innerText = formatPrice(bestDrop.price) + ' G · ' + rMeta.name;
+    priceBox.innerText = rMeta.name;
+    document.getElementById('pfBestIcon').innerText = bestDrop.emo;
+    document.getElementById('pfBestPrice').innerText = formatPrice(bestDrop.price) + ' G';
+    document.getElementById('pfBest').style.setProperty('--c', rMeta.color);
   }
 
   function saveUsername() {
@@ -1555,6 +2264,8 @@
   loadPromoProgress();
   loadUsername();
   loadBestDrop();
+  loadFreeCase();
+  loadMines();
   recalcCasePrices();
   updateBalanceDisplay();
   renderCatalogPrices();
@@ -1562,6 +2273,7 @@
   saveProgress();
   restoreUI();
   addPersistenceListeners();
+  setInterval(freeTick, 1000);
   document.getElementById('profileBtnName').innerText = username;
 </script>
 </body>
