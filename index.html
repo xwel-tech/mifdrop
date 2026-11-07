@@ -254,6 +254,32 @@
     .cs-card:hover .cs-price { filter: brightness(1.1); }
     .cs-card.poor .cs-price { background: #272e3f; color: #94a3b8; box-shadow: none; }
 
+    /* ===== LIVE-ЛЕНТА ===== */
+    .live-feed { display: none; align-items: stretch; gap: 10px; margin-bottom: 16px; padding: 8px; border-radius: 12px; background: #111726; border: 1px solid rgba(255,255,255,0.04); }
+    .feed-label { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0 8px; font-size: 0.62rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: #94a3b8; }
+    .feed-dot { width: 9px; height: 9px; border-radius: 50%; background: #eb4b4b; box-shadow: 0 0 8px #eb4b4b; animation: feedPulse 1.2s ease-in-out infinite; }
+    @keyframes feedPulse { 50% { opacity: 0.3; } }
+    .feed-track { flex: 1; min-width: 0; display: flex; gap: 8px; overflow: hidden; }
+    .feed-item { --c: #64748b; position: relative; flex: 0 0 112px; box-sizing: border-box; min-width: 0; padding: 7px 6px 6px; text-align: center; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 8px; overflow: hidden; }
+    .feed-item::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 70%); opacity: 0.2; pointer-events: none; }
+    .feed-item > * { position: relative; }
+    .feed-item.you { border-color: rgba(255,170,0,0.6); box-shadow: 0 0 14px -4px rgba(255,170,0,0.6); }
+    .feed-item.enter { animation: feedEnter 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s) both; }
+    .feed-item.fade { animation: feedFade 0.5s ease-out var(--d, 0s) both; }
+    @keyframes feedEnter { from { flex-basis: 0; padding-left: 0; padding-right: 0; opacity: 0; transform: scale(0.7); } 55% { opacity: 1; } }
+    @keyframes feedFade { from { opacity: 0; transform: translateY(8px); } }
+    .feed-emo { font-size: 1.4rem; line-height: 1.1; }
+    .feed-name { margin-top: 2px; font-size: 0.6rem; font-weight: 700; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .feed-price { font-size: 0.62rem; font-weight: 800; color: #ffaa00; }
+    .feed-user { font-size: 0.55rem; font-weight: 700; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .feed-item.you .feed-user { color: #ffaa00; }
+    @media (max-width: 420px) { .feed-item { flex-basis: 96px; } .feed-label { padding: 0 4px; } }
+
+    /* ===== ССЫЛКА НА КАНАЛ ПРОМОКОДОВ ===== */
+    .promo-link-wrap { margin-top: 20px; text-align: center; }
+    .promo-link-btn { display: inline-block; text-decoration: none; }
+    .promo-link-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
     /* ===== КОНТРАКТЫ ===== */
     .upg-card.sel { box-shadow: 0 0 0 2px #16c784, 0 0 18px rgba(22,199,132,0.45); transform: translateY(-2px); }
     .upg-card.sel::after { content: '✓'; position: absolute; top: 5px; right: 5px; z-index: 1; width: 18px; height: 18px; border-radius: 50%; background: #16c784; color: #04150f; font-size: 0.7rem; font-weight: 900; display: flex; align-items: center; justify-content: center; }
@@ -379,6 +405,11 @@
 </head>
 <body>
 <div class="bulldrop-app">
+  <div class="live-feed" id="liveFeed">
+    <div class="feed-label"><span class="feed-dot"></span><span>Live</span></div>
+    <div class="feed-track" id="feedTrack"></div>
+  </div>
+
   <div class="header">
     <div class="logo-block">
       <span class="logo-icon">🍀</span>
@@ -510,15 +541,9 @@
         <button class="open-btn promo-submit-btn" onclick="redeemPromoCode()">Активировать</button>
       </div>
       <div class="promo-message" id="promoMessage"></div>
-      <div class="promo-progress">
-        <div class="promo-progress-top">
-          <span class="preview-title" style="margin:0;">Ваши бонусы</span>
-          <span class="promo-progress-count" id="promoProgressCount"></span>
-        </div>
-        <div class="promo-progress-bar"><div class="promo-progress-fill" id="promoProgressFill"></div></div>
-        <div class="promo-earned" id="promoEarned"></div>
+      <div class="promo-link-wrap">
+        <a class="open-btn promo-link-btn" href="https://t.me/MIFDROP" target="_blank" rel="noopener noreferrer">✈️ Все промокоды тут</a>
       </div>
-      <div class="promo-status-grid" id="promoStatusGrid"></div>
     </div>
   </div>
 
@@ -691,61 +716,63 @@
     },
     arcane: {
       name: "Arcane",
-      price: 1000,
+      price: 2999,
+      fixed: true,
       items: [
-        { name: 'Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'rare', price: 135 },
-        { name: 'Akimbo Uzi "Ravage"', emo: '💥', rarity: 'rare', price: 140.99 },
-        { name: 'SPAS "Glide"', emo: '🪂', rarity: 'rare', price: 188 },
-        { name: 'Berettas "Contender"', emo: '🏁', rarity: 'rare', price: 188 },
-        { name: 'AKR12 "Hanami"', emo: '🌸', rarity: 'rare', price: 189 },
-        { name: 'M16 "Raiva"', emo: '😡', rarity: 'rare', price: 195 },
-        { name: 'UMP45 "Beast"', emo: '🦁', rarity: 'rare', price: 197.66 },
-        { name: 'M4A1 "Bubblegum"', emo: '🍬', rarity: 'rare', price: 198 },
-        { name: 'StatTrak™ Akimbo Uzi "Overdrive Red"', emo: '🏎️', rarity: 'epic', price: 207 },
-        { name: 'VAL "Widow’s Weave"', emo: '🕷️', rarity: 'epic', price: 217.97 },
-        { name: 'StatTrak™ F/S "Venom"', emo: '🐍', rarity: 'epic', price: 237.95 },
-        { name: 'SM1014 "Freezing Gasp"', emo: '🧊', rarity: 'epic', price: 248 },
-        { name: 'AWM "Venom"', emo: '🐍', rarity: 'epic', price: 262 },
-        { name: 'AKR12 "Emberbird"', emo: '🔥', rarity: 'epic', price: 290 },
-        { name: 'AKR "Genesis"', emo: '🧬', rarity: 'epic', price: 295 },
-        { name: 'StatTrak™ M16 "Shogun Stripes"', emo: '🏯', rarity: 'epic', price: 323 },
-        { name: 'AKR "Tag King"', emo: '🎨', rarity: 'epic', price: 337.78 },
-        { name: 'AKR "Dragon"', emo: '🐲', rarity: 'epic', price: 339.99 },
-        { name: 'AWM "Stickerbomb"', emo: '🏷️', rarity: 'epic', price: 349 },
-        { name: 'StatTrak™ M16 "Raiva"', emo: '😡', rarity: 'epic', price: 350 },
-        { name: 'StatTrak™ Berettas "Contender"', emo: '🏁', rarity: 'epic', price: 350 },
-        { name: 'StatTrak™ FabM "BOOM"', emo: '💣', rarity: 'epic', price: 352.99 },
-        { name: 'MP5 "Contender"', emo: '🏁', rarity: 'epic', price: 353.88 },
-        { name: 'AWM "Spectral"', emo: '👁️', rarity: 'epic', price: 365.99 },
-        { name: 'AKR "Mirage Menace"', emo: '🌵', rarity: 'legendary', price: 1607.99 },
-        { name: 'StatTrak™ M4A1 "Treasure Hunter"', emo: '💰', rarity: 'legendary', price: 1699 },
-        { name: 'StatTrak™ AKR "Twilight"', emo: '🌆', rarity: 'legendary', price: 1700 },
-        { name: 'M4A1 "Paladin"', emo: '🛡️', rarity: 'legendary', price: 1780 },
-        { name: 'StatTrak™ VAL "Orbit"', emo: '🛰️', rarity: 'legendary', price: 1800 },
-        { name: 'AKR "Vermilion"', emo: '🟥', rarity: 'legendary', price: 1919.9 },
-        { name: 'StatTrak™ AKR12 "Emberbird"', emo: '🔥', rarity: 'legendary', price: 1981 },
-        { name: 'StatTrak™ Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'legendary', price: 1995 },
-        { name: 'StatTrak™ M4A1 "Sparkling Gaze"', emo: '✨', rarity: 'legendary', price: 2000 },
-        { name: 'StatTrak™ Desert Eagle "Fusion Core"', emo: '⚛️', rarity: 'legendary', price: 2000 },
-        { name: 'AWM "Nebula"', emo: '🌌', rarity: 'legendary', price: 2050 },
-        { name: 'M110 "Celestial Beast"', emo: '🌙', rarity: 'legendary', price: 2149 },
-        { name: 'AKR "Treasure Hunter"', emo: '💰', rarity: 'arcane', price: 7800 },
-        { name: 'StatTrak™ S3 AKR12 "Year of the Horse"', emo: '🐴', rarity: 'arcane', price: 7995.77 },
-        { name: 'G22 "Impulse"', emo: '⚡', rarity: 'arcane', price: 8987 },
-        { name: 'StatTrak™ M4A1 "Impact"', emo: '💢', rarity: 'arcane', price: 9399 },
-        { name: 'StatTrak™ M4 "Dire Wolf"', emo: '🐺', rarity: 'arcane', price: 9885 },
-        { name: 'StatTrak™ USP "Top Secret"', emo: '🕵️', rarity: 'arcane', price: 12200 },
-        { name: 'StatTrak™ TEC-9 "Glitch"', emo: '📺', rarity: 'arcane', price: 12900 },
-        { name: 'StatTrak™ AKR "Mirage Menace"', emo: '🌵', rarity: 'arcane', price: 12980 },
-        { name: 'StatTrak™ M60 "Mecha"', emo: '🤖', rarity: 'arcane', price: 14489 },
-        { name: 'AWM "2 Years Red"', emo: '🎂', rarity: 'arcane', price: 16400 },
-        { name: 'F/S "Poison"', emo: '☠️', rarity: 'arcane', price: 16494 },
-        { name: 'StatTrak™ USP "Geometric"', emo: '🔷', rarity: 'arcane', price: 16499 }
+        { name: 'Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'rare', price: 135, weight: 612303 },
+        { name: 'Akimbo Uzi "Ravage"', emo: '💥', rarity: 'rare', price: 140.99, weight: 609651 },
+        { name: 'SPAS "Glide"', emo: '🪂', rarity: 'rare', price: 188, weight: 592358 },
+        { name: 'Berettas "Contender"', emo: '🏁', rarity: 'rare', price: 188, weight: 592358 },
+        { name: 'AKR12 "Hanami"', emo: '🌸', rarity: 'rare', price: 189, weight: 592044 },
+        { name: 'M16 "Raiva"', emo: '😡', rarity: 'rare', price: 195, weight: 590196 },
+        { name: 'UMP45 "Beast"', emo: '🦁', rarity: 'rare', price: 197.66, weight: 589397 },
+        { name: 'M4A1 "Bubblegum"', emo: '🍬', rarity: 'rare', price: 198, weight: 589296 },
+        { name: 'StatTrak™ Akimbo Uzi "Overdrive Red"', emo: '🏎️', rarity: 'epic', price: 207, weight: 586682 },
+        { name: 'VAL "Widow’s Weave"', emo: '🕷️', rarity: 'epic', price: 217.97, weight: 583661 },
+        { name: 'StatTrak™ F/S "Venom"', emo: '🐍', rarity: 'epic', price: 237.95, weight: 578564 },
+        { name: 'SM1014 "Freezing Gasp"', emo: '🧊', rarity: 'epic', price: 248, weight: 576176 },
+        { name: 'AWM "Venom"', emo: '🐍', rarity: 'epic', price: 262, weight: 573020 },
+        { name: 'AKR12 "Emberbird"', emo: '🔥', rarity: 'epic', price: 290, weight: 567231 },
+        { name: 'AKR "Genesis"', emo: '🧬', rarity: 'epic', price: 295, weight: 566262 },
+        { name: 'StatTrak™ M16 "Shogun Stripes"', emo: '🏯', rarity: 'epic', price: 323, weight: 561151 },
+        { name: 'AKR "Tag King"', emo: '🎨', rarity: 'epic', price: 337.78, weight: 558646 },
+        { name: 'AKR "Dragon"', emo: '🐲', rarity: 'epic', price: 339.99, weight: 558282 },
+        { name: 'AWM "Stickerbomb"', emo: '🏷️', rarity: 'epic', price: 349, weight: 556823 },
+        { name: 'StatTrak™ M16 "Raiva"', emo: '😡', rarity: 'epic', price: 350, weight: 556664 },
+        { name: 'StatTrak™ Berettas "Contender"', emo: '🏁', rarity: 'epic', price: 350, weight: 556664 },
+        { name: 'StatTrak™ FabM "BOOM"', emo: '💣', rarity: 'epic', price: 352.99, weight: 556191 },
+        { name: 'MP5 "Contender"', emo: '🏁', rarity: 'epic', price: 353.88, weight: 556051 },
+        { name: 'AWM "Spectral"', emo: '👁️', rarity: 'epic', price: 365.99, weight: 554183 },
+        { name: 'AKR "Mirage Menace"', emo: '🌵', rarity: 'legendary', price: 1607.99, weight: 477938 },
+        { name: 'StatTrak™ M4A1 "Treasure Hunter"', emo: '💰', rarity: 'legendary', price: 1699, weight: 475314 },
+        { name: 'StatTrak™ AKR "Twilight"', emo: '🌆', rarity: 'legendary', price: 1700, weight: 475286 },
+        { name: 'M4A1 "Paladin"', emo: '🛡️', rarity: 'legendary', price: 1780, weight: 473106 },
+        { name: 'StatTrak™ VAL "Orbit"', emo: '🛰️', rarity: 'legendary', price: 1800, weight: 472577 },
+        { name: 'AKR "Vermilion"', emo: '🟥', rarity: 'legendary', price: 1919.9, weight: 469540 },
+        { name: 'StatTrak™ AKR12 "Emberbird"', emo: '🔥', rarity: 'legendary', price: 1981, weight: 468071 },
+        { name: 'StatTrak™ Akimbo Uzi "Fire Horse"', emo: '🐎', rarity: 'legendary', price: 1995, weight: 467741 },
+        { name: 'StatTrak™ M4A1 "Sparkling Gaze"', emo: '✨', rarity: 'legendary', price: 2000, weight: 467624 },
+        { name: 'StatTrak™ Desert Eagle "Fusion Core"', emo: '⚛️', rarity: 'legendary', price: 2000, weight: 467624 },
+        { name: 'AWM "Nebula"', emo: '🌌', rarity: 'legendary', price: 2050, weight: 466471 },
+        { name: 'M110 "Celestial Beast"', emo: '🌙', rarity: 'legendary', price: 2149, weight: 464276 },
+        { name: 'AKR "Treasure Hunter"', emo: '💰', rarity: 'arcane', price: 7800, weight: 408123 },
+        { name: 'StatTrak™ S3 AKR12 "Year of the Horse"', emo: '🐴', rarity: 'arcane', price: 7995.77, weight: 407112 },
+        { name: 'G22 "Impulse"', emo: '⚡', rarity: 'arcane', price: 8987, weight: 402382 },
+        { name: 'StatTrak™ M4A1 "Impact"', emo: '💢', rarity: 'arcane', price: 9399, weight: 400582 },
+        { name: 'StatTrak™ M4 "Dire Wolf"', emo: '🐺', rarity: 'arcane', price: 9885, weight: 398568 },
+        { name: 'StatTrak™ USP "Top Secret"', emo: '🕵️', rarity: 'arcane', price: 12200, weight: 390269 },
+        { name: 'StatTrak™ TEC-9 "Glitch"', emo: '📺', rarity: 'arcane', price: 12900, weight: 388098 },
+        { name: 'StatTrak™ AKR "Mirage Menace"', emo: '🌵', rarity: 'arcane', price: 12980, weight: 387858 },
+        { name: 'StatTrak™ M60 "Mecha"', emo: '🤖', rarity: 'arcane', price: 14489, weight: 383616 },
+        { name: 'AWM "2 Years Red"', emo: '🎂', rarity: 'arcane', price: 16400, weight: 378892 },
+        { name: 'F/S "Poison"', emo: '☠️', rarity: 'arcane', price: 16494, weight: 378676 },
+        { name: 'StatTrak™ USP "Geometric"', emo: '🔷', rarity: 'arcane', price: 16499, weight: 378664 }
       ]
     },
     gloves: {
       name: "Gloves Case",
-      price: 1000,
+      price: 2999,
+      fixed: true,
       items: [
         { name: 'Gloves "Hanami"', emo: '🌸', rarity: 'rare', price: 600 },
         { name: 'Gloves "Overheat"', emo: '🔥', rarity: 'rare', price: 625 },
@@ -776,23 +803,24 @@
     },
     nameless: {
       name: "Nameless",
-      price: 50000,
+      price: 39999,
+      fixed: true,
       items: [
-        { name: 'Charm "V2"', emo: '🆚', rarity: 'gold', price: 11989.5 },
-        { name: 'Charm "Black Spot"', emo: '☠️', rarity: 'gold', price: 15622 },
-        { name: 'Charm "Ochpochmak"', emo: '🔺', rarity: 'gold', price: 17489 },
-        { name: 'G22 "Relic"', emo: '🏺', rarity: 'gold', price: 29440 },
-        { name: 'FN FAL "Leather"', emo: '🧥', rarity: 'gold', price: 33740 },
-        { name: 'USP "Genesis"', emo: '🧬', rarity: 'gold', price: 50000 },
-        { name: 'Mallard "PRO Gold"', emo: '🦆', rarity: 'gold', price: 61347 },
-        { name: 'MAC10 "Ruby Shadow"', emo: '🔴', rarity: 'gold', price: 65988 },
-        { name: 'Dual Daggers "Harmony"', emo: '☯️', rarity: 'gold', price: 75000 },
-        { name: 'AWM "Sport V2"', emo: '🏁', rarity: 'gold', price: 79999 },
-        { name: 'Desert Eagle "Aureate"', emo: '🦅', rarity: 'gold', price: 81000 },
-        { name: 'Flash "Solar"', emo: '☀️', rarity: 'gold', price: 87636 },
-        { name: 'AWM "Treasure Hunter"', emo: '💰', rarity: 'gold', price: 103797 },
-        { name: 'Sting "Mimicry"', emo: '🦎', rarity: 'gold', price: 124989 },
-        { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497 }
+        { name: 'Charm "V2"', emo: '🆚', rarity: 'gold', price: 11989.5, weight: 546 },
+        { name: 'Charm "Black Spot"', emo: '☠️', rarity: 'gold', price: 15622, weight: 442 },
+        { name: 'Charm "Ochpochmak"', emo: '🔺', rarity: 'gold', price: 17489, weight: 403 },
+        { name: 'G22 "Relic"', emo: '🏺', rarity: 'gold', price: 29440, weight: 266 },
+        { name: 'FN FAL "Leather"', emo: '🧥', rarity: 'gold', price: 33740, weight: 238 },
+        { name: 'USP "Genesis"', emo: '🧬', rarity: 'gold', price: 50000, weight: 174 },
+        { name: 'Mallard "PRO Gold"', emo: '🦆', rarity: 'gold', price: 61347, weight: 148 },
+        { name: 'MAC10 "Ruby Shadow"', emo: '🔴', rarity: 'gold', price: 65988, weight: 139 },
+        { name: 'Dual Daggers "Harmony"', emo: '☯️', rarity: 'gold', price: 75000, weight: 126 },
+        { name: 'AWM "Sport V2"', emo: '🏁', rarity: 'gold', price: 79999, weight: 120 },
+        { name: 'Desert Eagle "Aureate"', emo: '🦅', rarity: 'gold', price: 81000, weight: 118 },
+        { name: 'Flash "Solar"', emo: '☀️', rarity: 'gold', price: 87636, weight: 111 },
+        { name: 'AWM "Treasure Hunter"', emo: '💰', rarity: 'gold', price: 103797, weight: 97 },
+        { name: 'Sting "Mimicry"', emo: '🦎', rarity: 'gold', price: 124989, weight: 84 },
+        { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497, weight: 72 }
       ]
     },
     fragments: {
@@ -1521,6 +1549,7 @@
   function recalcCasePrices() {
     Object.values(casesData).forEach(c => {
       if (c.free) { c.price = 0; return; }
+      if (c.fixed) return; // цена задана вручную
       const total = c.items.reduce((sum, it) => sum + itemPrice(it), 0);
       c.price = Math.round(total / c.items.length);
     });
@@ -1779,7 +1808,7 @@
     myInventory.splice(upgradeSourceIndex, 1);
     if (win) {
       myInventory.push(upgradeTargetItem);
-      updateBestDrop(upgradeTargetItem);
+      updateBestDrop(upgradeTargetItem, 6500);
     }
     saveProgress();
 
@@ -1979,7 +2008,7 @@
 
     idxs.sort((a, b) => b - a).forEach(i => myInventory.splice(i, 1));
     myInventory.push(newItem);
-    updateBestDrop(newItem);
+    updateBestDrop(newItem, 2400);
     saveProgress();
 
     contractResult = { item: newItem, sum };
@@ -2224,12 +2253,154 @@
     updateMinesUI();
   }
 
+  // ========================= LIVE-ЛЕНТА =========================
+  // Лента показывает выпадения настоящих аккаунтов, у которых открыта страница.
+  // Каждый игрок пишет свои последние дропы в общую базу (документ feed/<id>), все остальные
+  // получают их в реальном времени. Лента появляется после первого выпадения игрока.
+  // Без доступа к общей базе (страница открыта вне claude.ai) показываются только ваши дропы.
+  const FEED_MAX = 14;
+  let myDrops = [];            // последние дропы этого игрока
+  let feedRemote = [];         // дропы всех игроков из общей базы
+  let feedStarted = false;
+  let feedDb = null;
+  let feedUid = null;
+  let feedGotFirst = false;
+  const feedSeen = new Set();
+  let feedWriteTimer = null;
+  let feedWriting = false;
+  let feedDirty = false;
+
+  function escHTML(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function feedItemHTML(e, isNew) {
+    const color = (rarityInfo[e.rarity] || { color: '#64748b' }).color;
+    return `<div class="feed-item ${e.you ? 'you' : ''}" data-id="${escHTML(e.id)}" style="--c:${color}" title="${escHTML(e.name)}">
+      <div class="feed-emo">${escHTML(e.emo)}</div>
+      <div class="feed-name">${escHTML(e.name)}</div>
+      <div class="feed-price">${formatPrice(Number(e.price) || 0)} G</div>
+      <div class="feed-user">${e.you ? 'Вы' : escHTML(e.user)}</div>
+    </div>`;
+  }
+
+  function renderFeed() {
+    if (!feedStarted) return;
+    const map = new Map();
+    feedRemote.forEach(e => map.set(e.id, e));
+    myDrops.forEach(e => map.set(e.id, Object.assign({}, e, { user: username, you: true })));
+    const list = [...map.values()].sort((x, y) => y.ts - x.ts).slice(0, FEED_MAX);
+    // Плавное обновление без перерисовки: старые карточки остаются на месте, новые выезжают слева
+    // (остальные при этом плавно сдвигаются вправо), несколько новых идут по очереди.
+    const track = document.getElementById('feedTrack');
+    const ids = new Set(list.map(e => e.id));
+    const existing = new Map();
+    [...track.children].forEach(n => { if (ids.has(n.dataset.id)) existing.set(n.dataset.id, n); else n.remove(); });
+    let k = 0;
+    list.forEach((e, i) => {
+      if (existing.has(e.id)) return;
+      const isNew = !feedSeen.has(e.id);
+      const t = document.createElement('template');
+      t.innerHTML = feedItemHTML(e, isNew).trim();
+      const node = t.content.firstElementChild;
+      node.classList.add(isNew ? 'enter' : 'fade');
+      node.style.setProperty('--d', (k++ * (isNew ? 0.18 : 0.06)).toFixed(2) + 's');
+      node.addEventListener('animationend', () => node.classList.remove('enter', 'fade'));
+      track.insertBefore(node, track.children[i] || null);
+    });
+    list.forEach(e => feedSeen.add(e.id));
+  }
+
+  function saveMyDrops() {
+    try { localStorage.setItem('mifdrop_my_drops', JSON.stringify(myDrops)); } catch (e) {}
+  }
+
+  // Подписка на общую ленту: запускается один раз, после первого выпадения
+  async function initFeedSync() {
+    try {
+      if (!window.claude || !window.claude.use) return;
+      const db = await window.claude.use('db');
+      const user = await window.claude.use('user');
+      feedUid = user ? await user.id() : null;
+      if (!db) return;
+      feedDb = db;
+      db.collection('feed').limit(200).onSnapshot(onFeedSnap, () => {});
+      if (myDrops.length && feedUid) scheduleFeedWrite();
+    } catch (e) {}
+  }
+
+  function onFeedSnap(snap) {
+    const remote = [];
+    snap.docs.forEach(d => {
+      const data = d.data() || {};
+      if (!Array.isArray(data.drops)) return;
+      data.drops.forEach(e => {
+        if (!e || typeof e.id !== 'string') return;
+        remote.push({ id: e.id, name: String(e.name || ''), emo: String(e.emo || '🎁'), rarity: e.rarity, price: Number(e.price) || 0, ts: Number(e.ts) || 0, user: String(data.nick || 'Player'), you: d.id === feedUid });
+      });
+    });
+    if (!feedGotFirst) { feedGotFirst = true; remote.forEach(e => feedSeen.add(e.id)); } // уже прошедшие дропы без анимации
+    feedRemote = remote;
+    renderFeed();
+  }
+
+  // Запись своих последних дропов в общую базу (один документ на игрока, пачкой)
+  function scheduleFeedWrite() {
+    if (!feedDb || !feedUid) return;
+    feedDirty = true;
+    if (!feedWriteTimer) feedWriteTimer = setTimeout(flushFeedWrite, 400);
+  }
+
+  async function flushFeedWrite() {
+    feedWriteTimer = null;
+    if (feedWriting || !feedDirty) return;
+    feedWriting = true;
+    feedDirty = false;
+    try {
+      await feedDb.doc('feed/' + feedUid).set({ nick: String(username).slice(0, 20), drops: myDrops.slice(0, 10) });
+    } catch (e) {}
+    feedWriting = false;
+    if (feedDirty) scheduleFeedWrite();
+  }
+
+  function feedStart() {
+    if (feedStarted) return;
+    feedStarted = true;
+    document.getElementById('liveFeed').style.display = 'flex';
+    initFeedSync();
+  }
+
+  // Выпадение игрока: запускает ленту и отправляет дроп остальным
+  function feedAddPlayer(skin, delay) {
+    const add = () => {
+      myDrops.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name: skin.name, emo: skin.emo, rarity: skin.rarity, price: itemPrice(skin), ts: Date.now() });
+      if (myDrops.length > 10) myDrops.length = 10;
+      saveMyDrops();
+      feedStart();
+      renderFeed();
+      scheduleFeedWrite();
+    };
+    if (delay) setTimeout(add, delay); else add();
+  }
+
+  function loadFeed() {
+    try {
+      localStorage.removeItem('mifdrop_feed'); // старый формат (с симуляцией)
+      const raw = localStorage.getItem('mifdrop_my_drops');
+      if (raw) { const a = JSON.parse(raw); if (Array.isArray(a)) myDrops = a.slice(0, 10); }
+    } catch (e) {}
+    if (!myDrops.length) return;
+    feedStart();
+    renderFeed();
+  }
+
   // ========================= ПРОМОКОДЫ =========================
   const promoCodes = {
-    'MIFDROP100': 100,
-    'MIFDROP1000': 1000,
-    'MIFDROP5000': 5000,
-    'MIFDROP50000': 50000
+    'LUCKYSTART': 1000,
+    'GOLDRUSH': 5000,
+    'DRAGONHEART': 10000,
+    'NIGHTWOLF': 50000,
+    'MIFKING': 100000
   };
 
   let usedPromoCodes = [];
@@ -2252,40 +2423,6 @@
     document.getElementById('promoInput').value = '';
     document.getElementById('promoMessage').style.display = 'none';
     document.getElementById('promoInputWrap').classList.remove('err');
-    renderPromoStatus();
-  }
-
-  const promoTiers = { 100: ['🎟️', 'Стартовый'], 1000: ['🎫', 'Бонусный'], 5000: ['💎', 'Крупный'], 50000: ['👑', 'Джекпот'] };
-
-  // Показывает, какие бонусы уже получены, не раскрывая сами коды
-  function renderPromoStatus() {
-    const grid = document.getElementById('promoStatusGrid');
-    const keys = Object.keys(promoCodes);
-    let html = '';
-    let earned = 0;
-    let usedCount = 0;
-    keys.forEach(code => {
-      const amount = promoCodes[code];
-      const used = usedPromoCodes.includes(code);
-      if (used) { earned += amount; usedCount++; }
-      const t = promoTiers[amount] || ['🎁', 'Бонус'];
-      html += `
-                <div class="promo-ticket ${used ? 'used' : ''}">
-                    <div class="promo-ticket-stub">
-                        <div class="promo-ticket-icon">${t[0]}</div>
-                        <div class="promo-ticket-amount">+${formatPrice(amount)} G</div>
-                    </div>
-                    <div class="promo-ticket-body">
-                        <div class="promo-ticket-name">${t[1]}</div>
-                        <div class="promo-ticket-flag">${used ? '✅ Активирован' : '🔒 Не активирован'}</div>
-                    </div>
-                </div>
-            `;
-    });
-    grid.innerHTML = html;
-    document.getElementById('promoProgressCount').innerText = `${usedCount} / ${keys.length}`;
-    document.getElementById('promoProgressFill').style.width = (keys.length ? (usedCount / keys.length) * 100 : 0) + '%';
-    document.getElementById('promoEarned').innerHTML = `Получено по промокодам: <b>${formatPrice(earned)} G</b>`;
   }
 
   function showPromoMessage(text, type) {
@@ -2334,7 +2471,6 @@
     savePromoProgress();
     input.value = '';
     showPromoMessage(`Промокод активирован! +${formatPrice(amount)} G`, 'success');
-    renderPromoStatus();
   }
 
   // ========================= ПРОФИЛЬ =========================
@@ -2372,8 +2508,9 @@
     }
   }
 
-  function updateBestDrop(skin) {
+  function updateBestDrop(skin, feedDelay) {
     saveProgress();
+    feedAddPlayer(skin, feedDelay || 0);
     const price = itemPrice(skin);
     if (!bestDrop || price > itemPrice(bestDrop)) {
       bestDrop = { name: skin.name, emo: skin.emo, rarity: skin.rarity, price: price };
@@ -2396,7 +2533,7 @@
     const invValue = myInventory.reduce((s, it) => s + itemPrice(it), 0);
     document.getElementById('profileItemsValue').innerText = myInventory.length;
     document.getElementById('profileInvValue').innerText = formatPrice(invValue) + ' G';
-    document.getElementById('profilePromoValue').innerText = usedPromoCodes.length + ' / ' + Object.keys(promoCodes).length;
+    document.getElementById('profilePromoValue').innerText = usedPromoCodes.filter(c => c in promoCodes).length + ' / ' + Object.keys(promoCodes).length;
     const rank = getRank();
     document.getElementById('pfHero').style.setProperty('--rc', rank[2]);
     document.getElementById('pfRank').innerText = rank[1];
@@ -2448,6 +2585,7 @@
   loadBestDrop();
   loadFreeCase();
   loadMines();
+  loadFeed();
   recalcCasePrices();
   updateBalanceDisplay();
   renderCatalogPrices();
