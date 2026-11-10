@@ -420,11 +420,11 @@ to{transform: scale(1); opacity: 1;}}
 .cs-card:hover .cs-top > span:nth-child(2), .free-banner:hover .cs-top > span:nth-child(2){transform: translateX(calc(-50% - 46px)) rotate(-14deg) scale(0.86) !important;}
 .cs-card:hover .cs-top > span:nth-child(3), .free-banner:hover .cs-top > span:nth-child(3){transform: translateX(calc(-50% + 46px)) rotate(14deg) scale(0.86) !important;}
 .cs-top .skin-img{width: 66px !important; height: 42px !important;}
- 
+
 .cases-grid{display:grid;grid-template-columns:repeat(auto-fill,240px);justify-content:center;gap:30px}
 .cases-grid .cs-card{width:240px;max-width:none;flex:none}
 .cases-grid .cs-section{grid-column:1 / -1}
-.top-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:16px;margin-bottom:22px;align-items:stretch}
+.top-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:22px;align-items:stretch}
 .top-row #freeCaseBlock{min-width:0}
 .top-row .free-banner{height:100%;margin-bottom:0;box-sizing:border-box}
 @media (max-width:980px){.top-row{grid-template-columns:1fr}}
@@ -457,6 +457,147 @@ to{transform: scale(1); opacity: 1;}}
 .bp-name{font-size:0.6rem;font-weight:700;color:#cbd5e1;line-height:1.2;overflow-wrap:anywhere;width:100%}
 .bp-val{font-size:0.72rem;font-weight:800;color:#ffaa00}
 .bp-hint{font-size:0.65rem;font-weight:700;color:#64748b}
+.top-row .bp-card{height:100%}
+.bp-card{--c:#8847ff;position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;flex-wrap:wrap;box-sizing:border-box;padding:14px 16px;border-radius:14px;cursor:pointer;background:linear-gradient(135deg,#1a1230 0%,#111726 62%);border:1px solid rgba(136,71,255,0.5);box-shadow:0 0 26px -8px rgba(136,71,255,0.6);transition:transform 0.2s,box-shadow 0.2s}
+.bp-card::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(136,71,255,0.2),transparent);transform:skewX(-20deg);animation:goldShine 3.8s ease-in-out infinite;pointer-events:none}
+.bp-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.45),0 0 28px -4px var(--c)}
+.bp-card-art{--rc:#ffaa00;position:relative;width:84px;height:84px;flex-shrink:0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow:hidden;background:radial-gradient(circle at 50% 65%,color-mix(in srgb,var(--rc) 50%,transparent) 0%,transparent 70%),#0b0f19;border:1px solid color-mix(in srgb,var(--rc) 40%,transparent)}
+.bp-card-art .bp-ico{height:40px;font-size:1.8rem}
+.bp-card-art .bp-ico .skin-img{height:36px}
+.bp-card-lv{font-size:0.55rem;font-weight:900;color:#94a3b8;letter-spacing:0.8px;text-transform:uppercase}
+.bp-card-info{position:relative;flex:1;min-width:170px}
+.bp-card-tag{display:inline-block;font-size:0.58rem;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:3px 8px;border-radius:6px;margin-bottom:6px;background:var(--c);color:#fff}
+.bp-card-name{margin:0 0 3px 0;font-size:1.2rem;font-weight:900;text-transform:uppercase;letter-spacing:0.5px}
+.bp-card-sub{color:#94a3b8;font-size:0.78rem;font-weight:700;margin-bottom:8px}
+.bp-card-sub b{color:#f1f5f9}
+.bp-card-btn{position:relative;background:linear-gradient(90deg,#8847ff,#5b2fd6);color:#fff;font-weight:900;font-size:0.85rem;padding:12px 20px;border-radius:8px;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;box-shadow:0 4px 14px rgba(136,71,255,0.35)}
+.bp-card.ready .bp-card-btn{--c:#16c784;background:linear-gradient(90deg,#16c784,#0fa56b);color:#04150f;animation:bpGlow 1.6s ease-in-out infinite}
+.bp-screen-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.bp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;text-align:center;margin-bottom:18px}
+.bp-grid .bp-tile{flex:none;min-height:150px;padding:10px 6px}
+.bp-grid .bp-ico{height:56px;font-size:2.2rem}
+.bp-grid .bp-ico .skin-img{height:52px}
+.bp-grid .bp-name{font-size:0.68rem}
+.bp-grid .bp-val{font-size:0.8rem}
+.bp-tile.next{outline:1px dashed var(--c);outline-offset:-4px}
+.coin-stack{position:relative;display:inline-block;width:52px;height:44px;flex-shrink:0}
+.coin{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:900;font-size:0.95rem;color:#7a5200;text-shadow:0 1px 0 rgba(255,255,255,0.45);background:radial-gradient(circle at 35% 30%,#fff3b0 0%,#ffc83d 45%,#d99a00 85%);box-shadow:inset 0 0 0 2px #b07a00,inset 0 0 0 4px rgba(255,255,255,0.3),0 3px 8px rgba(0,0,0,0.55)}
+.coin-stack.n1 .c0{left:9px;top:5px}
+.coin-stack.n2 .c0{left:2px;top:9px}
+.coin-stack.n2 .c1{left:16px;top:2px}
+.coin-stack.n3 .c0{left:0;top:10px}
+.coin-stack.n3 .c1{left:18px;top:10px}
+.coin-stack.n3 .c2{left:9px;top:0}
+.bp-card-art .coin-stack{transform:scale(0.85)}
+.bp-hero{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;flex-wrap:wrap;text-align:left;margin-bottom:16px;padding:18px;border-radius:14px;background:linear-gradient(135deg,#1a1230 0%,#111726 58%,rgba(255,85,0,0.16) 100%);border:1px solid rgba(136,71,255,0.45);box-shadow:0 0 30px -12px rgba(136,71,255,0.6)}
+.bp-hero::before{content:'🎖️';position:absolute;right:-6px;top:-22px;font-size:7rem;opacity:0.07;transform:rotate(12deg);pointer-events:none}
+.bp-hero > *{position:relative}
+.bp-ring{--p:0deg;position:relative;width:98px;height:98px;border-radius:50%;flex-shrink:0;background:conic-gradient(#ffaa00 0deg,#ff5500 var(--p),#272e3f var(--p),#272e3f 360deg);box-shadow:0 0 26px rgba(255,120,0,0.28)}
+.bp-ring-in{position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle,#141b2d 0%,#0b0f19 100%);box-shadow:inset 0 0 14px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.bp-ring-in small{font-size:0.58rem;font-weight:800;color:#64748b;letter-spacing:1px;text-transform:uppercase}
+.bp-ring-in b{font-size:1.9rem;font-weight:900;line-height:1}
+.bp-hero-main{flex:1;min-width:220px}
+.bp-hero-title{margin:0 0 4px 0;font-size:1.4rem;font-weight:900;text-transform:uppercase;letter-spacing:0.5px}
+.bp-hero-title span{background:linear-gradient(90deg,#ffaa00,#ff5500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bp-hero-sub{color:#94a3b8;font-size:0.8rem;font-weight:600;margin-bottom:10px;line-height:1.4}
+.bp-hero .bp-bar{height:14px}
+.bp-hero-next{margin-top:8px;font-size:0.72rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:0.4px}
+.bp-hero-next b{color:#ffaa00}
+.bp-done{font-size:0.8rem;font-weight:900;color:#16c784;text-transform:uppercase;letter-spacing:0.5px}
+.bp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.bp-sec{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:0.9rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#f1f5f9;text-align:left}
+.bp-sec::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(136,71,255,0.45),transparent)}
+.bp-grid .bp-tile{min-height:182px;padding:30px 8px 8px;justify-content:flex-start;gap:6px;border-radius:12px}
+.bp-grid .bp-tile::before{opacity:0.24}
+.bp-lvchip{position:absolute;top:7px;left:8px;font-size:0.58rem;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;color:#94a3b8;background:rgba(0,0,0,0.5);padding:2px 7px;border-radius:6px}
+.bp-tile.ms .bp-lvchip{color:#ffc83d}
+.bp-grid .bp-ico{height:64px}
+.bp-grid .coin-stack{transform:scale(1.2)}
+.bp-meta{display:flex;flex-direction:column;gap:2px;width:100%}
+.bp-rar{font-size:0.55rem;font-weight:900;letter-spacing:0.8px;text-transform:uppercase}
+.bp-name.big{font-size:1.05rem;font-weight:900;color:#ffaa00}
+.bp-foot{width:100%;margin-top:auto;font-size:0.6rem;font-weight:900;letter-spacing:0.5px;text-transform:uppercase;padding:6px 0;border-radius:7px;background:rgba(0,0,0,0.4);color:#64748b}
+.bp-tile.ready .bp-foot{background:linear-gradient(90deg,#16c784,#0fa56b);color:#04150f}
+.bp-tile.claimed .bp-foot{color:#16c784}
+.bp-grid .bp-tile.claimed::after{display:none}
+.bp-tile.locked .bp-ico{filter:grayscale(0.5)}
+.bp-tile.final{grid-column:span 2;background:linear-gradient(160deg,#1f1808 0%,#111726 62%);border-color:rgba(255,200,61,0.55);box-shadow:0 0 30px -6px rgba(255,200,61,0.5)}
+.bp-tile.final .bp-ico{height:84px}
+.bp-tile.final .bp-ico .skin-img{height:78px}
+.bp-tile.final .bp-rar{color:#ffc83d !important}
+.bp-tile.final .bp-name{font-size:0.85rem}
+.bp-xp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.bp-xp-item{background:#0b0f19;border:1px solid rgba(255,255,255,0.04);border-bottom:3px solid #8847ff;border-radius:10px;padding:12px 6px}
+.bp-xp-ico{font-size:1.4rem;margin-bottom:4px}
+.bp-xp-l{font-size:0.65rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px}
+.bp-xp-v{font-size:0.95rem;font-weight:900;color:#ffaa00}
+@media (max-width:560px){.bp-stats{grid-template-columns:1fr}.bp-tile.final{grid-column:span 1}}
+.bulldrop-app{padding-bottom:104px}
+.header.dock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:900;margin:0;padding:10px 16px;box-sizing:border-box;flex-wrap:nowrap;border:1px solid rgba(255,170,0,0.2);border-radius:16px;background:rgba(11,15,25,0.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 40px rgba(0,0,0,0.6),0 0 30px -14px rgba(255,120,0,0.5)}
+.header.dock .right-header-block{flex-wrap:nowrap}
+.inv-toggle-btn.active{color:#f1f5f9;border-color:#ffaa00;background:#1a233a}
+.modes-btn{padding:9px 18px;font-size:0.9rem;border-color:rgba(255,170,0,0.45);color:#ffaa00}
+.modes-caret{display:inline-block;font-size:0.75rem;transition:transform 0.2s}
+.modes-btn.open .modes-caret{transform:rotate(180deg)}
+.modes-menu{position:fixed;right:12px;bottom:calc(98px + env(safe-area-inset-bottom,0px));z-index:950;width:min(480px,calc(100vw - 24px));box-sizing:border-box;padding:14px;border-radius:16px;background:radial-gradient(circle at 50% 0%,rgba(255,170,0,0.1) 0%,#111726 70%);border:1px solid rgba(255,170,0,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.65);opacity:0;transform:translateY(12px) scale(0.98);pointer-events:none;transition:opacity 0.18s,transform 0.18s}
+.modes-menu.show{opacity:1;transform:none;pointer-events:auto}
+.modes-title{font-size:0.7rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#64748b;margin:0 0 10px 4px}
+.modes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mode-card{--c:#ffaa00;position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;text-align:left;padding:12px;border-radius:12px;cursor:pointer;color:#f1f5f9;font-family:inherit;background:#0b0f19;border:1px solid rgba(255,255,255,0.05);border-bottom:3px solid var(--c);transition:transform 0.15s,box-shadow 0.15s}
+.mode-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 0% 50%,var(--c) 0%,transparent 65%);opacity:0.16;pointer-events:none}
+.mode-card > *{position:relative}
+.mode-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.45),0 0 0 1px var(--c)}
+.mode-card.wide{grid-column:1 / -1}
+.mode-ico{width:42px;height:42px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:radial-gradient(circle at 50% 70%,color-mix(in srgb,var(--c) 45%,transparent),#0b0f19 80%);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.mode-name{font-size:0.85rem;font-weight:900;text-transform:uppercase;letter-spacing:0.3px}
+.mode-desc{font-size:0.68rem;font-weight:700;color:#94a3b8;margin-top:2px;line-height:1.25}
+.toast{bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+@media (max-width:640px){.header.dock{padding:8px 10px}.header.dock .logo-text{display:none}.modes-btn{padding:8px 12px}.modes-grid{grid-template-columns:1fr}}
+.cs-hero{display:flex;flex-direction:column;justify-content:center;min-height:240px;padding:30px 34px;background:#0b0f19;border:1px solid rgba(255,170,0,0.25);box-shadow:0 0 44px -16px rgba(255,120,0,0.5),0 0 60px -30px rgba(136,71,255,0.7)}
+.cs-hero::before{content:none}
+.cs-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,15,25,0.94) 0%,rgba(11,15,25,0.72) 34%,rgba(11,15,25,0) 64%);pointer-events:none}
+.cs-hero > *:not(.cs-hero-bg){position:relative;z-index:2}
+.cs-hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+.cs-hero-tag{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-bottom:14px;padding:4px 11px;border-radius:999px;font-size:0.62rem;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#ffaa00;background:rgba(255,170,0,0.12);border:1px solid rgba(255,170,0,0.35)}
+.cs-hero-dot{width:7px;height:7px;border-radius:50%;background:#16c784;box-shadow:0 0 8px #16c784;animation:feedPulse 1.2s ease-in-out infinite}
+.cs-hero-title{font-size:2.5rem;line-height:1.05;margin:0 0 8px 0;text-shadow:0 4px 24px rgba(0,0,0,0.6)}
+.cs-hero-sub{max-width:480px;font-size:0.92rem;margin:0 0 16px 0}
+.cs-hero .cs-stat{backdrop-filter:blur(6px);background:rgba(6,9,19,0.65)}
+.hb-f1{animation:hbFloat 5s ease-in-out infinite}
+.hb-f2{animation:hbFloat 6.5s ease-in-out -2s infinite}
+.hb-f3{animation:hbFloat 4.4s ease-in-out -1s infinite}
+.hb-f4{animation:hbFloat 7.5s ease-in-out -3.5s infinite}
+@keyframes hbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+.hb-tw{animation:hbTw 3s ease-in-out infinite}
+@keyframes hbTw{0%,100%{opacity:0.2}50%{opacity:1}}
+.hb-spin{transform-origin:1330px 150px;animation:hbSpin 120s linear infinite}
+@keyframes hbSpin{to{transform:rotate(360deg)}}
+@media (max-width:560px){.cs-hero{padding:22px 16px;min-height:210px}.cs-hero-title{font-size:1.75rem}}
+.header.dock.on-catalog .balance-box{display:none}
+.screen-top{position:sticky;top:8px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;pointer-events:none}
+.screen-top > *{pointer-events:auto}
+.screen-top .back-btn{margin-bottom:0}
+.top-bal{display:flex;align-items:center;gap:10px;padding:7px 16px 7px 8px;border-radius:12px;background:rgba(11,15,25,0.92);border:1px solid rgba(255,200,61,0.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 6px 22px rgba(0,0,0,0.5),0 0 22px -6px rgba(255,170,0,0.5)}
+.hero-bal-coin.sm{width:30px;height:30px;font-size:0.9rem;box-shadow:inset 0 0 0 2px #b07a00,inset 0 0 0 4px rgba(255,255,255,0.3),0 2px 6px rgba(0,0,0,0.55)}
+.top-bal .hero-bal-v{font-size:1.2rem}
+.cs-hero-brand{display:flex;align-items:center;gap:12px;align-self:flex-start;margin-bottom:12px;filter:drop-shadow(0 0 14px rgba(255,120,0,0.45))}
+.cs-hero-brand .logo-icon{font-size:2.4rem;line-height:1}
+.cs-hero-brand .logo-text{font-size:2rem;letter-spacing:2px;line-height:1}
+.cs-hero > .hero-bal{position:absolute;top:18px;right:20px;z-index:3;display:flex;align-items:center;gap:12px;padding:10px 18px 10px 12px;border-radius:14px;background:rgba(6,9,19,0.62);border:1px solid rgba(255,200,61,0.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 8px 28px rgba(0,0,0,0.5),0 0 26px -6px rgba(255,170,0,0.55)}
+.hero-bal-coin{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.15rem;color:#7a5200;text-shadow:0 1px 0 rgba(255,255,255,0.45);background:radial-gradient(circle at 35% 30%,#fff3b0 0%,#ffc83d 45%,#d99a00 85%);box-shadow:inset 0 0 0 2px #b07a00,inset 0 0 0 5px rgba(255,255,255,0.3),0 3px 10px rgba(0,0,0,0.55)}
+.hero-bal-l{font-size:0.58rem;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:#94a3b8}
+.hero-bal-v{display:block;font-size:1.55rem;font-weight:900;line-height:1.15;background:linear-gradient(90deg,#ffe27a,#ffaa00 60%,#ff5500);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-bal-v small{font-size:0.9rem}
+.upg-boost{max-width:520px;margin:0 auto 16px;padding:14px 16px;box-sizing:border-box;border-radius:12px;background:#0b0f19;border:1px solid rgba(255,170,0,0.25);text-align:left}
+.upg-boost-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;font-size:0.72rem;font-weight:900;text-transform:uppercase;letter-spacing:0.5px;color:#94a3b8}
+.upg-boost-head b{color:#ffaa00;font-size:1.05rem}
+.upg-range{-webkit-appearance:none;appearance:none;display:block;width:100%;height:10px;margin:0;border-radius:999px;outline:none;cursor:pointer;background:linear-gradient(90deg,#ffaa00 0,#ff5500 var(--p,0%),#272e3f var(--p,0%),#272e3f 100%)}
+.upg-range::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:4px solid #ff8a00;box-shadow:0 0 12px rgba(255,120,0,0.7);cursor:grab}
+.upg-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid #ff8a00;box-shadow:0 0 12px rgba(255,120,0,0.7);cursor:grab}
+.upg-range:disabled{opacity:0.4;cursor:not-allowed}
+.upg-boost-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:12px;font-size:0.7rem;font-weight:800;color:#64748b}
+.upg-boost-foot b{color:#16c784}
+@media (max-width:640px){.cs-hero > .hero-bal{position:relative;top:auto;right:auto;align-self:flex-start;margin-bottom:14px}}
 .upg-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
 .upg-col{min-width:0;box-sizing:border-box;max-height:760px;overflow-y:auto;padding:12px;background:#0b0f19;border:1px solid rgba(255,255,255,0.04);border-radius:12px;scrollbar-width:thin;scrollbar-color:#272e3f transparent}
 .upg-col .inventory-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -474,30 +615,13 @@ to{transform: scale(1); opacity: 1;}}
     <div class="feed-label"><span class="feed-dot"></span><span>Live</span></div>
     <div class="feed-track" id="feedTrack"></div>
   </div>
- 
-  <div class="header">
-    <div class="logo-block">
-      <span class="logo-icon">🍀</span>
-      <span class="logo-text">MIFDROP</span>
-    </div>
-    <div class="right-header-block">
-      <button class="inv-toggle-btn" id="promoBtn" onclick="goToPromo()">🔑 Промокоды</button>
-      <button class="inv-toggle-btn" id="upgBtn" onclick="goToUpgrade()">🚀 Апгрейд</button>
-      <button class="inv-toggle-btn" id="minesBtn" onclick="goToMines()">💣 Сапёр</button>
-      <button class="inv-toggle-btn" id="contractsBtn" onclick="goToContracts()">📜 Контракты</button>
-      <div class="balance-box">
-        <span id="balanceValue">1000</span><span>G</span>
-      </div>
-      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()">👤 <span id="profileBtnName">Профиль</span></button>
-    </div>
-  </div>
- 
+
   <div class="screen active" id="catalogScreen">
     <div class="cs-hero" id="catalogHero"></div>
     <div class="top-row"><div id="freeCaseBlock"></div><div id="bpBlock"></div></div>
     <div class="cases-grid" id="casesGrid"></div>
   </div>
- 
+
   <div class="screen" id="rouletteScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -547,15 +671,25 @@ to{transform: scale(1); opacity: 1;}}
       <div class="preview-grid" id="previewGrid"></div>
     </div>
   </div>
- 
-  <div class="screen" id="upgradeScreen">
+
+  <div class="screen" id="bpScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+    <div class="roulette-container">
+      <div id="bpContent"></div>
+    </div>
+  </div>
+
+  <div class="screen" id="upgradeScreen">
+    <div class="screen-top">
+      <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
+      <div class="top-bal"><span class="hero-bal-coin sm">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">0</span> <small>G</small></span></div></div>
+    </div>
     <div class="roulette-container">
       <h2 style="margin:0 0 15px 0; font-size:1.2rem; text-transform:uppercase;">Апгрейд предметов</h2>
       <div id="upgradeContent"></div>
     </div>
   </div>
- 
+
   <div class="screen" id="contractsScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -563,7 +697,7 @@ to{transform: scale(1); opacity: 1;}}
       <div id="contractsContent"></div>
     </div>
   </div>
- 
+
   <div class="screen" id="minesScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -590,7 +724,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="win-box" id="minesResult"></div>
     </div>
   </div>
- 
+
   <div class="screen" id="promoScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -610,7 +744,7 @@ to{transform: scale(1); opacity: 1;}}
       </div>
     </div>
   </div>
- 
+
   <div class="screen" id="profileScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -648,9 +782,30 @@ to{transform: scale(1); opacity: 1;}}
       </div>
     </div>
   </div>
- 
+
+  <div class="header dock on-catalog" id="dock">
+    <button class="inv-toggle-btn modes-btn" id="modesBtn" onclick="toggleModes()">🎮 Режимы <span class="modes-caret">▴</span></button>
+    <div class="right-header-block">
+      <div class="balance-box">
+        <span id="balanceValue">1000</span><span>G</span>
+      </div>
+      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()">👤 <span id="profileBtnName">Профиль</span></button>
+    </div>
+  </div>
+
+  <div class="modes-menu" id="modesMenu">
+    <div class="modes-title">Выберите режим</div>
+    <div class="modes-grid">
+      <button class="mode-card" style="--c:#ff5500" onclick="goToUpgrade()"><span class="mode-ico">🚀</span><span><div class="mode-name">Апгрейд</div><div class="mode-desc">Улучши скин до более дорогого</div></span></button>
+      <button class="mode-card" style="--c:#8847ff" onclick="goToBattlePass()"><span class="mode-ico">🎖️</span><span><div class="mode-name">Батл пас</div><div class="mode-desc">30 уровней наград</div></span></button>
+      <button class="mode-card" style="--c:#eb4b4b" onclick="goToMines()"><span class="mode-ico">💣</span><span><div class="mode-name">Сапёр</div><div class="mode-desc">Рискни и забери выигрыш</div></span></button>
+      <button class="mode-card" style="--c:#4b69ff" onclick="goToContracts()"><span class="mode-ico">📜</span><span><div class="mode-name">Контракты</div><div class="mode-desc">10 скинов в один новый</div></span></button>
+      <button class="mode-card wide" style="--c:#16c784" onclick="goToPromo()"><span class="mode-ico">🔑</span><span><div class="mode-name">Промокоды</div><div class="mode-desc">Активируй код и получи бонусные G</div></span></button>
+    </div>
+  </div>
+
 </div>
- 
+
 <script>
   let balance = 500;
   let myInventory = [];
@@ -1162,6 +1317,7 @@ to{transform: scale(1); opacity: 1;}}
   }
   function updateBalanceDisplay() {
     document.getElementById('balanceValue').innerText = formatPrice(balance);
+    document.querySelectorAll('.hero-bal-val').forEach(e => { e.innerText = formatPrice(balance); });
     updateCatalogAfford();
   }
   function saveProgress() {
@@ -1185,9 +1341,35 @@ to{transform: scale(1); opacity: 1;}}
       }
     } catch (e) {}
   }
+  const MODE_SCREENS = ['promoScreen', 'upgradeScreen', 'bpScreen', 'minesScreen', 'contractsScreen'];
+  function toggleModes() {
+    const m = document.getElementById('modesMenu');
+    const open = !m.classList.contains('show');
+    m.classList.toggle('show', open);
+    document.getElementById('modesBtn').classList.toggle('open', open);
+  }
+  function closeModes() {
+    const m = document.getElementById('modesMenu');
+    if (m) m.classList.remove('show');
+    const b = document.getElementById('modesBtn');
+    if (b) b.classList.remove('open');
+  }
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#modesMenu') && !e.target.closest('#modesBtn')) closeModes();
+  });
+  function setDockActive(screenId) {
+    const mb = document.getElementById('modesBtn'), pb = document.getElementById('profileBtn');
+    if (mb) mb.classList.toggle('active', MODE_SCREENS.includes(screenId));
+    if (pb) pb.classList.toggle('active', screenId === 'profileScreen');
+    const dk = document.getElementById('dock');
+    if (dk) dk.classList.toggle('on-catalog', screenId === 'catalogScreen' || screenId === 'upgradeScreen');
+  }
   function switchScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
+    closeModes();
+    setDockActive(screenId);
+    window.scrollTo(0, 0);
     if (screenId === 'catalogScreen') renderCatalog();
     try { localStorage.setItem('mifdrop_ui', JSON.stringify({ screen: screenId, caseKey: currentCaseKey })); } catch (e) {}
   }
@@ -1537,6 +1719,7 @@ to{transform: scale(1); opacity: 1;}}
       else if (ui.screen === 'promoScreen') goToPromo();
       else if (ui.screen === 'minesScreen') goToMines();
       else if (ui.screen === 'contractsScreen') goToContracts();
+      else if (ui.screen === 'bpScreen') goToBattlePass();
     } catch (e) {}
   }
   function addPersistenceListeners() {
@@ -1744,6 +1927,73 @@ to{transform: scale(1); opacity: 1;}}
     knives: { c: '#ff4d4d', badge: 'Фарм', emo: '🔪' },
     bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' }
   };
+  function heroCube(cx, cy, k, c, rot, logo) {
+    const P = (x, y) => (cx + (x - 100) * k).toFixed(1) + ',' + (cy + (y - 78) * k).toFixed(1);
+    const pts = a => a.map(p => P(p[0], p[1])).join(' ');
+    const L = pts([[58, 56], [100, 78], [100, 122], [58, 100]]);
+    const R = pts([[100, 78], [142, 56], [142, 100], [100, 122]]);
+    const T = pts([[100, 34], [142, 56], [100, 78], [58, 56]]);
+    const seam = pts([[58, 69], [100, 91], [142, 69]]);
+    const edge = pts([[58, 56], [100, 34], [142, 56], [142, 100], [100, 122], [58, 100], [58, 56]]);
+    const lx = (cx + (79 - 100) * k).toFixed(1), ly = (cy + (97 - 78) * k).toFixed(1);
+    return `<g transform="rotate(${rot} ${cx} ${cy})">
+      <ellipse cx="${cx}" cy="${(cy + 50 * k).toFixed(1)}" rx="${(52 * k).toFixed(1)}" ry="${(8 * k).toFixed(1)}" fill="${c}" opacity=".5" filter="url(#hbBlur)"/>
+      <polygon points="${L}" fill="${c}"/><polygon points="${L}" fill="#000" opacity=".28"/>
+      <polygon points="${R}" fill="${c}"/><polygon points="${R}" fill="#000" opacity=".52"/>
+      <polygon points="${T}" fill="${c}"/><polygon points="${T}" fill="#fff" opacity=".24"/>
+      <polyline points="${seam}" fill="none" stroke="#fff" stroke-width="${(6 * k).toFixed(1)}" opacity=".6" filter="url(#hbBlur)"/>
+      <polyline points="${seam}" fill="none" stroke="#fff" stroke-width="${(1.6 * k).toFixed(1)}"/>
+      <polyline points="${edge}" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="${(0.8 * k).toFixed(2)}"/>
+      ${logo ? `<g transform="translate(${lx} ${ly}) skewY(27.65)"><text x="0" y="0" font-size="${(24 * k).toFixed(1)}" text-anchor="middle" dominant-baseline="central" filter="url(#hbWhite)" opacity=".95">🍀</text></g>` : ''}
+    </g>`;
+  }
+  function heroBg() {
+    const sx = 1330, sy = 150;
+    let rays = '';
+    for (let a = 0; a < 360; a += 20) {
+      const a1 = (a - 3.5) * Math.PI / 180, a2 = (a + 3.5) * Math.PI / 180;
+      rays += `<polygon points="${sx},${sy} ${(sx + 900 * Math.sin(a1)).toFixed(1)},${(sy - 900 * Math.cos(a1)).toFixed(1)} ${(sx + 900 * Math.sin(a2)).toFixed(1)},${(sy - 900 * Math.cos(a2)).toFixed(1)}" fill="url(#hbRay)"/>`;
+    }
+    const star = (x, y, r, d) => `<path class="hb-tw" style="animation-delay:${d}s" d="M${x} ${y - r}L${x + r * .28} ${y - r * .28}L${x + r} ${y}L${x + r * .28} ${y + r * .28}L${x} ${y + r}L${x - r * .28} ${y + r * .28}L${x - r} ${y}L${x - r * .28} ${y - r * .28}Z" fill="#fff"/>`;
+    const stars = [[1060, 62, 7, 0], [1205, 38, 5, .6], [1285, 84, 4, 1.2], [1570, 66, 6, .3], [1585, 215, 5, 1.7], [1068, 236, 5, .9], [1462, 262, 4, 2.1], [930, 120, 4, 1.4], [800, 56, 3, .2], [660, 210, 4, 1.1], [1390, 30, 4, 1.9], [1150, 270, 3, .5], [520, 90, 3, 2.4], [330, 230, 3, 1.5], [150, 60, 3, .8]]
+      .map(a => star(a[0], a[1], a[2], a[3])).join('');
+    const coin = (x, y, r, rot, cls) => `<g class="${cls}"><g transform="translate(${x} ${y}) rotate(${rot})">
+      <circle r="${r}" fill="url(#hbGold)" stroke="#b07a00" stroke-width="2"/>
+      <circle r="${(r * .64).toFixed(1)}" fill="none" stroke="#fff3b0" stroke-opacity=".55" stroke-width="1.5"/>
+      <text y="1" font-size="${(r * 1.05).toFixed(1)}" font-weight="900" text-anchor="middle" dominant-baseline="central" fill="#7a5200" font-family="Segoe UI,Roboto,sans-serif">G</text></g></g>`;
+    return `<svg class="cs-hero-bg" viewBox="0 0 1600 300" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="hbRay" gradientUnits="userSpaceOnUse" cx="${sx}" cy="${sy}" r="760"><stop offset="0" stop-color="#b57bff" stop-opacity=".42"/><stop offset=".5" stop-color="#ff8a00" stop-opacity=".12"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hbGlowP" gradientUnits="userSpaceOnUse" cx="1330" cy="150" r="380"><stop offset="0" stop-color="#8847ff" stop-opacity=".6"/><stop offset="1" stop-color="#8847ff" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hbGlowO" gradientUnits="userSpaceOnUse" cx="1120" cy="210" r="280"><stop offset="0" stop-color="#ff8a00" stop-opacity=".5"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hbGlowR" gradientUnits="userSpaceOnUse" cx="1510" cy="200" r="240"><stop offset="0" stop-color="#eb4b4b" stop-opacity=".45"/><stop offset="1" stop-color="#eb4b4b" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hbGlowL" gradientUnits="userSpaceOnUse" cx="120" cy="300" r="520"><stop offset="0" stop-color="#ff5500" stop-opacity=".22"/><stop offset="1" stop-color="#ff5500" stop-opacity="0"/></radialGradient>
+        <linearGradient id="hbBase" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#141b2d"/><stop offset=".55" stop-color="#0d1220"/><stop offset="1" stop-color="#120a22"/></linearGradient>
+        <radialGradient id="hbGold" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff3b0"/><stop offset=".45" stop-color="#ffc83d"/><stop offset="1" stop-color="#d99a00"/></radialGradient>
+        <pattern id="hbPat" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="1.2" height="16" fill="#fff" opacity=".04"/></pattern>
+        <filter id="hbBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+        <filter id="hbWhite"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/></filter>
+      </defs>
+      <rect width="1600" height="300" fill="url(#hbBase)"/>
+      <rect width="1600" height="300" fill="url(#hbPat)"/>
+      <rect width="1600" height="300" fill="url(#hbGlowL)"/>
+      <rect width="1600" height="300" fill="url(#hbGlowP)"/>
+      <rect width="1600" height="300" fill="url(#hbGlowO)"/>
+      <rect width="1600" height="300" fill="url(#hbGlowR)"/>
+      <g class="hb-spin">${rays}</g>
+      ${stars}
+      <g class="hb-f2">${heroCube(1130, 176, 1.12, '#ff8a00', -9, false)}</g>
+      <g class="hb-f3">${heroCube(1505, 178, 0.98, '#eb4b4b', 11, false)}</g>
+      <g class="hb-f1">${heroCube(1330, 142, 1.75, '#8847ff', 0, true)}</g>
+      <g class="hb-f4">${heroCube(1225, 62, 0.5, '#ffc83d', 16, false)}</g>
+      <g class="hb-f2">${heroCube(1285, 56, 0.42, '#4b69ff', -14, false)}</g>
+      ${coin(1040, 150, 15, -12, 'hb-f3')}
+      ${coin(1590, 190, 12, 14, 'hb-f4')}
+      ${coin(1232, 255, 11, 8, 'hb-f2')}
+      ${coin(1420, 255, 14, -16, 'hb-f1')}
+      ${coin(1110, 40, 9, 20, 'hb-f1')}
+    </svg>`;
+  }
   function renderCatalog() {
     const hero = document.getElementById('catalogHero');
     const grid = document.getElementById('casesGrid');
@@ -1751,7 +2001,9 @@ to{transform: scale(1); opacity: 1;}}
     renderFreeBanner();
     renderBattlePass();
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
-    hero.innerHTML = `
+    hero.innerHTML = heroBg() + `
+      <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${formatPrice(balance)}</span> <small>G</small></span></div></div>
+      <div class="cs-hero-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div>
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
       <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
       <div class="cs-hero-stats">
@@ -1838,6 +2090,7 @@ to{transform: scale(1); opacity: 1;}}
     upgradeSourceIndex = null;
     upgradeSourceItem = null;
     upgradeTargetItem = null;
+    upgradeBet = 0;
     renderUpgradeStep1();
   }
   let upgradeFilter = 'all';
@@ -1853,6 +2106,8 @@ to{transform: scale(1); opacity: 1;}}
     });
     return h + '</div>';
   }
+  let upgradeBet = 0;       // баланс, добавленный к скину (G)
+  let lastUpgradeBet = 0;
   const UPG_MIN_CHANCE = 0.01;  // минимальный шанс апгрейда, %
   const UPG_MAX_CHANCE = 95;    // максимальный шанс апгрейда, %
   function upgChance(src, tgt) {
@@ -1895,8 +2150,11 @@ to{transform: scale(1); opacity: 1;}}
     const ready = !!(src && tgt);
     const sp = src ? itemPrice(src) : 0;
     const tp = tgt ? itemPrice(tgt) : 0;
-    const chance = ready ? upgChance(sp, tp) : 0;
-    const mult = ready ? upgMult(sp, tp) : '';
+    const maxBet = ready ? upgMaxBet(sp, tp) : 0;
+    if (upgradeBet > maxBet) upgradeBet = maxBet;
+    const bet = ready ? upgradeBet : 0;
+    const chance = ready ? upgChance(sp + bet, tp) : 0;
+    const mult = ready ? upgMult(sp + bet, tp) : '';
     currentUpgradeChance = chance;
     let html = `
       <div class="upg-arena">
@@ -1906,7 +2164,7 @@ to{transform: scale(1); opacity: 1;}}
             <div class="upg-wheel-core">
               <div class="upg-core-chance" id="upgCoreChance">${ready ? fmtChance(chance) + '%' : '—'}</div>
               <div class="upg-core-label" id="upgCoreLabel">${ready ? 'шанс успеха' : 'выберите предметы'}</div>
-              ${ready ? `<div class="upg-core-mult">x${mult}</div>` : ''}
+              ${ready ? `<div class="upg-core-mult" id="upgCoreMult">x${mult}</div>` : ''}
             </div>
             <div class="upg-needle-wrap" id="upgNeedle"><div class="upg-needle-bar"></div></div>
           </div>
@@ -1914,10 +2172,19 @@ to{transform: scale(1); opacity: 1;}}
         ${upgSideHTML(tgt, 'upgSideTgt', 'Вы получите', 'Выберите цель')}
       </div>`;
     if (ready) {
+      const frac = maxBet > 0 ? Math.round(bet / maxBet * 1000) : 0;
+      html += `<div class="upg-boost">
+        <div class="upg-boost-head"><span>💰 Добавить баланс к шансу</span><b id="upgBetVal">+${formatPrice(bet)} G</b></div>
+        <input type="range" class="upg-range" id="upgRange" min="0" max="1000" step="1" value="${frac}" style="--p:${(frac / 10).toFixed(1)}%" ${maxBet > 0 ? '' : 'disabled'} oninput="onUpgBetInput(this.value)">
+        <div class="upg-toolbar" style="margin:10px 0 0; justify-content:flex-start;">
+          ${[0, 25, 50, 75, 100].map(p => `<button class="upg-chip" ${maxBet > 0 ? '' : 'disabled'} onclick="setUpgBetPct(${p})">${p === 100 ? 'Макс' : p + '%'}</button>`).join('')}
+        </div>
+        <div class="upg-boost-foot"><span id="upgBetNote">Шанс ${fmtChance(upgChance(sp, tp))}% → <b>${fmtChance(chance)}%</b></span><span>Макс: ${formatPrice(maxBet)} G · Баланс: ${formatPrice(balance)} G</span></div>
+      </div>`;
       html += `<div class="upg-stats">
-        <div class="upg-stat">Множитель<b>x${mult}</b></div>
-        <div class="upg-stat">Шанс<b>${fmtChance(chance)}%</b></div>
-        <div class="upg-stat">Прибыль<b>+${formatPrice(tp - sp)} G</b></div>
+        <div class="upg-stat">Множитель<b id="upgStatMult">x${mult}</b></div>
+        <div class="upg-stat">Шанс<b id="upgStatChance">${fmtChance(chance)}%</b></div>
+        <div class="upg-stat">Прибыль<b id="upgStatProfit">${tp - sp - bet >= 0 ? '+' : '−'}${formatPrice(Math.abs(tp - sp - bet))} G</b></div>
       </div>`;
     }
     html += `<button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()" ${ready ? '' : 'disabled'}>🚀 Улучшить</button>`;
@@ -1986,6 +2253,7 @@ to{transform: scale(1); opacity: 1;}}
   }
   function selectUpgradeSource(index) {
     if (upgradeRunning) return;
+    upgradeBet = 0;
     if (upgradeSourceIndex === index) {
       upgradeSourceIndex = null;
       upgradeSourceItem = null;
@@ -2000,12 +2268,59 @@ to{transform: scale(1); opacity: 1;}}
   function setUpgradeSort(s) { upgradeSort = s; renderUpgrade(); }
   function selectUpgradeTarget(idx) {
     if (upgradeRunning) return;
+    upgradeBet = 0;
     const item = upgradeTargets[idx];
     upgradeTargetItem = (upgradeTargetItem === item) ? null : item;
     renderUpgrade();
   }
+  function upgMaxBet(sp, tp) {
+    return Math.max(0, Math.min(Math.floor(balance), Math.ceil(tp * UPG_MAX_CHANCE / 100 - sp)));
+  }
+  function updateUpgradeLive() {
+    if (!upgradeSourceItem || !upgradeTargetItem) return;
+    const sp = itemPrice(upgradeSourceItem), tp = itemPrice(upgradeTargetItem);
+    const maxBet = upgMaxBet(sp, tp);
+    const chance = upgChance(sp + upgradeBet, tp);
+    currentUpgradeChance = chance;
+    const set = (id, v) => { const e = document.getElementById(id); if (e) e.innerText = v; };
+    document.getElementById('upgWheel').style.setProperty('--deg', (chance * 3.6).toFixed(3) + 'deg');
+    set('upgCoreChance', fmtChance(chance) + '%');
+    set('upgCoreMult', 'x' + upgMult(sp + upgradeBet, tp));
+    set('upgStatMult', 'x' + upgMult(sp + upgradeBet, tp));
+    set('upgStatChance', fmtChance(chance) + '%');
+    const pr = tp - sp - upgradeBet;
+    set('upgStatProfit', (pr >= 0 ? '+' : '−') + formatPrice(Math.abs(pr)) + ' G');
+    set('upgBetVal', '+' + formatPrice(upgradeBet) + ' G');
+    const note = document.getElementById('upgBetNote');
+    if (note) note.innerHTML = 'Шанс ' + fmtChance(upgChance(sp, tp)) + '% → <b>' + fmtChance(chance) + '%</b>';
+    const rg = document.getElementById('upgRange');
+    if (rg && maxBet > 0) rg.style.setProperty('--p', (upgradeBet / maxBet * 100).toFixed(1) + '%');
+  }
+  function onUpgBetInput(v) {
+    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
+    const maxBet = upgMaxBet(itemPrice(upgradeSourceItem), itemPrice(upgradeTargetItem));
+    upgradeBet = Math.round(maxBet * Number(v) / 1000);
+    updateUpgradeLive();
+  }
+  function setUpgBetPct(p) {
+    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
+    const maxBet = upgMaxBet(itemPrice(upgradeSourceItem), itemPrice(upgradeTargetItem));
+    upgradeBet = Math.round(maxBet * p / 100);
+    renderUpgrade();
+  }
   function startUpgrade() {
     if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
+    {
+      const sp0 = itemPrice(upgradeSourceItem), tp0 = itemPrice(upgradeTargetItem);
+      upgradeBet = Math.max(0, Math.min(upgradeBet, upgMaxBet(sp0, tp0)));
+      lastUpgradeBet = upgradeBet;
+      balance -= upgradeBet;
+      currentUpgradeChance = upgChance(sp0 + upgradeBet, tp0);
+      upgradeBet = 0;
+      updateBalanceDisplay();
+      const bx = document.querySelector('.upg-boost');
+      if (bx) bx.style.display = 'none';
+    }
     addBpXp(30);
     upgradeRunning = true;
     document.getElementById('upgradeStartBtn').disabled = true;
@@ -2050,7 +2365,7 @@ to{transform: scale(1); opacity: 1;}}
         <div class="win-icon" style="font-size:3.4rem;">${ico(item)}</div>
         <div class="win-title" style="color:#16c784;">Апгрейд успешен!</div>
         <div class="win-rarity" style="color:${rMeta.color}">${item.name} · ${rMeta.name}</div>
-        <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sp)} G → ${formatPrice(tp)} G (x${upgMult(sp, tp)})</div>
+        <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sp)}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) : ''} G → ${formatPrice(tp)} G (x${upgMult(sp + lastUpgradeBet, tp)})</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Улучшить ещё</button>
           <button class="keep-btn" onclick="goToProfile()">В профиль</button>
@@ -2060,7 +2375,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid #eb4b4b44; background: radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%);">
         <div class="win-icon" style="font-size:3.4rem;">💀</div>
         <div class="win-title" style="color:#eb4b4b;">Не повезло</div>
-        <div class="win-rarity" style="color:#94a3b8">Потерян: ${item.emo} ${item.name}</div>
+        <div class="win-rarity" style="color:#94a3b8">Потерян: ${item.emo} ${item.name}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) + ' G' : ''}</div>
         <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${fmtChance(currentUpgradeChance)}% — в следующий раз повезёт</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Попробовать снова</button>
@@ -2751,6 +3066,37 @@ to{transform: scale(1); opacity: 1;}}
     const after = bpState().lvl;
     if (after > before) showInfoToast('Батл пас: уровень ' + after + '!');
   }
+  function bpCoin(amount) {
+    const n = amount >= 1000 ? 3 : (amount >= 300 ? 2 : 1);
+    let h = '';
+    for (let i = 0; i < n; i++) h += `<i class="coin c${i}">G</i>`;
+    return `<span class="coin-stack n${n}">${h}</span>`;
+  }
+  function bpCum(l) {
+    let t = 0;
+    for (let i = 1; i <= l; i++) t += bpNeed(i);
+    return t;
+  }
+  function bpTileHTML(l, st) {
+    const r = bpReward(l);
+    const claimed = bpClaimed.includes(l);
+    const isReady = !claimed && st.lvl >= l;
+    const cls = (claimed ? 'claimed' : (isReady ? 'ready' : 'locked')) + (l === st.lvl + 1 ? ' next' : '') + (l % 5 === 0 ? ' ms' : '') + (l === BP_LEVELS ? ' final' : '');
+    const gold = r.type === 'gold';
+    const color = gold ? '#ffaa00' : rarityInfo[r.item.rarity].color;
+    const rar = l === BP_LEVELS ? '👑 Гранд-приз' : (gold ? 'Валюта' : rarityInfo[r.item.rarity].name);
+    const meta = gold
+      ? `<div class="bp-rar" style="color:${color}">${rar}</div><div class="bp-name big">+${formatPrice(r.amount)} G</div>`
+      : `<div class="bp-rar" style="color:${color}">${rar}</div><div class="bp-name">${escHTML(r.item.name)}</div><div class="bp-val">${formatPrice(r.item.price)} G</div>`;
+    const foot = claimed ? '✓ Получено' : (isReady ? 'Забрать' : '🔒 ещё ' + formatPrice(Math.max(0, bpCum(l) - bpXp)) + ' XP');
+    return `<div class="bp-tile ${cls}" style="--c:${color}" ${isReady ? `onclick="claimBpReward(${l})"` : ''}>
+        <div class="bp-lvchip">${l % 5 === 0 ? '★ ' : ''}Ур. ${l}</div>
+        <div class="bp-ico">${gold ? bpCoin(r.amount) : ico(r.item)}</div>
+        <div class="bp-meta">${meta}</div>
+        <div class="bp-foot">${foot}</div>
+      </div>`;
+  }
+  // компактная карточка на главном экране (справа от бесплатного кейса)
   function renderBattlePass() {
     const box = document.getElementById('bpBlock');
     if (!box) return;
@@ -2758,48 +3104,95 @@ to{transform: scale(1); opacity: 1;}}
     let ready = 0;
     for (let l = 1; l <= st.lvl; l++) if (!bpClaimed.includes(l)) ready++;
     const pct = st.lvl >= BP_LEVELS ? 100 : Math.round(st.into / st.need * 100);
-    let tiles = '';
-    for (let l = 1; l <= BP_LEVELS; l++) {
-      const r = bpReward(l);
-      const claimed = bpClaimed.includes(l);
-      const isReady = !claimed && st.lvl >= l;
-      const cls = claimed ? 'claimed' : (isReady ? 'ready' : 'locked');
-      const color = r.type === 'gold' ? '#ffaa00' : rarityInfo[r.item.rarity].color;
-      const body = r.type === 'gold'
-        ? `<div class="bp-name">Валюта</div><div class="bp-val">${formatPrice(r.amount)} G</div>`
-        : `<div class="bp-name">${escHTML(r.item.name)}</div><div class="bp-val">${formatPrice(r.item.price)} G</div>`;
-      tiles += `<div class="bp-tile ${cls}" style="--c:${color}" ${isReady ? `onclick="claimBpReward(${l})"` : ''}>
-        <div class="bp-lv">Ур. ${l}</div>
-        <div class="bp-ico">${r.type === 'gold' ? '🪙' : ico(r.item)}</div>
-        ${body}
-      </div>`;
+    let nextL = 0;
+    for (let l = 1; l <= BP_LEVELS; l++) if (!bpClaimed.includes(l)) { nextL = l; break; }
+    let art = '<div class="bp-ico">🏆</div><div class="bp-card-lv">Всё получено</div>', rc = '#ffc83d';
+    if (nextL) {
+      const r = bpReward(nextL);
+      rc = r.type === 'gold' ? '#ffaa00' : rarityInfo[r.item.rarity].color;
+      art = `<div class="bp-ico">${r.type === 'gold' ? bpCoin(r.amount) : ico(r.item)}</div><div class="bp-card-lv">Ур. ${nextL}</div>`;
     }
     box.innerHTML = `
-      <div class="bp-panel">
-        <div class="bp-head">
-          <div class="bp-head-l">
-            <h3 class="bp-title">🎖️ <span>Батл пас</span></h3>
-            <div class="bp-lvl-badge">Уровень ${st.lvl} / ${BP_LEVELS}</div>
+      <div class="bp-card ${ready ? 'ready' : ''}" onclick="goToBattlePass()">
+        <div class="bp-card-art" style="--rc:${rc}">${art}</div>
+        <div class="bp-card-info">
+          <div class="bp-card-tag">30 уровней · награды</div>
+          <h3 class="bp-card-name">Батл пас</h3>
+          <div class="bp-card-sub">Уровень <b>${st.lvl} / ${BP_LEVELS}</b></div>
+          <div class="bp-bar-wrap">
+            <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
+            <div class="bp-xp">${st.lvl >= BP_LEVELS ? 'MAX' : st.into + ' / ' + st.need + ' XP'}</div>
           </div>
-          ${ready ? `<button class="open-btn bp-claim-all" onclick="claimAllBp()">Забрать всё · ${ready}</button>` : ''}
         </div>
-        <div class="bp-bar-wrap">
-          <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
-          <div class="bp-xp">${st.lvl >= BP_LEVELS ? 'Максимальный уровень' : st.into + ' / ' + st.need + ' XP'}</div>
-        </div>
-        <div class="bp-track" id="bpTrack">${tiles}</div>
-        <div class="bp-hint">XP дают открытие кейсов, апгрейды, контракты и сапёр</div>
+        <div class="bp-card-btn">${ready ? 'Забрать · ' + ready : 'Открыть'}</div>
       </div>`;
-    const track = document.getElementById('bpTrack');
-    const first = track.querySelector('.bp-tile:not(.claimed)');
-    if (first) track.scrollLeft = Math.max(0, first.offsetLeft - track.offsetLeft - 4);
+  }
+  // отдельная страница батл паса (как «Апгрейд»)
+  function goToBattlePass() {
+    if (running || upgradeRunning) return;
+    autoResolvePendingWin();
+    switchScreen('bpScreen');
+    renderBpScreen();
+    window.scrollTo(0, 0);
+  }
+  function renderBpScreen() {
+    const box = document.getElementById('bpContent');
+    if (!box) return;
+    const y = window.scrollY;
+    const st = bpState();
+    let ready = 0, claimedCount = 0, totalValue = 0, nextL = 0;
+    for (let l = 1; l <= BP_LEVELS; l++) {
+      const r = bpReward(l);
+      totalValue += r.type === 'gold' ? r.amount : r.item.price;
+      if (bpClaimed.includes(l)) claimedCount++;
+      else if (l <= st.lvl) ready++;
+    }
+    const pct = st.lvl >= BP_LEVELS ? 100 : Math.round(st.into / st.need * 100);
+    if (st.lvl < BP_LEVELS) {
+      for (let l = st.lvl + 1; l <= BP_LEVELS; l++) { if (BP_REWARDS[l - 1].s) { nextL = l; break; } }
+    }
+    let nextTxt = '';
+    if (nextL) {
+      const r = bpReward(nextL);
+      nextTxt = `Ближайший скин: <b>${escHTML(r.item.name)}</b> · ур. ${nextL}`;
+    }
+    let tiles = '';
+    for (let l = 1; l <= BP_LEVELS; l++) tiles += bpTileHTML(l, st);
+    const xpItem = (ic, l, v) => `<div class="bp-xp-item"><div class="bp-xp-ico">${ic}</div><div class="bp-xp-l">${l}</div><div class="bp-xp-v">${v}</div></div>`;
+    box.innerHTML = `
+      <div class="bp-hero">
+        <div class="bp-ring" style="--p:${(pct * 3.6).toFixed(1)}deg"><div class="bp-ring-in"><small>Уровень</small><b>${st.lvl}</b></div></div>
+        <div class="bp-hero-main">
+          <h2 class="bp-hero-title">🎖️ <span>Батл пас</span></h2>
+          <div class="bp-hero-sub">Играй, получай XP и забирай награды на каждом уровне: игровая валюта и скины.</div>
+          <div class="bp-bar-wrap">
+            <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
+            <div class="bp-xp">${st.lvl >= BP_LEVELS ? 'MAX' : st.into + ' / ' + st.need + ' XP'}</div>
+          </div>
+          ${nextTxt ? `<div class="bp-hero-next">${nextTxt}</div>` : ''}
+        </div>
+        ${ready ? `<button class="open-btn bp-claim-all" onclick="claimAllBp()">Забрать всё · ${ready}</button>` : (claimedCount === BP_LEVELS ? '<div class="bp-done">Все награды получены</div>' : '')}
+      </div>
+      <div class="bp-stats">
+        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon">⚡</div><div class="profile-stat-label">Всего XP</div><div class="profile-stat-value">${formatPrice(bpXp)}</div></div>
+        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon">🎁</div><div class="profile-stat-label">Получено</div><div class="profile-stat-value" style="color:#16c784;">${claimedCount} / ${BP_LEVELS}</div></div>
+        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon">💎</div><div class="profile-stat-label">Ценность наград</div><div class="profile-stat-value" style="color:#ffaa00;">${formatPrice(totalValue)} G</div></div>
+      </div>
+      <div class="bp-sec">Награды по уровням</div>
+      <div class="bp-grid">${tiles}</div>
+      <div class="bp-sec">Как получать XP</div>
+      <div class="bp-xp-grid">
+        ${xpItem('📦', 'Кейс', '8–128 XP')}
+        ${xpItem('🎁', 'Бесплатный кейс', '25 XP')}
+        ${xpItem('🚀', 'Апгрейд', '30 XP')}
+        ${xpItem('📜', 'Контракт', '80 XP')}
+        ${xpItem('💣', 'Сапёр', '15 XP')}
+      </div>`;
+    window.scrollTo(0, y);
   }
   function bpRefresh() {
-    const tr = document.getElementById('bpTrack');
-    const sc = tr ? tr.scrollLeft : null;
-    renderCatalog();
-    const t2 = document.getElementById('bpTrack');
-    if (t2 && sc !== null) t2.scrollLeft = sc;
+    renderBattlePass();
+    if (document.getElementById('bpScreen').classList.contains('active')) renderBpScreen();
   }
   function bpApply(l) {
     const r = bpReward(l);
@@ -2835,7 +3228,7 @@ to{transform: scale(1); opacity: 1;}}
     showInfoToast('Награды получены: ' + parts.join(' и '));
     bpRefresh();
   }
- 
+
   loadProgress();
   loadPromoProgress();
   loadBp();
