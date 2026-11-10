@@ -211,9 +211,9 @@ to{transform: scale(1); opacity: 1;}}
 .feed-item::before{content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 70%); opacity: 0.2; pointer-events: none;}
 .feed-item > *{position: relative;}
 .feed-item.you{border-color: rgba(255,170,0,0.6); box-shadow: 0 0 14px -4px rgba(255,170,0,0.6);}
-.feed-item.enter{animation: feedEnter 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0s) both;}
+.feed-item.enter{animation: feedEnter 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s) both;}
 .feed-item.fade{animation: feedFade 0.5s ease-out var(--d, 0s) both;}
-@keyframes feedEnter{from{flex-basis: 0; padding-left: 0; padding-right: 0; opacity: 0; transform: scale(0.7);}
+@keyframes feedEnter{from{flex-basis: 0; margin-right: -8px; padding-left: 0; padding-right: 0; opacity: 0; transform: scale(0.75);}
 55%{opacity: 1;}}
 @keyframes feedFade{from{opacity: 0; transform: translateY(8px);}}
 .feed-emo{font-size: 1.4rem; line-height: 1.1;}
@@ -2753,22 +2753,28 @@ to{transform: scale(1); opacity: 1;}}
     myDrops.forEach(e => map.set(e.id, Object.assign({}, e, { user: username, you: true })));
     const list = [...map.values()].sort((x, y) => y.ts - x.ts).slice(0, 30);
     const track = document.getElementById('feedTrack');
-    const ids = new Set(list.map(e => e.id));
-    const existing = new Map();
-    [...track.children].forEach(n => { if (ids.has(n.dataset.id)) existing.set(n.dataset.id, n); else n.remove(); });
-    let k = 0;
-    list.forEach((e, i) => {
-      if (existing.has(e.id)) return;
-      const isNew = !feedSeen.has(e.id);
-      const t = document.createElement('template');
-      t.innerHTML = feedItemHTML(e, isNew).trim();
-      const node = t.content.firstElementChild;
-      node.classList.add(isNew ? 'enter' : 'fade');
-      node.style.setProperty('--d', (k++ * (isNew ? 0.18 : 0.06)).toFixed(2) + 's');
-      node.addEventListener('animationend', () => node.classList.remove('enter', 'fade'));
-      track.insertBefore(node, track.children[i] || null);
-    });
-    list.forEach(e => feedSeen.add(e.id));
+     const existing = new Map();
+  [...track.children].forEach(n => existing.set(n.dataset.id, n));
+  let k = 0;
+  list.forEach((e, i) => {
+    if (existing.has(e.id)) {
+      const el = existing.get(e.id);
+      if (track.children[i] !== el) track.insertBefore(el, track.children[i] || null);
+      return;
+    }
+    const isNew = !feedSeen.has(e.id);
+    const t = document.createElement('template');
+    t.innerHTML = feedItemHTML(e, isNew).trim();
+    const node = t.content.firstElementChild;
+    node.classList.add(isNew ? 'enter' : 'fade');
+    node.style.setProperty('--d', (k++ * (isNew ? 0.12 : 0.05)).toFixed(2) + 's');
+    node.addEventListener('animationend', () => node.classList.remove('enter', 'fade'));
+    track.insertBefore(node, track.children[i] || null);
+  });
+  while (track.children.length > 30) {
+    track.lastElementChild.remove();
+  }
+  list.forEach(e => feedSeen.add(e.id));
   }
   function saveMyDrops() {
     try { localStorage.setItem('mifdrop_my_drops', JSON.stringify(myDrops)); } catch (e) {}
@@ -3308,4 +3314,3 @@ function loadFeed() {
 </script>
 </body>
 </html>
-
