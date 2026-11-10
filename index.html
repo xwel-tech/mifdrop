@@ -9,7 +9,7 @@
 :root{color-scheme: dark; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);}
 html{scroll-padding-top: env(safe-area-inset-top, 0px);}
 body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 12px;}
-.bulldrop-app{max-width: 1500px; margin: 0 auto; background: #0b0f19; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.03); box-sizing: border-box;}
+.bulldrop-app{max-width: none; width: 100%; min-height: calc(100vh - 24px); margin: 0 auto; background: #0b0f19; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.03); box-sizing: border-box;}
 .header{display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #141b2d; flex-wrap: wrap; gap: 10px;}
 .logo-block{display: flex; align-items: center; gap: 12px;}
 .logo-icon{font-size: 1.8rem;}
@@ -135,7 +135,6 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .upg-side.glow{transform: scale(1.06); box-shadow: 0 0 30px var(--c);}
 .upg-wheel-wrap{display: flex; align-items: center; justify-content: center;}
 .upg-wheel{position: relative; width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#16c784 0deg, #16c784 var(--deg), #272e3f var(--deg), #272e3f 360deg); box-shadow: 0 0 24px rgba(255,170,0,0.12); transition: box-shadow 0.4s;}
-.upg-wheel::after{content: ''; position: absolute; inset: 0; border-radius: 50%; z-index: 1; pointer-events: none; background: repeating-conic-gradient(from 0deg, rgba(6,9,19,0.85) 0deg 0.7deg, transparent 0.7deg 7.2deg);}
 .upg-wheel.win{box-shadow: 0 0 46px rgba(22,199,132,0.65);}
 .upg-wheel.lose{box-shadow: 0 0 46px rgba(235,75,75,0.6);}
 .upg-wheel-core{position: absolute; inset: 16px; border-radius: 50%; z-index: 2; background: radial-gradient(circle, #141b2d 0%, #0b0f19 100%); box-shadow: inset 0 0 18px rgba(0,0,0,0.65); display: flex; flex-direction: column; align-items: center; justify-content: center;}
@@ -421,16 +420,53 @@ to{transform: scale(1); opacity: 1;}}
 .cs-card:hover .cs-top > span:nth-child(2), .free-banner:hover .cs-top > span:nth-child(2){transform: translateX(calc(-50% - 46px)) rotate(-14deg) scale(0.86) !important;}
 .cs-card:hover .cs-top > span:nth-child(3), .free-banner:hover .cs-top > span:nth-child(3){transform: translateX(calc(-50% + 46px)) rotate(14deg) scale(0.86) !important;}
 .cs-top .skin-img{width: 66px !important; height: 42px !important;}
-
-.cases-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:30px 30px}
-.cases-grid .cs-card{flex:1 1 150px;max-width:195px}
-.cases-grid .cs-section{flex:0 0 100%}
+ 
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,240px);justify-content:center;gap:30px}
+.cases-grid .cs-card{width:240px;max-width:none;flex:none}
+.cases-grid .cs-section{grid-column:1 / -1}
+.top-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:16px;margin-bottom:22px;align-items:stretch}
+.top-row #freeCaseBlock{min-width:0}
+.top-row .free-banner{height:100%;margin-bottom:0;box-sizing:border-box}
+@media (max-width:980px){.top-row{grid-template-columns:1fr}}
+.bp-panel{position:relative;overflow:hidden;min-width:0;box-sizing:border-box;height:100%;padding:14px 16px 12px;border-radius:14px;background:linear-gradient(135deg,#141b2d 0%,#111726 60%,rgba(136,71,255,0.2) 100%);border:1px solid rgba(136,71,255,0.45);box-shadow:0 0 26px -10px rgba(136,71,255,0.6);display:flex;flex-direction:column;gap:10px}
+.bp-panel::before{content:'🎖️';position:absolute;right:-6px;top:-18px;font-size:6rem;opacity:0.07;transform:rotate(12deg);pointer-events:none}
+.bp-panel > *{position:relative}
+.bp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.bp-head-l{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bp-title{margin:0;font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:0.5px}
+.bp-title span{background:linear-gradient(90deg,#ffaa00,#ff5500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bp-lvl-badge{font-size:0.65rem;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:#0b0f19;color:#8847ff;border:1px solid #8847ff}
+.bp-claim-all{padding:8px 16px;font-size:0.75rem}
+.bp-bar-wrap{display:flex;align-items:center;gap:10px}
+.bp-bar{flex:1;height:12px;border-radius:999px;background:#0b0f19;overflow:hidden;border:1px solid rgba(255,255,255,0.05)}
+.bp-bar-fill{height:100%;background:linear-gradient(90deg,#ffaa00,#ff5500);border-radius:999px;transition:width 0.4s}
+.bp-xp{font-size:0.7rem;font-weight:800;color:#94a3b8;white-space:nowrap}
+.bp-track{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 8px;scrollbar-width:thin;scrollbar-color:#272e3f transparent}
+.bp-tile{--c:#ffaa00;position:relative;flex:0 0 96px;box-sizing:border-box;padding:7px 5px 8px;text-align:center;background:#0b0f19;border:1px solid rgba(255,255,255,0.05);border-bottom:3px solid var(--c);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:3px;min-height:128px;transition:transform 0.15s,box-shadow 0.15s,opacity 0.2s}
+.bp-tile::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--c) 0%,transparent 70%);opacity:0.18;pointer-events:none}
+.bp-tile > *{position:relative}
+.bp-tile.locked{opacity:0.55}
+.bp-tile.ready{cursor:pointer;border-color:var(--c);animation:bpGlow 1.6s ease-in-out infinite}
+.bp-tile.ready:hover{transform:translateY(-3px)}
+.bp-tile.claimed{opacity:0.45;filter:grayscale(0.6)}
+.bp-tile.claimed::after{content:'✓';position:absolute;top:5px;right:5px;width:18px;height:18px;border-radius:50%;background:#16c784;color:#04150f;font-size:0.7rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+@keyframes bpGlow{0%,100%{box-shadow:0 0 6px -2px var(--c)}50%{box-shadow:0 0 18px 0 var(--c)}}
+.bp-lv{font-size:0.58rem;font-weight:900;letter-spacing:0.8px;color:#64748b;text-transform:uppercase}
+.bp-ico{height:44px;width:100%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;line-height:1}
+.bp-ico .skin-img{height:40px}
+.bp-name{font-size:0.6rem;font-weight:700;color:#cbd5e1;line-height:1.2;overflow-wrap:anywhere;width:100%}
+.bp-val{font-size:0.72rem;font-weight:800;color:#ffaa00}
+.bp-hint{font-size:0.65rem;font-weight:700;color:#64748b}
+.upg-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.upg-col{min-width:0;box-sizing:border-box;max-height:760px;overflow-y:auto;padding:12px;background:#0b0f19;border:1px solid rgba(255,255,255,0.04);border-radius:12px;scrollbar-width:thin;scrollbar-color:#272e3f transparent}
+.upg-col .inventory-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.upg-col .preview-title{margin-top:0 !important;position:sticky;top:-12px;z-index:5;background:#0b0f19;padding:8px 4px}
+.upg-col .upg-toolbar{gap:5px}
+.upg-col .upg-chip.sep-after{margin-right:6px}
+.upg-col .upg-chip.sep-before{margin-left:6px}
+@media (max-width:760px){.upg-cols{grid-template-columns:1fr}.upg-col{max-height:none;overflow:visible}.upg-col .preview-title{position:static}}
 </style>
-  <style id="skinCss">.sk-0 { background-image: url("img/akr-worm.png"); }
-.sk-1{background-image:url("img/butterfly-blackwindow.png");}.sk-2{background-image:url("img/butterfly-dragonglass.png");}.sk-3{background-image:url("img/butterfly-legasi.png");}.sk-4{background-image:url("img/butterfly-starfall.png");}.sk-5{background-image:url("img/sk-5.webp");}.sk-6{background-image:url("img/sk-6.webp");}.sk-7{background-image:url("img/sk-7.webp");}.sk-8{background-image:url("img/sk-8.webp");}.sk-9{background-image:url("img/sk-9.webp");}.sk-10{background-image:url("img/sk-10.webp");}.sk-11{background-image:url("img/sk-11.webp");}.sk-12{background-image:url("img/sk-12.webp");}.sk-13{background-image:url("img/sk-13.webp");}.sk-14{background-image:url("img/sk-14.webp");}.sk-15{background-image:url("img/sk-15.webp");}.sk-16{background-image:url("img/sk-16.webp");}.sk-17{background-image:url("img/sk-17.webp");}.sk-18{background-image:url("img/sk-18.webp");}.sk-19{background-image:url("img/sk-19.webp");}.sk-20{background-image:url("img/sk-20.webp");}.sk-21{background-image:url("img/sk-21.webp");}.sk-22{background-image:url("img/sk-22.webp");}.sk-23{background-image:url("img/sk-23.webp");}.sk-24{background-image:url("img/sk-24.webp");}.sk-25{background-image:url("img/sk-25.webp");}.sk-26{background-image:url("img/sk-26.webp");}.sk-27{background-image:url("img/sk-27.webp");}.sk-28{background-image:url("img/sk-28.webp");}.sk-29 { background-image: url("img/scorpion-scratch.png"); }.sk-30 { background-image: url("img/scorpion-seaeye.png"); }.sk-31 { background-image: url("img/scorpion-starfall.png"); }.sk-32 { background-image: url("img/scorpion-veil.png"); }.sk-33{background-image:url("img/sk-33.webp");}.sk-34{background-image:url("img/sk-34.webp");}.sk-35{background-image:url("img/sk-35.webp");}.sk-36{background-image:url("img/sk-36.webp");}.sk-37{background-image:url("img/sk-37.webp");}.sk-38{background-image:url("img/sk-38.webp");}.sk-39{background-image:url("img/sk-39.webp");}.sk-40{background-image:url("img/sk-40.webp");}.sk-41 { background-image: url("img/m9-ancient.png"); }.sk-42 { background-image: url("img/m9-dragonglass.png"); }.sk-43 { background-image: url("img/m9-scrach.png"); }
-.sk-44 { background-image: url("img/m9-universe.png"); }.sk-45{background-image:url("img/sk-45.webp");}.sk-46{background-image:url("img/sk-46.webp");}.sk-47{background-image:url("img/sk-47.webp");}.sk-48{background-image:url("img/sk-48.webp");}.sk-49{background-image:url("img/sk-49.webp");}.sk-50{background-image:url("img/sk-50.webp");}.sk-51{background-image:url("img/sk-51.webp");}.sk-52{background-image:url("img/sk-52.webp");}.sk-53{background-image:url("img/sk-53.webp");}.sk-54{background-image:url("img/sk-54.webp");}.sk-55{background-image:url("img/sk-55.webp");}.sk-56{background-image:url("img/sk-56.webp");}.sk-57{background-image:url("img/sk-57.webp");}.sk-58{background-image:url("img/sk-58.webp");}.sk-59{background-image:url("img/sk-59.webp");}.sk-60{background-image:url("img/sk-60.webp");}.sk-61{background-image:url("img/sk-61.webp");}.sk-62{background-image:url("img/sk-62.webp");}.sk-63{background-image:url("img/sk-63.webp");}.sk-64{background-image:url("img/sk-64.webp");}.sk-65{background-image:url("img/sk-65.webp");}.sk-66{background-image:url("img/sk-66.webp");}.sk-67{background-image:url("img/sk-67.webp");}.sk-68{background-image:url("img/sk-68.webp");}.sk-69{background-image:url("img/sk-69.webp");}.sk-70{background-image:url("img/sk-70.webp");}.sk-71{background-
-    
-    image:url("img/sk-71.webp");}.sk-72{background-image:url("img/sk-72.webp");}.sk-73{background-image:url("img/sk-73.webp");}.sk-74{background-image:url("img/sk-74.webp");}.sk-75{background-image:url("img/sk-75.webp");}.sk-76{background-image:url("img/sk-76.webp");}.sk-77{background-image:url("img/sk-77.webp");}.sk-78{background-image:url("img/sk-78.webp");}.sk-79{background-image:url("img/sk-79.webp");}.sk-80{background-image:url("img/sk-80.webp");}.sk-81{background-image:url("img/sk-81.webp");}.sk-82{background-image:url("img/sk-82.webp");}.sk-83{background-image:url("img/sk-83.webp");}.sk-84{background-image:url("img/sk-84.webp");}.sk-85{background-image:url("img/sk-85.webp");}.sk-86{background-image:url("img/sk-86.webp");}.sk-87{background-image:url("img/sk-87.webp");}.sk-88{background-image:url("img/sk-88.webp");}.sk-89{background-image:url("img/sk-89.webp");}.sk-90{background-image:url("img/sk-90.webp");}.sk-91{background-image:url("img/sk-91.webp");}.sk-92{background-image:url("img/sk-92.webp");}.sk-93{background-image:url("img/sk-93.webp");}.sk-94{background-image:url("img/sk-94.webp");}.sk-95{background-image:url("img/sk-95.webp");}.sk-96{background-image:url("img/sk-96.webp");}.sk-97{background-image:url("img/sk-97.webp");}.sk-98{background-image:url("img/sk-98.webp");}.sk-99{background-image:url("img/sk-99.webp");}.sk-100{background-image:url("img/sk-100.webp");}.sk-101{background-image:url("img/sk-101.webp");}.sk-102{background-image:url("img/sk-102.webp");}.sk-103{background-image:url("img/sk-103.webp");}.sk-104{background-image:url("img/sk-104.webp");}.sk-105{background-image:url("img/sk-105.webp");}.sk-106{background-image:url("img/sk-106.webp");}.sk-107{background-image:url("img/sk-107.webp");}.sk-108{background-image:url("img/sk-108.webp");}.sk-109{background-image:url("img/sk-109.webp");}.sk-110{background-image:url("img/sk-110.webp");}.sk-111{background-image:url("img/sk-111.webp");}.sk-112{background-image:url("img/sk-112.webp");}.sk-113{background-image:url("img/sk-113.webp");}.sk-114{background-image:url("img/sk-114.webp");}.sk-115{background-image:url("img/sk-115.webp");}.sk-116{background-image:url("img/sk-116.webp");}.sk-117{background-image:url("img/sk-117.webp");}.sk-118{background-image:url("img/sk-118.webp");}.sk-119{background-image:url("img/sk-119.webp");}.sk-120{background-image:url("img/sk-120.webp");}.sk-121{background-image:url("img/sk-121.webp");}.sk-122{background-image:url("img/sk-122.webp");}.sk-123{background-image:url("img/sk-123.webp");}.sk-124{background-image:url("img/sk-124.webp");}.sk-125{background-image:url("img/sk-125.webp");}.sk-126{background-image:url("img/sk-126.webp");}.sk-127{background-image:url("img/sk-127.webp");}.sk-128{background-image:url("img/sk-128.webp");}.sk-129{background-image:url("img/sk-129.webp");}.sk-130{background-image:url("img/sk-130.webp");}.sk-131{background-image:url("img/sk-131.webp");}.sk-132{background-image:url("img/sk-132.webp");}.sk-133{background-image:url("img/sk-133.webp");}.sk-134{background-image:url("img/sk-134.webp");}.sk-135{background-image:url("img/sk-135.webp");}.sk-136{background-image:url("img/sk-136.webp");}.sk-137{background-image:url("img/sk-137.webp");}.sk-138{background-image:url("img/sk-138.webp");}.sk-139{background-image:url("img/sk-139.webp");}.sk-140{background-image:url("img/sk-140.webp");}.sk-141{background-image:url("img/sk-141.webp");}.sk-142{background-image:url("img/sk-142.webp");}.sk-143{background-image:url("img/sk-143.webp");}.sk-144{background-image:url("img/sk-144.webp");}.sk-145{background-image:url("img/sk-145.webp");}.sk-146{background-image:url("img/sk-146.webp");}.sk-147{background-image:url("img/sk-147.webp");}.sk-148{background-image:url("img/sk-148.webp");}.sk-149{background-image:url("img/sk-149.webp");}</style>
+  <style id="skinCss">.sk-0{background-image:url("img/akr-worm.png");}.sk-1{background-image:url("img/butterfly-blackwindow.png");}.sk-2{background-image:url("img/butterfly-dragonglass.png");}.sk-3{background-image:url("img/butterfly-legasi.png");}.sk-4{background-image:url("img/butterfly-starfall.png");}.sk-5{background-image:url("img/sk-5.webp");}.sk-6{background-image:url("img/sk-6.webp");}.sk-7{background-image:url("img/sk-7.webp");}.sk-8{background-image:url("img/sk-8.webp");}.sk-9{background-image:url("img/sk-9.webp");}.sk-10{background-image:url("img/sk-10.webp");}.sk-11{background-image:url("img/sk-11.webp");}.sk-12{background-image:url("img/sk-12.webp");}.sk-13{background-image:url("img/sk-13.webp");}.sk-14{background-image:url("img/sk-14.webp");}.sk-15{background-image:url("img/sk-15.webp");}.sk-16{background-image:url("img/sk-16.webp");}.sk-17{background-image:url("img/sk-17.webp");}.sk-18{background-image:url("img/sk-18.webp");}.sk-19{background-image:url("img/sk-19.webp");}.sk-20{background-image:url("img/sk-20.webp");}.sk-21{background-image:url("img/sk-21.webp");}.sk-22{background-image:url("img/sk-22.webp");}.sk-23{background-image:url("img/sk-23.webp");}.sk-24{background-image:url("img/sk-24.webp");}.sk-25{background-image:url("img/sk-25.webp");}.sk-26{background-image:url("img/sk-26.webp");}.sk-27{background-image:url("img/sk-27.webp");}.sk-28{background-image:url("img/sk-28.webp");}.sk-29{background-image:url("img/scorpion-scratch.png");}.sk-30{background-image:url("img/scorpion-seaeye.png");}.sk-31{background-image:url("img/scorpion-starfall.png");}.sk-32{background-image:url("img/scorpion-veil.png");}.sk-33{background-image:url("img/sk-33.webp");}.sk-34{background-image:url("img/sk-34.webp");}.sk-35{background-image:url("img/sk-35.webp");}.sk-36{background-image:url("img/sk-36.webp");}.sk-37{background-image:url("img/sk-37.webp");}.sk-38{background-image:url("img/sk-38.webp");}.sk-39{background-image:url("img/sk-39.webp");}.sk-40{background-image:url("img/sk-40.webp");}.sk-41{background-image:url("img/m9-ancient.png");}.sk-42{background-image:url("img/m9-dragonglass.png");}.sk-43{background-image:url("img/m9-scrach.png");}.sk-44{background-image:url("img/m9-universe.png");}.sk-45{background-image:url("img/sk-45.webp");}.sk-46{background-image:url("img/sk-46.webp");}.sk-47{background-image:url("img/sk-47.webp");}.sk-48{background-image:url("img/sk-48.webp");}.sk-49{background-image:url("img/sk-49.webp");}.sk-50{background-image:url("img/sk-50.webp");}.sk-51{background-image:url("img/sk-51.webp");}.sk-52{background-image:url("img/sk-52.webp");}.sk-53{background-image:url("img/sk-53.webp");}.sk-54{background-image:url("img/sk-54.webp");}.sk-55{background-image:url("img/sk-55.webp");}.sk-56{background-image:url("img/sk-56.webp");}.sk-57{background-image:url("img/sk-57.webp");}.sk-58{background-image:url("img/sk-58.webp");}.sk-59{background-image:url("img/sk-59.webp");}.sk-60{background-image:url("img/sk-60.webp");}.sk-61{background-image:url("img/sk-61.webp");}.sk-62{background-image:url("img/sk-62.webp");}.sk-63{background-image:url("img/sk-63.webp");}.sk-64{background-image:url("img/sk-64.webp");}.sk-65{background-image:url("img/sk-65.webp");}.sk-66{background-image:url("img/sk-66.webp");}.sk-67{background-image:url("img/sk-67.webp");}.sk-68{background-image:url("img/sk-68.webp");}.sk-69{background-image:url("img/sk-69.webp");}.sk-70{background-image:url("img/sk-70.webp");}.sk-71{background-image:url("img/sk-71.webp");}.sk-72{background-image:url("img/sk-72.webp");}.sk-73{background-image:url("img/sk-73.webp");}.sk-74{background-image:url("img/sk-74.webp");}.sk-75{background-image:url("img/sk-75.webp");}.sk-76{background-image:url("img/sk-76.webp");}.sk-77{background-image:url("img/sk-77.webp");}.sk-78{background-image:url("img/sk-78.webp");}.sk-79{background-image:url("img/sk-79.webp");}.sk-80{background-image:url("img/sk-80.webp");}.sk-81{background-image:url("img/sk-81.webp");}.sk-82{background-image:url("img/sk-82.webp");}.sk-83{background-image:url("img/sk-83.webp");}.sk-84{background-image:url("img/sk-84.webp");}.sk-85{background-image:url("img/sk-85.webp");}.sk-86{background-image:url("img/sk-86.webp");}.sk-87{background-image:url("img/sk-87.webp");}.sk-88{background-image:url("img/sk-88.webp");}.sk-89{background-image:url("img/sk-89.webp");}.sk-90{background-image:url("img/sk-90.webp");}.sk-91{background-image:url("img/sk-91.webp");}.sk-92{background-image:url("img/sk-92.webp");}.sk-93{background-image:url("img/sk-93.webp");}.sk-94{background-image:url("img/sk-94.webp");}.sk-95{background-image:url("img/sk-95.webp");}.sk-96{background-image:url("img/sk-96.webp");}.sk-97{background-image:url("img/sk-97.webp");}.sk-98{background-image:url("img/sk-98.webp");}.sk-99{background-image:url("img/sk-99.webp");}.sk-100{background-image:url("img/sk-100.webp");}.sk-101{background-image:url("img/sk-101.webp");}.sk-102{background-image:url("img/sk-102.webp");}.sk-103{background-image:url("img/sk-103.webp");}.sk-104{background-image:url("img/sk-104.webp");}.sk-105{background-image:url("img/sk-105.webp");}.sk-106{background-image:url("img/sk-106.webp");}.sk-107{background-image:url("img/sk-107.webp");}.sk-108{background-image:url("img/sk-108.webp");}.sk-109{background-image:url("img/sk-109.webp");}.sk-110{background-image:url("img/sk-110.webp");}.sk-111{background-image:url("img/sk-111.webp");}.sk-112{background-image:url("img/sk-112.webp");}.sk-113{background-image:url("img/sk-113.webp");}.sk-114{background-image:url("img/sk-114.webp");}.sk-115{background-image:url("img/sk-115.webp");}.sk-116{background-image:url("img/sk-116.webp");}.sk-117{background-image:url("img/sk-117.webp");}.sk-118{background-image:url("img/sk-118.webp");}.sk-119{background-image:url("img/sk-119.webp");}.sk-120{background-image:url("img/sk-120.webp");}.sk-121{background-image:url("img/sk-121.webp");}.sk-122{background-image:url("img/sk-122.webp");}.sk-123{background-image:url("img/sk-123.webp");}.sk-124{background-image:url("img/sk-124.webp");}.sk-125{background-image:url("img/sk-125.webp");}.sk-126{background-image:url("img/sk-126.webp");}.sk-127{background-image:url("img/sk-127.webp");}.sk-128{background-image:url("img/sk-128.webp");}.sk-129{background-image:url("img/sk-129.webp");}.sk-130{background-image:url("img/sk-130.webp");}.sk-131{background-image:url("img/sk-131.webp");}.sk-132{background-image:url("img/sk-132.webp");}.sk-133{background-image:url("img/sk-133.webp");}.sk-134{background-image:url("img/sk-134.webp");}.sk-135{background-image:url("img/sk-135.webp");}.sk-136{background-image:url("img/sk-136.webp");}.sk-137{background-image:url("img/sk-137.webp");}.sk-138{background-image:url("img/sk-138.webp");}.sk-139{background-image:url("img/sk-139.webp");}.sk-140{background-image:url("img/sk-140.webp");}.sk-141{background-image:url("img/sk-141.webp");}.sk-142{background-image:url("img/sk-142.webp");}.sk-143{background-image:url("img/sk-143.webp");}.sk-144{background-image:url("img/sk-144.webp");}.sk-145{background-image:url("img/sk-145.webp");}.sk-146{background-image:url("img/sk-146.webp");}.sk-147{background-image:url("img/sk-147.webp");}.sk-148{background-image:url("img/sk-148.webp");}.sk-149{background-image:url("img/sk-149.webp");}</style>
 </head>
 <body>
 <div class="bulldrop-app">
@@ -438,7 +474,7 @@ to{transform: scale(1); opacity: 1;}}
     <div class="feed-label"><span class="feed-dot"></span><span>Live</span></div>
     <div class="feed-track" id="feedTrack"></div>
   </div>
-
+ 
   <div class="header">
     <div class="logo-block">
       <span class="logo-icon">🍀</span>
@@ -455,13 +491,13 @@ to{transform: scale(1); opacity: 1;}}
       <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()">👤 <span id="profileBtnName">Профиль</span></button>
     </div>
   </div>
-
+ 
   <div class="screen active" id="catalogScreen">
     <div class="cs-hero" id="catalogHero"></div>
-    <div id="freeCaseBlock"></div>
+    <div class="top-row"><div id="freeCaseBlock"></div><div id="bpBlock"></div></div>
     <div class="cases-grid" id="casesGrid"></div>
   </div>
-
+ 
   <div class="screen" id="rouletteScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -511,7 +547,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="preview-grid" id="previewGrid"></div>
     </div>
   </div>
-
+ 
   <div class="screen" id="upgradeScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -519,7 +555,7 @@ to{transform: scale(1); opacity: 1;}}
       <div id="upgradeContent"></div>
     </div>
   </div>
-
+ 
   <div class="screen" id="contractsScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -527,7 +563,7 @@ to{transform: scale(1); opacity: 1;}}
       <div id="contractsContent"></div>
     </div>
   </div>
-
+ 
   <div class="screen" id="minesScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
@@ -554,7 +590,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="win-box" id="minesResult"></div>
     </div>
   </div>
-
+ 
   <div class="screen" id="promoScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -574,7 +610,7 @@ to{transform: scale(1); opacity: 1;}}
       </div>
     </div>
   </div>
-
+ 
   <div class="screen" id="profileScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
@@ -612,9 +648,9 @@ to{transform: scale(1); opacity: 1;}}
       </div>
     </div>
   </div>
-
+ 
 </div>
-
+ 
 <script>
   let balance = 500;
   let myInventory = [];
@@ -1253,6 +1289,7 @@ to{transform: scale(1); opacity: 1;}}
     balance -= currentCase.price;
     updateBalanceDisplay();
     saveProgress();
+    addBpXp(caseXp(currentCase));
     const item = pickItem(currentCase);
     const rMeta = rarityInfo[item.rarity];
     const wonPrice = itemPrice(item);
@@ -1300,6 +1337,7 @@ to{transform: scale(1); opacity: 1;}}
     balance -= totalCost;
     updateBalanceDisplay();
     saveProgress();
+    addBpXp(caseXp(currentCase) * count);
     currentWonSkins = [];
     for (let i = 0; i < count; i++) {
       const item = pickItem(currentCase);
@@ -1342,6 +1380,7 @@ to{transform: scale(1); opacity: 1;}}
     balance -= totalCost;
     updateBalanceDisplay();
     saveProgress();
+    addBpXp(caseXp(currentCase) * count);
     running = true;
     document.getElementById('startBtn').disabled = true;
     setMultiButtonsDisabled(true);
@@ -1422,6 +1461,7 @@ to{transform: scale(1); opacity: 1;}}
     balance -= currentCase.price;
     updateBalanceDisplay();
     saveProgress();
+    addBpXp(caseXp(currentCase));
     running = true;
     const startBtn = document.getElementById('startBtn');
     startBtn.disabled = true;
@@ -1709,6 +1749,7 @@ to{transform: scale(1); opacity: 1;}}
     const grid = document.getElementById('casesGrid');
     if (!hero || !grid) return;
     renderFreeBanner();
+    renderBattlePass();
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = `
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
@@ -1812,8 +1853,14 @@ to{transform: scale(1); opacity: 1;}}
     });
     return h + '</div>';
   }
+  const UPG_MIN_CHANCE = 0.01;  // минимальный шанс апгрейда, %
+  const UPG_MAX_CHANCE = 95;    // максимальный шанс апгрейда, %
   function upgChance(src, tgt) {
-    return Math.max(2, Math.min(95, Math.round((src / tgt) * 100 * HOUSE_EDGE)));
+    const raw = (src / tgt) * 100 * HOUSE_EDGE;
+    return Math.max(UPG_MIN_CHANCE, Math.min(UPG_MAX_CHANCE, Math.round(raw * 100) / 100));
+  }
+  function fmtChance(c) {
+    return String(Math.round(c * 100) / 100);
   }
   function upgChanceColor(c) {
     return c >= 50 ? '#16c784' : (c >= 25 ? '#ffaa00' : '#eb4b4b');
@@ -1822,133 +1869,148 @@ to{transform: scale(1); opacity: 1;}}
     const m = tgt / src;
     return m.toFixed(m >= 10 ? 1 : 2);
   }
-  function renderUpgradeStep1() {
-    const box = document.getElementById('upgradeContent');
-    let html = upgStepsHTML(1);
-    if (myInventory.length === 0) {
-      box.innerHTML = html + '<div class="inventory-empty-text">Нужен хотя бы один предмет в инвентаре. Откройте кейс и оставьте предмет себе!</div>';
-      return;
-    }
-    html += '<div class="preview-title">Выберите предмет для апгрейда</div>';
-    html += '<div class="upg-hint">Чем дороже цель, тем выше множитель и ниже шанс успеха.</div>';
-    html += '<div class="inventory-grid">';
-    myInventory.forEach((item, index) => {
-      const color = rarityInfo[item.rarity].color;
-      html += `
-        <div class="upg-card" style="--c:${color}" onclick="selectUpgradeSource(${index})">
-          <div class="upg-card-icon">${ico(item)}</div>
-          <div class="preview-name">${item.name}</div>
-          <div class="upg-card-price">${formatPrice(itemPrice(item))} G</div>
+  function renderUpgradeStep1() { renderUpgrade(); }
+  function upgSideHTML(item, id, tag, placeholder) {
+    if (!item) {
+      return `<div class="upg-side" id="${id}" style="--c:#272e3f">
+          <div class="upg-side-tag">${tag}</div>
+          <div class="upg-side-icon">❔</div>
+          <div class="upg-side-name" style="color:#64748b">${placeholder}</div>
+          <div class="upg-side-price" style="color:#64748b">— G</div>
         </div>`;
-    });
-    html += '</div>';
-    box.innerHTML = html;
-  }
-  function selectUpgradeSource(index) {
-    upgradeSourceIndex = index;
-    upgradeSourceItem = myInventory[index];
-    renderUpgradeStep2();
-  }
-  function setUpgradeFilter(f) { upgradeFilter = f; renderUpgradeStep2(); }
-  function setUpgradeSort(s) { upgradeSort = s; renderUpgradeStep2(); }
-  function renderUpgradeStep2() {
-    const box = document.getElementById('upgradeContent');
-    const sourcePrice = itemPrice(upgradeSourceItem);
-    const srcColor = rarityInfo[upgradeSourceItem.rarity].color;
-    const all = getAllItems().filter(it => itemPrice(it) > sourcePrice);
-    let html = upgStepsHTML(2);
-    html += '<div class="preview-title upg-back-link" onclick="renderUpgradeStep1()">← Выбрать другой предмет</div>';
-    html += `<div class="upg-recap" style="--c:${srcColor}"><span>${ico(upgradeSourceItem)}</span><span>${upgradeSourceItem.name}</span><b>${formatPrice(sourcePrice)} G</b></div>`;
-    if (all.length === 0) {
-      box.innerHTML = html + '<div class="inventory-empty-text">Это максимальная цена — апгрейдить дальше некуда.</div>';
-      return;
     }
-    const filters = [['all', 'Все'], ['rare', 'Rare'], ['epic', 'Epic'], ['legendary', 'Legendary'], ['arcane', 'Arcane'], ['gold', 'Gold']];
-    html += '<div class="upg-toolbar">';
-    filters.forEach(([key, label]) => {
-      html += `<button class="upg-chip ${key === 'all' ? 'sep-after' : ''} ${upgradeFilter === key ? 'active' : ''}" onclick="setUpgradeFilter('${key}')">${label}</button>`;
-    });
-    html += `<button class="upg-chip sep-before ${upgradeSort === 'asc' ? 'active' : ''}" onclick="setUpgradeSort('asc')">Цена ↑</button>`;
-    html += `<button class="upg-chip ${upgradeSort === 'desc' ? 'active' : ''}" onclick="setUpgradeSort('desc')">Цена ↓</button>`;
-    html += '</div>';
-    let targets = all.filter(it => upgradeFilter === 'all' || it.rarity === upgradeFilter);
-    targets.sort((a, b) => upgradeSort === 'asc' ? itemPrice(a) - itemPrice(b) : itemPrice(b) - itemPrice(a));
-    upgradeTargets = targets; // выбор по индексу (в именах скинов бывают кавычки)
-    html += '<div class="preview-title">Выберите, что хотите получить</div>';
-    if (targets.length === 0) {
-      html += '<div class="inventory-empty-text">Нет подходящих предметов этой редкости.</div>';
-      box.innerHTML = html;
-      return;
-    }
-    html += '<div class="inventory-grid">';
-    targets.forEach((item, idx) => {
-      const color = rarityInfo[item.rarity].color;
-      const tp = itemPrice(item);
-      const ch = upgChance(sourcePrice, tp);
-      html += `
-        <div class="upg-card" style="--c:${color}" onclick="selectUpgradeTarget(${idx})">
-          <div class="upg-card-badge" style="color:${upgChanceColor(ch)}">${ch}%</div>
-          <div class="upg-card-icon">${ico(item)}</div>
-          <div class="preview-name">${item.name}</div>
-          <div class="upg-card-price">${formatPrice(tp)} G</div>
-          <div class="upg-card-mult">x${upgMult(sourcePrice, tp)}</div>
+    const color = rarityInfo[item.rarity].color;
+    return `<div class="upg-side" id="${id}" style="--c:${color}">
+          <div class="upg-side-tag">${tag}</div>
+          <div class="upg-side-icon">${ico(item)}</div>
+          <div class="upg-side-name">${item.name}</div>
+          <div class="upg-side-price" style="color:${color}">${formatPrice(itemPrice(item))} G</div>
         </div>`;
-    });
-    html += '</div>';
-    box.innerHTML = html;
   }
-  function selectUpgradeTarget(idx) {
-    upgradeTargetItem = upgradeTargets[idx];
-    renderUpgradeConfirm();
-  }
-  function renderUpgradeConfirm() {
+  function renderUpgrade() {
     const box = document.getElementById('upgradeContent');
-    const sp = itemPrice(upgradeSourceItem);
-    const tp = itemPrice(upgradeTargetItem);
-    const chance = upgChance(sp, tp);
-    const mult = upgMult(sp, tp);
+    const y = window.scrollY;
+    const colScroll = [...document.querySelectorAll('.upg-col')].map(e => e.scrollTop);
+    const src = upgradeSourceItem, tgt = upgradeTargetItem;
+    const ready = !!(src && tgt);
+    const sp = src ? itemPrice(src) : 0;
+    const tp = tgt ? itemPrice(tgt) : 0;
+    const chance = ready ? upgChance(sp, tp) : 0;
+    const mult = ready ? upgMult(sp, tp) : '';
     currentUpgradeChance = chance;
-    const srcColor = rarityInfo[upgradeSourceItem.rarity].color;
-    const tgtColor = rarityInfo[upgradeTargetItem.rarity].color;
-    box.innerHTML = `
-      ${upgStepsHTML(3)}
-      <div class="preview-title upg-back-link" onclick="renderUpgradeStep2()">← Выбрать другую цель</div>
+    let html = `
       <div class="upg-arena">
-        <div class="upg-side" id="upgSideSrc" style="--c:${srcColor}">
-          <div class="upg-side-tag">Вы отдаёте</div>
-          <div class="upg-side-icon">${ico(upgradeSourceItem)}</div>
-          <div class="upg-side-name">${upgradeSourceItem.name}</div>
-          <div class="upg-side-price" style="color:${srcColor}">${formatPrice(sp)} G</div>
-        </div>
+        ${upgSideHTML(src, 'upgSideSrc', 'Вы отдаёте', 'Выберите предмет')}
         <div class="upg-wheel-wrap">
-          <div class="upg-wheel" id="upgWheel" style="--deg:${(chance * 3.6).toFixed(2)}deg">
+          <div class="upg-wheel" id="upgWheel" style="--deg:${(chance * 3.6).toFixed(3)}deg">
             <div class="upg-wheel-core">
-              <div class="upg-core-chance" id="upgCoreChance">${chance}%</div>
-              <div class="upg-core-label" id="upgCoreLabel">шанс успеха</div>
-              <div class="upg-core-mult">x${mult}</div>
+              <div class="upg-core-chance" id="upgCoreChance">${ready ? fmtChance(chance) + '%' : '—'}</div>
+              <div class="upg-core-label" id="upgCoreLabel">${ready ? 'шанс успеха' : 'выберите предметы'}</div>
+              ${ready ? `<div class="upg-core-mult">x${mult}</div>` : ''}
             </div>
             <div class="upg-needle-wrap" id="upgNeedle"><div class="upg-needle-bar"></div></div>
           </div>
         </div>
-        <div class="upg-side" id="upgSideTgt" style="--c:${tgtColor}">
-          <div class="upg-side-tag">Вы получите</div>
-          <div class="upg-side-icon">${ico(upgradeTargetItem)}</div>
-          <div class="upg-side-name">${upgradeTargetItem.name}</div>
-          <div class="upg-side-price" style="color:${tgtColor}">${formatPrice(tp)} G</div>
-        </div>
-      </div>
-      <div class="upg-stats">
+        ${upgSideHTML(tgt, 'upgSideTgt', 'Вы получите', 'Выберите цель')}
+      </div>`;
+    if (ready) {
+      html += `<div class="upg-stats">
         <div class="upg-stat">Множитель<b>x${mult}</b></div>
-        <div class="upg-stat">Шанс<b>${chance}%</b></div>
+        <div class="upg-stat">Шанс<b>${fmtChance(chance)}%</b></div>
         <div class="upg-stat">Прибыль<b>+${formatPrice(tp - sp)} G</b></div>
-      </div>
-      <button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()">🚀 Улучшить</button>
-    `;
+      </div>`;
+    }
+    html += `<button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()" ${ready ? '' : 'disabled'}>🚀 Улучшить</button>`;
+    html += '<div id="upgPickers" style="margin-top:26px; padding-top:20px; border-top:1px solid #141b2d;">';
+    html += '<div class="upg-cols"><div class="upg-col">';
+    html += `<div class="preview-title">Ваш инвентарь (${myInventory.length})</div>`;
+    if (myInventory.length === 0) {
+      html += '<div class="inventory-empty-text">Нужен хотя бы один предмет в инвентаре. Откройте кейс и оставьте предмет себе!</div>';
+    } else {
+      html += '<div class="upg-hint">Выберите предмет, который отдадите в апгрейд.</div><div class="inventory-grid">';
+      myInventory.forEach((item, index) => {
+        const color = rarityInfo[item.rarity].color;
+        html += `
+        <div class="upg-card ${upgradeSourceIndex === index ? 'sel' : ''}" style="--c:${color}" onclick="selectUpgradeSource(${index})">
+          <div class="upg-card-icon">${ico(item)}</div>
+          <div class="preview-name">${item.name}</div>
+          <div class="upg-card-price">${formatPrice(itemPrice(item))} G</div>
+        </div>`;
+      });
+      html += '</div>';
+    }
+    html += '</div><div class="upg-col"><div class="preview-title">Что хотите получить</div>';
+    if (!src) {
+      html += '<div class="inventory-empty-text" style="padding:24px 0;">Сначала выберите предмет из инвентаря.</div>';
+    } else {
+      const all = getAllItems().filter(it => itemPrice(it) > sp);
+      if (all.length === 0) {
+        html += '<div class="inventory-empty-text" style="padding:24px 0;">Это максимальная цена — апгрейдить дальше некуда.</div>';
+      } else {
+        const filters = [['all', 'Все'], ['rare', 'Rare'], ['epic', 'Epic'], ['legendary', 'Legendary'], ['arcane', 'Arcane'], ['gold', 'Gold']];
+        html += '<div class="upg-toolbar">';
+        filters.forEach(([key, label]) => {
+          html += `<button class="upg-chip ${key === 'all' ? 'sep-after' : ''} ${upgradeFilter === key ? 'active' : ''}" onclick="setUpgradeFilter('${key}')">${label}</button>`;
+        });
+        html += `<button class="upg-chip sep-before ${upgradeSort === 'asc' ? 'active' : ''}" onclick="setUpgradeSort('asc')">Цена ↑</button>`;
+        html += `<button class="upg-chip ${upgradeSort === 'desc' ? 'active' : ''}" onclick="setUpgradeSort('desc')">Цена ↓</button>`;
+        html += '</div>';
+        const targets = all.filter(it => upgradeFilter === 'all' || it.rarity === upgradeFilter);
+        targets.sort((a, b) => upgradeSort === 'asc' ? itemPrice(a) - itemPrice(b) : itemPrice(b) - itemPrice(a));
+        upgradeTargets = targets; // выбор по индексу (в именах скинов бывают кавычки)
+        if (targets.length === 0) {
+          html += '<div class="inventory-empty-text" style="padding:24px 0;">Нет подходящих предметов этой редкости.</div>';
+        } else {
+          html += '<div class="inventory-grid">';
+          targets.forEach((item, idx) => {
+            const color = rarityInfo[item.rarity].color;
+            const price = itemPrice(item);
+            const ch = upgChance(sp, price);
+            html += `
+        <div class="upg-card ${tgt === item ? 'sel' : ''}" style="--c:${color}" onclick="selectUpgradeTarget(${idx})">
+          <div class="upg-card-badge" style="color:${upgChanceColor(ch)}">${fmtChance(ch)}%</div>
+          <div class="upg-card-icon">${ico(item)}</div>
+          <div class="preview-name">${item.name}</div>
+          <div class="upg-card-price">${formatPrice(price)} G</div>
+          <div class="upg-card-mult">x${upgMult(sp, price)}</div>
+        </div>`;
+          });
+          html += '</div>';
+        }
+      }
+    }
+    html += '</div></div></div>';
+    box.innerHTML = html;
+    window.scrollTo(0, y);
+    document.querySelectorAll('.upg-col').forEach((e, i) => { e.scrollTop = colScroll[i] || 0; });
+  }
+  function selectUpgradeSource(index) {
+    if (upgradeRunning) return;
+    if (upgradeSourceIndex === index) {
+      upgradeSourceIndex = null;
+      upgradeSourceItem = null;
+    } else {
+      upgradeSourceIndex = index;
+      upgradeSourceItem = myInventory[index];
+      if (upgradeTargetItem && itemPrice(upgradeTargetItem) <= itemPrice(upgradeSourceItem)) upgradeTargetItem = null;
+    }
+    renderUpgrade();
+  }
+  function setUpgradeFilter(f) { upgradeFilter = f; renderUpgrade(); }
+  function setUpgradeSort(s) { upgradeSort = s; renderUpgrade(); }
+  function selectUpgradeTarget(idx) {
+    if (upgradeRunning) return;
+    const item = upgradeTargets[idx];
+    upgradeTargetItem = (upgradeTargetItem === item) ? null : item;
+    renderUpgrade();
   }
   function startUpgrade() {
-    if (upgradeRunning) return;
+    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
+    addBpXp(30);
     upgradeRunning = true;
     document.getElementById('upgradeStartBtn').disabled = true;
+    const pk = document.getElementById('upgPickers');
+    if (pk) pk.style.display = 'none';
     document.querySelectorAll('.upg-back-link').forEach(el => el.style.pointerEvents = 'none');
     const roll = Math.random() * 100;
     const win = roll < currentUpgradeChance;
@@ -1999,7 +2061,7 @@ to{transform: scale(1); opacity: 1;}}
         <div class="win-icon" style="font-size:3.4rem;">💀</div>
         <div class="win-title" style="color:#eb4b4b;">Не повезло</div>
         <div class="win-rarity" style="color:#94a3b8">Потерян: ${item.emo} ${item.name}</div>
-        <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${currentUpgradeChance}% — в следующий раз повезёт</div>
+        <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${fmtChance(currentUpgradeChance)}% — в следующий раз повезёт</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Попробовать снова</button>
           <button class="keep-btn" onclick="goToProfile()">В профиль</button>
@@ -2130,6 +2192,7 @@ to{transform: scale(1); opacity: 1;}}
     updateBestDrop(newItem, 2400);
     saveProgress();
     contractResult = { item: newItem, sum };
+    addBpXp(80);
     contractSel = [];
     contractView = 'spin';
     upgradeRunning = true; // блокирует переходы по разделам на время анимации
@@ -2307,6 +2370,7 @@ to{transform: scale(1); opacity: 1;}}
     }
     minesGame = { bet, m: minesCount, mines: idx.slice(0, minesCount), revealed: [], over: false, lost: false, hit: -1 };
     minesLastIdx = -1;
+    addBpXp(15);
     document.getElementById('minesResult').style.display = 'none';
     saveMines();
     saveProgress();
@@ -2622,8 +2686,159 @@ to{transform: scale(1); opacity: 1;}}
     msgBox.className = 'promo-message promo-' + type;
     msgBox.style.display = 'block';
   }
+  // ===== Батл пас: 30 уровней, награды — валюта и скины =====
+  const BP_LEVELS = 30;
+  const BP_REWARDS = [
+    { g: 100 }, { g: 150 }, { s: 'M4 "Lizard"' }, { g: 200 }, { s: 'AWM "Gear"' },
+    { g: 250 }, { g: 300 }, { s: 'StatTrak™ AWM "Scratch"' }, { g: 400 }, { s: 'StatTrak™ UMP45 "Winged"' },
+    { g: 450 }, { g: 500 }, { s: 'AKR12 "Hanami"' }, { g: 600 }, { s: 'AKR "Dragon"' },
+    { g: 700 }, { g: 800 }, { s: 'MP5 "Gorgon"' }, { g: 900 }, { s: 'Gloves "Onyx"' },
+    { g: 1000 }, { g: 1200 }, { s: 'StatTrak™ AKR "Tag King"' }, { g: 1500 }, { s: 'Gloves "Plague"' },
+    { g: 1800 }, { g: 2000 }, { s: 'StatTrak™ FAMAS "Fury"' }, { g: 2500 }, { s: 'Karambit "Dragon Glass"' }
+  ];
+  let bpXp = 0;
+  let bpClaimed = [];
+  function saveBp() {
+    try { localStorage.setItem('mifdrop_bp', JSON.stringify({ xp: bpXp, claimed: bpClaimed })); } catch (e) {}
+  }
+  function loadBp() {
+    try {
+      const raw = localStorage.getItem('mifdrop_bp');
+      if (!raw) return;
+      const d = JSON.parse(raw);
+      bpXp = Math.max(0, Number(d.xp) || 0);
+      bpClaimed = Array.isArray(d.claimed) ? d.claimed : [];
+    } catch (e) {}
+  }
+  function bpNeed(l) { return 40 + 6 * (l - 1); }  // XP до уровня l: 40 → 214
+  function bpState() {
+    let lvl = 0, left = bpXp;
+    while (lvl < BP_LEVELS && left >= bpNeed(lvl + 1)) { left -= bpNeed(lvl + 1); lvl++; }
+    return lvl >= BP_LEVELS ? { lvl, into: 0, need: 0 } : { lvl, into: left, need: bpNeed(lvl + 1) };
+  }
+  function caseXp(c) {
+    if (!c) return 0;
+    if (c.free) return 25;
+    return Math.round(8 + Math.min(c.price / 8, 120));
+  }
+  function bpFindSkin(name) {
+    for (const c of Object.values(casesData)) {
+      const it = c.items.find(i => i.name === name);
+      if (it) return it;
+    }
+    return null;
+  }
+  function bpReward(l) {
+    const r = BP_REWARDS[l - 1];
+    if (r.g) return { type: 'gold', amount: r.g };
+    const it = bpFindSkin(r.s);
+    if (!it) return { type: 'gold', amount: 100 };
+    return { type: 'skin', item: { name: it.name, emo: it.emo, rarity: it.rarity, price: itemPrice(it) } };
+  }
+  function showInfoToast(text) {
+    let t = document.getElementById('toast');
+    if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.innerText = '🎁 ' + text;
+    t.classList.add('show');
+    clearTimeout(t._h);
+    t._h = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+  function addBpXp(n) {
+    if (!n || n <= 0) return;
+    const before = bpState().lvl;
+    bpXp += Math.round(n);
+    saveBp();
+    const after = bpState().lvl;
+    if (after > before) showInfoToast('Батл пас: уровень ' + after + '!');
+  }
+  function renderBattlePass() {
+    const box = document.getElementById('bpBlock');
+    if (!box) return;
+    const st = bpState();
+    let ready = 0;
+    for (let l = 1; l <= st.lvl; l++) if (!bpClaimed.includes(l)) ready++;
+    const pct = st.lvl >= BP_LEVELS ? 100 : Math.round(st.into / st.need * 100);
+    let tiles = '';
+    for (let l = 1; l <= BP_LEVELS; l++) {
+      const r = bpReward(l);
+      const claimed = bpClaimed.includes(l);
+      const isReady = !claimed && st.lvl >= l;
+      const cls = claimed ? 'claimed' : (isReady ? 'ready' : 'locked');
+      const color = r.type === 'gold' ? '#ffaa00' : rarityInfo[r.item.rarity].color;
+      const body = r.type === 'gold'
+        ? `<div class="bp-name">Валюта</div><div class="bp-val">${formatPrice(r.amount)} G</div>`
+        : `<div class="bp-name">${escHTML(r.item.name)}</div><div class="bp-val">${formatPrice(r.item.price)} G</div>`;
+      tiles += `<div class="bp-tile ${cls}" style="--c:${color}" ${isReady ? `onclick="claimBpReward(${l})"` : ''}>
+        <div class="bp-lv">Ур. ${l}</div>
+        <div class="bp-ico">${r.type === 'gold' ? '🪙' : ico(r.item)}</div>
+        ${body}
+      </div>`;
+    }
+    box.innerHTML = `
+      <div class="bp-panel">
+        <div class="bp-head">
+          <div class="bp-head-l">
+            <h3 class="bp-title">🎖️ <span>Батл пас</span></h3>
+            <div class="bp-lvl-badge">Уровень ${st.lvl} / ${BP_LEVELS}</div>
+          </div>
+          ${ready ? `<button class="open-btn bp-claim-all" onclick="claimAllBp()">Забрать всё · ${ready}</button>` : ''}
+        </div>
+        <div class="bp-bar-wrap">
+          <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
+          <div class="bp-xp">${st.lvl >= BP_LEVELS ? 'Максимальный уровень' : st.into + ' / ' + st.need + ' XP'}</div>
+        </div>
+        <div class="bp-track" id="bpTrack">${tiles}</div>
+        <div class="bp-hint">XP дают открытие кейсов, апгрейды, контракты и сапёр</div>
+      </div>`;
+    const track = document.getElementById('bpTrack');
+    const first = track.querySelector('.bp-tile:not(.claimed)');
+    if (first) track.scrollLeft = Math.max(0, first.offsetLeft - track.offsetLeft - 4);
+  }
+  function bpRefresh() {
+    const tr = document.getElementById('bpTrack');
+    const sc = tr ? tr.scrollLeft : null;
+    renderCatalog();
+    const t2 = document.getElementById('bpTrack');
+    if (t2 && sc !== null) t2.scrollLeft = sc;
+  }
+  function bpApply(l) {
+    const r = bpReward(l);
+    if (r.type === 'gold') balance += r.amount;
+    else myInventory.push(r.item);
+    bpClaimed.push(l);
+    return r;
+  }
+  function claimBpReward(l) {
+    if (l > bpState().lvl || bpClaimed.includes(l)) return;
+    const r = bpApply(l);
+    updateBalanceDisplay();
+    saveProgress();
+    saveBp();
+    showInfoToast(r.type === 'gold' ? 'Награда: +' + formatPrice(r.amount) + ' G' : 'Награда: ' + r.item.name);
+    bpRefresh();
+  }
+  function claimAllBp() {
+    const lvl = bpState().lvl;
+    let gold = 0, skins = 0;
+    for (let l = 1; l <= lvl; l++) {
+      if (bpClaimed.includes(l)) continue;
+      const r = bpApply(l);
+      if (r.type === 'gold') gold += r.amount; else skins++;
+    }
+    if (!gold && !skins) return;
+    updateBalanceDisplay();
+    saveProgress();
+    saveBp();
+    const parts = [];
+    if (gold) parts.push('+' + formatPrice(gold) + ' G');
+    if (skins) parts.push(skins + ' скин.');
+    showInfoToast('Награды получены: ' + parts.join(' и '));
+    bpRefresh();
+  }
+ 
   loadProgress();
   loadPromoProgress();
+  loadBp();
   loadUsername();
   loadBestDrop();
   loadFreeCase();
@@ -2641,4 +2856,3 @@ to{transform: scale(1); opacity: 1;}}
 </script>
 </body>
 </html>
-
