@@ -2751,7 +2751,7 @@ to{transform: scale(1); opacity: 1;}}
     const map = new Map();
     feedRemote.forEach(e => map.set(e.id, e));
     myDrops.forEach(e => map.set(e.id, Object.assign({}, e, { user: username, you: true })));
-    const list = [...map.values()].sort((x, y) => y.ts - x.ts).slice(0, FEED_MAX);
+    const list = [...map.values()].sort((x, y) => y.ts - x.ts).slice(0, 30);
     const track = document.getElementById('feedTrack');
     const ids = new Set(list.map(e => e.id));
     const existing = new Map();
