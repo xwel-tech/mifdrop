@@ -2773,75 +2773,134 @@ to{transform: scale(1); opacity: 1;}}
   function saveMyDrops() {
     try { localStorage.setItem('mifdrop_my_drops', JSON.stringify(myDrops)); } catch (e) {}
   }
-  async function initFeedSync() {
-    try {
-      if (!window.claude || !window.claude.use) return;
-      const db = await window.claude.use('db');
-      const user = await window.claude.use('user');
-      feedUid = user ? await user.id() : null;
-      if (!db) return;
-      feedDb = db;
-      db.collection('feed').limit(200).onSnapshot(onFeedSnap, () => {});
-      if (myDrops.length && feedUid) scheduleFeedWrite();
-    } catch (e) {}
-  }
-  function onFeedSnap(snap) {
-    const remote = [];
-    snap.docs.forEach(d => {
-      const data = d.data() || {};
-      if (!Array.isArray(data.drops)) return;
-      data.drops.forEach(e => {
-        if (!e || typeof e.id !== 'string') return;
-        remote.push({ id: e.id, name: String(e.name || ''), emo: String(e.emo || '🎁'), rarity: e.rarity, price: Number(e.price) || 0, ts: Number(e.ts) || 0, user: String(data.nick || 'Player'), you: d.id === feedUid });
+ function loadFbScript(url) {
+  return new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = url;
+    s.onload = res;
+    s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function initFeedSync() {
+  try {
+    if (!window.firebase) {
+      const cdn = ['https://www', 'gstatic', 'com/firebasejs/10.12.2/'].join('.');
+      await loadFbScript(cdn + 'firebase-app-compat.js');
+      await loadFbScript(cdn + 'firebase-database-compat.js');
+    }
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyA5oPACFc76vU5WF-2Kn3Xwf3qYXbmX9Qs",
+        authDomain: ["mifdrop-live", "firebaseapp", "com"].join("."),
+        databaseURL: ["https://mifdrop-live-default-rtdb", "europe-west1", "firebasedatabase", "app"].join("."),
+        projectId: "mifdrop-live",
+        storageBucket: ["mifdrop-live", "firebasestorage", "app"].join("."),
+        messagingSenderId: "564148511580",
+        appId: "1:564148511580:web:206b69566bcf12cbcd1799"
+      });
+    }
+    let uid = localStorage.getItem('mifdrop_uid');
+    if (!uid) {
+      uid = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem('mifdrop_uid', uid);
+    }
+    feedUid = uid;
+    feedDb = firebase.database();
+    feedDb.ref('feed').limitToLast(50).on('value', onFeedSnap);
+    if (myDrops.length && feedUid) scheduleFeedWrite();
+  } catch (e) {}
+}
+
+function onFeedSnap(snap) {
+  const val = snap.val() || {};
+  const remote = new Array();
+  Object.keys(val).forEach(uid => {
+    if (uid === feedUid) return;
+    const data = val[uid] || {};
+    if (!Array.isArray(data.drops)) return;
+    const nick = String(data.nick || 'Игрок').slice(0, 20);
+    data.drops.forEach(e => {
+      if (!e || typeof e.id !== 'string') return;
+      remote.push({
+        id: e.id,
+        name: String(e.name || ''),
+        emo: String(e.emo || '🎁'),
+        rarity: e.rarity,
+        price: Number(e.price) || 0,
+        ts: Number(e.ts) || 0,
+        user: nick
       });
     });
-    if (!feedGotFirst) { feedGotFirst = true; remote.forEach(e => feedSeen.add(e.id)); } // уже прошедшие дропы без анимации
-    feedRemote = remote;
-    renderFeed();
+  });
+  if (!feedGotFirst) {
+    feedGotFirst = true;
+    remote.forEach(e => feedSeen.add(e.id));
   }
-  function scheduleFeedWrite() {
-    if (!feedDb || !feedUid) return;
-    feedDirty = true;
-    if (!feedWriteTimer) feedWriteTimer = setTimeout(flushFeedWrite, 400);
-  }
-  async function flushFeedWrite() {
-    feedWriteTimer = null;
-    if (feedWriting || !feedDirty) return;
-    feedWriting = true;
-    feedDirty = false;
-    try {
-      await feedDb.doc('feed/' + feedUid).set({ nick: String(username).slice(0, 20), drops: myDrops.slice(0, 10) });
-    } catch (e) {}
-    feedWriting = false;
-    if (feedDirty) scheduleFeedWrite();
-  }
-  function feedStart() {
-    if (feedStarted) return;
-    feedStarted = true;
-    document.getElementById('liveFeed').style.display = 'flex';
-    initFeedSync();
-  }
-  function feedAddPlayer(skin, delay) {
-    const add = () => {
-      myDrops.unshift({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name: skin.name, emo: skin.emo, rarity: skin.rarity, price: itemPrice(skin), ts: Date.now() });
-      if (myDrops.length > 10) myDrops.length = 10;
-      saveMyDrops();
-      feedStart();
-      renderFeed();
-      scheduleFeedWrite();
-    };
-    if (delay) setTimeout(add, delay); else add();
-  }
-  function loadFeed() {
-    try {
-      localStorage.removeItem('mifdrop_feed'); // старый формат (с симуляцией)
-      const raw = localStorage.getItem('mifdrop_my_drops');
-      if (raw) { const a = JSON.parse(raw); if (Array.isArray(a)) myDrops = a.slice(0, 10); }
-    } catch (e) {}
-    if (!myDrops.length) return;
+  feedRemote = remote;
+  renderFeed();
+}
+
+function scheduleFeedWrite() {
+  if (!feedDb || !feedUid) return;
+  feedDirty = true;
+  if (!feedWriteTimer) feedWriteTimer = setTimeout(flushFeedWrite, 400);
+}
+
+async function flushFeedWrite() {
+  feedWriteTimer = null;
+  if (feedWriting || !feedDirty) return;
+  feedWriting = true;
+  feedDirty = false;
+  try {
+    await feedDb.ref('feed/' + feedUid).set({
+      nick: String(username || 'Игрок').slice(0, 20),
+      drops: myDrops.slice(0, 10)
+    });
+  } catch (e) {}
+  feedWriting = false;
+  if (feedDirty) scheduleFeedWrite();
+}
+
+function feedStart() {
+  if (feedStarted) return;
+  feedStarted = true;
+  document.getElementById('liveFeed').style.display = 'flex';
+  initFeedSync();
+}
+
+function feedAddPlayer(skin, delay) {
+  const add = () => {
+    myDrops.unshift({
+      id: Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+      name: skin.name,
+      emo: skin.emo,
+      rarity: skin.rarity,
+      price: skin.price,
+      ts: Date.now()
+    });
+    if (myDrops.length > 10) myDrops.length = 10;
+    saveMyDrops();
     feedStart();
     renderFeed();
-  }
+    scheduleFeedWrite();
+  };
+  if (delay) setTimeout(add, delay); else add();
+}
+
+function loadFeed() {
+  try {
+    localStorage.removeItem('mifdrop_feed');
+    const raw = localStorage.getItem('mifdrop_my_drops');
+    if (raw) {
+      const a = JSON.parse(raw);
+      if (Array.isArray(a)) myDrops = a.slice(0, 10);
+    }
+  } catch (e) {}
+  feedStart();
+  renderFeed();
+}
   const promoCodes = {
     'LUCKYSTART': 1000,
     'GOLDRUSH': 5000,
