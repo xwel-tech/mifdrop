@@ -133,6 +133,7 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .upg-side-price{font-size: 0.82rem; font-weight: 800; margin-top: 6px;}
 .upg-side.dim{filter: grayscale(1) brightness(0.55); transform: scale(0.94);}
 .upg-side.glow{transform: scale(1.06); box-shadow: 0 0 30px var(--c);}
+.upg-side > .upg-side-count{position: absolute; top: 8px; right: 8px; z-index: 2; font-size: 0.65rem; font-weight: 900; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 6px; background: rgba(0,0,0,0.65); color: #16c784; border: 1px solid rgba(22,199,132,0.5);}
 .upg-wheel-wrap{display: flex; align-items: center; justify-content: center;}
 .upg-wheel{position: relative; width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(#16c784 0deg, #16c784 var(--deg), #272e3f var(--deg), #272e3f 360deg); box-shadow: 0 0 24px rgba(255,170,0,0.12); transition: box-shadow 0.4s;}
 .upg-wheel.win{box-shadow: 0 0 46px rgba(22,199,132,0.65);}
@@ -606,8 +607,50 @@ to{transform: scale(1); opacity: 1;}}
 .upg-col .upg-chip.sep-after{margin-right:6px}
 .upg-col .upg-chip.sep-before{margin-left:6px}
 @media (max-width:760px){.upg-cols{grid-template-columns:1fr}.upg-col{max-height:none;overflow:visible}.upg-col .preview-title{position:static}}
+
+/* ===== Вход / авторизация Google ===== */
+.toast{z-index: 1200;}
+.login-box{max-width: 400px; padding: 30px 22px 20px; position: relative;}
+.login-close{position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: #141b2d; color: #94a3b8; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;}
+.login-close:hover{color: #f1f5f9; border-color: #ffaa00;}
+.login-brand{display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; filter: drop-shadow(0 0 12px rgba(255,120,0,0.4));}
+.login-brand .logo-icon{font-size: 1.8rem; line-height: 1;}
+.login-brand .logo-text{font-size: 1.4rem; letter-spacing: 2px; font-weight: 900;}
+.login-sub{margin-bottom: 18px; font-size: 0.82rem;}
+.login-g{display: flex; justify-content: center; min-height: 44px;}
+.login-g-fb{width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: #0b0f19; color: #f1f5f9; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; font-family: inherit;}
+.login-g-fb:hover{border-color: #ffaa00; box-shadow: 0 0 16px -4px rgba(255,170,0,0.5);}
+.login-note{display: none; font-size: 0.72rem; color: #eb4b4b; font-weight: 700; margin-top: 8px; line-height: 1.35;}
+.login-or{display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; color: #64748b; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;}
+.login-or::before, .login-or::after{content: ''; flex: 1; height: 1px; background: #1c2540;}
+.login-grid{display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;}
+.login-soc, .login-email{--c: #ffaa00; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 8px; border-radius: 10px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.06); color: #f1f5f9; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; font-family: inherit;}
+.login-soc:hover, .login-email:hover{border-color: var(--c); box-shadow: 0 0 14px -4px var(--c);}
+.login-soc i{font-style: normal; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; color: #fff; background: var(--c);}
+.login-email{width: 100%; margin-top: 8px;}
+.login-promo{display: flex; gap: 8px; margin-top: 14px;}
+.login-promo .promo-input{min-width: 0; padding: 10px 12px; font-size: 0.85rem;}
+.login-promo .keep-btn{padding: 10px 14px; font-size: 0.75rem; flex-shrink: 0;}
+.login-legal{margin-top: 14px; font-size: 0.66rem; color: #64748b; font-weight: 600;}
+.hdr-ava{width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; font-size: 0.8rem; flex-shrink: 0;}
+#profileBtnName{max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.ava-img{width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;}
+.profile-avatar.has-img{background: #0b0f19; overflow: hidden;}
+.pf-user-name{font-size: 1.25rem; font-weight: 900; overflow-wrap: anywhere; line-height: 1.2;}
+.pf-user-mail{font-size: 0.8rem; color: #94a3b8; font-weight: 700; margin: 3px 0 12px; overflow-wrap: anywhere;}
+.logout-btn{background: transparent; color: #eb4b4b; border: 1px solid rgba(235,75,75,0.5); padding: 9px 16px; border-radius: 8px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; transition: all 0.2s; font-family: inherit;}
+.logout-btn:hover{background: rgba(235,75,75,0.12); border-color: #eb4b4b;}
+.g-login-link{margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; background: #0b0f19; color: #f1f5f9; border: 1px solid rgba(255,255,255,0.12); padding: 9px 16px; border-radius: 999px; font-weight: 800; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; font-family: inherit;}
+.g-login-link:hover{border-color: #ffaa00;}
+.cs-hero-top{display: flex; align-items: center; gap: 16px; flex-wrap: wrap; align-self: flex-start; margin-bottom: 12px;}
+.cs-hero-top .cs-hero-brand{margin-bottom: 0;}
+.hero-auth-btn{display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 8px; border-radius: 999px; background: rgba(6,9,19,0.65); border: 1px solid rgba(255,170,0,0.4); color: #f1f5f9; font-weight: 800; font-size: 0.82rem; cursor: pointer; backdrop-filter: blur(6px); transition: all 0.2s; font-family: inherit; max-width: 220px;}
+.hero-auth-btn:hover{border-color: #ffaa00; box-shadow: 0 0 16px -4px rgba(255,170,0,0.6);}
+.hero-auth-btn .hdr-ava{width: 26px; height: 26px; background: #141b2d;}
+.hero-auth-btn span.nm{overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 </style>
   <style id="skinCss">.sk-0 { background-image: url("img/akr-worm.png"); }.sk-1{background-image:url("img/butterfly-blackwindow.png");}.sk-2{background-image:url("img/butterfly-dragonglass.png");}.sk-3{background-image:url("img/butterfly-legasi.png");}.sk-4 { background-image: url("img/butterfly-starfall.png"); }.sk-5 { background-image: url("img/desert-eagle-ace.png"); }.sk-6 { background-image: url("img/fn-fal-tactical.png"); }.sk-7{background-image:url("img/sk-7.webp");}.sk-8{background-image:url("img/sk-8.webp");}.sk-9 { background-image: url("img/g22-starfall.png"); }.sk-10 { background-image: url("img/m110-cyber-.png"); }.sk-11 { background-image: url("img/m4-lizard-.png"); }.sk-12 { background-image: url("img/m4-samurai-.png"); }.sk-13 { background-image: url("img/mp7-lich-.png"); }.sk-14 { background-image: url("img/tec-9-fable-.png"); }.sk-15 { background-image: url("img/ump45-cerberus-.png"); }.sk-16 { background-image: url("img/usp-pisces-.png"); }.sk-17 { background-image: url("img/akr-dragon.png"); }.sk-18 { background-image: url("img/akr-nano.png"); }.sk-19 { background-image: url("img/akr12-carbon.png"); }.sk-20 { background-image: url("img/awm-dragon.png"); }.sk-21{background-image:url("img/sk-21.webp");}.sk-22 { background-image: url("img/fabm-parrot.png"); }.sk-23 { background-image: url("img/g22-carbon.png"); }.sk-24 { background-image: url("img/m4-night-wolf-.png"); }.sk-25 { background-image: url("img/mp7-banana-.png"); }.sk-26 { background-image: url("img/mp7-graffiti-.png"); }.sk-27 { background-image: url("img/p90-samurai-.png"); }.sk-28 { background-image: url("img/sm1014-wave-.png"); }.sk-29 { background-image: url("img/scorpion-scratch.png"); }.sk-30{background-image:url("img/scorpion-seaeye.png");}.sk-31 { background-image: url("img/scorpion-starfall.png"); }.sk-32 { background-image: url("img/scorpion-veil.png"); }.sk-33 { background-image: url("img/akr-treasure-hunter.png"); }.sk-34 { background-image: url("img/akr12-pixel-camouflage.png"); }.sk-35 { background-image: url("img/akr12-railgun.png"); }.sk-36 { background-image: url("img/awm-phoenix.png"); }.sk-37 { background-image: url("img/desert-eagle-predator.png"); }.sk-38 { background-image: url("img/g22-nest.png"); }.sk-39 { background-image: url("img/m16-winged-.png"); }.sk-40 { background-image: url("img/m4-necromancer-.png"); }.sk-41{background-image:url("img/m9-ancient.png");}.sk-42{background-image:url("img/m9-dragonglass.png");}.sk-43{background-image:url("img/m9-scrach.png");}.sk-44{background-image:url("img/m9-universe.png");}.sk-45 { background-image: url("img/p350-neon-.png"); }.sk-46 { background-image: url("img/p90-ghoul-.png"); }.sk-47 { background-image: url("img/sm1014-pathfinder-.png"); }.sk-48 { background-image: url("img/ump45-cyberpunk-.png"); }.sk-49 { background-image: url("img/akr-sport.png"); }.sk-50 { background-image: url("img/awm-gear.png"); }.sk-51 { background-image: url("img/awm-scratch.png"); }.sk-52 { background-image: url("img/desert-eagle-red-dragon.png"); }.sk-53 { background-image: url("img/famas-beagle.png"); }.sk-54 { background-image: url("img/famas-fury.png"); }.sk-55 { background-image: url("img/karambit-claw-.png"); }.sk-56 { background-image: url("img/karambit-dragon-glass-.png"); }.sk-57 { background-image: url("img/karambit-scratch-.png"); }.sk-58 { background-image: url("img/karambit-universe-.png"); }.sk-59 { background-image: url("img/m4-pro-.png"); }.sk-60 { background-image: url("img/m40-quake-.png"); }.sk-61 { background-image: url("img/p350-forest-spirit-.png"); }.sk-62 { background-image: url("img/sm1014-necromancer-.png"); }.sk-63 { background-image: url("img/ump45-shark-.png"); }.sk-64 { background-image: url("img/ump45-winged-.png"); }.sk-65 { background-image: url("img/akr-genesis.png"); }.sk-66 { background-image: url("img/akr-jade-stone.png"); }.sk-67 { background-image: url("img/akr-tag-king.png"); }.sk-68 { background-image: url("img/akr-twilight.png"); }.sk-69 { background-image: url("img/akr12-emberbird.png"); }.sk-70 { background-image: url("img/akr12-hanami.png"); }.sk-71 { background-image: url("img/akr12-speedrun.png"); }.sk-72 { background-image: url("img/awm-boom.png"); }.sk-73 { background-image: url("img/awm-genesis.png"); }.sk-74 { background-image: url("img/awm-spectral.png"); }.sk-75 { background-image: url("img/awm-stickerbomb.png"); }.sk-76 { background-image: url("img/awm-venom.png"); }.sk-77 { background-image: url("img/akimbo-uzi-fire-horse.png"); }.sk-78 { background-image: url("img/akimbo-uzi-ravage.png"); }.sk-79 { background-image: url("img/desert-eagle-jade-stone.png"); }.sk-80 { background-image: url("img/desert-eagle-venator.png"); }.sk-81 { background-image: url("img/g22-twilight.png"); }.sk-82 { background-image: url("img/m16-raiva-.png"); }.sk-83 { background-image: url("img/m16-sea-glint-.png"); }.sk-84 { background-image: url("img/m16-shogun-stripes-.png"); }.sk-85 { background-image: url("img/m4-dire-wolf-.png"); }.sk-86 { background-image: url("img/m4-n-kai-.png"); }.sk-87 { background-image: url("img/m4-pixel-storm-.png"); }.sk-88 { background-image: url("img/m4a1-impact-.png"); }.sk-89 { background-image: url("img/m4a1-jade-stone-.png"); }.sk-90 { background-image: url("img/m4a1-lincoln-.png"); }.sk-91 { background-image: url("img/m4a1-sparkling-gaze-.png"); }.sk-92 { background-image: url("img/m4a1-treasure-hunter-.png"); }.sk-93 { background-image: url("img/mac10-argo-.png"); }.sk-94 { background-image: url("img/mp5-contender-.png"); }.sk-95 { background-image: url("img/mp5-gorgon-.png"); }.sk-96 { background-image: url("img/mp7-contender-.png"); }.sk-97 { background-image: url("img/mp7-r1na-.png"); }.sk-98 { background-image: url("img/mallard-phantom-pack-.png"); }.sk-99{background-image:url("img/sk-99.webp");}.sk-100 { background-image: url("img/p90-hologram-.png"); }.sk-101 { background-image: url("img/sm1014-freezing-gasp-.png"); }.sk-102 { background-image: url("img/tec-9-glitch-.png"); }.sk-103 { background-image: url("img/usp-geometric-.png"); }.sk-104 { background-image: url("img/usp-hologram-.png"); }.sk-105 { background-image: url("img/gloves-acid.png"); }.sk-106 { background-image: url("img/gloves-arctic-camo-.png"); }.sk-107 { background-image: url("img/gloves-artificer-.png"); }.sk-108 { background-image: url("img/gloves-autumn-.png"); }.sk-109 { background-image: url("img/gloves-blackout-.png"); }.sk-110 { background-image: url("img/gloves-camo-.png"); }.sk-111 { background-image: url("img/gloves-champion-.png"); }.sk-112 { background-image: url("img/gloves-dread-.png"); }.sk-113 { background-image: url("img/gloves-feral-.png"); }.sk-114 { background-image: url("img/gloves-firm-grip-.png"); }.sk-115 { background-image: url("img/gloves-flux-.png"); }.sk-116 { background-image: url("img/gloves-gambit-.png"); }.sk-117 { background-image: url("img/gloves-geometric-.png"); }.sk-118 { background-image: url("img/gloves-hanami-.png"); }.sk-119 { background-image: url("img/gloves-handcraft-.png"); }.sk-120 { background-image: url("img/gloves-haunt-.png"); }.sk-121 { background-image: url("img/gloves-ice-storm-.png"); }.sk-122 { background-image: url("img/gloves-impulse--1.png"); }.sk-123 { background-image: url("img/gloves-iron-wolf-.png"); }.sk-124 { background-image: url("img/gloves-ironclad-.png"); }.sk-125 { background-image: url("img/gloves-jade-stone-.png"); }.sk-126 { background-image: url("img/gloves-living-flame-.png"); }.sk-127 { background-image: url("img/gloves-mimicry-.png"); }.sk-128 { background-image: url("img/gloves-neuro-.png"); }.sk-129 { background-image: url("img/gloves-onyx-.png"); }.sk-130 { background-image: url("img/gloves-overheat-.png"); }.sk-131 { background-image: url("img/gloves-phoenix-risen-.png"); }.sk-132 { background-image: url("img/gloves-pink-noise-.png"); }.sk-133 { background-image: url("img/gloves-plague-.png"); }.sk-134 { background-image: url("img/gloves-raider-.png"); }.sk-135 { background-image: url("img/gloves-ravage-.png"); }.sk-136 { background-image: url("img/gloves-razorwire-.png"); }.sk-137 { background-image: url("img/gloves-rebellion-.png"); }.sk-138 { background-image: url("img/gloves-reis-.png"); }.sk-139{background-image:url("img/sk-139.webp");}.sk-140 { background-image: url("img/gloves-ritual--1.png"); }.sk-141 { background-image: url("img/gloves-safe-mode-.png"); }.sk-142 { background-image: url("img/gloves-skeletal-hand-.png"); }.sk-143 { background-image: url("img/gloves-slash-.png"); }.sk-144 { background-image: url("img/gloves-static-.png"); }.sk-145 { background-image: url("img/gloves-stream-.png"); }.sk-146 { background-image: url("img/gloves-tan-hide-.png"); }.sk-147 { background-image: url("img/gloves-white-camo-.png"); }.sk-148{background-image:url("img/sk-148.webp");}.sk-149 { background-image: url("img/gloves-x-ray-.png"); }</style>
+  <script src="https://accounts.google.com/gsi/client" async defer onload="window.__gsiReady = true; if (window.initGoogleAuth) initGoogleAuth();"></script>
 </head>
 <body>
 <div class="bulldrop-app">
@@ -750,9 +793,18 @@ to{transform: scale(1); opacity: 1;}}
     <div class="inventory-container">
       <div class="pf-hero" id="pfHero">
         <div class="pf-avatar-wrap"><div class="profile-avatar" id="pfAvatar">👤</div><div class="pf-rank" id="pfRank">Новичок</div></div>
-        <div class="pf-hero-main"><div class="pf-hero-label">Никнейм</div><div class="profile-name-block">
-          <input type="text" id="usernameInput" class="promo-input profile-name-input" maxlength="20" placeholder="Ваш никнейм">
-          <button class="open-btn profile-save-btn" onclick="saveUsername()">Сохранить</button></div>
+        <div class="pf-hero-main">
+          <div id="pfGuestBlock"><div class="pf-hero-label">Никнейм</div><div class="profile-name-block">
+            <input type="text" id="usernameInput" class="promo-input profile-name-input" maxlength="20" placeholder="Ваш никнейм">
+            <button class="open-btn profile-save-btn" onclick="saveUsername()">Сохранить</button></div>
+            <button class="g-login-link" onclick="openLoginModal()">🔑 Войти в аккаунт</button>
+          </div>
+          <div id="pfUserBlock" style="display:none">
+            <div class="pf-hero-label">Аккаунт Google</div>
+            <div class="pf-user-name" id="pfUserName"></div>
+            <div class="pf-user-mail" id="pfUserEmail"></div>
+            <button class="logout-btn" onclick="logoutAuth()">Выйти из аккаунта</button>
+          </div>
         </div>
       </div>
       <div class="promo-message" id="profileMessage"></div>
@@ -789,7 +841,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="balance-box">
         <span id="balanceValue">1000</span><span>G</span>
       </div>
-      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()">👤 <span id="profileBtnName">Профиль</span></button>
+      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()"><span class="hdr-ava" id="profileBtnAva">👤</span> <span id="profileBtnName">Профиль</span></button>
     </div>
   </div>
 
@@ -806,9 +858,37 @@ to{transform: scale(1); opacity: 1;}}
 
 </div>
 
+<div class="modal-overlay login-overlay" id="loginModal" onclick="if(event.target===this)closeLoginModal()">
+  <div class="modal-box login-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <button class="login-close" onclick="closeLoginModal()" aria-label="Закрыть">✕</button>
+    <div class="login-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div>
+    <div class="modal-title" id="loginTitle">Вход в аккаунт</div>
+    <div class="modal-sub login-sub">Войдите, чтобы в профиле отображались ваше имя и аватарка</div>
+    <div class="login-g" id="googleBtnWrap"></div>
+    <div class="login-note" id="googleNote"></div>
+    <div class="login-or"><span>или войдите через</span></div>
+    <div class="login-grid">
+      <button class="login-soc" style="--c:#1b6fa8" onclick="loginStub('Steam')"><i>S</i>Steam</button>
+      <button class="login-soc" style="--c:#229ed9" onclick="loginStub('Telegram')"><i>✈</i>Telegram</button>
+      <button class="login-soc" style="--c:#fc3f1d" onclick="loginStub('Yandex')"><i>Я</i>Yandex</button>
+      <button class="login-soc" style="--c:#0077ff" onclick="loginStub('VK ID')"><i>VK</i>VK ID</button>
+    </div>
+    <button class="login-email" onclick="loginStub('Email')">✉️ Войти по Email</button>
+    <div class="login-promo">
+      <input type="text" class="promo-input" placeholder="Есть промокод?" maxlength="40" autocomplete="off" spellcheck="false">
+      <button class="keep-btn" onclick="loginStub('Промокод')">Применить</button>
+    </div>
+    <div class="login-legal">Продолжая, вы соглашаетесь с правилами сайта</div>
+  </div>
+</div>
+
 <script>
   let balance = 500;
   let myInventory = [];
+  const SPIN_MS = 8000;
+  const SPIN_EASE = 'cubic-bezier(0.1, 0.8, 0.1, 1)';
+  const SPIN_ITEMS = 110;
+  const SPIN_PRIZE = 69;
   let currentCase = null;
   let currentCaseKey = null;
   let currentWonSkin = null;
@@ -816,8 +896,11 @@ to{transform: scale(1); opacity: 1;}}
   let running = false;
   const HOUSE_EDGE = 1.0;
   let upgradeRunning = false;
-  let upgradeSourceIndex = null;
-  let upgradeSourceItem = null;
+  let upgradeSourceIdxs = [];     // индексы выбранных предметов инвентаря
+  let upgradeSourceItems = [];    // сами выбранные предметы
+  let upgradeLastSources = [];    // отданные в последнем апгрейде
+  const UPG_MAX_SOURCES = 20;     // сколько предметов можно отдать за раз
+  function upgSrcSum() { return upgradeSourceItems.reduce((a, it) => a + itemPrice(it), 0); }
   let upgradeTargetItem = null;
   let upgradeTargets = [];
   let currentUpgradeChance = 0;
@@ -1211,6 +1294,31 @@ to{transform: scale(1); opacity: 1;}}
       ]
     }
   };
+  // ===== NEON RUSH: кейс-подборка, все скины взяты из других кейсов =====
+  // Предметы ищутся по названию в уже существующих кейсах и копируются (у каждого кейса свои веса),
+  // поэтому цена/редкость скина всегда совпадают с оригиналом. Цену и шансы считает recalcCasePrices().
+  function buildMixCase(name, names) {
+    const index = new Map();
+    Object.values(casesData).forEach(c => {
+      if (c.free) return;
+      c.items.forEach(it => { if (!index.has(it.name)) index.set(it.name, it); });
+    });
+    const items = [];
+    new Set(names).forEach(n => {
+      const it = index.get(n);
+      if (it) items.push({ name: it.name, emo: it.emo, rarity: it.rarity, price: it.price });
+      else console.warn('Neon Rush: скин не найден —', n);
+    });
+    return { name, items };
+  }
+  casesData.neon = buildMixCase('Neon Rush', [
+    'AKR12 "Pixel Camouflage"', 'StatTrak™ AKR "Nano"', 'UMP45 "Cyberpunk"', 'P350 "Neon"',
+    'StatTrak™ AKR12 "Pixel Camouflage"', 'Gloves "Flux"', 'Gloves "Safe Mode"', 'Gloves "Stream"',
+    'StatTrak™ USP "Hologram"', 'Gloves "Static"', 'AKR12 "Railgun"', 'StatTrak™ P90 "Hologram"',
+    'TEC-9 "Glitch"', 'M4 "Pixel Storm"', 'StatTrak™ UMP45 "Cyberpunk"', 'StatTrak™ P350 "Neon"',
+    'USP "Geometric"', 'Gloves "Retro Wave"', 'Gloves "Pink Noise"', 'Gloves "Neuro"', 'Gloves "Impulse"'
+  ]);
+
   function pickItem(c) {
     const items = c.items;
     if (items.some(it => it.weight)) {
@@ -1338,6 +1446,10 @@ to{transform: scale(1); opacity: 1;}}
         const p = JSON.parse(savedPending);
         if (p && p.single) myInventory.push(p.single);
         if (p && Array.isArray(p.multi)) myInventory.push(...p.multi);
+        if (p && (p.single || (Array.isArray(p.multi) && p.multi.length))) {
+          localStorage.setItem('mifdrop_inventory', JSON.stringify(myInventory));
+          localStorage.setItem('mifdrop_pending', JSON.stringify({ single: null, multi: [] }));
+        }
       }
     } catch (e) {}
   }
@@ -1477,6 +1589,7 @@ to{transform: scale(1); opacity: 1;}}
     const wonPrice = itemPrice(item);
     currentWonSkin = { name: item.name, emo: item.emo, rarity: item.rarity, price: wonPrice };
     updateBestDrop(currentWonSkin);
+    saveProgress();
     document.getElementById('spinArea').style.display = 'none';
     const winBox = document.getElementById('winBox');
     winBox.style.display = 'block';
@@ -1527,6 +1640,7 @@ to{transform: scale(1); opacity: 1;}}
       currentWonSkins.push(skin);
       updateBestDrop(skin);
     }
+    saveProgress();
     showMultiResult(count);
   }
   function showMultiResult(count) {
@@ -1570,7 +1684,7 @@ to{transform: scale(1); opacity: 1;}}
     singleTape.style.display = 'none';
     const wrap = document.getElementById('multiTapes');
     wrap.innerHTML = '';
-    const prizeIndex = 29;
+    const prizeIndex = SPIN_PRIZE;
     const step = 50 + 6;
     const won = [];
     const tracks = [];
@@ -1581,7 +1695,7 @@ to{transform: scale(1); opacity: 1;}}
       pointer.className = 'tape-pointer';
       const track = document.createElement('div');
       track.className = 'tape-track';
-      for (let i = 0; i < 70; i++) {
+      for (let i = 0; i < SPIN_ITEMS; i++) {
         const item = pickItem(currentCase);
         const div = document.createElement('div');
         div.className = 'tape-item';
@@ -1598,11 +1712,13 @@ to{transform: scale(1); opacity: 1;}}
       wrap.appendChild(win);
       tracks.push(track);
     }
+    currentWonSkins = won.slice();
+    saveProgress(); // выигрыш сохраняется сразу
     const windowWidth = wrap.firstChild.offsetWidth;
     const targetLeft = -((prizeIndex * step) - (windowWidth / 2) + (step / 2));
     setTimeout(() => {
       tracks.forEach(tr => {
-        tr.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
+        tr.style.transition = 'transform ' + (SPIN_MS / 1000) + 's ' + SPIN_EASE;
         tr.style.transform = `translateX(${targetLeft}px)`;
       });
     }, 50);
@@ -1615,7 +1731,7 @@ to{transform: scale(1); opacity: 1;}}
       setMultiButtonsDisabled(false);
       running = false;
       showMultiResult(count);
-    }, 4100);
+    }, SPIN_MS + 100);
   }
   function sellAllMultiSkins() {
     if (running || !currentWonSkins.length) return;
@@ -1652,13 +1768,18 @@ to{transform: scale(1); opacity: 1;}}
     track.style.transition = 'none';
     track.style.transform = 'translateX(0px)';
     track.innerHTML = '';
-    const totalItemsCount = 70;
+    const totalItemsCount = SPIN_ITEMS;
     const itemsList = [];
     for (let i = 0; i < totalItemsCount; i++) {
       const randomItem = pickItem(currentCase);
       itemsList.push(randomItem);
     }
-    const prizeIndex = 29;
+    const prizeIndex = SPIN_PRIZE;
+    {
+      const pz = itemsList[prizeIndex];
+      currentWonSkin = { name: pz.name, emo: pz.emo, rarity: pz.rarity, price: itemPrice(pz) };
+      saveProgress(); // выигрыш сохраняется сразу: при обновлении во время прокрутки он попадёт в инвентарь
+    }
     itemsList.forEach((item) => {
       const color = rarityInfo[item.rarity].color;
       const div = document.createElement('div');
@@ -1676,7 +1797,7 @@ to{transform: scale(1); opacity: 1;}}
     const windowWidth = document.querySelector('.tape-window').offsetWidth;
     const targetLeft = -((prizeIndex * itemWidth) - (windowWidth / 2) + (itemWidth / 2));
     setTimeout(() => {
-      track.style.transition = 'transform 4s cubic-bezier(0.1, 0.8, 0.1, 1)';
+      track.style.transition = 'transform ' + (SPIN_MS / 1000) + 's ' + SPIN_EASE;
       track.style.transform = `translateX(${targetLeft}px)`;
     }, 50);
     setTimeout(() => {
@@ -1706,7 +1827,7 @@ to{transform: scale(1); opacity: 1;}}
       startBtn.disabled = false;
       setMultiButtonsDisabled(false);
       running = false;
-    }, 4100);
+    }, SPIN_MS + 100);
   }
   function restoreUI() {
     try {
@@ -1878,7 +1999,14 @@ to{transform: scale(1); opacity: 1;}}
   function itemPrice(item) {
     return (item.price !== undefined && item.price !== null) ? item.price : rarityInfo[item.rarity].sellPrice;
   }
-  const CASE_RTP = 0.92;
+  // ===== БАЛАНС КЕЙСОВ =====
+  // Единые правила для всех платных кейсов:
+  //  1) шанс предмета ~ цена^(-DROP_CURVE): чем дороже скин, тем он реже; кривая одинакова во всех кейсах;
+  //  2) цена кейса = ожидаемый дроп / CASE_RTP, красиво округлённая;
+  //  3) крутизна кривой подгоняется под округлённую цену, чтобы возврат (RTP) у всех кейсов был ровно CASE_RTP.
+  const CASE_RTP = 0.90;        // средний возврат с кейса (90% от цены), у всех кейсов одинаковый
+  const DROP_CURVE = 0.65;      // базовая «редкость» дорогих скинов (больше — дорогие реже)
+  const CASE_PRICE_OVERRIDE = {}; // ручная цена, например { fable: 100 }: шансы подгонятся под неё
   function caseEV(c) {
     const weighted = c.items.some(it => it.weight);
     const total = weighted ? c.items.reduce((s, it) => s + (it.weight || 0), 0) : c.items.length;
@@ -1888,31 +2016,27 @@ to{transform: scale(1); opacity: 1;}}
     const step = x >= 10000 ? 100 : x >= 1000 ? 10 : x >= 100 ? 5 : x >= 10 ? 1 : x >= 1 ? 0.1 : 0.05;
     return Math.max(step, parseFloat((Math.round(x / step) * step).toFixed(2)));
   }
-  const CASE_PRICE_OVERRIDE = { fable: 94, scorpion: 180, origin: 4120, furious: 160 };
-  const DROP_RTP = 0.75;
-  function applyDropWeights(c) {
-    const target = c.price * DROP_RTP;
-    const evAt = k => {
-      let s = 0, t = 0;
-      c.items.forEach(it => { const w = Math.pow(itemPrice(it), -k); s += itemPrice(it) * w; t += w; });
-      return s / t;
-    };
-    if (evAt(0) <= target) return;
+  function curveEV(c, k) {
+    let s = 0, t = 0;
+    c.items.forEach(it => { const p = itemPrice(it), w = Math.pow(p, -k); s += p * w; t += w; });
+    return s / t;
+  }
+  function balanceCase(key, c) {
+    const price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(curveEV(c, DROP_CURVE) / CASE_RTP);
     let lo = 0, hi = 4;
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 60; i++) {
       const mid = (lo + hi) / 2;
-      if (evAt(mid) > target) lo = mid; else hi = mid;
+      if (curveEV(c, mid) > price * CASE_RTP) lo = mid; else hi = mid;
     }
     const k = (lo + hi) / 2;
     c.items.forEach(it => { it.weight = Math.pow(itemPrice(it), -k); });
+    c.price = price;
+    c.curve = k;
   }
   function recalcCasePrices() {
     Object.entries(casesData).forEach(([key, c]) => {
       if (c.free) { c.price = 0; c.rtp = null; return; }
-      if (c.boost) c.items.forEach(it => { it.weight = (it.weight || 1) * Math.pow(itemPrice(it), c.boost); });
-      const ev = caseEV(c);
-      c.price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(ev / CASE_RTP); // цена считается как раньше (по равным шансам)
-      if (!c.items.some(it => it.weight)) { applyDropWeights(c); c.price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(caseEV(c) / CASE_RTP); } // цена пересчитывается по фактическим шансам // кейсы без заданных шансов получают убывающие
+      balanceCase(key, c);
       c.rtp = Math.round(caseEV(c) / c.price * 100);
     });
   }
@@ -1921,11 +2045,12 @@ to{transform: scale(1); opacity: 1;}}
     scorpion: { c: '#ff8a00', badge: 'Классика', emo: '🦂' },
     origin: { c: '#eb4b4b', badge: 'VIP', emo: '💀' },
     furious: { c: '#4b69ff', badge: 'Старт', emo: '🦅' },
-    arcane: { c: '#d32ce6', badge: 'Новинка', emo: '🔮' },
+    arcane: { c: '#d32ce6', badge: 'Магия', emo: '🔮' },
     gloves: { c: '#16c784', badge: 'Перчатки', emo: '🧤' },
     nameless: { c: '#ffc83d', badge: 'Люкс', emo: '👑', gold: true },
     knives: { c: '#ff4d4d', badge: 'Фарм', emo: '🔪' },
-    bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' }
+    bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' },
+    neon: { c: '#22d3ee', badge: 'Новинка', emo: '⚡' }
   };
   function heroCube(cx, cy, k, c, rot, logo) {
     const P = (x, y) => (cx + (x - 100) * k).toFixed(1) + ',' + (cy + (y - 78) * k).toFixed(1);
@@ -2003,7 +2128,7 @@ to{transform: scale(1); opacity: 1;}}
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = heroBg() + `
       <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${formatPrice(balance)}</span> <small>G</small></span></div></div>
-      <div class="cs-hero-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div>
+      <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
       <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
       <div class="cs-hero-stats">
@@ -2039,6 +2164,7 @@ to{transform: scale(1); opacity: 1;}}
       `;
     });
     grid.innerHTML = html;
+    renderAuthUI();
   }
   function caseCover(key, vb) {
     const cc = casesData[key];
@@ -2087,8 +2213,8 @@ to{transform: scale(1); opacity: 1;}}
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
     switchScreen('upgradeScreen');
-    upgradeSourceIndex = null;
-    upgradeSourceItem = null;
+    upgradeSourceIdxs = [];
+    upgradeSourceItems = [];
     upgradeTargetItem = null;
     upgradeBet = 0;
     renderUpgradeStep1();
@@ -2126,6 +2252,12 @@ to{transform: scale(1); opacity: 1;}}
   }
   function renderUpgradeStep1() { renderUpgrade(); }
   function upgSideHTML(item, id, tag, placeholder) {
+    let count = 1, total = 0;
+    if (Array.isArray(item)) {
+      count = item.length;
+      total = item.reduce((a, it) => a + itemPrice(it), 0);
+      item = count ? item.slice().sort((x, y) => itemPrice(y) - itemPrice(x))[0] : null;
+    }
     if (!item) {
       return `<div class="upg-side" id="${id}" style="--c:#272e3f">
           <div class="upg-side-tag">${tag}</div>
@@ -2135,20 +2267,23 @@ to{transform: scale(1); opacity: 1;}}
         </div>`;
     }
     const color = rarityInfo[item.rarity].color;
+    const multi = count > 1;
     return `<div class="upg-side" id="${id}" style="--c:${color}">
           <div class="upg-side-tag">${tag}</div>
+          ${multi ? `<div class="upg-side-count">×${count}</div>` : ''}
           <div class="upg-side-icon">${ico(item)}</div>
-          <div class="upg-side-name">${item.name}</div>
-          <div class="upg-side-price" style="color:${color}">${formatPrice(itemPrice(item))} G</div>
+          <div class="upg-side-name">${multi ? 'Предметов: ' + count : item.name}</div>
+          <div class="upg-side-price" style="color:${color}">${formatPrice(multi ? total : itemPrice(item))} G</div>
         </div>`;
   }
   function renderUpgrade() {
     const box = document.getElementById('upgradeContent');
     const y = window.scrollY;
     const colScroll = [...document.querySelectorAll('.upg-col')].map(e => e.scrollTop);
-    const src = upgradeSourceItem, tgt = upgradeTargetItem;
+    const srcs = upgradeSourceItems, tgt = upgradeTargetItem;
+    const src = srcs.length ? srcs : null;
     const ready = !!(src && tgt);
-    const sp = src ? itemPrice(src) : 0;
+    const sp = src ? upgSrcSum() : 0;
     const tp = tgt ? itemPrice(tgt) : 0;
     const maxBet = ready ? upgMaxBet(sp, tp) : 0;
     if (upgradeBet > maxBet) upgradeBet = maxBet;
@@ -2158,7 +2293,7 @@ to{transform: scale(1); opacity: 1;}}
     currentUpgradeChance = chance;
     let html = `
       <div class="upg-arena">
-        ${upgSideHTML(src, 'upgSideSrc', 'Вы отдаёте', 'Выберите предмет')}
+        ${upgSideHTML(src, 'upgSideSrc', 'Вы отдаёте', 'Выберите предметы')}
         <div class="upg-wheel-wrap">
           <div class="upg-wheel" id="upgWheel" style="--deg:${(chance * 3.6).toFixed(3)}deg">
             <div class="upg-wheel-core">
@@ -2194,11 +2329,13 @@ to{transform: scale(1); opacity: 1;}}
     if (myInventory.length === 0) {
       html += '<div class="inventory-empty-text">Нужен хотя бы один предмет в инвентаре. Откройте кейс и оставьте предмет себе!</div>';
     } else {
-      html += '<div class="upg-hint">Выберите предмет, который отдадите в апгрейд.</div><div class="inventory-grid">';
+      html += `<div class="upg-hint">Выберите один или несколько предметов — их стоимость суммируется.${srcs.length ? ' <b style="color:#16c784">Выбрано: ' + srcs.length + ' · ' + formatPrice(sp) + ' G</b>' : ''}</div>`;
+      if (srcs.length) html += '<div class="upg-toolbar" style="margin:0 0 12px; justify-content:flex-start;"><button class="upg-chip" onclick="clearUpgradeSources()">Сбросить выбор</button></div>';
+      html += '<div class="inventory-grid">';
       myInventory.forEach((item, index) => {
         const color = rarityInfo[item.rarity].color;
         html += `
-        <div class="upg-card ${upgradeSourceIndex === index ? 'sel' : ''}" style="--c:${color}" onclick="selectUpgradeSource(${index})">
+        <div class="upg-card ${upgradeSourceIdxs.includes(index) ? 'sel' : ''}" style="--c:${color}" onclick="selectUpgradeSource(${index})">
           <div class="upg-card-icon">${ico(item)}</div>
           <div class="preview-name">${item.name}</div>
           <div class="upg-card-price">${formatPrice(itemPrice(item))} G</div>
@@ -2208,7 +2345,7 @@ to{transform: scale(1); opacity: 1;}}
     }
     html += '</div><div class="upg-col"><div class="preview-title">Что хотите получить</div>';
     if (!src) {
-      html += '<div class="inventory-empty-text" style="padding:24px 0;">Сначала выберите предмет из инвентаря.</div>';
+      html += '<div class="inventory-empty-text" style="padding:24px 0;">Сначала выберите предметы из инвентаря.</div>';
     } else {
       const all = getAllItems().filter(it => itemPrice(it) > sp);
       if (all.length === 0) {
@@ -2251,17 +2388,31 @@ to{transform: scale(1); opacity: 1;}}
     window.scrollTo(0, y);
     document.querySelectorAll('.upg-col').forEach((e, i) => { e.scrollTop = colScroll[i] || 0; });
   }
+  function syncUpgradeSources() {
+    upgradeSourceItems = upgradeSourceIdxs.map(i => myInventory[i]);
+    if (upgradeTargetItem && itemPrice(upgradeTargetItem) <= upgSrcSum()) upgradeTargetItem = null;
+  }
   function selectUpgradeSource(index) {
     if (upgradeRunning) return;
     upgradeBet = 0;
-    if (upgradeSourceIndex === index) {
-      upgradeSourceIndex = null;
-      upgradeSourceItem = null;
+    const pos = upgradeSourceIdxs.indexOf(index);
+    if (pos >= 0) {
+      upgradeSourceIdxs.splice(pos, 1);
     } else {
-      upgradeSourceIndex = index;
-      upgradeSourceItem = myInventory[index];
-      if (upgradeTargetItem && itemPrice(upgradeTargetItem) <= itemPrice(upgradeSourceItem)) upgradeTargetItem = null;
+      if (upgradeSourceIdxs.length >= UPG_MAX_SOURCES) {
+        showToast('Максимум предметов за раз: ' + UPG_MAX_SOURCES);
+        return;
+      }
+      upgradeSourceIdxs.push(index);
     }
+    syncUpgradeSources();
+    renderUpgrade();
+  }
+  function clearUpgradeSources() {
+    if (upgradeRunning) return;
+    upgradeBet = 0;
+    upgradeSourceIdxs = [];
+    syncUpgradeSources();
     renderUpgrade();
   }
   function setUpgradeFilter(f) { upgradeFilter = f; renderUpgrade(); }
@@ -2277,8 +2428,8 @@ to{transform: scale(1); opacity: 1;}}
     return Math.max(0, Math.min(Math.floor(balance), Math.ceil(tp * UPG_MAX_CHANCE / 100 - sp)));
   }
   function updateUpgradeLive() {
-    if (!upgradeSourceItem || !upgradeTargetItem) return;
-    const sp = itemPrice(upgradeSourceItem), tp = itemPrice(upgradeTargetItem);
+    if (!upgradeSourceItems.length || !upgradeTargetItem) return;
+    const sp = upgSrcSum(), tp = itemPrice(upgradeTargetItem);
     const maxBet = upgMaxBet(sp, tp);
     const chance = upgChance(sp + upgradeBet, tp);
     currentUpgradeChance = chance;
@@ -2297,21 +2448,21 @@ to{transform: scale(1); opacity: 1;}}
     if (rg && maxBet > 0) rg.style.setProperty('--p', (upgradeBet / maxBet * 100).toFixed(1) + '%');
   }
   function onUpgBetInput(v) {
-    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
-    const maxBet = upgMaxBet(itemPrice(upgradeSourceItem), itemPrice(upgradeTargetItem));
+    if (upgradeRunning || !upgradeSourceItems.length || !upgradeTargetItem) return;
+    const maxBet = upgMaxBet(upgSrcSum(), itemPrice(upgradeTargetItem));
     upgradeBet = Math.round(maxBet * Number(v) / 1000);
     updateUpgradeLive();
   }
   function setUpgBetPct(p) {
-    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
-    const maxBet = upgMaxBet(itemPrice(upgradeSourceItem), itemPrice(upgradeTargetItem));
+    if (upgradeRunning || !upgradeSourceItems.length || !upgradeTargetItem) return;
+    const maxBet = upgMaxBet(upgSrcSum(), itemPrice(upgradeTargetItem));
     upgradeBet = Math.round(maxBet * p / 100);
     renderUpgrade();
   }
   function startUpgrade() {
-    if (upgradeRunning || !upgradeSourceItem || !upgradeTargetItem) return;
+    if (upgradeRunning || !upgradeSourceItems.length || !upgradeTargetItem) return;
     {
-      const sp0 = itemPrice(upgradeSourceItem), tp0 = itemPrice(upgradeTargetItem);
+      const sp0 = upgSrcSum(), tp0 = itemPrice(upgradeTargetItem);
       upgradeBet = Math.max(0, Math.min(upgradeBet, upgMaxBet(sp0, tp0)));
       lastUpgradeBet = upgradeBet;
       balance -= upgradeBet;
@@ -2329,7 +2480,8 @@ to{transform: scale(1); opacity: 1;}}
     document.querySelectorAll('.upg-back-link').forEach(el => el.style.pointerEvents = 'none');
     const roll = Math.random() * 100;
     const win = roll < currentUpgradeChance;
-    myInventory.splice(upgradeSourceIndex, 1);
+    upgradeLastSources = upgradeSourceItems.slice();
+    [...upgradeSourceIdxs].sort((x, y) => y - x).forEach(i => myInventory.splice(i, 1));
     if (win) {
       myInventory.push(upgradeTargetItem);
       updateBestDrop(upgradeTargetItem, 6500);
@@ -2356,16 +2508,17 @@ to{transform: scale(1); opacity: 1;}}
   function finishUpgrade(win) {
     upgradeRunning = false;
     const box = document.getElementById('upgradeContent');
-    const item = win ? upgradeTargetItem : upgradeSourceItem;
+    const srcs = upgradeLastSources;
+    const item = win ? upgradeTargetItem : srcs.slice().sort((x, y) => itemPrice(y) - itemPrice(x))[0];
     const rMeta = rarityInfo[item.rarity];
-    const sp = itemPrice(upgradeSourceItem);
+    const sp = srcs.reduce((a, it) => a + itemPrice(it), 0);
     const tp = itemPrice(upgradeTargetItem);
     box.innerHTML = win ? `
       <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid ${rMeta.color}44; background: radial-gradient(circle at center, ${rMeta.color}20 0%, #111726 100%);">
         <div class="win-icon" style="font-size:3.4rem;">${ico(item)}</div>
         <div class="win-title" style="color:#16c784;">Апгрейд успешен!</div>
         <div class="win-rarity" style="color:${rMeta.color}">${item.name} · ${rMeta.name}</div>
-        <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${formatPrice(sp)}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) : ''} G → ${formatPrice(tp)} G (x${upgMult(sp + lastUpgradeBet, tp)})</div>
+        <div style="color:#ffaa00; font-weight:800; font-size:0.9rem;">${srcs.length > 1 ? srcs.length + ' предм. · ' : ''}${formatPrice(sp)}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) : ''} G → ${formatPrice(tp)} G (x${upgMult(sp + lastUpgradeBet, tp)})</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Улучшить ещё</button>
           <button class="keep-btn" onclick="goToProfile()">В профиль</button>
@@ -2375,7 +2528,7 @@ to{transform: scale(1); opacity: 1;}}
       <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid #eb4b4b44; background: radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%);">
         <div class="win-icon" style="font-size:3.4rem;">💀</div>
         <div class="win-title" style="color:#eb4b4b;">Не повезло</div>
-        <div class="win-rarity" style="color:#94a3b8">Потерян: ${item.emo} ${item.name}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) + ' G' : ''}</div>
+        <div class="win-rarity" style="color:#94a3b8">${srcs.length > 1 ? 'Потеряно предметов: ' + srcs.length + ' (' + formatPrice(sp) + ' G)' : 'Потерян: ' + item.emo + ' ' + item.name}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) + ' G' : ''}</div>
         <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${fmtChance(currentUpgradeChance)}% — в следующий раз повезёт</div>
         <div class="win-actions">
           <button class="sell-btn" onclick="goToUpgrade()">Попробовать снова</button>
@@ -2750,7 +2903,7 @@ to{transform: scale(1); opacity: 1;}}
     if (!feedStarted) return;
     const map = new Map();
     feedRemote.forEach(e => map.set(e.id, e));
-    myDrops.forEach(e => map.set(e.id, Object.assign({}, e, { user: username, you: true })));
+    myDrops.forEach(e => map.set(e.id, Object.assign({}, e, { user: displayName(), you: true })));
     const list = [...map.values()].sort((x, y) => y.ts - x.ts).slice(0, 30);
     const track = document.getElementById('feedTrack');
      const existing = new Map();
@@ -2861,7 +3014,7 @@ async function flushFeedWrite() {
   feedDirty = false;
   try {
     await feedDb.ref('feed/' + feedUid).set({
-      nick: String(username || 'Игрок').slice(0, 20),
+      nick: String(displayName() || 'Игрок').slice(0, 20),
       drops: myDrops.slice(0, 10)
     });
   } catch (e) {}
@@ -3018,6 +3171,7 @@ function loadFeed() {
     renderProfile();
   }
   function renderProfile() {
+    renderAuthUI();
     renderInventory();
     document.getElementById('usernameInput').value = username;
     document.getElementById('profileBalanceValue').innerText = formatPrice(balance) + ' G';
@@ -3057,7 +3211,7 @@ function loadFeed() {
     username = val.slice(0, 20);
     input.value = username;
     saveUsernameSilently();
-    document.getElementById('profileBtnName').innerText = username;
+    renderAuthUI();
     showProfileMessage('Никнейм сохранён', 'success');
   }
   function showProfileMessage(text, type) {
@@ -3300,6 +3454,177 @@ function loadFeed() {
   loadUsername();
   loadBestDrop();
   loadFreeCase();
+  // ===== АВТОРИЗАЦИЯ GOOGLE (Google Identity Services, без бэкенда) =====
+  // 1) Вставьте свой OAuth Client ID (тип "Web application") из Google Cloud Console.
+  // 2) В "Authorized JavaScript origins" добавьте https://ВАШ_НИК.github.io (без слэша и пути).
+  const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.googleusercontent.com';
+  const AUTH_KEY = 'mifdrop_auth';
+  let authUser = null;
+  let gisInited = false;
+
+  function googleIdConfigured() { return /^[0-9]+-[\w-]+\.apps\.googleusercontent\.com$/.test(GOOGLE_CLIENT_ID); }
+  function displayName() { return authUser ? authUser.name : username; }
+  function isSafeAvatar(u) { return typeof u === 'string' && /^https:\/\/[\w.-]+\.googleusercontent\.com\//.test(u); }
+  // JWT -> объект. base64url + UTF-8, чтобы кириллица в имени читалась корректно
+  function decodeJwtPayload(token) {
+    const part = String(token).split('.')[1];
+    if (!part) throw new Error('bad jwt');
+    let b64 = part.replace(/-/g, '+').replace(/_/g, '/');
+    b64 += '='.repeat((4 - b64.length % 4) % 4);
+    const bin = atob(b64);
+    const bytes = Uint8Array.from(bin, ch => ch.charCodeAt(0));
+    return JSON.parse(new TextDecoder('utf-8').decode(bytes));
+  }
+  function loadAuth() {
+    try {
+      const raw = localStorage.getItem(AUTH_KEY);
+      if (!raw) return;
+      const u = JSON.parse(raw);
+      if (u && typeof u.name === 'string' && u.sub) {
+        authUser = { sub: String(u.sub), name: u.name.slice(0, 60), email: String(u.email || '').slice(0, 100), picture: isSafeAvatar(u.picture) ? u.picture : '' };
+      }
+    } catch (e) { authUser = null; }
+  }
+  function saveAuth() {
+    try {
+      if (authUser) localStorage.setItem(AUTH_KEY, JSON.stringify(authUser));
+      else localStorage.removeItem(AUTH_KEY);
+    } catch (e) {}
+  }
+  function initGoogleAuth() {
+    if (gisInited || !googleIdConfigured()) return;
+    if (!(window.google && google.accounts && google.accounts.id)) return;
+    google.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: handleGoogleCredential,
+      auto_select: false,
+      cancel_on_tap_outside: true,
+      ux_mode: 'popup'
+    });
+    gisInited = true;
+    const m = document.getElementById('loginModal');
+    if (m && m.classList.contains('show')) renderGoogleButton();
+  }
+  function renderGoogleButton() {
+    const wrap = document.getElementById('googleBtnWrap');
+    const note = document.getElementById('googleNote');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    note.style.display = 'none';
+    initGoogleAuth();
+    if (gisInited) {
+      google.accounts.id.renderButton(wrap, {
+        type: 'standard', theme: 'filled_black', size: 'large', text: 'continue_with',
+        shape: 'pill', logo_alignment: 'left', locale: 'ru',
+        width: Math.max(200, Math.min(360, Math.floor(wrap.clientWidth) || 320))
+      });
+      return;
+    }
+    // запасная кнопка, пока Google недоступен / не задан Client ID
+    const b = document.createElement('button');
+    b.className = 'login-g-fb';
+    b.innerHTML = '<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Продолжить с Google';
+    b.onclick = () => {
+      initGoogleAuth();
+      if (gisInited) { renderGoogleButton(); return; }
+      note.textContent = googleIdConfigured()
+        ? 'Не удалось загрузить Google. Проверьте интернет или отключите блокировщик рекламы.'
+        : 'Не задан Google Client ID: впишите его в константу GOOGLE_CLIENT_ID в коде сайта.';
+      note.style.display = 'block';
+    };
+    wrap.appendChild(b);
+  }
+  function handleGoogleCredential(resp) {
+    try {
+      const p = decodeJwtPayload(resp.credential);
+      const issOk = p.iss === 'accounts.google.com' || p.iss === 'https://accounts.google.com';
+      if (!issOk || p.aud !== GOOGLE_CLIENT_ID || p.exp * 1000 < Date.now() - 60000) throw new Error('invalid token');
+      authUser = {
+        sub: String(p.sub),
+        name: String(p.name || p.given_name || p.email || 'Игрок').trim().slice(0, 60),
+        email: String(p.email || '').slice(0, 100),
+        picture: isSafeAvatar(p.picture) ? p.picture : ''
+      };
+      saveAuth(); // сохраняем только имя, почту и аватарку; сам токен не хранится
+      closeLoginModal();
+      renderAuthUI();
+      showToast('Вы вошли как ' + authUser.name);
+    } catch (e) {
+      console.error('Google sign-in error:', e);
+      showToast('Не удалось войти через Google');
+    }
+  }
+  function logoutAuth() {
+    authUser = null;
+    saveAuth();
+    try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
+    renderAuthUI();
+    showToast('Вы вышли из аккаунта');
+  }
+  function openLoginModal() {
+    const m = document.getElementById('loginModal');
+    if (!m) return;
+    m.classList.add('show');
+    void m.offsetWidth;
+    renderGoogleButton();
+  }
+  function closeLoginModal() {
+    const m = document.getElementById('loginModal');
+    if (m) m.classList.remove('show');
+  }
+  function loginStub(name) { showToast(name + ': скоро будет доступно'); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLoginModal(); });
+  function setAvatar(el, url, fallback) {
+    if (!el) return;
+    el.textContent = '';
+    el.classList.toggle('has-img', !!url);
+    if (!url) { el.textContent = fallback; return; }
+    const img = document.createElement('img');
+    img.className = 'ava-img';
+    img.alt = '';
+    img.referrerPolicy = 'no-referrer';
+    img.onerror = () => { el.classList.remove('has-img'); el.textContent = fallback; };
+    img.src = url;
+    el.appendChild(img);
+  }
+  function renderAuthUI() {
+    const u = authUser;
+    const nameEl = document.getElementById('profileBtnName');
+    if (nameEl) nameEl.textContent = u ? u.name : (username || 'Профиль');
+    setAvatar(document.getElementById('profileBtnAva'), u && u.picture, '👤');
+    setAvatar(document.getElementById('pfAvatar'), u && u.picture, u && u.name ? u.name.trim().charAt(0).toUpperCase() : '👤');
+    const guest = document.getElementById('pfGuestBlock'), user = document.getElementById('pfUserBlock');
+    if (guest) guest.style.display = u ? 'none' : '';
+    if (user) user.style.display = u ? '' : 'none';
+    if (u) {
+      document.getElementById('pfUserName').textContent = u.name;
+      document.getElementById('pfUserEmail').textContent = u.email;
+    }
+    const hero = document.getElementById('heroAuth');
+    if (hero) {
+      hero.textContent = '';
+      const btn = document.createElement('button');
+      btn.className = 'hero-auth-btn';
+      if (u) {
+        btn.onclick = () => goToProfile();
+        const av = document.createElement('span');
+        av.className = 'hdr-ava';
+        const nm = document.createElement('span');
+        nm.className = 'nm';
+        nm.textContent = u.name;
+        btn.append(av, nm);
+        setAvatar(av, u.picture, u.name.trim().charAt(0).toUpperCase());
+      } else {
+        btn.onclick = () => openLoginModal();
+        btn.textContent = '🔑 Войти';
+        btn.style.padding = '9px 16px';
+      }
+      hero.appendChild(btn);
+    }
+  }
+  loadAuth();
+  window.addEventListener('load', () => { if (window.__gsiReady) initGoogleAuth(); });
+
   loadMines();
   loadFeed();
   recalcCasePrices();
@@ -3310,7 +3635,8 @@ function loadFeed() {
   restoreUI();
   addPersistenceListeners();
   setInterval(freeTick, 1000);
-  document.getElementById('profileBtnName').innerText = username;
+  renderAuthUI();
 </script>
 </body>
 </html>
+
