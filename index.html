@@ -3511,14 +3511,6 @@ function loadBp() {
     showInfoToast('Награды получены: ' + parts.join(' и '));
     bpRefresh();
   }
-
-  loadAuth();
-  loadProgress();
-  loadPromoProgress();
-  loadBp();
-  loadUsername();
-  loadBestDrop();
-  loadFreeCase();
   // ===== АВТОРИЗАЦИЯ GOOGLE (Google Identity Services, без бэкенда) =====
   // 1) Вставьте свой OAuth Client ID (тип "Web application") из Google Cloud Console.
   // 2) В "Authorized JavaScript origins" добавьте https://ВАШ_НИК.github.io (без слэша и пути).
@@ -3526,6 +3518,14 @@ function loadBp() {
   const AUTH_KEY = 'mifdrop_auth';
   let authUser = null;
   let gisInited = false;
+  
+  loadAuth();
+  loadProgress();
+  loadPromoProgress();
+  loadBp();
+  loadUsername();
+  loadBestDrop();
+  loadFreeCase();
 
   function googleIdConfigured() { return /^[0-9]+-[\w-]+\.apps\.googleusercontent\.com$/.test(GOOGLE_CLIENT_ID); }
   function displayName() { return authUser ? authUser.name : username; }
