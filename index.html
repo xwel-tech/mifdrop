@@ -574,7 +574,6 @@ to{transform: scale(1); opacity: 1;}}
 .hb-spin{transform-origin:1330px 150px;animation:hbSpin 120s linear infinite}
 @keyframes hbSpin{to{transform:rotate(360deg)}}
 @media (max-width:560px){.cs-hero{padding:22px 16px;min-height:210px}.cs-hero-title{font-size:1.75rem}}
-.header.dock.on-catalog .balance-box{display:none}
 .screen-top{position:sticky;top:8px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px;pointer-events:none}
 .screen-top > *{pointer-events:auto}
 .screen-top .back-btn{margin-bottom:0}
@@ -617,7 +616,10 @@ to{transform: scale(1); opacity: 1;}}
 .login-brand .logo-icon{font-size: 1.8rem; line-height: 1;}
 .login-brand .logo-text{font-size: 1.4rem; letter-spacing: 2px; font-weight: 900;}
 .login-sub{margin-bottom: 18px; font-size: 0.82rem;}
-.login-g{display: flex; justify-content: center; min-height: 44px;}
+.login-legal{margin-top: 16px;}
+.login-g{display: flex; justify-content: center; min-height: 44px; background: transparent; color-scheme: light;}
+.login-g *{background-color: transparent; color-scheme: light;}
+.login-g iframe{background: transparent !important; border-radius: 999px;}
 .login-g-fb{width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.14); background: #0b0f19; color: #f1f5f9; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; font-family: inherit;}
 .login-g-fb:hover{border-color: #ffaa00; box-shadow: 0 0 16px -4px rgba(255,170,0,0.5);}
 .login-note{display: none; font-size: 0.72rem; color: #eb4b4b; font-weight: 700; margin-top: 8px; line-height: 1.35;}
@@ -628,9 +630,6 @@ to{transform: scale(1); opacity: 1;}}
 .login-soc:hover, .login-email:hover{border-color: var(--c); box-shadow: 0 0 14px -4px var(--c);}
 .login-soc i{font-style: normal; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; color: #fff; background: var(--c);}
 .login-email{width: 100%; margin-top: 8px;}
-.login-promo{display: flex; gap: 8px; margin-top: 14px;}
-.login-promo .promo-input{min-width: 0; padding: 10px 12px; font-size: 0.85rem;}
-.login-promo .keep-btn{padding: 10px 14px; font-size: 0.75rem; flex-shrink: 0;}
 .login-legal{margin-top: 14px; font-size: 0.66rem; color: #64748b; font-weight: 600;}
 .hdr-ava{width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; font-size: 0.8rem; flex-shrink: 0;}
 #profileBtnName{max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
@@ -839,7 +838,7 @@ to{transform: scale(1); opacity: 1;}}
     <button class="inv-toggle-btn modes-btn" id="modesBtn" onclick="toggleModes()">🎮 Режимы <span class="modes-caret">▴</span></button>
     <div class="right-header-block">
       <div class="balance-box">
-        <span id="balanceValue">1000</span><span>G</span>
+        <span id="balanceValue">500,00</span><span>G</span>
       </div>
       <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()"><span class="hdr-ava" id="profileBtnAva">👤</span> <span id="profileBtnName">Профиль</span></button>
     </div>
@@ -874,10 +873,6 @@ to{transform: scale(1); opacity: 1;}}
       <button class="login-soc" style="--c:#0077ff" onclick="loginStub('VK ID')"><i>VK</i>VK ID</button>
     </div>
     <button class="login-email" onclick="loginStub('Email')">✉️ Войти по Email</button>
-    <div class="login-promo">
-      <input type="text" class="promo-input" placeholder="Есть промокод?" maxlength="40" autocomplete="off" spellcheck="false">
-      <button class="keep-btn" onclick="loginStub('Промокод')">Применить</button>
-    </div>
     <div class="login-legal">Продолжая, вы соглашаетесь с правилами сайта</div>
   </div>
 </div>
@@ -1318,6 +1313,24 @@ to{transform: scale(1); opacity: 1;}}
     'TEC-9 "Glitch"', 'M4 "Pixel Storm"', 'StatTrak™ UMP45 "Cyberpunk"', 'StatTrak™ P350 "Neon"',
     'USP "Geometric"', 'Gloves "Retro Wave"', 'Gloves "Pink Noise"', 'Gloves "Neuro"', 'Gloves "Impulse"'
   ]);
+  // DRAGON FIRE: драконы и огонь, снова подборка из скинов других кейсов
+  casesData.dragon = buildMixCase('Dragon Fire', [
+    'Desert Eagle "Red Dragon"', 'AWM "Phoenix"', 'AWM "Dragon"', 'StatTrak™ Desert Eagle "Red Dragon"',
+    'Akimbo Uzi "Fire Horse"', 'AKR12 "Emberbird"', 'AKR "Dragon"', 'P90 "Burning King"',
+    'StatTrak™ AWM "Dragon"', 'StatTrak™ AWM "Phoenix"', 'Gloves "Overheat"', 'Kunai "Fire Horse"',
+    'Butterfly "Dragon Glass"', 'Gloves "Phoenix Risen"', 'StatTrak™ AKR "Dragon"', 'StatTrak™ P90 "Burning King"',
+    'Gloves "Living Flame"', 'Karambit "Dragon Glass"'
+  ]);
+  // ROYAL VAULT: премиальный кейс, только самые дорогие скины (ножи, перчатки, золото) из других кейсов
+  casesData.vault = buildMixCase('Royal Vault', [
+    'Butterfly "Dragon Glass"', 'StatTrak™ AKR "Dragon"', 'StatTrak™ AKR12 "Speedrun"', 'M4A1 "Impact"',
+    'Gloves "Wildstyle"', 'Gloves "Haunt"', 'StatTrak™ G22 "Nest"', 'Karambit "Dragon Glass"',
+    'Karambit "Universe"', 'Gloves "Geometric"', 'Karambit "Scratch"', 'Gloves "Autumn"',
+    'AKR "Treasure Hunter"', 'M9 Bayonet "Ancient"', 'Gloves "Neuro"', 'StatTrak™ AKR12 "Railgun"',
+    'Charm "V2"', 'StatTrak™ M4 "Necromancer"', 'Karambit "Claw"', 'StatTrak™ M16 "Winged"',
+    'Gloves "Impulse"', 'Charm "Black Spot"', 'Charm "Ochpochmak"', 'G22 "Relic"',
+    'M9 Bayonet "Universe"', 'M9 Bayonet "Scratch"', 'M9 Bayonet "Dragon Glass"'
+  ]);
 
   function pickItem(c) {
     const items = c.items;
@@ -1337,6 +1350,13 @@ to{transform: scale(1); opacity: 1;}}
       return (Math.round(n * 100) / 100).toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
     return Math.round(n).toLocaleString('ru-RU');
+  }
+  // Баланс всегда показывается с копейками (до сотых), а хранится округлённым до 0,01 без «хвостов» float
+  function fmtBalance(n) {
+    return (Math.round(n * 100) / 100).toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fixBalance() {
+    balance = Math.round((Number(balance) || 0) * 100) / 100;
   }
   let freeUsedKey = null;
   function todayKey() {
@@ -1424,11 +1444,13 @@ to{transform: scale(1); opacity: 1;}}
     if (currentCase && currentCase.free && !running && document.getElementById('rouletteScreen').classList.contains('active')) updateFreeCaseUI();
   }
   function updateBalanceDisplay() {
-    document.getElementById('balanceValue').innerText = formatPrice(balance);
-    document.querySelectorAll('.hero-bal-val').forEach(e => { e.innerText = formatPrice(balance); });
+    fixBalance();
+    document.getElementById('balanceValue').innerText = fmtBalance(balance);
+    document.querySelectorAll('.hero-bal-val').forEach(e => { e.innerText = fmtBalance(balance); });
     updateCatalogAfford();
   }
   function saveProgress() {
+    fixBalance();
     try {
       localStorage.setItem('mifdrop_balance', JSON.stringify(balance));
       localStorage.setItem('mifdrop_inventory', JSON.stringify(myInventory));
@@ -1440,6 +1462,7 @@ to{transform: scale(1); opacity: 1;}}
       const savedBalance = localStorage.getItem('mifdrop_balance');
       const savedInventory = localStorage.getItem('mifdrop_inventory');
       if (savedBalance !== null) balance = JSON.parse(savedBalance);
+      fixBalance();
       if (savedInventory !== null) myInventory = JSON.parse(savedInventory);
       const savedPending = localStorage.getItem('mifdrop_pending');
       if (savedPending) {
@@ -2050,7 +2073,9 @@ to{transform: scale(1); opacity: 1;}}
     nameless: { c: '#ffc83d', badge: 'Люкс', emo: '👑', gold: true },
     knives: { c: '#ff4d4d', badge: 'Фарм', emo: '🔪' },
     bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' },
-    neon: { c: '#22d3ee', badge: 'Новинка', emo: '⚡' }
+    neon: { c: '#22d3ee', badge: 'Новинка', emo: '⚡' },
+    dragon: { c: '#ff4fa3', badge: 'Огонь', emo: '🐉' },
+    vault: { c: '#e2e8f0', badge: 'Премиум', emo: '💎' }
   };
   function heroCube(cx, cy, k, c, rot, logo) {
     const P = (x, y) => (cx + (x - 100) * k).toFixed(1) + ',' + (cy + (y - 78) * k).toFixed(1);
@@ -2127,7 +2152,7 @@ to{transform: scale(1); opacity: 1;}}
     renderBattlePass();
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = heroBg() + `
-      <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${formatPrice(balance)}</span> <small>G</small></span></div></div>
+      <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${fmtBalance(balance)}</span> <small>G</small></span></div></div>
       <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
       <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
@@ -2138,11 +2163,17 @@ to{transform: scale(1); opacity: 1;}}
       </div>
     `;
     let html = '';
-    let shown = 0; // первые 4 платных кейса — Standoff cases, остальные — Custom
-    const STANDOFF_COUNT = 4;
-    const paidCount = Object.keys(casesData).filter(k => !casesData[k].free).length;
-    Object.keys(casesData).forEach((key, i) => {
-      if (casesData[key].free) return; // бесплатный кейс выводится отдельным баннером выше
+    let shown = 0; // Standoff cases и Custom; внутри каждого раздела кейсы стоят от дешёвых к дорогим
+    const STANDOFF_KEYS = ['fable', 'scorpion', 'origin', 'furious'];
+    const paidKeys = Object.keys(casesData).filter(k => !casesData[k].free); // бесплатный кейс выводится баннером выше
+    const byPrice = (a, b) => casesData[a].price - casesData[b].price;
+    const orderedKeys = [
+      ...paidKeys.filter(k => STANDOFF_KEYS.includes(k)).sort(byPrice),
+      ...paidKeys.filter(k => !STANDOFF_KEYS.includes(k)).sort(byPrice)
+    ];
+    const STANDOFF_COUNT = paidKeys.filter(k => STANDOFF_KEYS.includes(k)).length;
+    const paidCount = paidKeys.length;
+    orderedKeys.forEach((key, i) => {
       if (shown === 0) html += `<div class="cs-section"><span>Standoff cases</span><i>${Math.min(STANDOFF_COUNT, paidCount)}</i></div>`;
       if (shown === STANDOFF_COUNT) html += `<div class="cs-section"><span>Custom</span><i>${paidCount - STANDOFF_COUNT}</i></div>`;
       shown++;
@@ -2314,7 +2345,7 @@ to{transform: scale(1); opacity: 1;}}
         <div class="upg-toolbar" style="margin:10px 0 0; justify-content:flex-start;">
           ${[0, 25, 50, 75, 100].map(p => `<button class="upg-chip" ${maxBet > 0 ? '' : 'disabled'} onclick="setUpgBetPct(${p})">${p === 100 ? 'Макс' : p + '%'}</button>`).join('')}
         </div>
-        <div class="upg-boost-foot"><span id="upgBetNote">Шанс ${fmtChance(upgChance(sp, tp))}% → <b>${fmtChance(chance)}%</b></span><span>Макс: ${formatPrice(maxBet)} G · Баланс: ${formatPrice(balance)} G</span></div>
+        <div class="upg-boost-foot"><span id="upgBetNote">Шанс ${fmtChance(upgChance(sp, tp))}% → <b>${fmtChance(chance)}%</b></span><span>Макс: ${formatPrice(maxBet)} G · Баланс: ${fmtBalance(balance)} G</span></div>
       </div>`;
       html += `<div class="upg-stats">
         <div class="upg-stat">Множитель<b id="upgStatMult">x${mult}</b></div>
@@ -3174,7 +3205,7 @@ function loadFeed() {
     renderAuthUI();
     renderInventory();
     document.getElementById('usernameInput').value = username;
-    document.getElementById('profileBalanceValue').innerText = formatPrice(balance) + ' G';
+    document.getElementById('profileBalanceValue').innerText = fmtBalance(balance) + ' G';
     const invValue = myInventory.reduce((s, it) => s + itemPrice(it), 0);
     document.getElementById('profileItemsValue').innerText = myInventory.length;
     document.getElementById('profileInvValue').innerText = formatPrice(invValue) + ' G';
@@ -3457,7 +3488,7 @@ function loadFeed() {
   // ===== АВТОРИЗАЦИЯ GOOGLE (Google Identity Services, без бэкенда) =====
   // 1) Вставьте свой OAuth Client ID (тип "Web application") из Google Cloud Console.
   // 2) В "Authorized JavaScript origins" добавьте https://ВАШ_НИК.github.io (без слэша и пути).
-  const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.googleusercontent.com';
+  const GOOGLE_CLIENT_ID = 'ВАШ_CLIENT_ID.apps.googleusercontent.com';
   const AUTH_KEY = 'mifdrop_auth';
   let authUser = null;
   let gisInited = false;
