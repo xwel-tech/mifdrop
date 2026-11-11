@@ -878,7 +878,7 @@ to{transform: scale(1); opacity: 1;}}
 </div>
 
 <script>
-  let balance = 500;
+  let balance = 0;
   let myInventory = [];
   const SPIN_MS = 8000;
   const SPIN_EASE = 'cubic-bezier(0.1, 0.8, 0.1, 1)';
@@ -1364,15 +1364,20 @@ to{transform: scale(1); opacity: 1;}}
     return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
   }
   function loadFreeCase() {
-    try { freeUsedKey = localStorage.getItem('mifdrop_free_case'); } catch (e) {}
-  }
-  function canOpenFree() {
-    return freeUsedKey !== todayKey();
-  }
-  function markFreeUsed() {
-    freeUsedKey = todayKey();
-    try { localStorage.setItem('mifdrop_free_case', freeUsedKey); } catch (e) {}
-  }
+  freeUsedKey = null;
+  if (!authUser) return;
+  try { freeUsedKey = uGet('mifdrop_free_case'); } catch (e) {}
+}
+
+function canOpenFree() {
+  return !!authUser && freeUsedKey !== todayKey();
+}
+
+function markFreeUsed() {
+  if (!authUser) return;
+  freeUsedKey = todayKey();
+  try { uSet('mifdrop_free_case', freeUsedKey); } catch (e) {}
+}
   function timeLeftStr() {
     const now = new Date();
     const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
@@ -1450,32 +1455,37 @@ to{transform: scale(1); opacity: 1;}}
     updateCatalogAfford();
   }
   function saveProgress() {
+  if (!authUser) return; // гость ничего не сохраняет
+  fixBalance();
+  uSet('mifdrop_balance', balance);
+  uSet('mifdrop_inventory', myInventory);
+  uSet('mifdrop_pending', { single: currentWonSkin, multi: currentWonSkins });
+}
+ function loadProgress() {
+  // Гость или чистый старт: всё по нулям
+  balance = 0;
+  myInventory = [];
+  if (!authUser) return; // у гостя ничего не загружаем
+
+  try {
+    const savedBalance = uGet('mifdrop_balance');
+    const savedInventory = uGet('mifdrop_inventory');
+    if (savedBalance !== null) balance = JSON.parse(savedBalance);
     fixBalance();
-    try {
-      localStorage.setItem('mifdrop_balance', JSON.stringify(balance));
-      localStorage.setItem('mifdrop_inventory', JSON.stringify(myInventory));
-      localStorage.setItem('mifdrop_pending', JSON.stringify({ single: currentWonSkin, multi: currentWonSkins }));
-    } catch (e) {}
-  }
-  function loadProgress() {
-    try {
-      const savedBalance = localStorage.getItem('mifdrop_balance');
-      const savedInventory = localStorage.getItem('mifdrop_inventory');
-      if (savedBalance !== null) balance = JSON.parse(savedBalance);
-      fixBalance();
-      if (savedInventory !== null) myInventory = JSON.parse(savedInventory);
-      const savedPending = localStorage.getItem('mifdrop_pending');
-      if (savedPending) {
-        const p = JSON.parse(savedPending);
-        if (p && p.single) myInventory.push(p.single);
-        if (p && Array.isArray(p.multi)) myInventory.push(...p.multi);
-        if (p && (p.single || (Array.isArray(p.multi) && p.multi.length))) {
-          localStorage.setItem('mifdrop_inventory', JSON.stringify(myInventory));
-          localStorage.setItem('mifdrop_pending', JSON.stringify({ single: null, multi: [] }));
-        }
+    if (savedInventory !== null) myInventory = JSON.parse(savedInventory);
+
+    const savedPending = uGet('mifdrop_pending');
+    if (savedPending) {
+      const p = JSON.parse(savedPending);
+      if (p && p.single) myInventory.push(p.single);
+      if (p && Array.isArray(p.multi)) myInventory.push(...p.multi);
+      if (p && (p.single || (Array.isArray(p.multi) && p.multi.length))) {
+        uSet('mifdrop_inventory', myInventory);
+        uSet('mifdrop_pending', { single: null, multi: [] });
       }
-    } catch (e) {}
-  }
+    }
+  } catch (e) {}
+}
   const MODE_SCREENS = ['promoScreen', 'upgradeScreen', 'bpScreen', 'minesScreen', 'contractsScreen'];
   function toggleModes() {
     const m = document.getElementById('modesMenu');
@@ -1597,6 +1607,7 @@ to{transform: scale(1); opacity: 1;}}
     }).join('');
   }
   function quickOpenCase() {
+    if (!requireAuth()) return;
     if (running || upgradeRunning || !currentCase) return;
     if (!checkFreeCase()) return;
     if (balance < currentCase.price) {
@@ -1645,6 +1656,7 @@ to{transform: scale(1); opacity: 1;}}
     document.querySelectorAll('.multi-open-btn').forEach(b => b.disabled = state);
   }
   function multiOpenCase(count) {
+     if (!requireAuth()) return;
     if (running || upgradeRunning || !currentCase || currentCase.free) return;
     if (!quickMode) { multiSpinCase(count); return; }
     const totalCost = currentCase.price * count;
@@ -1772,6 +1784,7 @@ to{transform: scale(1); opacity: 1;}}
     resetCaseScreen();
   }
   function spinRoulette() {
+     if (!requireAuth()) return;
     if (quickMode) { quickOpenCase(); return; }
     if (running || !currentCase) return;
     if (!checkFreeCase()) return;
@@ -2266,7 +2279,7 @@ to{transform: scale(1); opacity: 1;}}
   let upgradeBet = 0;       // баланс, добавленный к скину (G)
   let lastUpgradeBet = 0;
   const UPG_MIN_CHANCE = 0.01;  // минимальный шанс апгрейда, %
-  const UPG_MAX_CHANCE = 95;    // максимальный шанс апгрейда, %
+  const UPG_MAX_CHANCE = 75;    // максимальный шанс апгрейда, %
   function upgChance(src, tgt) {
     const raw = (src / tgt) * 100 * HOUSE_EDGE;
     return Math.max(UPG_MIN_CHANCE, Math.min(UPG_MAX_CHANCE, Math.round(raw * 100) / 100));
@@ -2724,24 +2737,27 @@ to{transform: scale(1); opacity: 1;}}
   function minesPayout(g) { return Math.floor(g.bet * minesMult(g.m, g.revealed.length)); }
   function fmtMult(x) { return 'x' + (x >= 100 ? x.toFixed(0) : x.toFixed(2)); }
   function getMinesBet() { return Math.max(0, Math.floor(Number(document.getElementById('minesBet').value) || 0)); }
-  function saveMines() {
-    try {
-      if (minesActive()) localStorage.setItem('mifdrop_mines', JSON.stringify(minesGame));
-      else localStorage.removeItem('mifdrop_mines');
-    } catch (e) {}
-  }
-  function loadMines() {
-    try {
-      const raw = localStorage.getItem('mifdrop_mines');
-      if (!raw) return;
-      const g = JSON.parse(raw);
-      if (g && g.bet > 0 && Array.isArray(g.mines) && Array.isArray(g.revealed)) {
-        g.over = false;
-        minesGame = g;
-        minesCount = g.m;
-      }
-    } catch (e) {}
-  }
+function saveMines() {
+  if (!authUser) return;
+  try {
+    if (minesActive()) uSet('mifdrop_mines', minesGame);
+    else uRemove('mifdrop_mines');
+  } catch (e) {}
+}
+function loadMines() {
+  minesGame = null;
+  if (!authUser) return;
+  try {
+    const raw = uGet('mifdrop_mines');
+    if (!raw) return;
+    const g = JSON.parse(raw);
+    if (g && g.bet > 0 && Array.isArray(g.mines) && Array.isArray(g.revealed)) {
+      g.over = false;
+      minesGame = g;
+      minesCount = g.m;
+    }
+  } catch (e) {}
+}
   function goToMines() {
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
@@ -2960,9 +2976,10 @@ to{transform: scale(1); opacity: 1;}}
   }
   list.forEach(e => feedSeen.add(e.id));
   }
-  function saveMyDrops() {
-    try { localStorage.setItem('mifdrop_my_drops', JSON.stringify(myDrops)); } catch (e) {}
-  }
+ function saveMyDrops() {
+  if (!authUser) return;
+  try { uSet('mifdrop_my_drops', myDrops); } catch (e) {}
+}
  function loadFbScript(url) {
   return new Promise((res, rej) => {
     const s = document.createElement('script');
@@ -3080,14 +3097,17 @@ function feedAddPlayer(skin, delay) {
 }
 
 function loadFeed() {
-  try {
-    localStorage.removeItem('mifdrop_feed');
-    const raw = localStorage.getItem('mifdrop_my_drops');
-    if (raw) {
-      const a = JSON.parse(raw);
-      if (Array.isArray(a)) myDrops = a.slice(0, 10);
-    }
-  } catch (e) {}
+  myDrops = [];
+  if (authUser) {
+    try {
+      localStorage.removeItem('mifdrop_feed');
+      const raw = uGet('mifdrop_my_drops');
+      if (raw) {
+        const a = JSON.parse(raw);
+        if (Array.isArray(a)) myDrops = a.slice(0, 10);
+      }
+    } catch (e) {}
+  }
   feedStart();
   renderFeed();
 }
@@ -3100,15 +3120,20 @@ function loadFeed() {
   };
   let usedPromoCodes = [];
   function savePromoProgress() {
-    try { localStorage.setItem('mifdrop_used_promocodes', JSON.stringify(usedPromoCodes)); } catch (e) {}
-  }
-  function loadPromoProgress() {
-    try {
-      const saved = localStorage.getItem('mifdrop_used_promocodes');
-      if (saved !== null) usedPromoCodes = JSON.parse(saved);
-    } catch (e) {}
-  }
+  if (!authUser) return;
+  uSet('mifdrop_used_promocodes', usedPromoCodes);
+}
+
+function loadPromoProgress() {
+  usedPromoCodes = [];
+  if (!authUser) return;
+  try {
+    const saved = uGet('mifdrop_used_promocodes');
+    if (saved !== null) usedPromoCodes = JSON.parse(saved);
+  } catch (e) {}
+}
   function goToPromo() {
+    if (!requireAuth()) return;
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
     switchScreen('promoScreen');
@@ -3175,16 +3200,20 @@ function loadFeed() {
     saveUsernameSilently();
   }
   function saveBestDrop() {
-    try { localStorage.setItem('mifdrop_best_drop', JSON.stringify(bestDrop)); } catch (e) {}
+  if (!authUser) return;
+  try { uSet('mifdrop_best_drop', bestDrop); } catch (e) {}
+}
+
+function loadBestDrop() {
+  bestDrop = null;
+  if (!authUser) return;
+  try {
+    const saved = uGet('mifdrop_best_drop');
+    if (saved !== null) bestDrop = JSON.parse(saved);
+  } catch (e) {
+    bestDrop = null;
   }
-  function loadBestDrop() {
-    try {
-      const saved = localStorage.getItem('mifdrop_best_drop');
-      if (saved !== null) bestDrop = JSON.parse(saved);
-    } catch (e) {
-      bestDrop = null;
-    }
-  }
+}
   function updateBestDrop(skin, feedDelay) {
     saveProgress();
     feedAddPlayer(skin, feedDelay || 0);
@@ -3263,18 +3292,22 @@ function loadFeed() {
   ];
   let bpXp = 0;
   let bpClaimed = [];
-  function saveBp() {
-    try { localStorage.setItem('mifdrop_bp', JSON.stringify({ xp: bpXp, claimed: bpClaimed })); } catch (e) {}
-  }
-  function loadBp() {
-    try {
-      const raw = localStorage.getItem('mifdrop_bp');
-      if (!raw) return;
-      const d = JSON.parse(raw);
-      bpXp = Math.max(0, Number(d.xp) || 0);
-      bpClaimed = Array.isArray(d.claimed) ? d.claimed : [];
-    } catch (e) {}
-  }
+ function saveBp() {
+  if (!authUser) return;
+  uSet('mifdrop_bp', { xp: bpXp, claimed: bpClaimed });
+}
+function loadBp() {
+  bpXp = 0;
+  bpClaimed = [];
+  if (!authUser) return;
+  try {
+    const raw = uGet('mifdrop_bp');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    bpXp = Math.max(0, Number(d.xp) || 0);
+    bpClaimed = Array.isArray(d.claimed) ? d.claimed : [];
+  } catch (e) {}
+}
   function bpNeed(l) { return 40 + 6 * (l - 1); }  // XP до уровня l: 40 → 214
   function bpState() {
     let lvl = 0, left = bpXp;
@@ -3479,6 +3512,7 @@ function loadFeed() {
     bpRefresh();
   }
 
+  loadAuth();
   loadProgress();
   loadPromoProgress();
   loadBp();
@@ -3488,7 +3522,7 @@ function loadFeed() {
   // ===== АВТОРИЗАЦИЯ GOOGLE (Google Identity Services, без бэкенда) =====
   // 1) Вставьте свой OAuth Client ID (тип "Web application") из Google Cloud Console.
   // 2) В "Authorized JavaScript origins" добавьте https://ВАШ_НИК.github.io (без слэша и пути).
-const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.googleusercontent.com';
+  const GOOGLE_CLIENT_ID = 'ВАШ_CLIENT_ID.apps.googleusercontent.com';
   const AUTH_KEY = 'mifdrop_auth';
   let authUser = null;
   let gisInited = false;
@@ -3522,6 +3556,47 @@ const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.goo
       else localStorage.removeItem(AUTH_KEY);
     } catch (e) {}
   }
+  // ===== ПРОГРЕСС ПО АККАУНТАМ =====
+// Ключ вида "mifdrop_balance:<sub>". У гостя ключа нет, значит и сохранять нечего.
+function uKey(base) { return authUser ? base + ':' + authUser.sub : null; }
+function uGet(base) {
+  const k = uKey(base);
+  if (!k) return null;
+  try { return localStorage.getItem(k); } catch (e) { return null; }
+}
+function uSet(base, val) {
+  const k = uKey(base);
+  if (!k) return;
+  try { localStorage.setItem(k, typeof val === 'string' ? val : JSON.stringify(val)); } catch (e) {}
+}
+function uRemove(base) {
+  const k = uKey(base);
+  if (!k) return;
+  try { localStorage.removeItem(k); } catch (e) {}
+}
+
+// Проверка входа: для гостя показывает просьбу войти и возвращает false
+function requireAuth() {
+  if (authUser) return true;
+  document.getElementById('loginModal')?.classList.add('show');
+  // Если у вас есть своё окно входа, вызовите его здесь (например, openLoginModal();)
+  try {
+    if (googleIdConfigured() && window.google && google.accounts && google.accounts.id) {
+      google.accounts.id.prompt();
+    }
+  } catch (e) {}
+  return false;
+}
+
+// Выход: чистим сессию и перезагружаем страницу (гостевой ноль)
+function signOut() {
+  try {
+    if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
+  } catch (e) {}
+  authUser = null;
+  saveAuth(); // authUser = null, поэтому удалит AUTH_KEY
+  location.reload();
+}
   function initGoogleAuth() {
     if (gisInited || !googleIdConfigured()) return;
     if (!(window.google && google.accounts && google.accounts.id)) return;
@@ -3577,6 +3652,7 @@ const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.goo
         picture: isSafeAvatar(p.picture) ? p.picture : ''
       };
       saveAuth(); // сохраняем только имя, почту и аватарку; сам токен не хранится
+      location.reload();
       closeLoginModal();
       renderAuthUI();
       showToast('Вы вошли как ' + authUser.name);
@@ -3589,6 +3665,7 @@ const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.goo
     authUser = null;
     saveAuth();
     try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
+    location.reload();
     renderAuthUI();
     showToast('Вы вышли из аккаунта');
   }
@@ -3653,7 +3730,6 @@ const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.goo
       hero.appendChild(btn);
     }
   }
-  loadAuth();
   window.addEventListener('load', () => { if (window.__gsiReady) initGoogleAuth(); });
 
   loadMines();
@@ -3670,4 +3746,3 @@ const GOOGLE_CLIENT_ID = '968158549875-3qb63afg7qu785kdchd6161ppnj12dnh.apps.goo
 </script>
 </body>
 </html>
-
