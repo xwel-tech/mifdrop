@@ -11,7 +11,6 @@ html{scroll-padding-top: env(safe-area-inset-top, 0px);}
 body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 12px;}
 .bulldrop-app{max-width: none; width: 100%; min-height: calc(100vh - 24px); margin: 0 auto; background: #0b0f19; border-radius: 16px; padding: 16px; border: 1px solid rgba(255,255,255,0.03); box-sizing: border-box;}
 .header{display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #141b2d; flex-wrap: wrap; gap: 10px;}
-.logo-block{display: flex; align-items: center; gap: 12px;}
 .logo-icon{font-size: 1.8rem;}
 .logo-text{font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; background: linear-gradient(90deg, #ffaa00, #ff5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
 .inv-toggle-btn{background: #141b2d; color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; transition: all 0.2s;}
@@ -20,7 +19,6 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .balance-box{background: #111726; border: 1px solid rgba(255, 170, 0, 0.2); padding: 6px 14px; border-radius: 8px; font-weight: 800; color: #ffaa00; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; box-shadow: 0 0 10px rgba(255, 170, 0, 0.05);}
 .screen{display: none;}
 .screen.active{display: block;}
-.cases-grid{display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;}
 .back-btn{background: #141b2d; color: #94a3b8; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.8rem; margin-bottom: 15px; text-transform: uppercase;}
 .roulette-container{background: #111726; border-radius: 12px; padding: 20px 12px; text-align: center;}
 .tape-window{position: relative; width: 100%; height: 90px; background: #060913; border-radius: 8px; overflow: hidden; margin: 20px 0; border: 1px solid #141b2d;}
@@ -32,15 +30,10 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .spin-actions{display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;}
 .quick-toggle{display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; padding: 6px 4px;}
 .quick-toggle-label{font-size: 0.85rem; font-weight: 800; color: #ffaa00; text-transform: uppercase; letter-spacing: 0.3px;}
-.switch{position: relative; width: 52px; height: 28px; border-radius: 14px; background: #eb4b4b; transition: background 0.2s; flex-shrink: 0;}
-.switch::after{content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.3);}
-.switch.on{background: #16c784;}
-.switch.on::after{transform: translateX(24px);}
 .quick-toggle{position: relative; display: block; width: 224px; height: 44px; padding: 0; gap: 0; border-radius: 22px; background: #eb4b4b; cursor: pointer; user-select: none; transition: background 0.25s; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.25);}
 .quick-toggle.on{background: #16c784;}
 .quick-toggle::before{content: ''; position: absolute; top: 4px; left: 4px; width: 36px; height: 36px; border-radius: 50%; background: #fff; transition: transform 0.25s cubic-bezier(0.3, 0, 0.3, 1); box-shadow: 0 2px 6px rgba(0,0,0,0.35);}
 .quick-toggle.on::before{transform: translateX(180px);}
-.quick-toggle .switch{display: none;}
 .quick-toggle-label{position: absolute; top: 0; bottom: 0; left: 46px; right: 10px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; color: #fff; letter-spacing: 0.4px; text-transform: uppercase; white-space: nowrap; transition: left 0.25s, right 0.25s;}
 .quick-toggle.on .quick-toggle-label{left: 10px; right: 46px;}
 .tape-window.compact{height: 56px; margin: 6px 0;}
@@ -92,21 +85,10 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .profile-stat-label{font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px;}
 .profile-stat-value{font-size: 1rem; font-weight: 800;}
 .profile-stat-sub{font-size: 0.75rem; color: #94a3b8; font-weight: 700; margin-top: 4px;}
-.profile-inv-section{margin-top: 22px; padding-top: 18px; border-top: 1px solid #141b2d;}
+.profile-inv-section{margin-top: 24px; padding-top: 18px; border-top: 1px solid #141b2d;}
 .profile-inv-head{display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;}
 .profile-inv-head .preview-title span{color: #ffaa00;}
 .profile-inv-head .sell-btn{padding: 8px 16px; font-size: 0.75rem;}
-.upg-steps{display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 18px 0; flex-wrap: wrap;}
-.upg-step{display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;}
-.upg-step-num{width: 22px; height: 22px; border-radius: 50%; background: #141b2d; border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 0.72rem;}
-.upg-step.active{color: #ffaa00;}
-.upg-step.active .upg-step-num{background: linear-gradient(135deg, #ffaa00, #ff5500); color: #000; border-color: transparent; box-shadow: 0 0 10px rgba(255,120,0,0.45);}
-.upg-step.done{color: #16c784;}
-.upg-step.done .upg-step-num{background: #16c784; color: #000; border-color: transparent;}
-.upg-step-line{width: 28px; height: 2px; background: #141b2d; border-radius: 2px;}
-.upg-step-line.done{background: #16c784;}
-.upg-back-link{cursor: pointer; display: inline-block; transition: color 0.15s;}
-.upg-back-link:hover{color: #ffaa00;}
 .upg-hint{color: #64748b; font-size: 0.78rem; font-weight: 600; margin: -4px 0 14px 4px; text-align: left;}
 .upg-card{position: relative; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 10px; padding: 12px 4px 8px; text-align: center; cursor: pointer; overflow: hidden; min-width: 0; min-height: 118px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-sizing: border-box; transition: transform 0.15s, box-shadow 0.15s;}
 .upg-card::before{content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 65%); opacity: 0.16; pointer-events: none;}
@@ -121,8 +103,6 @@ body{background-color: #060913; color: #f1f5f9; font-family: 'Segoe UI', Roboto,
 .upg-chip.active{background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; border-color: transparent;}
 .upg-chip.sep-after{margin-right: 12px;}
 .upg-chip.sep-before{margin-left: 12px;}
-.upg-recap{display: flex; align-items: center; justify-content: center; gap: 8px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 10px; padding: 8px 12px; margin: 0 auto 12px; max-width: 360px; font-size: 0.8rem; font-weight: 700;}
-.upg-recap b{color: #ffaa00;}
 .upg-arena{display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 6px 0 16px 0;}
 .upg-side{position: relative; width: 140px; background: #0b0f19; border: 1px solid rgba(255,255,255,0.04); border-bottom: 3px solid var(--c); border-radius: 12px; padding: 14px 8px; box-sizing: border-box; overflow: hidden; transition: filter 0.4s, transform 0.4s, box-shadow 0.4s;}
 .upg-side::before{content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 70%); opacity: 0.2; pointer-events: none;}
@@ -175,9 +155,7 @@ to{transform: scale(1); opacity: 1;}}
 @keyframes balancePulse{0%{transform: scale(1);}
 30%{transform: scale(1.14); box-shadow: 0 0 24px rgba(22,199,132,0.6);}
 100%{transform: scale(1);}}
-.cases-grid{grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px;}
 .cs-hero{position: relative; overflow: hidden; border-radius: 14px; padding: 18px 16px; margin-bottom: 18px; background: linear-gradient(135deg, #141b2d 0%, #111726 55%, rgba(255,85,0,0.2) 100%); border: 1px solid rgba(255,170,0,0.15);}
-.cs-hero::before{content: '🍀'; position: absolute; right: -8px; top: -20px; font-size: 7rem; opacity: 0.08; transform: rotate(15deg); pointer-events: none;}
 .cs-hero-title{margin: 0 0 4px 0; font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;}
 .cs-hero-title span{background: linear-gradient(90deg, #ffaa00, #ff5500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
 .cs-hero-sub{color: #94a3b8; font-size: 0.82rem; font-weight: 600; margin: 0 0 12px 0;}
@@ -198,8 +176,6 @@ to{transform: scale(1); opacity: 1;}}
 .cs-name{font-size: 0.95rem; font-weight: 800; margin: 0;}
 .cs-meta{font-size: 0.68rem; font-weight: 700; color: #64748b;}
 .cs-meta b{color: #f1f5f9;}
-.cs-top{display: flex; justify-content: center; gap: 5px;}
-.cs-top > span{width: 44px; height: 34px; border-radius: 8px; background: #0b0f19; border-bottom: 2px solid var(--rc); display: flex; align-items: center; justify-content: center; font-size: 1rem;}
 .cs-price{margin-top: 2px; background: linear-gradient(90deg, #ffaa00, #ff5500); color: #000; font-weight: 900; font-size: 0.85rem; padding: 9px 0; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.3px; box-shadow: 0 4px 14px rgba(255,85,0,0.28); transition: filter 0.2s;}
 .cs-card:hover .cs-price{filter: brightness(1.1);}
 .cs-card.poor .cs-price{background: #272e3f; color: #94a3b8; box-shadow: none;}
@@ -265,7 +241,6 @@ to{transform: scale(1); opacity: 1;}}
 .free-tag{display: inline-block; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; margin-bottom: 6px; background: var(--c); color: #04150f;}
 .free-name{margin: 0 0 3px 0; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;}
 .free-sub{color: #94a3b8; font-size: 0.78rem; font-weight: 700; margin-bottom: 8px;}
-.free-banner .cs-top{justify-content: flex-start;}
 .free-btn{position: relative; background: linear-gradient(90deg, #16c784, #0fa56b); color: #04150f; font-weight: 900; font-size: 0.85rem; padding: 12px 20px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; box-shadow: 0 4px 14px rgba(22,199,132,0.3);}
 .free-banner.used{border-color: rgba(255,255,255,0.08); box-shadow: none; background: linear-gradient(135deg, #141b2d 0%, #111726 62%);}
 .free-banner.used::after{display: none;}
@@ -282,10 +257,10 @@ to{transform: scale(1); opacity: 1;}}
 .modal-title{font-size: 1.1rem; font-weight: 800; line-height: 1.3; margin-bottom: 8px;}
 .modal-sub{color: #94a3b8; font-size: 0.9rem; font-weight: 700;}
 .modal-sub b{color: #ffaa00;}
-.toast{position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); z-index: 1000; background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,170,0,0.35); border-radius: 10px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;}
+.toast{position: fixed; left: 50%; bottom: calc(100px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); z-index: 1200; background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,170,0,0.35); border-radius: 10px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;}
 .toast.show{opacity: 1; transform: translate(-50%, 0);}
 .pf-hero{--rc: #4b69ff; position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 16px; padding: 20px 16px 22px; border-radius: 14px; background: linear-gradient(135deg, #141b2d 0%, #111726 55%, rgba(255,85,0,0.18) 100%); border: 1px solid rgba(255,170,0,0.15);}
-.pf-hero::before{content: '🍀'; position: absolute; right: -8px; top: -22px; font-size: 7rem; opacity: 0.07; transform: rotate(15deg); pointer-events: none;}
+.pf-hero::before{content: '🎄'; position: absolute; right: -8px; top: -22px; font-size: 7rem; opacity: 0.07; transform: rotate(15deg); pointer-events: none;}
 .pf-avatar-wrap{position: relative; flex-shrink: 0; margin-bottom: 6px;}
 .pf-avatar-wrap .profile-avatar{width: 76px; height: 76px; font-size: 2.3rem; box-shadow: 0 0 0 3px #0b0f19, 0 0 0 5px var(--rc), 0 0 26px var(--rc);}
 .pf-rank{position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); white-space: nowrap; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; background: #0b0f19; color: var(--rc); border: 1px solid var(--rc);}
@@ -305,7 +280,6 @@ to{transform: scale(1); opacity: 1;}}
 .pf-best-info{flex: 1; min-width: 140px;}
 .pf-best-name{font-size: 1rem; font-weight: 800; color: var(--c); overflow-wrap: anywhere;}
 .pf-best-price{font-size: 1.2rem; font-weight: 900; color: #ffaa00; white-space: nowrap;}
-.profile-inv-section{margin-top: 24px;}
 .pf-sort{justify-content: flex-start; margin-bottom: 12px;}
 .pf-item{position: relative; overflow: hidden; background: #0b0f19; transition: transform 0.15s, box-shadow 0.15s;}
 .pf-item::before{content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, var(--c) 0%, transparent 65%); opacity: 0.16; pointer-events: none;}
@@ -321,7 +295,6 @@ to{transform: scale(1); opacity: 1;}}
 .cs-card.gold .cs-art::before{opacity: 0.55; background: radial-gradient(circle at 50% 60%, #ffc83d 0%, transparent 68%);}
 .cs-card.gold .cs-badge{background: linear-gradient(90deg, #ffe27a, #d99a00); color: #2a1d00; border-color: transparent;}
 .cs-card.gold .cs-name{background: linear-gradient(90deg, #fff3b0, #ffc83d, #ffe27a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 1px;}
-.cs-card.gold .cs-top > span{background: #1a1405;}
 .cs-card.gold .cs-price{background: linear-gradient(90deg, #ffe27a, #d99a00); box-shadow: 0 4px 16px rgba(255,200,61,0.4);}
 .cs-card.gold.poor .cs-price{background: #272e3f; color: #94a3b8; box-shadow: none;}
 @media (max-width: 420px){.inv-toggle-btn{padding: 6px 9px; font-size: 0.75rem;}
@@ -386,30 +359,14 @@ to{transform: scale(1); opacity: 1;}}
 .pv-card .preview-icon .skin-img{height: 50px;}
 .upg-card-icon .skin-img{height: 46px;}
 .upg-side-icon .skin-img{height: 78px;}
-.upg-recap .skin-img{width: 52px; height: 28px; margin: 0;}
 .win-icon .skin-img{width: min(100%, 260px); height: 120px;}
 .feed-emo .skin-img{height: 32px;}
 .pf-best-icon .skin-img{width: 120px; height: 64px;}
-.cs-top .skin-img{width: 40px; height: 28px; background-color: transparent;}
-.cs-top .st-badge, .feed-emo .st-badge, .upg-recap .st-badge{display: none;}
-.cs-top{position: relative; display: block; height: 58px; margin-top: 4px;}
+.cs-top .st-badge, .feed-emo .st-badge{display: none;}
+.cs-top{position: relative; display: block;}
 .cs-top > span, .cs-card.gold .cs-top > span{position: absolute; left: 50%; bottom: 0; width: 64px; height: 46px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; background: none; border: 0; border-radius: 0; filter: drop-shadow(0 5px 7px rgba(0,0,0,0.6)); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);}
-.cs-top > span::before{content: ''; position: absolute; inset: -8px -6px; z-index: -1; border-radius: 50%; background: radial-gradient(circle at 50% 60%, var(--rc) 0%, transparent 66%); opacity: 0.38; pointer-events: none;}
-.cs-top > span:nth-child(1){z-index: 3; transform: translateX(-50%) scale(1.14);}
-.cs-top > span:nth-child(2){z-index: 1; transform: translateX(calc(-50% - 40px)) rotate(-9deg) scale(0.8); opacity: 0.92;}
-.cs-top > span:nth-child(3){z-index: 2; transform: translateX(calc(-50% + 40px)) rotate(9deg) scale(0.8); opacity: 0.92;}
-.cs-card:hover .cs-top > span:nth-child(1), .free-banner:hover .cs-top > span:nth-child(1){transform: translateX(-50%) translateY(-4px) scale(1.2);}
-.cs-card:hover .cs-top > span:nth-child(2), .free-banner:hover .cs-top > span:nth-child(2){transform: translateX(calc(-50% - 46px)) rotate(-13deg) scale(0.84);}
-.cs-card:hover .cs-top > span:nth-child(3), .free-banner:hover .cs-top > span:nth-child(3){transform: translateX(calc(-50% + 46px)) rotate(13deg) scale(0.84);}
-.cs-top .skin-img{width: 60px; height: 40px; background-color: transparent;}
 .free-banner .cs-top{width: 170px; margin-top: 6px;}
 .cs-top{height: 64px; margin-top: 2px;}
-.cs-top > span:nth-child(n+2){display: none;}
-.cs-top > span:nth-child(1), .cs-card:hover .cs-top > span:nth-child(1), .free-banner:hover .cs-top > span:nth-child(1){left: 0; right: 0; margin: 0 auto; width: 132px; height: 56px; font-size: 2.4rem; transform: none; animation: csFloat 3.4s ease-in-out infinite;}
-.cs-top > span:nth-child(1)::before{inset: -6px -2px; opacity: 0.55;}
-.cs-top .skin-img{width: 128px; height: 52px;}
-.cs-card.gold .cs-top > span:nth-child(n+2){display: none;}
-.cs-card.gold .cs-top > span:nth-child(1){left: 0; right: 0; margin: 0 auto; width: 132px; height: 56px; font-size: 2.4rem; transform: none; animation: csFloat 3.4s ease-in-out infinite;}
 .cs-top{isolation: isolate;}
 .cs-top::before{content: ''; position: absolute; left: 50%; bottom: -4px; width: 160px; height: 68px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(ellipse at 50% 60%, var(--c) 0%, transparent 68%); opacity: 0.5; pointer-events: none; z-index: 0;}
 .cs-top > span::before{display: none !important;}
@@ -429,20 +386,11 @@ to{transform: scale(1); opacity: 1;}}
 .top-row #freeCaseBlock{min-width:0}
 .top-row .free-banner{height:100%;margin-bottom:0;box-sizing:border-box}
 @media (max-width:980px){.top-row{grid-template-columns:1fr}}
-.bp-panel{position:relative;overflow:hidden;min-width:0;box-sizing:border-box;height:100%;padding:14px 16px 12px;border-radius:14px;background:linear-gradient(135deg,#141b2d 0%,#111726 60%,rgba(136,71,255,0.2) 100%);border:1px solid rgba(136,71,255,0.45);box-shadow:0 0 26px -10px rgba(136,71,255,0.6);display:flex;flex-direction:column;gap:10px}
-.bp-panel::before{content:'🎖️';position:absolute;right:-6px;top:-18px;font-size:6rem;opacity:0.07;transform:rotate(12deg);pointer-events:none}
-.bp-panel > *{position:relative}
-.bp-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.bp-head-l{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.bp-title{margin:0;font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:0.5px}
-.bp-title span{background:linear-gradient(90deg,#ffaa00,#ff5500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.bp-lvl-badge{font-size:0.65rem;font-weight:900;letter-spacing:0.8px;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:#0b0f19;color:#8847ff;border:1px solid #8847ff}
 .bp-claim-all{padding:8px 16px;font-size:0.75rem}
 .bp-bar-wrap{display:flex;align-items:center;gap:10px}
 .bp-bar{flex:1;height:12px;border-radius:999px;background:#0b0f19;overflow:hidden;border:1px solid rgba(255,255,255,0.05)}
 .bp-bar-fill{height:100%;background:linear-gradient(90deg,#ffaa00,#ff5500);border-radius:999px;transition:width 0.4s}
 .bp-xp{font-size:0.7rem;font-weight:800;color:#94a3b8;white-space:nowrap}
-.bp-track{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 8px;scrollbar-width:thin;scrollbar-color:#272e3f transparent}
 .bp-tile{--c:#ffaa00;position:relative;flex:0 0 96px;box-sizing:border-box;padding:7px 5px 8px;text-align:center;background:#0b0f19;border:1px solid rgba(255,255,255,0.05);border-bottom:3px solid var(--c);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:3px;min-height:128px;transition:transform 0.15s,box-shadow 0.15s,opacity 0.2s}
 .bp-tile::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--c) 0%,transparent 70%);opacity:0.18;pointer-events:none}
 .bp-tile > *{position:relative}
@@ -457,7 +405,6 @@ to{transform: scale(1); opacity: 1;}}
 .bp-ico .skin-img{height:40px}
 .bp-name{font-size:0.6rem;font-weight:700;color:#cbd5e1;line-height:1.2;overflow-wrap:anywhere;width:100%}
 .bp-val{font-size:0.72rem;font-weight:800;color:#ffaa00}
-.bp-hint{font-size:0.65rem;font-weight:700;color:#64748b}
 .top-row .bp-card{height:100%}
 .bp-card{--c:#8847ff;position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;flex-wrap:wrap;box-sizing:border-box;padding:14px 16px;border-radius:14px;cursor:pointer;background:linear-gradient(135deg,#1a1230 0%,#111726 62%);border:1px solid rgba(136,71,255,0.5);box-shadow:0 0 26px -8px rgba(136,71,255,0.6);transition:transform 0.2s,box-shadow 0.2s}
 .bp-card::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(136,71,255,0.2),transparent);transform:skewX(-20deg);animation:goldShine 3.8s ease-in-out infinite;pointer-events:none}
@@ -473,10 +420,9 @@ to{transform: scale(1); opacity: 1;}}
 .bp-card-sub b{color:#f1f5f9}
 .bp-card-btn{position:relative;background:linear-gradient(90deg,#8847ff,#5b2fd6);color:#fff;font-weight:900;font-size:0.85rem;padding:12px 20px;border-radius:8px;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;box-shadow:0 4px 14px rgba(136,71,255,0.35)}
 .bp-card.ready .bp-card-btn{--c:#16c784;background:linear-gradient(90deg,#16c784,#0fa56b);color:#04150f;animation:bpGlow 1.6s ease-in-out infinite}
-.bp-screen-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .bp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;text-align:center;margin-bottom:18px}
-.bp-grid .bp-tile{flex:none;min-height:150px;padding:10px 6px}
-.bp-grid .bp-ico{height:56px;font-size:2.2rem}
+.bp-grid .bp-tile{flex:none}
+.bp-grid .bp-ico{font-size:2.2rem}
 .bp-grid .bp-ico .skin-img{height:52px}
 .bp-grid .bp-name{font-size:0.68rem}
 .bp-grid .bp-val{font-size:0.8rem}
@@ -552,10 +498,8 @@ to{transform: scale(1); opacity: 1;}}
 .mode-ico{width:42px;height:42px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:radial-gradient(circle at 50% 70%,color-mix(in srgb,var(--c) 45%,transparent),#0b0f19 80%);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
 .mode-name{font-size:0.85rem;font-weight:900;text-transform:uppercase;letter-spacing:0.3px}
 .mode-desc{font-size:0.68rem;font-weight:700;color:#94a3b8;margin-top:2px;line-height:1.25}
-.toast{bottom:calc(100px + env(safe-area-inset-bottom,0px))}
 @media (max-width:640px){.header.dock{padding:8px 10px}.header.dock .logo-text{display:none}.modes-btn{padding:8px 12px}.modes-grid{grid-template-columns:1fr}}
 .cs-hero{display:flex;flex-direction:column;justify-content:center;min-height:240px;padding:30px 34px;background:#0b0f19;border:1px solid rgba(255,170,0,0.25);box-shadow:0 0 44px -16px rgba(255,120,0,0.5),0 0 60px -30px rgba(136,71,255,0.7)}
-.cs-hero::before{content:none}
 .cs-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,15,25,0.94) 0%,rgba(11,15,25,0.72) 34%,rgba(11,15,25,0) 64%);pointer-events:none}
 .cs-hero > *:not(.cs-hero-bg){position:relative;z-index:2}
 .cs-hero-bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
@@ -607,8 +551,6 @@ to{transform: scale(1); opacity: 1;}}
 .upg-col .upg-chip.sep-before{margin-left:6px}
 @media (max-width:760px){.upg-cols{grid-template-columns:1fr}.upg-col{max-height:none;overflow:visible}.upg-col .preview-title{position:static}}
 
-/* ===== Вход / авторизация Google ===== */
-.toast{z-index: 1200;}
 .login-box{max-width: 400px; padding: 30px 22px 20px; position: relative;}
 .login-close{position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: #141b2d; color: #94a3b8; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;}
 .login-close:hover{color: #f1f5f9; border-color: #ffaa00;}
@@ -616,7 +558,6 @@ to{transform: scale(1); opacity: 1;}}
 .login-brand .logo-icon{font-size: 1.8rem; line-height: 1;}
 .login-brand .logo-text{font-size: 1.4rem; letter-spacing: 2px; font-weight: 900;}
 .login-sub{margin-bottom: 18px; font-size: 0.82rem;}
-.login-legal{margin-top: 16px;}
 .login-g{display: flex; justify-content: center; min-height: 44px; background: transparent; color-scheme: light;}
 .login-g *{background-color: transparent; color-scheme: light;}
 .login-g iframe{background: transparent !important; border-radius: 999px;}
@@ -647,6 +588,33 @@ to{transform: scale(1); opacity: 1;}}
 .hero-auth-btn:hover{border-color: #ffaa00; box-shadow: 0 0 16px -4px rgba(255,170,0,0.6);}
 .hero-auth-btn .hdr-ava{width: 26px; height: 26px; background: #141b2d;}
 .hero-auth-btn span.nm{overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+
+/* ===== Новогодняя тема ===== */
+body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #050a18 100%) fixed;}
+.bulldrop-app{background: linear-gradient(180deg, rgba(14,28,52,0.96) 0%, #0b1424 100%); border-color: rgba(180,220,255,0.12); box-shadow: 0 0 60px -20px rgba(120,190,255,0.35);}
+.logo-text, .cs-hero-title span, .cs-section span, .bp-hero-title span, .bp-card-name{background-image: linear-gradient(90deg, #ff5d5d, #ffffff 50%, #5dd6a0); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;}
+.open-btn:not(.cash), .promo-link-btn{background: linear-gradient(90deg, #e63946, #b3122b); color: #fff; box-shadow: 0 4px 15px rgba(230,57,70,0.4);}
+.cs-card:not(.gold) .cs-price{background: linear-gradient(90deg, #e63946, #b3122b); color: #fff; box-shadow: 0 4px 14px rgba(230,57,70,0.35);}
+.cs-card.poor .cs-price{background: #272e3f; color: #94a3b8; box-shadow: none;}
+.bp-bar-fill, .upg-chip.active, .inv-sell-btn{background: linear-gradient(90deg, #e63946, #ff8a8a); color: #fff;}
+.balance-box, .cs-hero, .modes-menu{border-color: rgba(180,220,255,0.3);}
+.cs-hero-top::after{content: '🎅 С Новым годом!'; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 900; color: #fff; background: rgba(230,57,70,0.85); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 0 18px rgba(230,57,70,0.5);}
+.ny-lights{position: fixed; top: 0; left: 0; right: 0; height: 22px; z-index: 1300; pointer-events: none;}
+.ny-lights::before{content: ''; position: absolute; left: 0; right: 0; top: 4px; height: 2px; background: #1c2540;}
+.ny-lights i{position: absolute; top: 5px; width: 9px; height: 13px; border-radius: 50% 50% 55% 55%; background: var(--c); box-shadow: 0 0 10px 2px var(--c); animation: nyBlink 1.8s ease-in-out infinite;}
+.ny-lights i::before{content: ''; position: absolute; left: 3px; top: -4px; width: 3px; height: 5px; background: #1c2540;}
+@keyframes nyBlink{50%{opacity: 0.35; box-shadow: 0 0 3px 0 var(--c);}}
+.ny-snow{position: fixed; inset: 0; z-index: 1250; pointer-events: none; overflow: hidden;}
+.ny-snow span{position: absolute; top: -20px; color: #fff; opacity: 0.85; text-shadow: 0 0 6px rgba(180,220,255,0.8); animation: nyFall linear infinite;}
+@keyframes nyFall{to{transform: translate3d(var(--dx), 108vh, 0) rotate(360deg);}}
+@media (prefers-reduced-motion: reduce){.ny-snow{display: none;}.ny-lights i{animation: none;}}
+
+/* Снег на карточках */
+.cs-card::before, .free-banner::before, .bp-card::before, .cs-hero::before{content: ''; position: absolute; pointer-events: none; z-index: 3; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 22' preserveAspectRatio='none'%3E%3Cpath fill='%23f4f9ff' d='M0 0H48V8C44 8 42 12 38 15C34 18 28 20 24 17C20 14 18 9 14 9C8 9 6 11 0 8Z'/%3E%3Cpath fill='%23cfe3fb' d='M0 8C6 11 8 9 14 9C18 9 20 14 24 17C28 20 34 18 38 15C42 12 44 8 48 8V6C44 6 42 10 38 13C34 16 28 18 24 15C20 12 18 7 14 7C8 7 6 9 0 6Z'/%3E%3C/svg%3E") repeat-x 0 0 / 56px 26px; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.35));}
+.cs-card::before{top: -1px; left: -1px; right: -1px; height: 26px;}
+.free-banner::before, .bp-card::before{top: -1px; left: 0; right: 0; height: 24px;}
+.cs-hero::before{top: -1px; left: 0; right: 0; height: 30px; background-size: 64px 30px;}
+.cs-badge{top: 26px; z-index: 4;}
 </style>
   <style id="skinCss">.sk-0 { background-image: url("img/akr-worm.png"); }.sk-1{background-image:url("img/butterfly-blackwindow.png");}.sk-2{background-image:url("img/butterfly-dragonglass.png");}.sk-3{background-image:url("img/butterfly-legasi.png");}.sk-4 { background-image: url("img/butterfly-starfall.png"); }.sk-5 { background-image: url("img/desert-eagle-ace.png"); }.sk-6 { background-image: url("img/fn-fal-tactical.png"); }.sk-7{background-image:url("img/sk-7.webp");}.sk-8{background-image:url("img/sk-8.webp");}.sk-9 { background-image: url("img/g22-starfall.png"); }.sk-10 { background-image: url("img/m110-cyber-.png"); }.sk-11 { background-image: url("img/m4-lizard-.png"); }.sk-12 { background-image: url("img/m4-samurai-.png"); }.sk-13 { background-image: url("img/mp7-lich-.png"); }.sk-14 { background-image: url("img/tec-9-fable-.png"); }.sk-15 { background-image: url("img/ump45-cerberus-.png"); }.sk-16 { background-image: url("img/usp-pisces-.png"); }.sk-17 { background-image: url("img/akr-dragon.png"); }.sk-18 { background-image: url("img/akr-nano.png"); }.sk-19 { background-image: url("img/akr12-carbon.png"); }.sk-20 { background-image: url("img/awm-dragon.png"); }.sk-21{background-image:url("img/sk-21.webp");}.sk-22 { background-image: url("img/fabm-parrot.png"); }.sk-23 { background-image: url("img/g22-carbon.png"); }.sk-24 { background-image: url("img/m4-night-wolf-.png"); }.sk-25 { background-image: url("img/mp7-banana-.png"); }.sk-26 { background-image: url("img/mp7-graffiti-.png"); }.sk-27 { background-image: url("img/p90-samurai-.png"); }.sk-28 { background-image: url("img/sm1014-wave-.png"); }.sk-29 { background-image: url("img/scorpion-scratch.png"); }.sk-30{background-image:url("img/scorpion-seaeye.png");}.sk-31 { background-image: url("img/scorpion-starfall.png"); }.sk-32 { background-image: url("img/scorpion-veil.png"); }.sk-33 { background-image: url("img/akr-treasure-hunter.png"); }.sk-34 { background-image: url("img/akr12-pixel-camouflage.png"); }.sk-35 { background-image: url("img/akr12-railgun.png"); }.sk-36 { background-image: url("img/awm-phoenix.png"); }.sk-37 { background-image: url("img/desert-eagle-predator.png"); }.sk-38 { background-image: url("img/g22-nest.png"); }.sk-39 { background-image: url("img/m16-winged-.png"); }.sk-40 { background-image: url("img/m4-necromancer-.png"); }.sk-41{background-image:url("img/m9-ancient.png");}.sk-42{background-image:url("img/m9-dragonglass.png");}.sk-43{background-image:url("img/m9-scrach.png");}.sk-44{background-image:url("img/m9-universe.png");}.sk-45 { background-image: url("img/p350-neon-.png"); }.sk-46 { background-image: url("img/p90-ghoul-.png"); }.sk-47 { background-image: url("img/sm1014-pathfinder-.png"); }.sk-48 { background-image: url("img/ump45-cyberpunk-.png"); }.sk-49 { background-image: url("img/akr-sport.png"); }.sk-50 { background-image: url("img/awm-gear.png"); }.sk-51 { background-image: url("img/awm-scratch.png"); }.sk-52 { background-image: url("img/desert-eagle-red-dragon.png"); }.sk-53 { background-image: url("img/famas-beagle.png"); }.sk-54 { background-image: url("img/famas-fury.png"); }.sk-55 { background-image: url("img/karambit-claw-.png"); }.sk-56 { background-image: url("img/karambit-dragon-glass-.png"); }.sk-57 { background-image: url("img/karambit-scratch-.png"); }.sk-58 { background-image: url("img/karambit-universe-.png"); }.sk-59 { background-image: url("img/m4-pro-.png"); }.sk-60 { background-image: url("img/m40-quake-.png"); }.sk-61 { background-image: url("img/p350-forest-spirit-.png"); }.sk-62 { background-image: url("img/sm1014-necromancer-.png"); }.sk-63 { background-image: url("img/ump45-shark-.png"); }.sk-64 { background-image: url("img/ump45-winged-.png"); }.sk-65 { background-image: url("img/akr-genesis.png"); }.sk-66 { background-image: url("img/akr-jade-stone.png"); }.sk-67 { background-image: url("img/akr-tag-king.png"); }.sk-68 { background-image: url("img/akr-twilight.png"); }.sk-69 { background-image: url("img/akr12-emberbird.png"); }.sk-70 { background-image: url("img/akr12-hanami.png"); }.sk-71 { background-image: url("img/akr12-speedrun.png"); }.sk-72 { background-image: url("img/awm-boom.png"); }.sk-73 { background-image: url("img/awm-genesis.png"); }.sk-74 { background-image: url("img/awm-spectral.png"); }.sk-75 { background-image: url("img/awm-stickerbomb.png"); }.sk-76 { background-image: url("img/awm-venom.png"); }.sk-77 { background-image: url("img/akimbo-uzi-fire-horse.png"); }.sk-78 { background-image: url("img/akimbo-uzi-ravage.png"); }.sk-79 { background-image: url("img/desert-eagle-jade-stone.png"); }.sk-80 { background-image: url("img/desert-eagle-venator.png"); }.sk-81 { background-image: url("img/g22-twilight.png"); }.sk-82 { background-image: url("img/m16-raiva-.png"); }.sk-83 { background-image: url("img/m16-sea-glint-.png"); }.sk-84 { background-image: url("img/m16-shogun-stripes-.png"); }.sk-85 { background-image: url("img/m4-dire-wolf-.png"); }.sk-86 { background-image: url("img/m4-n-kai-.png"); }.sk-87 { background-image: url("img/m4-pixel-storm-.png"); }.sk-88 { background-image: url("img/m4a1-impact-.png"); }.sk-89 { background-image: url("img/m4a1-jade-stone-.png"); }.sk-90 { background-image: url("img/m4a1-lincoln-.png"); }.sk-91 { background-image: url("img/m4a1-sparkling-gaze-.png"); }.sk-92 { background-image: url("img/m4a1-treasure-hunter-.png"); }.sk-93 { background-image: url("img/mac10-argo-.png"); }.sk-94 { background-image: url("img/mp5-contender-.png"); }.sk-95 { background-image: url("img/mp5-gorgon-.png"); }.sk-96 { background-image: url("img/mp7-contender-.png"); }.sk-97 { background-image: url("img/mp7-r1na-.png"); }.sk-98 { background-image: url("img/mallard-phantom-pack-.png"); }.sk-99{background-image:url("img/sk-99.webp");}.sk-100 { background-image: url("img/p90-hologram-.png"); }.sk-101 { background-image: url("img/sm1014-freezing-gasp-.png"); }.sk-102 { background-image: url("img/tec-9-glitch-.png"); }.sk-103 { background-image: url("img/usp-geometric-.png"); }.sk-104 { background-image: url("img/usp-hologram-.png"); }.sk-105 { background-image: url("img/gloves-acid.png"); }.sk-106 { background-image: url("img/gloves-arctic-camo-.png"); }.sk-107 { background-image: url("img/gloves-artificer-.png"); }.sk-108 { background-image: url("img/gloves-autumn-.png"); }.sk-109 { background-image: url("img/gloves-blackout-.png"); }.sk-110 { background-image: url("img/gloves-camo-.png"); }.sk-111 { background-image: url("img/gloves-champion-.png"); }.sk-112 { background-image: url("img/gloves-dread-.png"); }.sk-113 { background-image: url("img/gloves-feral-.png"); }.sk-114 { background-image: url("img/gloves-firm-grip-.png"); }.sk-115 { background-image: url("img/gloves-flux-.png"); }.sk-116 { background-image: url("img/gloves-gambit-.png"); }.sk-117 { background-image: url("img/gloves-geometric-.png"); }.sk-118 { background-image: url("img/gloves-hanami-.png"); }.sk-119 { background-image: url("img/gloves-handcraft-.png"); }.sk-120 { background-image: url("img/gloves-haunt-.png"); }.sk-121 { background-image: url("img/gloves-ice-storm-.png"); }.sk-122 { background-image: url("img/gloves-impulse--1.png"); }.sk-123 { background-image: url("img/gloves-iron-wolf-.png"); }.sk-124 { background-image: url("img/gloves-ironclad-.png"); }.sk-125 { background-image: url("img/gloves-jade-stone-.png"); }.sk-126 { background-image: url("img/gloves-living-flame-.png"); }.sk-127 { background-image: url("img/gloves-mimicry-.png"); }.sk-128 { background-image: url("img/gloves-neuro-.png"); }.sk-129 { background-image: url("img/gloves-onyx-.png"); }.sk-130 { background-image: url("img/gloves-overheat-.png"); }.sk-131 { background-image: url("img/gloves-phoenix-risen-.png"); }.sk-132 { background-image: url("img/gloves-pink-noise-.png"); }.sk-133 { background-image: url("img/gloves-plague-.png"); }.sk-134 { background-image: url("img/gloves-raider-.png"); }.sk-135 { background-image: url("img/gloves-ravage-.png"); }.sk-136 { background-image: url("img/gloves-razorwire-.png"); }.sk-137 { background-image: url("img/gloves-rebellion-.png"); }.sk-138 { background-image: url("img/gloves-reis-.png"); }.sk-139{background-image:url("img/sk-139.webp");}.sk-140 { background-image: url("img/gloves-ritual--1.png"); }.sk-141 { background-image: url("img/gloves-safe-mode-.png"); }.sk-142 { background-image: url("img/gloves-skeletal-hand-.png"); }.sk-143 { background-image: url("img/gloves-slash-.png"); }.sk-144 { background-image: url("img/gloves-static-.png"); }.sk-145 { background-image: url("img/gloves-stream-.png"); }.sk-146 { background-image: url("img/gloves-tan-hide-.png"); }.sk-147 { background-image: url("img/gloves-white-camo-.png"); }.sk-148{background-image:url("img/sk-148.webp");}.sk-149 { background-image: url("img/gloves-x-ray-.png"); }</style>
   <script src="https://accounts.google.com/gsi/client" async defer onload="window.__gsiReady = true; if (window.initGoogleAuth) initGoogleAuth();"></script>
@@ -678,7 +646,6 @@ to{transform: scale(1); opacity: 1;}}
           <button class="open-btn" id="startBtn" onclick="spinRoulette()">Открыть кейс</button>
           <div class="quick-toggle" id="quickToggle" role="switch" aria-checked="false" onclick="toggleQuickMode()">
             <span class="quick-toggle-label">⚡ Быстрое открытие</span>
-            <span class="switch" id="quickSwitch"></span>
           </div>
         </div>
         <div class="multi-actions" id="multiActions">
@@ -848,7 +815,7 @@ to{transform: scale(1); opacity: 1;}}
     <div class="modes-title">Выберите режим</div>
     <div class="modes-grid">
       <button class="mode-card" style="--c:#ff5500" onclick="goToUpgrade()"><span class="mode-ico">🚀</span><span><div class="mode-name">Апгрейд</div><div class="mode-desc">Улучши скин до более дорогого</div></span></button>
-      <button class="mode-card" style="--c:#8847ff" onclick="goToBattlePass()"><span class="mode-ico">🎖️</span><span><div class="mode-name">Батл пас</div><div class="mode-desc">30 уровней наград</div></span></button>
+      <button class="mode-card" style="--c:#8847ff" onclick="goToBattlePass()"><span class="mode-ico">🎖️</span><span><div class="mode-name">Батл пас</div><div class="mode-desc">40 уровней наград</div></span></button>
       <button class="mode-card" style="--c:#eb4b4b" onclick="goToMines()"><span class="mode-ico">💣</span><span><div class="mode-name">Сапёр</div><div class="mode-desc">Рискни и забери выигрыш</div></span></button>
       <button class="mode-card" style="--c:#4b69ff" onclick="goToContracts()"><span class="mode-ico">📜</span><span><div class="mode-name">Контракты</div><div class="mode-desc">10 скинов в один новый</div></span></button>
       <button class="mode-card wide" style="--c:#16c784" onclick="goToPromo()"><span class="mode-ico">🔑</span><span><div class="mode-name">Промокоды</div><div class="mode-desc">Активируй код и получи бонусные G</div></span></button>
@@ -860,7 +827,7 @@ to{transform: scale(1); opacity: 1;}}
 <div class="modal-overlay login-overlay" id="loginModal" onclick="if(event.target===this)closeLoginModal()">
   <div class="modal-box login-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <button class="login-close" onclick="closeLoginModal()" aria-label="Закрыть">✕</button>
-    <div class="login-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div>
+    <div class="login-brand"><span class="logo-icon">🎄</span><span class="logo-text">MIFDROP</span></div>
     <div class="modal-title" id="loginTitle">Вход в аккаунт</div>
     <div class="modal-sub login-sub">Войдите, чтобы в профиле отображались ваше имя и аватарка</div>
     <div class="login-g" id="googleBtnWrap"></div>
@@ -918,7 +885,6 @@ to{transform: scale(1); opacity: 1;}}
   const casesData = {
     fable: {
       name: "Fable Case",
-      price: 100,
       items: [
         { name: 'F/S "Tactical"', emo: '🔫', rarity: 'rare', price: 0.53 },
         { name: 'AKR "Worm"', emo: '🪱', rarity: 'uncommon', price: 0.53 },
@@ -952,7 +918,6 @@ to{transform: scale(1); opacity: 1;}}
     },
     scorpion: {
       name: "Scorpion Case",
-      price: 120,
       items: [
         { name: 'SM1014 "Wave"', emo: '🌊', rarity: 'rare', price: 2.15 },
         { name: 'MP7 "Banana"', emo: '🍌', rarity: 'rare', price: 4.99 },
@@ -986,7 +951,6 @@ to{transform: scale(1); opacity: 1;}}
     },
     origin: {
       name: "Ориджин",
-      price: 500,
       items: [
         { name: 'SM1014 "Pathfinder"', emo: '🧭', rarity: 'rare', price: 61.69 },
         { name: 'AWM "Phoenix"', emo: '🔥', rarity: 'rare', price: 69 },
@@ -1020,7 +984,6 @@ to{transform: scale(1); opacity: 1;}}
     },
     furious: {
       name: "Фуриос",
-      price: 70,
       items: [
         { name: 'FAMAS "Beagle"', emo: '🐶', rarity: 'epic', price: 16.99 },
         { name: 'M4 "PRO"', emo: '🏆', rarity: 'rare', price: 17.79 },
@@ -1054,7 +1017,6 @@ to{transform: scale(1); opacity: 1;}}
     },
     arcane: {
       name: "Arcane",
-      price: 2999,
       items: [
         { name: 'G22 "Twilight"', emo: '🔫', rarity: 'arcane', price: 100 },
         { name: 'M16 "Sea Glint"', emo: '🔫', rarity: 'arcane', price: 110 },
@@ -1108,7 +1070,6 @@ to{transform: scale(1); opacity: 1;}}
     },
     gloves: {
       name: "Gloves Case",
-      price: 2999,
       items: [
         { name: 'Gloves "Camo"', emo: '🧤', rarity: 'arcane', price: 640 },
         { name: 'Gloves "Ironclad"', emo: '🧤', rarity: 'arcane', price: 649 },
@@ -1159,125 +1120,117 @@ to{transform: scale(1); opacity: 1;}}
     },
     nameless: {
       name: "Nameless",
-      price: 39999,
-      fixed: true,
       items: [
-        { name: 'Charm "V2"', emo: '🆚', rarity: 'gold', price: 11989.5, weight: 546 },
-        { name: 'Charm "Black Spot"', emo: '☠️', rarity: 'gold', price: 15622, weight: 442 },
-        { name: 'Charm "Ochpochmak"', emo: '🔺', rarity: 'gold', price: 17489, weight: 403 },
-        { name: 'G22 "Relic"', emo: '🏺', rarity: 'gold', price: 29440, weight: 266 },
-        { name: 'FN FAL "Leather"', emo: '🧥', rarity: 'gold', price: 33740, weight: 238 },
-        { name: 'USP "Genesis"', emo: '🧬', rarity: 'gold', price: 50000, weight: 174 },
-        { name: 'Mallard "PRO Gold"', emo: '🦆', rarity: 'gold', price: 61347, weight: 148 },
-        { name: 'MAC10 "Ruby Shadow"', emo: '🔴', rarity: 'gold', price: 65988, weight: 139 },
-        { name: 'Dual Daggers "Harmony"', emo: '☯️', rarity: 'gold', price: 75000, weight: 126 },
-        { name: 'AWM "Sport V2"', emo: '🏁', rarity: 'gold', price: 79999, weight: 120 },
-        { name: 'Desert Eagle "Aureate"', emo: '🦅', rarity: 'gold', price: 81000, weight: 118 },
-        { name: 'Flash "Solar"', emo: '☀️', rarity: 'gold', price: 87636, weight: 111 },
-        { name: 'AWM "Treasure Hunter"', emo: '💰', rarity: 'gold', price: 103797, weight: 97 },
-        { name: 'Sting "Mimicry"', emo: '🦎', rarity: 'gold', price: 124989, weight: 84 },
-        { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497, weight: 72 }
+        { name: 'Charm "V2"', emo: '🆚', rarity: 'gold', price: 11989.5 },
+        { name: 'Charm "Black Spot"', emo: '☠️', rarity: 'gold', price: 15622 },
+        { name: 'Charm "Ochpochmak"', emo: '🔺', rarity: 'gold', price: 17489 },
+        { name: 'G22 "Relic"', emo: '🏺', rarity: 'gold', price: 29440 },
+        { name: 'FN FAL "Leather"', emo: '🧥', rarity: 'gold', price: 33740 },
+        { name: 'USP "Genesis"', emo: '🧬', rarity: 'gold', price: 50000 },
+        { name: 'Mallard "PRO Gold"', emo: '🦆', rarity: 'gold', price: 61347 },
+        { name: 'MAC10 "Ruby Shadow"', emo: '🔴', rarity: 'gold', price: 65988 },
+        { name: 'Dual Daggers "Harmony"', emo: '☯️', rarity: 'gold', price: 75000 },
+        { name: 'AWM "Sport V2"', emo: '🏁', rarity: 'gold', price: 79999 },
+        { name: 'Desert Eagle "Aureate"', emo: '🦅', rarity: 'gold', price: 81000 },
+        { name: 'Flash "Solar"', emo: '☀️', rarity: 'gold', price: 87636 },
+        { name: 'AWM "Treasure Hunter"', emo: '💰', rarity: 'gold', price: 103797 },
+        { name: 'Sting "Mimicry"', emo: '🦎', rarity: 'gold', price: 124989 },
+        { name: 'Karambit "Gold"', emo: '👑', rarity: 'gold', price: 151497 }
       ]
     },
     knives: {
       name: "Фарм ножей",
-      price: 16,
-      fixed: true,
       items: [
-        { name: 'USP "Ignite"', emo: '🔥', rarity: 'rare', price: 0.91, weight: 117103 },
-        { name: 'Akimbo Uzi "No Escape"', emo: '🚫', rarity: 'rare', price: 0.95, weight: 15963 },
-        { name: 'P350 "Ink Spree"', emo: '🖋️', rarity: 'rare', price: 0.98, weight: 39217 },
-        { name: 'FabM "Hercules"', emo: '💪', rarity: 'rare', price: 0.99, weight: 31337 },
-        { name: 'AWM "Eye of Horus"', emo: '👁️', rarity: 'rare', price: 1, weight: 56328 },
-        { name: 'S3 FabM "Cloud Lily"', emo: '☁️', rarity: 'rare', price: 1, weight: 11625 },
-        { name: 'M4 "Kachi"', emo: '🎴', rarity: 'rare', price: 1, weight: 97682 },
-        { name: 'M40 "Wyvern"', emo: '🐉', rarity: 'rare', price: 1.03, weight: 62315 },
-        { name: 'MP7 "Rebellion"', emo: '✊', rarity: 'rare', price: 1.03, weight: 71533 },
-        { name: 'TEC-9 "Tropic"', emo: '🌴', rarity: 'rare', price: 1.08, weight: 91983 },
-        { name: 'VAL "Forge"', emo: '⚒️', rarity: 'rare', price: 1.1, weight: 48904 },
-        { name: 'MP7 "Ridge"', emo: '⛰️', rarity: 'rare', price: 1.15, weight: 58277 },
-        { name: 'AKR12 "Shark"', emo: '🦈', rarity: 'rare', price: 1.23, weight: 30478 },
-        { name: 'M40 "Grip"', emo: '🤝', rarity: 'rare', price: 1.29, weight: 66445 },
-        { name: 'M16 "Needle"', emo: '🪡', rarity: 'rare', price: 1.29, weight: 111236 },
-        { name: 'P350 "Oni"', emo: '👹', rarity: 'rare', price: 1.3, weight: 101878 },
-        { name: 'FAMAS "Handcraft"', emo: '🛠️', rarity: 'rare', price: 1.37, weight: 21556 },
-        { name: 'Desert Eagle "Wildflower"', emo: '🌼', rarity: 'rare', price: 1.4, weight: 28655 },
-        { name: 'M4 "Demon"', emo: '😈', rarity: 'rare', price: 1.43, weight: 146149 },
-        { name: 'G22 "Flock"', emo: '🐦', rarity: 'rare', price: 1.43, weight: 3481073 },
-        { name: 'P90 "Purple Mist"', emo: '🟣', rarity: 'rare', price: 1.45, weight: 36055 },
-        { name: 'TEC-9 "Needle"', emo: '🧵', rarity: 'rare', price: 1.5, weight: 68869 },
-        { name: 'G22 "Lion Lord"', emo: '🦁', rarity: 'rare', price: 1.5, weight: 38346 },
-        { name: 'USP "Griffin"', emo: '🦅', rarity: 'rare', price: 1.57, weight: 59156 },
-        { name: 'TEC-9 "Iris"', emo: '🌷', rarity: 'rare', price: 1.6, weight: 17865 },
-        { name: 'P90 "Lotus Frieze"', emo: '🪷', rarity: 'rare', price: 1.7, weight: 214391 },
-        { name: 'FN FAL "Splash"', emo: '💦', rarity: 'rare', price: 1.9, weight: 14397 },
-        { name: 'P350 "Sandspirit"', emo: '🏜️', rarity: 'rare', price: 1.9, weight: 35477 },
-        { name: 'G22 "Reindeer Sweater"', emo: '🦌', rarity: 'rare', price: 2, weight: 24608 },
-        { name: 'FabM "Streak"', emo: '⚡', rarity: 'rare', price: 2.05, weight: 15016 },
-        { name: 'M110 "Centipede"', emo: '🐛', rarity: 'rare', price: 2.07, weight: 10111 },
-        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.17, weight: 154827 },
-        { name: 'SM1014 "Wave"', emo: '🌊', rarity: 'rare', price: 2.2, weight: 40138 },
-        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66, weight: 4920 },
-        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.68, weight: 14161 },
-        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.84, weight: 10537 },
-        { name: 'Kunai "Fire Horse"', emo: '🥷', rarity: 'arcane', price: 955, weight: 24854 },
-        { name: 'Sting "Meld"', emo: '🗡️', rarity: 'arcane', price: 993.99, weight: 24854 },
-        { name: 'Flip "Magnalium"', emo: '🔪', rarity: 'arcane', price: 1034.99, weight: 24854 }
+        { name: 'USP "Ignite"', emo: '🔥', rarity: 'rare', price: 0.91 },
+        { name: 'Akimbo Uzi "No Escape"', emo: '🚫', rarity: 'rare', price: 0.95 },
+        { name: 'P350 "Ink Spree"', emo: '🖋️', rarity: 'rare', price: 0.98 },
+        { name: 'FabM "Hercules"', emo: '💪', rarity: 'rare', price: 0.99 },
+        { name: 'AWM "Eye of Horus"', emo: '👁️', rarity: 'rare', price: 1 },
+        { name: 'S3 FabM "Cloud Lily"', emo: '☁️', rarity: 'rare', price: 1 },
+        { name: 'M4 "Kachi"', emo: '🎴', rarity: 'rare', price: 1 },
+        { name: 'M40 "Wyvern"', emo: '🐉', rarity: 'rare', price: 1.03 },
+        { name: 'MP7 "Rebellion"', emo: '✊', rarity: 'rare', price: 1.03 },
+        { name: 'TEC-9 "Tropic"', emo: '🌴', rarity: 'rare', price: 1.08 },
+        { name: 'VAL "Forge"', emo: '⚒️', rarity: 'rare', price: 1.1 },
+        { name: 'MP7 "Ridge"', emo: '⛰️', rarity: 'rare', price: 1.15 },
+        { name: 'AKR12 "Shark"', emo: '🦈', rarity: 'rare', price: 1.23 },
+        { name: 'M40 "Grip"', emo: '🤝', rarity: 'rare', price: 1.29 },
+        { name: 'M16 "Needle"', emo: '🪡', rarity: 'rare', price: 1.29 },
+        { name: 'P350 "Oni"', emo: '👹', rarity: 'rare', price: 1.3 },
+        { name: 'FAMAS "Handcraft"', emo: '🛠️', rarity: 'rare', price: 1.37 },
+        { name: 'Desert Eagle "Wildflower"', emo: '🌼', rarity: 'rare', price: 1.4 },
+        { name: 'M4 "Demon"', emo: '😈', rarity: 'rare', price: 1.43 },
+        { name: 'G22 "Flock"', emo: '🐦', rarity: 'rare', price: 1.43 },
+        { name: 'P90 "Purple Mist"', emo: '🟣', rarity: 'rare', price: 1.45 },
+        { name: 'TEC-9 "Needle"', emo: '🧵', rarity: 'rare', price: 1.5 },
+        { name: 'G22 "Lion Lord"', emo: '🦁', rarity: 'rare', price: 1.5 },
+        { name: 'USP "Griffin"', emo: '🦅', rarity: 'rare', price: 1.57 },
+        { name: 'TEC-9 "Iris"', emo: '🌷', rarity: 'rare', price: 1.6 },
+        { name: 'P90 "Lotus Frieze"', emo: '🪷', rarity: 'rare', price: 1.7 },
+        { name: 'FN FAL "Splash"', emo: '💦', rarity: 'rare', price: 1.9 },
+        { name: 'P350 "Sandspirit"', emo: '🏜️', rarity: 'rare', price: 1.9 },
+        { name: 'G22 "Reindeer Sweater"', emo: '🦌', rarity: 'rare', price: 2 },
+        { name: 'FabM "Streak"', emo: '⚡', rarity: 'rare', price: 2.05 },
+        { name: 'M110 "Centipede"', emo: '🐛', rarity: 'rare', price: 2.07 },
+        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.17 },
+        { name: 'SM1014 "Wave"', emo: '🌊', rarity: 'rare', price: 2.2 },
+        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66 },
+        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.68 },
+        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.84 },
+        { name: 'Kunai "Fire Horse"', emo: '🥷', rarity: 'arcane', price: 955 },
+        { name: 'Sting "Meld"', emo: '🗡️', rarity: 'arcane', price: 993.99 },
+        { name: 'Flip "Magnalium"', emo: '🔪', rarity: 'arcane', price: 1034.99 }
       ]
     },
     bomj: {
       name: "Бомж",
-      price: 2.4,
-      boost: 0.7, // поднять шансы дорогих скинов: вес × цена^0.7 (0 = шансы по остаткам)
-      fixed: true,
       items: [
-        { name: 'FabM "Cursed Fire"', emo: '🔥', rarity: 'uncommon', price: 0.22, weight: 1110301 },
-        { name: 'M40 "Cursed Fire"', emo: '🎯', rarity: 'uncommon', price: 0.26, weight: 1110658 },
-        { name: 'M60 "Turret"', emo: '🗼', rarity: 'uncommon', price: 0.33, weight: 519008 },
-        { name: 'SM1014 "Bolt"', emo: '🔩', rarity: 'uncommon', price: 0.34, weight: 509761 },
-        { name: 'AKR12 "Roar"', emo: '🦁', rarity: 'uncommon', price: 0.39, weight: 1049294 },
-        { name: 'F/S "Zap"', emo: '⚡', rarity: 'uncommon', price: 0.45, weight: 519592 },
-        { name: 'G22 "Scale"', emo: '🐍', rarity: 'uncommon', price: 0.46, weight: 1099246 },
-        { name: 'Desert Eagle "Glory"', emo: '🏅', rarity: 'uncommon', price: 0.79, weight: 463011 },
-        { name: 'TEC-9 "Dalmatian"', emo: '🐕', rarity: 'uncommon', price: 1.3, weight: 211779 },
-        { name: 'FabM "Waste"', emo: '🗑️', rarity: 'uncommon', price: 1.32, weight: 192002 },
-        { name: 'FN FAL "Aquamarine"', emo: '💧', rarity: 'uncommon', price: 1.53, weight: 175864 },
-        { name: 'USP "Line"', emo: '📏', rarity: 'uncommon', price: 1.86, weight: 281680 },
-        { name: 'P350 "Rhino"', emo: '🦏', rarity: 'uncommon', price: 0.34, weight: 774641 },
-        { name: 'AKR "Worm"', emo: '🪱', rarity: 'uncommon', price: 0.52, weight: 2201020 },
-        { name: 'MP5 "Dusk"', emo: '🌆', rarity: 'uncommon', price: 0.74, weight: 257376 },
-        { name: 'M110 "Pursuit"', emo: '🏃', rarity: 'uncommon', price: 0.79, weight: 289004 },
-        { name: 'MP7 "Dawn"', emo: '🌅', rarity: 'uncommon', price: 0.79, weight: 281311 },
-        { name: 'AWM "Elevation"', emo: '⛰️', rarity: 'uncommon', price: 0.8, weight: 828505 },
-        { name: 'AKR "Scale"', emo: '🐲', rarity: 'uncommon', price: 0.8, weight: 1111594 },
-        { name: 'FAMAS "Gunsmoke"', emo: '💨', rarity: 'uncommon', price: 1.35, weight: 248033 },
-        { name: 'G22 "Yellow Line"', emo: '🟡', rarity: 'uncommon', price: 3, weight: 102299 },
-        { name: 'P350 "Nano"', emo: '🔬', rarity: 'uncommon', price: 3.4, weight: 103923 },
-        { name: 'AKR12 "Spring"', emo: '🌸', rarity: 'uncommon', price: 3.49, weight: 116716 },
-        { name: 'USP "Ray"', emo: '☀️', rarity: 'uncommon', price: 3.79, weight: 118331 },
-        { name: 'M40 "PRO"', emo: '🏆', rarity: 'uncommon', price: 7.86, weight: 50759 },
-        { name: 'AKR12 "Mechanic"', emo: '🔧', rarity: 'uncommon', price: 7.88, weight: 23952 },
-        { name: 'M16 "Facet"', emo: '💎', rarity: 'uncommon', price: 7.89, weight: 35858 },
-        { name: 'Desert Eagle "Winner"', emo: '🥇', rarity: 'uncommon', price: 8.79, weight: 28160 },
-        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.2, weight: 155251 },
-        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.29, weight: 10540 },
-        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.5, weight: 14164 },
-        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66, weight: 4920 },
-        { name: 'FAMAS "Autumn"', emo: '🍂', rarity: 'epic', price: 10, weight: 2446 },
-        { name: 'MAC10 "Tempest"', emo: '🌪️', rarity: 'epic', price: 10, weight: 3240 },
-        { name: 'M16 "Challenger"', emo: '🥊', rarity: 'epic', price: 11.43, weight: 3104 },
-        { name: 'P90 "Data Flow"', emo: '📡', rarity: 'epic', price: 11.44, weight: 952 },
-        { name: 'VAL "Iron Wolf"', emo: '🐺', rarity: 'epic', price: 11.47, weight: 1453 },
-        { name: 'TEC-9 "Neo Core"', emo: '🔋', rarity: 'epic', price: 11.5, weight: 1111 },
-        { name: 'P90 "Z-50 F.U.J.I.N."', emo: '🏯', rarity: 'epic', price: 11.9, weight: 1836 },
-        { name: 'M40 "Venom Shade"', emo: '🕸️', rarity: 'epic', price: 13.4, weight: 2541 },
-        { name: 'USP "Chameleon"', emo: '🦎', rarity: 'legendary', price: 37, weight: 4622 },
-        { name: 'Berettas "Damascus"', emo: '🗡️', rarity: 'legendary', price: 37.8, weight: 11425 }
+        { name: 'FabM "Cursed Fire"', emo: '🔥', rarity: 'uncommon', price: 0.22 },
+        { name: 'M40 "Cursed Fire"', emo: '🎯', rarity: 'uncommon', price: 0.26 },
+        { name: 'M60 "Turret"', emo: '🗼', rarity: 'uncommon', price: 0.33 },
+        { name: 'SM1014 "Bolt"', emo: '🔩', rarity: 'uncommon', price: 0.34 },
+        { name: 'AKR12 "Roar"', emo: '🦁', rarity: 'uncommon', price: 0.39 },
+        { name: 'F/S "Zap"', emo: '⚡', rarity: 'uncommon', price: 0.45 },
+        { name: 'G22 "Scale"', emo: '🐍', rarity: 'uncommon', price: 0.46 },
+        { name: 'Desert Eagle "Glory"', emo: '🏅', rarity: 'uncommon', price: 0.79 },
+        { name: 'TEC-9 "Dalmatian"', emo: '🐕', rarity: 'uncommon', price: 1.3 },
+        { name: 'FabM "Waste"', emo: '🗑️', rarity: 'uncommon', price: 1.32 },
+        { name: 'FN FAL "Aquamarine"', emo: '💧', rarity: 'uncommon', price: 1.53 },
+        { name: 'USP "Line"', emo: '📏', rarity: 'uncommon', price: 1.86 },
+        { name: 'P350 "Rhino"', emo: '🦏', rarity: 'uncommon', price: 0.34 },
+        { name: 'AKR "Worm"', emo: '🪱', rarity: 'uncommon', price: 0.52 },
+        { name: 'MP5 "Dusk"', emo: '🌆', rarity: 'uncommon', price: 0.74 },
+        { name: 'M110 "Pursuit"', emo: '🏃', rarity: 'uncommon', price: 0.79 },
+        { name: 'MP7 "Dawn"', emo: '🌅', rarity: 'uncommon', price: 0.79 },
+        { name: 'AWM "Elevation"', emo: '⛰️', rarity: 'uncommon', price: 0.8 },
+        { name: 'AKR "Scale"', emo: '🐲', rarity: 'uncommon', price: 0.8 },
+        { name: 'FAMAS "Gunsmoke"', emo: '💨', rarity: 'uncommon', price: 1.35 },
+        { name: 'G22 "Yellow Line"', emo: '🟡', rarity: 'uncommon', price: 3 },
+        { name: 'P350 "Nano"', emo: '🔬', rarity: 'uncommon', price: 3.4 },
+        { name: 'AKR12 "Spring"', emo: '🌸', rarity: 'uncommon', price: 3.49 },
+        { name: 'USP "Ray"', emo: '☀️', rarity: 'uncommon', price: 3.79 },
+        { name: 'M40 "PRO"', emo: '🏆', rarity: 'uncommon', price: 7.86 },
+        { name: 'AKR12 "Mechanic"', emo: '🔧', rarity: 'uncommon', price: 7.88 },
+        { name: 'M16 "Facet"', emo: '💎', rarity: 'uncommon', price: 7.89 },
+        { name: 'Desert Eagle "Winner"', emo: '🥇', rarity: 'uncommon', price: 8.79 },
+        { name: 'M4A1 "Kitsune"', emo: '🦊', rarity: 'rare', price: 2.2 },
+        { name: 'FabM "Death Herald"', emo: '☠️', rarity: 'rare', price: 2.29 },
+        { name: 'M60 "Ares"', emo: '⚔️', rarity: 'rare', price: 2.5 },
+        { name: 'FN FAL "Firewall"', emo: '🧱', rarity: 'rare', price: 2.66 },
+        { name: 'FAMAS "Autumn"', emo: '🍂', rarity: 'epic', price: 10 },
+        { name: 'MAC10 "Tempest"', emo: '🌪️', rarity: 'epic', price: 10 },
+        { name: 'M16 "Challenger"', emo: '🥊', rarity: 'epic', price: 11.43 },
+        { name: 'P90 "Data Flow"', emo: '📡', rarity: 'epic', price: 11.44 },
+        { name: 'VAL "Iron Wolf"', emo: '🐺', rarity: 'epic', price: 11.47 },
+        { name: 'TEC-9 "Neo Core"', emo: '🔋', rarity: 'epic', price: 11.5 },
+        { name: 'P90 "Z-50 F.U.J.I.N."', emo: '🏯', rarity: 'epic', price: 11.9 },
+        { name: 'M40 "Venom Shade"', emo: '🕸️', rarity: 'epic', price: 13.4 },
+        { name: 'USP "Chameleon"', emo: '🦎', rarity: 'legendary', price: 37 },
+        { name: 'Berettas "Damascus"', emo: '🗡️', rarity: 'legendary', price: 37.8 }
       ]
     },
     fragments: {
       name: "Fragments",
-      price: 0,
       free: true,
       items: [
         { name: 'Uncommon Fragment', emo: '🧩', rarity: 'uncommon', price: 0.05, weight: 17412275 },
@@ -1289,9 +1242,6 @@ to{transform: scale(1); opacity: 1;}}
       ]
     }
   };
-  // ===== NEON RUSH: кейс-подборка, все скины взяты из других кейсов =====
-  // Предметы ищутся по названию в уже существующих кейсах и копируются (у каждого кейса свои веса),
-  // поэтому цена/редкость скина всегда совпадают с оригиналом. Цену и шансы считает recalcCasePrices().
   function buildMixCase(name, names) {
     const index = new Map();
     Object.values(casesData).forEach(c => {
@@ -1313,7 +1263,6 @@ to{transform: scale(1); opacity: 1;}}
     'TEC-9 "Glitch"', 'M4 "Pixel Storm"', 'StatTrak™ UMP45 "Cyberpunk"', 'StatTrak™ P350 "Neon"',
     'USP "Geometric"', 'Gloves "Retro Wave"', 'Gloves "Pink Noise"', 'Gloves "Neuro"', 'Gloves "Impulse"'
   ]);
-  // DRAGON FIRE: драконы и огонь, снова подборка из скинов других кейсов
   casesData.dragon = buildMixCase('Dragon Fire', [
     'Desert Eagle "Red Dragon"', 'AWM "Phoenix"', 'AWM "Dragon"', 'StatTrak™ Desert Eagle "Red Dragon"',
     'Akimbo Uzi "Fire Horse"', 'AKR12 "Emberbird"', 'AKR "Dragon"', 'P90 "Burning King"',
@@ -1321,7 +1270,6 @@ to{transform: scale(1); opacity: 1;}}
     'Butterfly "Dragon Glass"', 'Gloves "Phoenix Risen"', 'StatTrak™ AKR "Dragon"', 'StatTrak™ P90 "Burning King"',
     'Gloves "Living Flame"', 'Karambit "Dragon Glass"'
   ]);
-  // ROYAL VAULT: премиальный кейс, только самые дорогие скины (ножи, перчатки, золото) из других кейсов
   casesData.vault = buildMixCase('Royal Vault', [
     'Butterfly "Dragon Glass"', 'StatTrak™ AKR "Dragon"', 'StatTrak™ AKR12 "Speedrun"', 'M4A1 "Impact"',
     'Gloves "Wildstyle"', 'Gloves "Haunt"', 'StatTrak™ G22 "Nest"', 'Karambit "Dragon Glass"',
@@ -1330,6 +1278,24 @@ to{transform: scale(1); opacity: 1;}}
     'Charm "V2"', 'StatTrak™ M4 "Necromancer"', 'Karambit "Claw"', 'StatTrak™ M16 "Winged"',
     'Gloves "Impulse"', 'Charm "Black Spot"', 'Charm "Ochpochmak"', 'G22 "Relic"',
     'M9 Bayonet "Universe"', 'M9 Bayonet "Scratch"', 'M9 Bayonet "Dragon Glass"'
+  ]);
+
+  // KNIFE FEVER: только ножи, цена кейса ~2000 G (считается формулой баланса)
+  casesData.knifefever = buildMixCase('Knife Fever', [
+    'Kunai "Fire Horse"', 'Sting "Meld"', 'Flip "Magnalium"', 'Butterfly "Starfall"',
+    'Butterfly "Black Widow"', 'Butterfly "Legacy"', 'Butterfly "Dragon Glass"', 'Karambit "Dragon Glass"',
+    'Karambit "Universe"', 'Karambit "Scratch"', 'M9 Bayonet "Ancient"', 'Karambit "Claw"',
+    'M9 Bayonet "Universe"', 'M9 Bayonet "Dragon Glass"'
+  ]);
+  // ELITE ARSENAL: дорогое оружие StatTrak и топ-аркана, цена кейса ~3000 G
+  casesData.elite = buildMixCase('Elite Arsenal', [
+    'StatTrak™ UMP45 "Cyberpunk"', 'StatTrak™ P350 "Neon"', 'StatTrak™ AKR "Dragon"',
+    'StatTrak™ AWM "Spectral"', 'USP "Geometric"', 'StatTrak™ AKR12 "Speedrun"',
+    'StatTrak™ FAMAS "Fury"', 'StatTrak™ P90 "Burning King"', 'StatTrak™ M4 "N-Kai"',
+    'StatTrak™ M4A1 "Jade Stone"', 'M4A1 "Impact"', 'StatTrak™ P350 "Forest Spirit"',
+    'StatTrak™ G22 "Nest"', 'AKR "Treasure Hunter"', 'StatTrak™ AKR12 "Railgun"',
+    'StatTrak™ M4 "Necromancer"', 'StatTrak™ M16 "Winged"', 'StatTrak™ AKR "Treasure Hunter"',
+    'StatTrak™ AKR "Genesis"', 'StatTrak™ AKR "Tag King"'
   ]);
 
   function pickItem(c) {
@@ -1351,7 +1317,6 @@ to{transform: scale(1); opacity: 1;}}
     }
     return Math.round(n).toLocaleString('ru-RU');
   }
-  // Баланс всегда показывается с копейками (до сотых), а хранится округлённым до 0,01 без «хвостов» float
   function fmtBalance(n) {
     return (Math.round(n * 100) / 100).toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
@@ -1462,7 +1427,6 @@ function markFreeUsed() {
   uSet('mifdrop_pending', { single: currentWonSkin, multi: currentWonSkins });
 }
  function loadProgress() {
-  // Гость или чистый старт: всё по нулям
   balance = 0;
   myInventory = [];
   if (!authUser) return; // у гостя ничего не загружаем
@@ -1638,7 +1602,6 @@ function markFreeUsed() {
   }
   let quickMode = false;
   function renderQuickToggle() {
-    document.getElementById('quickSwitch').classList.toggle('on', quickMode);
     document.getElementById('quickToggle').classList.toggle('on', quickMode);
     document.getElementById('quickToggle').setAttribute('aria-checked', quickMode ? 'true' : 'false');
   }
@@ -2037,43 +2000,42 @@ function markFreeUsed() {
   }
   // ===== БАЛАНС КЕЙСОВ =====
   // Единые правила для всех платных кейсов:
-  //  1) шанс предмета ~ цена^(-DROP_CURVE): чем дороже скин, тем он реже; кривая одинакова во всех кейсах;
-  //  2) цена кейса = ожидаемый дроп / CASE_RTP, красиво округлённая;
-  //  3) крутизна кривой подгоняется под округлённую цену, чтобы возврат (RTP) у всех кейсов был ровно CASE_RTP.
-  const CASE_RTP = 0.90;        // средний возврат с кейса (90% от цены), у всех кейсов одинаковый
-  const DROP_CURVE = 0.65;      // базовая «редкость» дорогих скинов (больше — дорогие реже)
-  const CASE_PRICE_OVERRIDE = {}; // ручная цена, например { fable: 100 }: шансы подгонятся под неё
-  function caseEV(c) {
-    const weighted = c.items.some(it => it.weight);
-    const total = weighted ? c.items.reduce((s, it) => s + (it.weight || 0), 0) : c.items.length;
-    return c.items.reduce((s, it) => s + itemPrice(it) * (weighted ? (it.weight || 0) : 1), 0) / total;
+  //  1) шанс предмета ~ цена^(-k): чем дороже скин, тем он реже; сумма шансов всегда 100%;
+  //  2) k подбирается для каждого кейса так, чтобы самый дорогой предмет выпадал с шансом topChance(цена):
+  //     0,2% для предметов до 1000 G, дальше плавно до 0,05% (от 16 000 G);
+  //  3) цена кейса = ожидаемый дроп / CASE_RTP, округлённая вверх до «красивой» цены (RTP чуть ниже CASE_RTP).
+  const CASE_RTP = 0.85;
+  const TOP_CHANCE_MAX = 0.002, TOP_CHANCE_MIN = 0.0005, TOP_CHANCE_REF = 1000;
+  function topChance(price) {
+    return Math.min(TOP_CHANCE_MAX, Math.max(TOP_CHANCE_MIN, TOP_CHANCE_MAX * Math.sqrt(TOP_CHANCE_REF / price)));
   }
   function niceCasePrice(x) {
     const step = x >= 10000 ? 100 : x >= 1000 ? 10 : x >= 100 ? 5 : x >= 10 ? 1 : x >= 1 ? 0.1 : 0.05;
-    return Math.max(step, parseFloat((Math.round(x / step) * step).toFixed(2)));
+    return Math.max(step, parseFloat((Math.ceil(x / step - 1e-9) * step).toFixed(2)));
   }
-  function curveEV(c, k) {
-    let s = 0, t = 0;
-    c.items.forEach(it => { const p = itemPrice(it), w = Math.pow(p, -k); s += p * w; t += w; });
-    return s / t;
-  }
-  function balanceCase(key, c) {
-    const price = CASE_PRICE_OVERRIDE[key] || niceCasePrice(curveEV(c, DROP_CURVE) / CASE_RTP);
-    let lo = 0, hi = 4;
-    for (let i = 0; i < 60; i++) {
+  function balanceCase(c) {
+    const prices = c.items.map(itemPrice);
+    const top = prices.indexOf(Math.max(...prices));
+    const target = topChance(prices[top]);
+    const share = k => {
+      const w = prices.map(p => Math.pow(p, -k));
+      const s = w.reduce((a, b) => a + b, 0);
+      return w.map(x => x / s);
+    };
+    let lo = 0, hi = 12;
+    for (let i = 0; i < 80; i++) {
       const mid = (lo + hi) / 2;
-      if (curveEV(c, mid) > price * CASE_RTP) lo = mid; else hi = mid;
+      if (share(mid)[top] > target) lo = mid; else hi = mid;
     }
     const k = (lo + hi) / 2;
-    c.items.forEach(it => { it.weight = Math.pow(itemPrice(it), -k); });
-    c.price = price;
-    c.curve = k;
+    const ch = share(k);
+    c.items.forEach((it, i) => { it.weight = ch[i]; });
+    c.price = niceCasePrice(prices.reduce((s, p, i) => s + p * ch[i], 0) / CASE_RTP);
   }
   function recalcCasePrices() {
-    Object.entries(casesData).forEach(([key, c]) => {
-      if (c.free) { c.price = 0; c.rtp = null; return; }
-      balanceCase(key, c);
-      c.rtp = Math.round(caseEV(c) / c.price * 100);
+    Object.values(casesData).forEach(c => {
+      if (c.free) { c.price = 0; return; }
+      balanceCase(c);
     });
   }
   const caseStyle = {
@@ -2088,7 +2050,9 @@ function markFreeUsed() {
     bomj: { c: '#9aa5b8', badge: 'Дёшево', emo: '🥫' },
     neon: { c: '#22d3ee', badge: 'Новинка', emo: '⚡' },
     dragon: { c: '#ff4fa3', badge: 'Огонь', emo: '🐉' },
-    vault: { c: '#e2e8f0', badge: 'Премиум', emo: '💎' }
+    vault: { c: '#e2e8f0', badge: 'Премиум', emo: '💎' },
+    knifefever: { c: '#f97316', badge: 'Ножи', emo: '🗡️' },
+    elite: { c: '#38bdf8', badge: 'Элита', emo: '🎯' }
   };
   function heroCube(cx, cy, k, c, rot, logo) {
     const P = (x, y) => (cx + (x - 100) * k).toFixed(1) + ',' + (cy + (y - 78) * k).toFixed(1);
@@ -2107,7 +2071,7 @@ function markFreeUsed() {
       <polyline points="${seam}" fill="none" stroke="#fff" stroke-width="${(6 * k).toFixed(1)}" opacity=".6" filter="url(#hbBlur)"/>
       <polyline points="${seam}" fill="none" stroke="#fff" stroke-width="${(1.6 * k).toFixed(1)}"/>
       <polyline points="${edge}" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="${(0.8 * k).toFixed(2)}"/>
-      ${logo ? `<g transform="translate(${lx} ${ly}) skewY(27.65)"><text x="0" y="0" font-size="${(24 * k).toFixed(1)}" text-anchor="middle" dominant-baseline="central" filter="url(#hbWhite)" opacity=".95">🍀</text></g>` : ''}
+      ${logo ? `<g transform="translate(${lx} ${ly}) skewY(27.65)"><text x="0" y="0" font-size="${(24 * k).toFixed(1)}" text-anchor="middle" dominant-baseline="central" filter="url(#hbWhite)" opacity=".95">🎄</text></g>` : ''}
     </g>`;
   }
   function heroBg() {
@@ -2166,7 +2130,7 @@ function markFreeUsed() {
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = heroBg() + `
       <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${fmtBalance(balance)}</span> <small>G</small></span></div></div>
-      <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">🍀</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
+      <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">🎄</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
       <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
       <div class="cs-hero-stats">
@@ -2250,9 +2214,6 @@ function markFreeUsed() {
       el.classList.toggle('poor', balance < Number(el.dataset.price));
     });
   }
-  function renderCatalogPrices() {
-    renderCatalog();
-  }
   function goToUpgrade() {
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
@@ -2265,17 +2226,6 @@ function markFreeUsed() {
   }
   let upgradeFilter = 'all';
   let upgradeSort = 'asc';
-  function upgStepsHTML(n) {
-    const labels = ['Предмет', 'Цель', 'Апгрейд'];
-    let h = '<div class="upg-steps">';
-    labels.forEach((l, i) => {
-      const st = i + 1;
-      const cls = st < n ? 'done' : (st === n ? 'active' : '');
-      h += `<div class="upg-step ${cls}"><span class="upg-step-num">${st < n ? '✓' : st}</span><span>${l}</span></div>`;
-      if (i < 2) h += `<div class="upg-step-line ${st < n ? 'done' : ''}"></div>`;
-    });
-    return h + '</div>';
-  }
   let upgradeBet = 0;       // баланс, добавленный к скину (G)
   let lastUpgradeBet = 0;
   const UPG_MIN_CHANCE = 0.01;  // минимальный шанс апгрейда, %
@@ -2516,12 +2466,10 @@ function markFreeUsed() {
       const bx = document.querySelector('.upg-boost');
       if (bx) bx.style.display = 'none';
     }
-    addBpXp(30);
     upgradeRunning = true;
     document.getElementById('upgradeStartBtn').disabled = true;
     const pk = document.getElementById('upgPickers');
     if (pk) pk.style.display = 'none';
-    document.querySelectorAll('.upg-back-link').forEach(el => el.style.pointerEvents = 'none');
     const roll = Math.random() * 100;
     const win = roll < currentUpgradeChance;
     upgradeLastSources = upgradeSourceItems.slice();
@@ -2704,7 +2652,6 @@ function markFreeUsed() {
     updateBestDrop(newItem, 2400);
     saveProgress();
     contractResult = { item: newItem, sum };
-    addBpXp(80);
     contractSel = [];
     contractView = 'spin';
     upgradeRunning = true; // блокирует переходы по разделам на время анимации
@@ -2885,7 +2832,6 @@ function loadMines() {
     }
     minesGame = { bet, m: minesCount, mines: idx.slice(0, minesCount), revealed: [], over: false, lost: false, hit: -1 };
     minesLastIdx = -1;
-    addBpXp(15);
     document.getElementById('minesResult').style.display = 'none';
     saveMines();
     saveProgress();
@@ -2937,7 +2883,7 @@ function loadMines() {
   function escHTML(t) {
     return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
-  function feedItemHTML(e, isNew) {
+  function feedItemHTML(e) {
     const color = (rarityInfo[e.rarity] || { color: '#64748b' }).color;
     return `<div class="feed-item ${e.you ? 'you' : ''}" data-id="${escHTML(e.id)}" style="--c:${color}" title="${escHTML(e.name)}">
       <div class="feed-emo">${ico(e)}</div>
@@ -2964,7 +2910,7 @@ function loadMines() {
     }
     const isNew = !feedSeen.has(e.id);
     const t = document.createElement('template');
-    t.innerHTML = feedItemHTML(e, isNew).trim();
+    t.innerHTML = feedItemHTML(e).trim();
     const node = t.content.firstElementChild;
     node.classList.add(isNew ? 'enter' : 'fade');
     node.style.setProperty('--d', (k++ * (isNew ? 0.12 : 0.05)).toFixed(2) + 's');
@@ -3280,15 +3226,16 @@ function loadBestDrop() {
     msgBox.className = 'promo-message promo-' + type;
     msgBox.style.display = 'block';
   }
-  // ===== Батл пас: 30 уровней, награды — валюта и скины =====
-  const BP_LEVELS = 30;
+  const BP_LEVELS = 40;
   const BP_REWARDS = [
     { g: 100 }, { g: 150 }, { s: 'M4 "Lizard"' }, { g: 200 }, { s: 'AWM "Gear"' },
     { g: 250 }, { g: 300 }, { s: 'StatTrak™ AWM "Scratch"' }, { g: 400 }, { s: 'StatTrak™ UMP45 "Winged"' },
     { g: 450 }, { g: 500 }, { s: 'AKR12 "Hanami"' }, { g: 600 }, { s: 'AKR "Dragon"' },
     { g: 700 }, { g: 800 }, { s: 'MP5 "Gorgon"' }, { g: 900 }, { s: 'Gloves "Onyx"' },
     { g: 1000 }, { g: 1200 }, { s: 'StatTrak™ AKR "Tag King"' }, { g: 1500 }, { s: 'Gloves "Plague"' },
-    { g: 1800 }, { g: 2000 }, { s: 'StatTrak™ FAMAS "Fury"' }, { g: 2500 }, { s: 'Karambit "Dragon Glass"' }
+    { g: 1800 }, { g: 2000 }, { s: 'StatTrak™ FAMAS "Fury"' }, { g: 2500 }, { s: 'Karambit "Dragon Glass"' },
+    { g: 3000 }, { s: 'StatTrak™ M4A1 "Jade Stone"' }, { g: 3500 }, { s: 'Gloves "Geometric"' }, { g: 4000 },
+    { s: 'Karambit "Universe"' }, { g: 5000 }, { s: 'Gloves "Neuro"' }, { g: 6000 }, { s: 'Karambit "Claw"' }
   ];
   let bpXp = 0;
   let bpClaimed = [];
@@ -3308,7 +3255,7 @@ function loadBp() {
     bpClaimed = Array.isArray(d.claimed) ? d.claimed : [];
   } catch (e) {}
 }
-  function bpNeed(l) { return 40 + 6 * (l - 1); }  // XP до уровня l: 40 → 214
+  function bpNeed(l) { return 200; }
   function bpState() {
     let lvl = 0, left = bpXp;
     while (lvl < BP_LEVELS && left >= bpNeed(lvl + 1)) { left -= bpNeed(lvl + 1); lvl++; }
@@ -3316,8 +3263,8 @@ function loadBp() {
   }
   function caseXp(c) {
     if (!c) return 0;
-    if (c.free) return 25;
-    return Math.round(8 + Math.min(c.price / 8, 120));
+    if (c.free) return 8;
+    return Math.round(3 + Math.min(c.price / 60, 37));
   }
   function bpFindSkin(name) {
     for (const c of Object.values(casesData)) {
@@ -3379,7 +3326,6 @@ function loadBp() {
         <div class="bp-foot">${foot}</div>
       </div>`;
   }
-  // компактная карточка на главном экране (справа от бесплатного кейса)
   function renderBattlePass() {
     const box = document.getElementById('bpBlock');
     if (!box) return;
@@ -3399,7 +3345,7 @@ function loadBp() {
       <div class="bp-card ${ready ? 'ready' : ''}" onclick="goToBattlePass()">
         <div class="bp-card-art" style="--rc:${rc}">${art}</div>
         <div class="bp-card-info">
-          <div class="bp-card-tag">30 уровней · награды</div>
+          <div class="bp-card-tag">40 уровней · награды</div>
           <h3 class="bp-card-name">Батл пас</h3>
           <div class="bp-card-sub">Уровень <b>${st.lvl} / ${BP_LEVELS}</b></div>
           <div class="bp-bar-wrap">
@@ -3410,7 +3356,6 @@ function loadBp() {
         <div class="bp-card-btn">${ready ? 'Забрать · ' + ready : 'Открыть'}</div>
       </div>`;
   }
-  // отдельная страница батл паса (как «Апгрейд»)
   function goToBattlePass() {
     if (running || upgradeRunning) return;
     autoResolvePendingWin();
@@ -3447,7 +3392,7 @@ function loadBp() {
         <div class="bp-ring" style="--p:${(pct * 3.6).toFixed(1)}deg"><div class="bp-ring-in"><small>Уровень</small><b>${st.lvl}</b></div></div>
         <div class="bp-hero-main">
           <h2 class="bp-hero-title">🎖️ <span>Батл пас</span></h2>
-          <div class="bp-hero-sub">Играй, получай XP и забирай награды на каждом уровне: игровая валюта и скины.</div>
+          <div class="bp-hero-sub">Открывай кейсы, получай XP и забирай награды на каждом уровне: игровая валюта и скины.</div>
           <div class="bp-bar-wrap">
             <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
             <div class="bp-xp">${st.lvl >= BP_LEVELS ? 'MAX' : st.into + ' / ' + st.need + ' XP'}</div>
@@ -3465,11 +3410,8 @@ function loadBp() {
       <div class="bp-grid">${tiles}</div>
       <div class="bp-sec">Как получать XP</div>
       <div class="bp-xp-grid">
-        ${xpItem('📦', 'Кейс', '8–128 XP')}
-        ${xpItem('🎁', 'Бесплатный кейс', '25 XP')}
-        ${xpItem('🚀', 'Апгрейд', '30 XP')}
-        ${xpItem('📜', 'Контракт', '80 XP')}
-        ${xpItem('💣', 'Сапёр', '15 XP')}
+        ${xpItem('📦', 'Платный кейс', '3–40 XP')}
+        ${xpItem('🎁', 'Бесплатный кейс', '8 XP')}
       </div>`;
     window.scrollTo(0, y);
   }
@@ -3575,11 +3517,9 @@ function uRemove(base) {
   try { localStorage.removeItem(k); } catch (e) {}
 }
 
-// Проверка входа: для гостя показывает просьбу войти и возвращает false
 function requireAuth() {
   if (authUser) return true;
   document.getElementById('loginModal')?.classList.add('show');
-  // Если у вас есть своё окно входа, вызовите его здесь (например, openLoginModal();)
   try {
     if (googleIdConfigured() && window.google && google.accounts && google.accounts.id) {
       google.accounts.id.prompt();
@@ -3588,15 +3528,6 @@ function requireAuth() {
   return false;
 }
 
-// Выход: чистим сессию и перезагружаем страницу (гостевой ноль)
-function signOut() {
-  try {
-    if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
-  } catch (e) {}
-  authUser = null;
-  saveAuth(); // authUser = null, поэтому удалит AUTH_KEY
-  location.reload();
-}
   function initGoogleAuth() {
     if (gisInited || !googleIdConfigured()) return;
     if (!(window.google && google.accounts && google.accounts.id)) return;
@@ -3736,13 +3667,40 @@ function signOut() {
   loadFeed();
   recalcCasePrices();
   updateBalanceDisplay();
-  renderCatalogPrices();
+  renderCatalog();
   loadQuickMode();
   saveProgress();
   restoreUI();
   addPersistenceListeners();
   setInterval(freeTick, 1000);
   renderAuthUI();
+
+  (function nySetup() {
+    const colors = ['#ff4d4d', '#ffd24d', '#4dff88', '#4da6ff', '#ff4dd2'];
+    const lights = document.createElement('div');
+    lights.className = 'ny-lights';
+    const n = Math.ceil(window.innerWidth / 38);
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('i');
+      b.style.left = (i * 38 + 10) + 'px';
+      b.style.setProperty('--c', colors[i % colors.length]);
+      b.style.animationDelay = (i % 5) * 0.35 + 's';
+      lights.appendChild(b);
+    }
+    const snow = document.createElement('div');
+    snow.className = 'ny-snow';
+    for (let i = 0; i < 40; i++) {
+      const s = document.createElement('span');
+      s.textContent = '❄';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.fontSize = (8 + Math.random() * 14) + 'px';
+      s.style.animationDuration = (8 + Math.random() * 10) + 's';
+      s.style.animationDelay = (-Math.random() * 14) + 's';
+      s.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
+      snow.appendChild(s);
+    }
+    document.body.append(lights, snow);
+  })();
 </script>
 </body>
 </html>
