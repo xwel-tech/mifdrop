@@ -847,6 +847,11 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
 <script>
   let balance = 0;
   let myInventory = [];
+  // состояние облачной синхронизации (логика — в блоке «ОБЛАЧНЫЙ ПРОФИЛЬ»)
+  let cloudReady = false, cloudRef = null, cloudGen = 0, cloudBaseRev = 0, cloudLastJson = null;
+  let cloudTimer = null, cloudWriting = false, cloudAgain = false, cloudPulling = false, cloudApplying = false;
+  let cloudLoggingOut = false, cloudReloginTried = false, cloudReloginPending = false, cloudInitDone = false;
+  let fbReadyPromise = null, fbAuthPromise = null;
   const SPIN_MS = 8000;
   const SPIN_EASE = 'cubic-bezier(0.1, 0.8, 0.1, 1)';
   const SPIN_ITEMS = 110;
@@ -1342,6 +1347,7 @@ function markFreeUsed() {
   if (!authUser) return;
   freeUsedKey = todayKey();
   try { uSet('mifdrop_free_case', freeUsedKey); } catch (e) {}
+  cloudSchedule();
 }
   function timeLeftStr() {
     const now = new Date();
@@ -1425,6 +1431,7 @@ function markFreeUsed() {
   uSet('mifdrop_balance', balance);
   uSet('mifdrop_inventory', myInventory);
   uSet('mifdrop_pending', { single: currentWonSkin, multi: currentWonSkins });
+  cloudSchedule();
 }
  function loadProgress() {
   balance = 0;
@@ -2690,6 +2697,7 @@ function saveMines() {
     if (minesActive()) uSet('mifdrop_mines', minesGame);
     else uRemove('mifdrop_mines');
   } catch (e) {}
+  cloudSchedule();
 }
 function loadMines() {
   minesGame = null;
@@ -2936,12 +2944,14 @@ function loadMines() {
   });
 }
 
-async function initFeedSync() {
-  try {
+function fbCdn() { return ['https://www', 'gstatic', 'com/firebasejs/10.12.2/'].join('.'); }
+// app + database + initializeApp (нужно и ленте, и облачному профилю)
+function ensureFirebase() {
+  if (fbReadyPromise) return fbReadyPromise;
+  fbReadyPromise = (async () => {
     if (!window.firebase) {
-      const cdn = ['https://www', 'gstatic', 'com/firebasejs/10.12.2/'].join('.');
-      await loadFbScript(cdn + 'firebase-app-compat.js');
-      await loadFbScript(cdn + 'firebase-database-compat.js');
+      await loadFbScript(fbCdn() + 'firebase-app-compat.js');
+      await loadFbScript(fbCdn() + 'firebase-database-compat.js');
     }
     if (!firebase.apps.length) {
       firebase.initializeApp({
@@ -2954,6 +2964,25 @@ async function initFeedSync() {
         appId: "1:564148511580:web:206b69566bcf12cbcd1799"
       });
     }
+  })();
+  fbReadyPromise.catch(() => { fbReadyPromise = null; });
+  return fbReadyPromise;
+}
+// Firebase Auth грузится отдельно и только для вошедших через Google: ленте он не нужен
+function ensureFirebaseAuth() {
+  if (fbAuthPromise) return fbAuthPromise;
+  fbAuthPromise = (async () => {
+    await ensureFirebase();
+    if (!firebase.auth) await loadFbScript(fbCdn() + 'firebase-auth-compat.js');
+    if (!firebase.auth) throw new Error('firebase-auth недоступен');
+  })();
+  fbAuthPromise.catch(() => { fbAuthPromise = null; });
+  return fbAuthPromise;
+}
+
+async function initFeedSync() {
+  try {
+    await ensureFirebase();
     let uid = localStorage.getItem('mifdrop_uid');
     if (!uid) {
       uid = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
@@ -3068,6 +3097,7 @@ function loadFeed() {
   function savePromoProgress() {
   if (!authUser) return;
   uSet('mifdrop_used_promocodes', usedPromoCodes);
+  cloudSchedule();
 }
 
 function loadPromoProgress() {
@@ -3148,6 +3178,7 @@ function loadPromoProgress() {
   function saveBestDrop() {
   if (!authUser) return;
   try { uSet('mifdrop_best_drop', bestDrop); } catch (e) {}
+  cloudSchedule();
 }
 
 function loadBestDrop() {
@@ -3242,6 +3273,7 @@ function loadBestDrop() {
  function saveBp() {
   if (!authUser) return;
   uSet('mifdrop_bp', { xp: bpXp, claimed: bpClaimed });
+  cloudSchedule();
 }
 function loadBp() {
   bpXp = 0;
@@ -3453,6 +3485,281 @@ function loadBp() {
     showInfoToast('Награды получены: ' + parts.join(' и '));
     bpRefresh();
   }
+  // ===== ОБЛАЧНЫЙ ПРОФИЛЬ (Firebase Realtime Database: users/<firebase uid>) =====
+  // Вошёл через Google -> игра входит и в Firebase Auth (тем же Google-токеном) и синхронизирует профиль.
+  // Гость, а также вход без Firebase-сессии работают только через localStorage, как раньше.
+  // В облаке: balance, inventory, bp{xp,claimed}, freeCase, promo, bestDrop, mines, rev, updatedAt.
+  // rev растёт на 1 при каждой записи; запись идёт транзакцией и не затирает более новые данные с другого устройства.
+  function toArr(x) { return Array.isArray(x) ? x : (x && typeof x === 'object' ? Object.values(x) : []); }
+  // JSON с отсортированными ключами: Firebase возвращает ключи в другом порядке, а сравнивать профили надо по смыслу
+  function stableJson(v) {
+    return JSON.stringify(v, (k, val) => {
+      if (!val || typeof val !== 'object' || Array.isArray(val)) return val;
+      const o = {};
+      Object.keys(val).sort().forEach(key => { o[key] = val[key]; });
+      return o;
+    });
+  }
+  // Firebase не хранит null и пустые массивы, поэтому всё приводим к одному виду
+  function normalizeProfile(r) {
+    r = r || {};
+    const bp = r.bp || {};
+    const m = r.mines;
+    return {
+      balance: Math.round((Number(r.balance) || 0) * 100) / 100,
+      inventory: toArr(r.inventory).filter(it => it && typeof it === 'object'),
+      bp: { xp: Math.max(0, Number(bp.xp) || 0), claimed: toArr(bp.claimed).map(Number) },
+      freeCase: r.freeCase ? String(r.freeCase) : null,
+      promo: toArr(r.promo).map(String),
+      bestDrop: r.bestDrop && typeof r.bestDrop === 'object' && r.bestDrop.name ? r.bestDrop : null,
+      mines: m && Number(m.bet) > 0 ? {
+        bet: Number(m.bet), m: Number(m.m) || 0,
+        mines: toArr(m.mines).map(Number), revealed: toArr(m.revealed).map(Number),
+        over: false, lost: false, hit: -1
+      } : null
+    };
+  }
+  function buildProfile() {
+    const inv = myInventory.slice();
+    // выигрыш, который ещё не нажали «оставить/продать», тоже не должен потеряться
+    if (currentWonSkin) inv.push(currentWonSkin);
+    if (currentWonSkins.length) inv.push(...currentWonSkins);
+    return normalizeProfile(JSON.parse(JSON.stringify({
+      balance: balance,
+      inventory: inv,
+      bp: { xp: bpXp, claimed: bpClaimed },
+      freeCase: freeUsedKey,
+      promo: usedPromoCodes,
+      bestDrop: bestDrop,
+      mines: minesActive() ? minesGame : null
+    })));
+  }
+  function hasProgress(p) {
+    return p.balance > 0 || p.inventory.length > 0 || p.bp.xp > 0 || p.bp.claimed.length > 0 ||
+      p.promo.length > 0 || !!p.bestDrop || !!p.freeCase || !!p.mines;
+  }
+  function cloudBusy() {
+    return running || upgradeRunning || contractView === 'spin' || !!currentWonSkin || currentWonSkins.length > 0;
+  }
+  // Подмену состояния откладываем, пока идёт прокрутка/апгрейд/нерешённый выигрыш
+  function cloudWhenIdle(fn, giveUp, tries) {
+    tries = tries === undefined ? 60 : tries;
+    if (!cloudBusy()) { fn(); return; }
+    if (tries <= 0) { if (giveUp) giveUp(); return; }
+    setTimeout(() => cloudWhenIdle(fn, giveUp, tries - 1), 1000);
+  }
+  function cloudDisable() {
+    cloudGen++;
+    cloudReady = false;
+    cloudRef = null;
+    cloudAgain = false;
+    cloudPulling = false;
+    clearTimeout(cloudTimer);
+    cloudTimer = null;
+  }
+  function cloudSchedule() {
+    if (!cloudReady || cloudApplying) return;
+    clearTimeout(cloudTimer);
+    cloudTimer = setTimeout(cloudFlush, 700);
+  }
+  async function cloudFlush() {
+    clearTimeout(cloudTimer);
+    cloudTimer = null;
+    if (!cloudReady || !cloudRef) return;
+    if (cloudWriting) { cloudAgain = true; return; }
+    const gen = cloudGen, ref = cloudRef;
+    const snapshot = buildProfile(), json = stableJson(snapshot);
+    if (json === cloudLastJson) return; // ничего не изменилось
+    cloudWriting = true;
+    let conflict = false;
+    try {
+      const base = cloudBaseRev;
+      const res = await ref.transaction(cur => {
+        // с другого устройства уже записана более новая версия: свою не пишем
+        if (cur && (Number(cur.rev) || 0) !== base) return;
+        return Object.assign({}, snapshot, { rev: base + 1, updatedAt: firebase.database.ServerValue.TIMESTAMP });
+      }, undefined, false);
+      if (gen === cloudGen) {
+        if (res.committed) {
+          cloudBaseRev = base + 1;
+          cloudLastJson = json;
+          uSet('mifdrop_cloud_rev', cloudBaseRev);
+        } else conflict = true;
+      }
+    } catch (e) { console.warn('[cloud] не удалось сохранить профиль:', e); }
+    cloudWriting = false;
+    if (gen !== cloudGen) return;
+    if (conflict) cloudPull(true);
+    else if (cloudAgain) { cloudAgain = false; cloudSchedule(); }
+  }
+  // Кладёт профиль из облака в состояние игры и в localStorage этого устройства
+  function cloudApply(p) {
+    cloudApplying = true;
+    try {
+      balance = p.balance;
+      fixBalance();
+      myInventory = p.inventory.slice();
+      currentWonSkin = null;
+      currentWonSkins = [];
+      bpXp = p.bp.xp;
+      bpClaimed = p.bp.claimed.slice();
+      freeUsedKey = p.freeCase;
+      usedPromoCodes = p.promo.slice();
+      bestDrop = p.bestDrop;
+      minesLastIdx = -1;
+      if (p.mines) { minesGame = Object.assign({}, p.mines); minesCount = minesGame.m || minesCount; }
+      else minesGame = null;
+      saveProgress(); saveBp(); savePromoProgress(); saveBestDrop(); saveMines();
+      if (freeUsedKey) uSet('mifdrop_free_case', freeUsedKey); else uRemove('mifdrop_free_case');
+    } finally { cloudApplying = false; }
+    cloudRefreshUI();
+  }
+  function cloudRefreshUI() {
+    try {
+      updateBalanceDisplay();
+      renderCatalog();
+      renderAuthUI();
+      const a = document.querySelector('.screen.active');
+      const id = a ? a.id : '';
+      if (id === 'profileScreen') renderProfile();
+      else if (id === 'bpScreen') renderBpScreen();
+      else if (id === 'upgradeScreen') goToUpgrade();
+      else if (id === 'contractsScreen') goToContracts();
+      else if (id === 'minesScreen') updateMinesUI();
+      else if (id === 'rouletteScreen') updateFreeCaseUI();
+      freeTick();
+    } catch (e) { console.warn('[cloud] ошибка обновления интерфейса:', e); }
+  }
+  // Вызывается из onAuthStateChanged: решает, что чему отдать при входе
+  async function cloudSync(fbUser) {
+    const gen = cloudGen;
+    const ref = firebase.database().ref('users/' + fbUser.uid);
+    let raw;
+    try { raw = (await ref.once('value')).val(); }
+    catch (e) { console.warn('[cloud] не удалось прочитать профиль (проверьте правила users/$uid):', e); return; }
+    if (gen !== cloudGen || !authUser) return;
+    cloudRef = ref;
+    const local = buildProfile(), localJson = stableJson(local);
+    if (raw == null) {
+      // впервые и в облаке пусто: переносим локальный прогресс (если он есть)
+      cloudBaseRev = 0;
+      cloudLastJson = hasProgress(local) ? null : localJson;
+      cloudReady = true;
+      if (hasProgress(local)) cloudFlush();
+      return;
+    }
+    const remote = normalizeProfile(raw), remoteJson = stableJson(remote);
+    const rev = Number(raw.rev) || 0;
+    const localRev = Number(uGet('mifdrop_cloud_rev')) || 0;
+    cloudBaseRev = rev;
+    if (remoteJson === localJson) {
+      cloudLastJson = remoteJson;
+      uSet('mifdrop_cloud_rev', rev);
+      cloudReady = true;
+      return;
+    }
+    if (localRev > 0 && localRev === rev) {
+      // облако не менялось с последней синхронизации, а локально есть новое (например, играли офлайн)
+      cloudLastJson = null;
+      cloudReady = true;
+      cloudFlush();
+      return;
+    }
+    // в облаке более новая версия (или это устройство ещё не синхронизировалось): облако главнее
+    if (localRev === 0 && hasProgress(local) && uGet('mifdrop_backup') === null) {
+      uSet('mifdrop_backup', { ts: Date.now(), profile: local }); // копия прогресса, который будет заменён
+    }
+    cloudWhenIdle(() => {
+      if (gen !== cloudGen) return;
+      cloudApply(remote);
+      cloudLastJson = remoteJson;
+      uSet('mifdrop_cloud_rev', rev);
+      cloudReady = true;
+      try { showInfoToast('☁️ Прогресс загружен из облака'); } catch (e) {}
+    });
+  }
+  // Подтянуть свежую версию из облака (вернулись на вкладку / запись отклонена как устаревшая)
+  async function cloudPull(force) {
+    if (!cloudReady || !cloudRef || cloudPulling) return;
+    if (!force && (cloudWriting || cloudTimer || stableJson(buildProfile()) !== cloudLastJson)) return;
+    cloudPulling = true;
+    const gen = cloudGen;
+    let raw;
+    try { raw = (await cloudRef.once('value')).val(); }
+    catch (e) { cloudPulling = false; return; }
+    const rev = raw ? Number(raw.rev) || 0 : 0;
+    if (gen !== cloudGen || !raw || rev <= cloudBaseRev) { if (gen === cloudGen) cloudPulling = false; return; }
+    const remote = normalizeProfile(raw);
+    cloudReady = false; // пока не применили, ничего не пишем
+    cloudWhenIdle(() => {
+      if (gen !== cloudGen) return;
+      cloudApply(remote);
+      cloudBaseRev = rev;
+      cloudLastJson = stableJson(remote);
+      uSet('mifdrop_cloud_rev', rev);
+      cloudReady = true;
+      cloudPulling = false;
+      try { showInfoToast('☁️ Прогресс обновлён из облака'); } catch (e) {}
+    }, () => { if (gen === cloudGen) { cloudReady = true; cloudPulling = false; } });
+  }
+  async function onFbAuthChanged(fbUser) {
+    if (cloudLoggingOut) return;
+    cloudDisable();
+    if (!authUser) return; // гость: только localStorage
+    if (!fbUser) { cloudWantRelogin(); return; }
+    // сессия Firebase должна принадлежать тому же Google-аккаунту, что и игровой профиль
+    const g = (fbUser.providerData || []).find(p => p && p.providerId === 'google.com');
+    if (g && String(g.uid) !== String(authUser.sub)) {
+      try { await firebase.auth().signOut(); } catch (e) {}
+      return;
+    }
+    await cloudSync(fbUser);
+  }
+  // Игрок уже был вошёл до появления облака: Firebase-сессии нет, пробуем получить её тихо через Google One Tap
+  function cloudWantRelogin() {
+    if (cloudReloginTried || !googleIdConfigured()) return;
+    cloudReloginTried = true;
+    if (gisInited) { try { google.accounts.id.prompt(); } catch (e) {} }
+    else cloudReloginPending = true;
+  }
+  async function cloudSignIn(idToken) {
+    try {
+      await ensureFirebaseAuth();
+      await firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(idToken));
+      return true;
+    } catch (e) {
+      console.warn('[cloud] вход в Firebase не удался:', e);
+      try { sessionStorage.setItem('mifdrop_cloud_err', String((e && e.code) || e)); } catch (_) {}
+      return false;
+    }
+  }
+  function cloudShowError() {
+    try {
+      const err = sessionStorage.getItem('mifdrop_cloud_err');
+      if (!err) return;
+      sessionStorage.removeItem('mifdrop_cloud_err');
+      showToast('Облако недоступно (' + err + '): прогресс хранится только на этом устройстве');
+    } catch (e) {}
+  }
+  async function cloudLogoutCleanup() {
+    cloudLoggingOut = true;
+    try { if (cloudReady) await cloudFlush(); } catch (e) {}
+    cloudDisable();
+    try { if (window.firebase && firebase.apps.length && firebase.auth) await firebase.auth().signOut(); } catch (e) {}
+  }
+  function cloudInit() {
+    if (cloudInitDone || !authUser) return; // гостю облако не нужно
+    cloudInitDone = true;
+    cloudShowError();
+    ensureFirebaseAuth()
+      .then(() => { firebase.auth().onAuthStateChanged(onFbAuthChanged); })
+      .catch(e => console.warn('[cloud] Firebase Auth не загрузился:', e));
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') cloudPull(false);
+      else cloudFlush();
+    });
+    window.addEventListener('pagehide', () => { cloudFlush(); });
+  }
   // ===== АВТОРИЗАЦИЯ GOOGLE (Google Identity Services, без бэкенда) =====
   // 1) Вставьте свой OAuth Client ID (тип "Web application") из Google Cloud Console.
   // 2) В "Authorized JavaScript origins" добавьте https://ВАШ_НИК.github.io (без слэша и пути).
@@ -3534,11 +3841,12 @@ function requireAuth() {
     google.accounts.id.initialize({
       client_id: GOOGLE_CLIENT_ID,
       callback: handleGoogleCredential,
-      auto_select: false,
+      auto_select: !!authUser,
       cancel_on_tap_outside: true,
       ux_mode: 'popup'
     });
     gisInited = true;
+    if (cloudReloginPending) { cloudReloginPending = false; try { google.accounts.id.prompt(); } catch (e) {} }
     const m = document.getElementById('loginModal');
     if (m && m.classList.contains('show')) renderGoogleButton();
   }
@@ -3571,18 +3879,22 @@ function requireAuth() {
     };
     wrap.appendChild(b);
   }
-  function handleGoogleCredential(resp) {
+  async function handleGoogleCredential(resp) {
     try {
       const p = decodeJwtPayload(resp.credential);
       const issOk = p.iss === 'accounts.google.com' || p.iss === 'https://accounts.google.com';
       if (!issOk || p.aud !== GOOGLE_CLIENT_ID || p.exp * 1000 < Date.now() - 60000) throw new Error('invalid token');
+      const sameAccount = !!authUser && authUser.sub === String(p.sub);
       authUser = {
         sub: String(p.sub),
         name: String(p.name || p.given_name || p.email || 'Игрок').trim().slice(0, 60),
         email: String(p.email || '').slice(0, 100),
         picture: isSafeAvatar(p.picture) ? p.picture : ''
       };
-      saveAuth(); // сохраняем только имя, почту и аватарку; сам токен не хранится
+      saveAuth(); // в localStorage только имя, почта и аватарка; сессию хранит сам Firebase Auth
+      // входим в Firebase тем же Google-токеном ДО перезагрузки, иначе сессия не успеет сохраниться
+      await cloudSignIn(resp.credential);
+      if (sameAccount) { cloudShowError(); renderAuthUI(); return; } // тихое восстановление сессии: страницу не трогаем
       location.reload();
       closeLoginModal();
       renderAuthUI();
@@ -3592,7 +3904,9 @@ function requireAuth() {
       showToast('Не удалось войти через Google');
     }
   }
-  function logoutAuth() {
+  async function logoutAuth() {
+    // дописываем несохранённое в облако и выходим из Firebase, затем уже сбрасываем игрока
+    try { await Promise.race([cloudLogoutCleanup(), new Promise(r => setTimeout(r, 2500))]); } catch (e) {}
     authUser = null;
     saveAuth();
     try { if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect(); } catch (e) {}
@@ -3674,6 +3988,7 @@ function requireAuth() {
   addPersistenceListeners();
   setInterval(freeTick, 1000);
   renderAuthUI();
+  cloudInit();
 
   (function nySetup() {
     const colors = ['#ff4d4d', '#ffd24d', '#4dff88', '#4da6ff', '#ff4dd2'];
