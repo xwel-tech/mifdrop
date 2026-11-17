@@ -260,7 +260,7 @@ to{transform: scale(1); opacity: 1;}}
 .toast{position: fixed; left: 50%; bottom: calc(100px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); z-index: 1200; background: #141b2d; color: #f1f5f9; border: 1px solid rgba(255,170,0,0.35); border-radius: 10px; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.5); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s;}
 .toast.show{opacity: 1; transform: translate(-50%, 0);}
 .pf-hero{--rc: #4b69ff; position: relative; overflow: hidden; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-bottom: 16px; padding: 20px 16px 22px; border-radius: 14px; background: linear-gradient(135deg, #141b2d 0%, #111726 55%, rgba(255,85,0,0.18) 100%); border: 1px solid rgba(255,170,0,0.15);}
-.pf-hero::before{content: '🎄'; position: absolute; right: -8px; top: -22px; font-size: 7rem; opacity: 0.07; transform: rotate(15deg); pointer-events: none;}
+.pf-hero::before{content:'';position:absolute;right:-8px;top:-22px;width:7rem;height:7rem;background:#fff;opacity:.07;transform:rotate(15deg);pointer-events:none;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M12 2 7 9h3l-4 6h4l-3 5h10l-3-5h4l-4-6h3zM12 20v2'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M12 2 7 9h3l-4 6h4l-3 5h10l-3-5h4l-4-6h3zM12 20v2'/%3E%3C/svg%3E") center/contain no-repeat;}
 .pf-avatar-wrap{position: relative; flex-shrink: 0; margin-bottom: 6px;}
 .pf-avatar-wrap .profile-avatar{width: 76px; height: 76px; font-size: 2.3rem; box-shadow: 0 0 0 3px #0b0f19, 0 0 0 5px var(--rc), 0 0 26px var(--rc);}
 .pf-rank{position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); white-space: nowrap; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; background: #0b0f19; color: var(--rc); border: 1px solid var(--rc);}
@@ -437,7 +437,7 @@ to{transform: scale(1); opacity: 1;}}
 .coin-stack.n3 .c2{left:9px;top:0}
 .bp-card-art .coin-stack{transform:scale(0.85)}
 .bp-hero{position:relative;overflow:hidden;display:flex;align-items:center;gap:20px;flex-wrap:wrap;text-align:left;margin-bottom:16px;padding:18px;border-radius:14px;background:linear-gradient(135deg,#1a1230 0%,#111726 58%,rgba(255,85,0,0.16) 100%);border:1px solid rgba(136,71,255,0.45);box-shadow:0 0 30px -12px rgba(136,71,255,0.6)}
-.bp-hero::before{content:'🎖️';position:absolute;right:-6px;top:-22px;font-size:7rem;opacity:0.07;transform:rotate(12deg);pointer-events:none}
+.bp-hero::before{content:'';position:absolute;right:-6px;top:-22px;width:7rem;height:7rem;background:#fff;opacity:.07;transform:rotate(12deg);pointer-events:none;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M7 2l5 8 5-8M12 10l5 3v5l-5 3-5-3v-5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linejoin='round'%3E%3Cpath d='M7 2l5 8 5-8M12 10l5 3v5l-5 3-5-3v-5z'/%3E%3C/svg%3E") center/contain no-repeat;}
 .bp-hero > *{position:relative}
 .bp-ring{--p:0deg;position:relative;width:98px;height:98px;border-radius:50%;flex-shrink:0;background:conic-gradient(#ffaa00 0deg,#ff5500 var(--p),#272e3f var(--p),#272e3f 360deg);box-shadow:0 0 26px rgba(255,120,0,0.28)}
 .bp-ring-in{position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle,#141b2d 0%,#0b0f19 100%);box-shadow:inset 0 0 14px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -598,7 +598,7 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
 .cs-card.poor .cs-price{background: #272e3f; color: #94a3b8; box-shadow: none;}
 .bp-bar-fill, .upg-chip.active, .inv-sell-btn{background: linear-gradient(90deg, #e63946, #ff8a8a); color: #fff;}
 .balance-box, .cs-hero, .modes-menu{border-color: rgba(180,220,255,0.3);}
-.cs-hero-top::after{content: '🎅 С Новым годом!'; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 900; color: #fff; background: rgba(230,57,70,0.85); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 0 18px rgba(230,57,70,0.5);}
+.cs-hero-top::after{content: 'С Новым годом!'; padding: 6px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 900; color: #fff; background: rgba(230,57,70,0.85); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 0 18px rgba(230,57,70,0.5);}
 .ny-lights{position: fixed; top: 0; left: 0; right: 0; height: 22px; z-index: 1300; pointer-events: none;}
 .ny-lights::before{content: ''; position: absolute; left: 0; right: 0; top: 4px; height: 2px; background: #1c2540;}
 .ny-lights i{position: absolute; top: 5px; width: 9px; height: 13px; border-radius: 50% 50% 55% 55%; background: var(--c); box-shadow: 0 0 10px 2px var(--c); animation: nyBlink 1.8s ease-in-out infinite;}
@@ -615,6 +615,20 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
 .free-banner::before, .bp-card::before{top: -1px; left: 0; right: 0; height: 24px;}
 .cs-hero::before{top: -1px; left: 0; right: 0; height: 30px; background-size: 64px 30px;}
 .cs-badge{top: 26px; z-index: 4;}
+
+/* ===== SVG-иконки ===== */
+.ic{width:1em;height:1em;vertical-align:-0.14em;flex-shrink:0;display:inline-block}
+.ic-glow{filter:drop-shadow(0 0 6px currentColor)}
+[data-ic]{display:inline-flex;align-items:center;justify-content:center}
+.mode-ico,.pf-stat-icon,.bp-xp-ico,.mode-card .ic{color:var(--c)}
+.promo-hero-icon{color:#fff}
+.promo-input-icon{color:#ffaa00}
+.modal-icon{color:#ffaa00;display:flex;justify-content:center}
+.toast{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.alb-add .ic,.inv-album-btn .ic{width:1.1em;height:1.1em;margin-right:3px}
+.mines-cell.safe{color:#16c784}.mines-cell.mine{color:#eb4b4b}
+.login-soc i .ic{width:14px;height:14px}
+.pf-avatar-wrap .profile-avatar{color:#fff}
 </style>
 <style id="albumCss">
 /* ===== Коллекционный альбом ===== */
@@ -719,7 +733,7 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
   <div class="screen" id="rouletteScreen">
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="roulette-container">
-      <div class="case-head"><div class="case-head-art"><span id="caseEmo">🎁</span></div><div class="case-head-info"><h2 id="caseTitle" class="case-head-title">Открытие кейса</h2><div class="case-head-sub" id="caseSub"></div></div></div>
+      <div class="case-head"><div class="case-head-art"></div><div class="case-head-info"><h2 id="caseTitle" class="case-head-title">Открытие кейса</h2><div class="case-head-sub" id="caseSub"></div></div></div>
       <div id="spinArea">
         <div class="tape-window">
           <div class="tape-pointer"></div>
@@ -729,7 +743,7 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
         <div class="spin-actions">
           <button class="open-btn" id="startBtn" onclick="spinRoulette()">Открыть кейс</button>
           <div class="quick-toggle" id="quickToggle" role="switch" aria-checked="false" onclick="toggleQuickMode()">
-            <span class="quick-toggle-label">⚡ Быстрое открытие</span>
+            <span class="quick-toggle-label"><i data-ic="bolt"></i>&nbsp;Быстрое открытие</span>
           </div>
         </div>
         <div class="multi-actions" id="multiActions">
@@ -750,13 +764,13 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
         </div>
       </div>
       <div class="win-box" id="winBox">
-        <div class="win-icon" id="winIcon">🎁</div>
+        <div class="win-icon" id="winIcon"></div>
         <div class="win-title" id="winTitle">Название скина</div>
         <div class="win-rarity" id="winRarity">Редкость</div>
         <div class="win-actions">
           <button class="sell-btn" id="sellBtn" onclick="sellCurrentSkin()">Продать за -- G</button>
           <button class="keep-btn" onclick="keepCurrentSkin()">Оставить</button>
-          <button class="keep-btn alb-win-btn" id="albumWinBtn" style="display:none" onclick="albumAskAddWin()" title="Скин переносится в альбом навсегда">📖 В альбом</button>
+          <button class="keep-btn alb-win-btn" id="albumWinBtn" style="display:none" onclick="albumAskAddWin()" title="Скин переносится в альбом навсегда"><i data-ic="book"></i> В альбом</button>
         </div>
       </div>
     </div>
@@ -823,18 +837,18 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
       <div class="promo-hero">
-        <div class="promo-hero-icon">🎁</div>
+        <div class="promo-hero-icon" data-ic="gift"></div>
         <h2 class="promo-hero-title">Промокоды</h2>
         <p class="promo-hero-sub">Введите промокод и получите бонусные G. Каждый код можно активировать только один раз на аккаунт.</p>
       </div>
       <div class="promo-input-wrap" id="promoInputWrap">
-        <span class="promo-input-icon">🔑</span>
+        <span class="promo-input-icon" data-ic="key"></span>
         <input type="text" id="promoInput" class="promo-input" placeholder="Введите промокод" maxlength="40" autocomplete="off" spellcheck="false" oninput="document.getElementById('promoInputWrap').classList.remove('err')" onkeydown="if(event.key==='Enter') redeemPromoCode()">
         <button class="open-btn promo-submit-btn" onclick="redeemPromoCode()">Активировать</button>
       </div>
       <div class="promo-message" id="promoMessage"></div>
       <div class="promo-link-wrap">
-        <a class="open-btn promo-link-btn" href="https://t.me/MIFDROP" target="_blank" rel="noopener noreferrer">✈️ Все промокоды тут</a>
+        <a class="open-btn promo-link-btn" href="https://t.me/MIFDROP" target="_blank" rel="noopener noreferrer"><i data-ic="plane"></i>&nbsp;Все промокоды тут</a>
       </div>
     </div>
   </div>
@@ -848,12 +862,12 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
     <button class="back-btn" onclick="goToCatalog()">← Назад к кейсам</button>
     <div class="inventory-container">
       <div class="pf-hero" id="pfHero">
-        <div class="pf-avatar-wrap"><div class="profile-avatar" id="pfAvatar">👤</div><div class="pf-rank" id="pfRank">Новичок</div></div>
+        <div class="pf-avatar-wrap"><div class="profile-avatar" id="pfAvatar" data-ic="user"></div><div class="pf-rank" id="pfRank">Новичок</div></div>
         <div class="pf-hero-main">
           <div id="pfGuestBlock"><div class="pf-hero-label">Никнейм</div><div class="profile-name-block">
             <input type="text" id="usernameInput" class="promo-input profile-name-input" maxlength="20" placeholder="Ваш никнейм">
             <button class="open-btn profile-save-btn" onclick="saveUsername()">Сохранить</button></div>
-            <button class="g-login-link" onclick="openLoginModal()">🔑 Войти в аккаунт</button>
+            <button class="g-login-link" onclick="openLoginModal()"><i data-ic="key"></i> Войти в аккаунт</button>
           </div>
           <div id="pfUserBlock" style="display:none">
             <div class="pf-hero-label">Аккаунт Google</div>
@@ -865,13 +879,13 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
       </div>
       <div class="promo-message" id="profileMessage"></div>
       <div class="pf-stats">
-        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon">💰</div><div class="profile-stat-label">Баланс</div><div class="profile-stat-value" id="profileBalanceValue" style="color:#ffaa00;">0 G</div></div>
-        <div class="pf-stat" style="--c:#4b69ff"><div class="pf-stat-icon">🎒</div><div class="profile-stat-label">Предметов</div><div class="profile-stat-value" id="profileItemsValue">0</div></div>
-        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon">💎</div><div class="profile-stat-label">Инвентарь</div><div class="profile-stat-value" id="profileInvValue" style="color:#16c784;">0 G</div></div>
-        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon">🔑</div><div class="profile-stat-label">Промокоды</div><div class="profile-stat-value" id="profilePromoValue">0 / 0</div></div>
+        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon" data-ic="coin"></div><div class="profile-stat-label">Баланс</div><div class="profile-stat-value" id="profileBalanceValue" style="color:#ffaa00;">0 G</div></div>
+        <div class="pf-stat" style="--c:#4b69ff"><div class="pf-stat-icon" data-ic="bag"></div><div class="profile-stat-label">Предметов</div><div class="profile-stat-value" id="profileItemsValue">0</div></div>
+        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon" data-ic="gem"></div><div class="profile-stat-label">Инвентарь</div><div class="profile-stat-value" id="profileInvValue" style="color:#16c784;">0 G</div></div>
+        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon" data-ic="key"></div><div class="profile-stat-label">Промокоды</div><div class="profile-stat-value" id="profilePromoValue">0 / 0</div></div>
       </div>
       <div class="pf-best" id="pfBest">
-        <div class="pf-best-icon" id="pfBestIcon">🏆</div>
+        <div class="pf-best-icon" id="pfBestIcon" data-ic="trophy"></div>
         <div class="pf-best-info">
           <div class="profile-stat-label" style="margin-bottom:4px;">Лучший дроп</div>
           <div class="pf-best-name" id="profileBestDropValue">—</div>
@@ -893,24 +907,24 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
   </div>
 
   <div class="header dock on-catalog" id="dock">
-    <button class="inv-toggle-btn modes-btn" id="modesBtn" onclick="toggleModes()">🎮 Режимы <span class="modes-caret">▴</span></button>
+    <button class="inv-toggle-btn modes-btn" id="modesBtn" onclick="toggleModes()"><i data-ic="gamepad"></i> Режимы <span class="modes-caret">▴</span></button>
     <div class="right-header-block">
       <div class="balance-box">
         <span id="balanceValue">500,00</span><span>G</span>
       </div>
-      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()"><span class="hdr-ava" id="profileBtnAva">👤</span> <span id="profileBtnName">Профиль</span></button>
+      <button class="inv-toggle-btn profile-btn" id="profileBtn" onclick="goToProfile()"><span class="hdr-ava" id="profileBtnAva" data-ic="user"></span> <span id="profileBtnName">Профиль</span></button>
     </div>
   </div>
 
   <div class="modes-menu" id="modesMenu">
     <div class="modes-title">Выберите режим</div>
     <div class="modes-grid">
-      <button class="mode-card" style="--c:#ff5500" onclick="goToUpgrade()"><span class="mode-ico">🚀</span><span><div class="mode-name">Апгрейд</div><div class="mode-desc">Улучши скин до более дорогого</div></span></button>
-      <button class="mode-card" style="--c:#8847ff" onclick="goToBattlePass()"><span class="mode-ico">🎖️</span><span><div class="mode-name">Батл пас</div><div class="mode-desc">40 уровней наград</div></span></button>
-      <button class="mode-card" style="--c:#eb4b4b" onclick="goToMines()"><span class="mode-ico">💣</span><span><div class="mode-name">Сапёр</div><div class="mode-desc">Рискни и забери выигрыш</div></span></button>
-      <button class="mode-card" style="--c:#4b69ff" onclick="goToContracts()"><span class="mode-ico">📜</span><span><div class="mode-name">Контракты</div><div class="mode-desc">10 скинов в один новый</div></span></button>
-      <button class="mode-card" style="--c:#ffc83d" onclick="goToAlbum()"><span class="mode-ico">📖</span><span><div class="mode-name">Альбом</div><div class="mode-desc">Собери все скины в сеты</div></span></button>
-      <button class="mode-card" style="--c:#16c784" onclick="goToPromo()"><span class="mode-ico">🔑</span><span><div class="mode-name">Промокоды</div><div class="mode-desc">Активируй код и получи бонусные G</div></span></button>
+      <button class="mode-card" style="--c:#ff5500" onclick="goToUpgrade()"><span class="mode-ico" data-ic="rocket"></span><span><div class="mode-name">Апгрейд</div><div class="mode-desc">Улучши скин до более дорогого</div></span></button>
+      <button class="mode-card" style="--c:#8847ff" onclick="goToBattlePass()"><span class="mode-ico" data-ic="medal"></span><span><div class="mode-name">Батл пас</div><div class="mode-desc">40 уровней наград</div></span></button>
+      <button class="mode-card" style="--c:#eb4b4b" onclick="goToMines()"><span class="mode-ico" data-ic="bomb"></span><span><div class="mode-name">Сапёр</div><div class="mode-desc">Рискни и забери выигрыш</div></span></button>
+      <button class="mode-card" style="--c:#4b69ff" onclick="goToContracts()"><span class="mode-ico" data-ic="scroll"></span><span><div class="mode-name">Контракты</div><div class="mode-desc">10 скинов в один новый</div></span></button>
+      <button class="mode-card" style="--c:#ffc83d" onclick="goToAlbum()"><span class="mode-ico" data-ic="book"></span><span><div class="mode-name">Альбом</div><div class="mode-desc">Собери все скины в сеты</div></span></button>
+      <button class="mode-card" style="--c:#16c784" onclick="goToPromo()"><span class="mode-ico" data-ic="key"></span><span><div class="mode-name">Промокоды</div><div class="mode-desc">Активируй код и получи бонусные G</div></span></button>
     </div>
   </div>
 
@@ -919,7 +933,7 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
 <div class="modal-overlay login-overlay" id="loginModal" onclick="if(event.target===this)closeLoginModal()">
   <div class="modal-box login-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
     <button class="login-close" onclick="closeLoginModal()" aria-label="Закрыть">✕</button>
-    <div class="login-brand"><span class="logo-icon">🎄</span><span class="logo-text">MIFDROP</span></div>
+    <div class="login-brand"><span class="logo-icon" data-ic="tree"></span><span class="logo-text">MIFDROP</span></div>
     <div class="modal-title" id="loginTitle">Вход в аккаунт</div>
     <div class="modal-sub login-sub">Войдите, чтобы в профиле отображались ваше имя и аватарка</div>
     <div class="login-g" id="googleBtnWrap"></div>
@@ -927,17 +941,58 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
     <div class="login-or"><span>или войдите через</span></div>
     <div class="login-grid">
       <button class="login-soc" style="--c:#1b6fa8" onclick="loginStub('Steam')"><i>S</i>Steam</button>
-      <button class="login-soc" style="--c:#229ed9" onclick="loginStub('Telegram')"><i>✈</i>Telegram</button>
+      <button class="login-soc" style="--c:#229ed9" onclick="loginStub('Telegram')"><i data-ic="plane"></i>Telegram</button>
       <button class="login-soc" style="--c:#fc3f1d" onclick="loginStub('Yandex')"><i>Я</i>Yandex</button>
       <button class="login-soc" style="--c:#0077ff" onclick="loginStub('VK ID')"><i>VK</i>VK ID</button>
     </div>
-    <button class="login-email" onclick="loginStub('Email')">✉️ Войти по Email</button>
+    <button class="login-email" onclick="loginStub('Email')"><i data-ic="mail"></i>&nbsp;Войти по Email</button>
     <div class="login-legal">Продолжая, вы соглашаетесь с правилами сайта</div>
   </div>
 </div>
 
 <script>
-  let balance = 0;
+  const ICONS = {
+  gift:'<path d="M3 8h18v4H3zM5 12v8h14v-8M12 8v12M12 8C9 8 7 6.5 8 5s3.5 0 4 3c.5-3 3-4.5 4-3s-1 3-4 3"/>',
+  bolt:'<path d="M13 2 5 13h6l-1 9 9-12h-6z"/>',
+  rocket:'<path d="M12 2c3 2 5 5 5 9l-2 4H9l-2-4c0-4 2-7 5-9zM9 15l-3 3v3l3-2M15 15l3 3v3l-3-2"/><circle cx="12" cy="9" r="1.5"/>',
+  medal:'<path d="M7 2l5 8 5-8M12 10l5 3v5l-5 3-5-3v-5z"/>',
+  bomb:'<circle cx="10" cy="14" r="7"/><path d="M15 9l3-3M17 3l4 4"/>',
+  scroll:'<path d="M6 3h12v15a3 3 0 0 1-3 3H6a3 3 0 0 0 3-3V3M6 3a3 3 0 0 0-3 3v1h3M10 8h5M10 12h5"/>',
+  book:'<path d="M4 4h7a2 2 0 0 1 1 .3A2 2 0 0 1 13 4h7v15h-7a1 1 0 0 0-1 1 1 1 0 0 0-1-1H4zM12 4.3V20"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/>',
+  coin:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/>',
+  bag:'<path d="M8 7V5a4 4 0 0 1 8 0v2M6 7h12l1 14H5zM9 13h6"/>',
+  gem:'<path d="M6 3h12l4 6-10 12L2 9zM2 9h20M9 3 7 9l5 12 5-12-2-6"/>',
+  trophy:'<path d="M7 4h10v6a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3M12 15v4M8 21h8"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  mail:'<path d="M3 5h18v14H3zM3 6l9 8 9-8"/>',
+  plane:'<path d="M21 3 2 11l7 2.5L11 21l3-5 5 3zM9 13.5 21 3"/>',
+  tree:'<path d="M12 2 7 9h3l-4 6h4l-3 5h10l-3-5h4l-4-6h3zM12 20v2"/>',
+  warn:'<path d="M12 3 2 20h20zM12 10v5M12 17.5v.01"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="M7.5 12.5l3 3 6-7"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  cloud:'<path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/>',
+  skull:'<path d="M5 11a7 7 0 0 1 14 0c0 2.5-1 4-3 5v3h-3v-2h-2v2H8v-3c-2-1-3-2.5-3-5zM9.5 11h.01M14.5 11h.01"/>',
+  burst:'<path d="M12 2l2.5 6L21 6l-3 6 4 3-6.5.5L14 22l-2-6-2 6-1.5-6.5L2 15l4-3-3-6 6.5 2z"/>',
+  lock:'<path d="M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4"/>',
+  star:'<path d="M12 3l2.8 6 6.2.7-4.6 4.2 1.3 6.4L12 17l-5.7 3.3 1.3-6.4L3 9.7 9.2 9z"/>',
+  crown:'<path d="M3 18 2 7l5 4 5-7 5 7 5-4-1 11z"/>',
+  box:'<path d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10"/>',
+  bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>',
+  shield:'<path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/>',
+  puzzle:'<path d="M4 4h6v2a2 2 0 1 1 4 0V4h6v6h-2a2 2 0 1 0 0 4h2v6H4z"/>',
+  question:'<path d="M9 9a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.2-1.5 2.4M12 17.5v.01"/>',
+  gamepad:'<path d="M7 8h10a5 5 0 0 1 5 5l-1 4a2 2 0 0 1-3.5 1L15 16H9l-2.5 2a2 2 0 0 1-3.5-1l-1-4a5 5 0 0 1 5-5zM7 11v3M5.5 12.5h3M16 12h.01M18 14h.01"/>'
+};
+function icon(n, cls) {
+  return '<svg class="ic ' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[n] || '') + '</svg>';
+}
+function hydrateIcons() {
+  document.querySelectorAll('[data-ic]').forEach(el => { el.innerHTML = icon(el.dataset.ic); });
+}
+hydrateIcons();
+
+let balance = 0;
   let myInventory = [];
   // состояние облачной синхронизации (логика — в блоке «ОБЛАЧНЫЙ ПРОФИЛЬ»)
   let cloudReady = false, cloudRef = null, cloudGen = 0, cloudBaseRev = 0, cloudLastJson = null;
@@ -974,6 +1029,7 @@ body{background: radial-gradient(circle at 50% -10%, #12305a 0%, #07122a 55%, #0
   };
   const SKIN_IDX = {"AKR Worm": 0, "Butterfly Black Widow": 1, "Butterfly Dragon Glass": 2, "Butterfly Legacy": 3, "Butterfly Starfall": 4, "Desert Eagle Ace": 5, "FN FAL Tactical": 6, "F/S Tactical": 7, "F/S Venom": 8, "G22 Starfall": 9, "M110 Cyber": 10, "M4 Lizard": 11, "M4 Samurai": 12, "MP7 Lich": 13, "TEC-9 Fable": 14, "UMP45 Cerberus": 15, "USP Pisces": 16, "AKR Dragon": 17, "AKR Nano": 18, "AKR12 Carbon": 19, "AWM Dragon": 20, "F/S Wraith": 21, "FabM Parrot": 22, "G22 Carbon": 23, "M4 Night Wolf": 24, "MP7 Banana": 25, "MP7 Graffiti": 26, "P90 Samurai": 27, "SM1014 Wave": 28, "Scorpion Scratch": 29, "Scorpion Sea Eye": 30, "Scorpion Starfall": 31, "Scorpion Veil": 32, "AKR Treasure Hunter": 33, "AKR12 Pixel Camouflage": 34, "AKR12 Railgun": 35, "AWM Phoenix": 36, "Desert Eagle Predator": 37, "G22 Nest": 38, "M16 Winged": 39, "M4 Necromancer": 40, "M9 Bayonet Ancient": 41, "M9 Bayonet Dragon Glass": 42, "M9 Bayonet Scratch": 43, "M9 Bayonet Universe": 44, "P350 Neon": 45, "P90 Ghoul": 46, "SM1014 Pathfinder": 47, "UMP45 Cyberpunk": 48, "AKR Sport": 49, "AWM Gear": 50, "AWM Scratch": 51, "Desert Eagle Red Dragon": 52, "FAMAS Beagle": 53, "FAMAS Fury": 54, "Karambit Claw": 55, "Karambit Dragon Glass": 56, "Karambit Scratch": 57, "Karambit Universe": 58, "M4 PRO": 59, "M40 Quake": 60, "P350 Forest Spirit": 61, "SM1014 Necromancer": 62, "UMP45 Shark": 63, "UMP45 Winged": 64, "AKR Genesis": 65, "AKR Jade Stone": 66, "AKR Tag King": 67, "AKR Twilight": 68, "AKR12 Emberbird": 69, "AKR12 Hanami": 70, "AKR12 Speedrun": 71, "AWM BOOM": 72, "AWM Genesis": 73, "AWM Spectral": 74, "AWM Stickerbomb": 75, "AWM Venom": 76, "Akimbo Uzi Fire Horse": 77, "Akimbo Uzi Ravage": 78, "Desert Eagle Jade Stone": 79, "Desert Eagle Venator": 80, "G22 Twilight": 81, "M16 Raiva": 82, "M16 Sea Glint": 83, "M16 Shogun Stripes": 84, "M4 Dire Wolf": 85, "M4 N-Kai": 86, "M4 Pixel Storm": 87, "M4A1 Impact": 88, "M4A1 Jade Stone": 89, "M4A1 Lincoln": 90, "M4A1 Sparkling Gaze": 91, "M4A1 Treasure Hunter": 92, "MAC10 Argo": 93, "MP5 Contender": 94, "MP5 Gorgon": 95, "MP7 Contender": 96, "MP7 R1NA": 97, "Mallard Phantom Pack": 98, "P90 Burning King": 99, "P90 Hologram": 100, "SM1014 Freezing Gasp": 101, "TEC-9 Glitch": 102, "USP Geometric": 103, "USP Hologram": 104, "Gloves Acid": 105, "Gloves Arctic Camo": 106, "Gloves Artificer": 107, "Gloves Autumn": 108, "Gloves Blackout": 109, "Gloves Camo": 110, "Gloves Champion": 111, "Gloves Dread": 112, "Gloves Feral": 113, "Gloves Firm Grip": 114, "Gloves Flux": 115, "Gloves Gambit": 116, "Gloves Geometric": 117, "Gloves Hanami": 118, "Gloves Handcraft": 119, "Gloves Haunt": 120, "Gloves Ice Storm": 121, "Gloves Impulse": 122, "Gloves Iron Wolf": 123, "Gloves Ironclad": 124, "Gloves Jade Stone": 125, "Gloves Living Flame": 126, "Gloves Mimicry": 127, "Gloves Neuro": 128, "Gloves Onyx": 129, "Gloves Overheat": 130, "Gloves Phoenix Risen": 131, "Gloves Pink Noise": 132, "Gloves Plague": 133, "Gloves Raider": 134, "Gloves Ravage": 135, "Gloves Razorwire": 136, "Gloves Rebellion": 137, "Gloves Reis": 138, "Gloves Retro Wave": 139, "Gloves Ritual": 140, "Gloves Safe Mode": 141, "Gloves Skeletal Hand": 142, "Gloves Slash": 143, "Gloves Static": 144, "Gloves Stream": 145, "Gloves Tan Hide": 146, "Gloves White Camo": 147, "Gloves Wildstyle": 148, "Gloves X-Ray": 149};
   function ico(it) {
+  if (it && /Fragment$/.test(it.name || '')) return icon('puzzle');
     const n = String((it && it.name) || '');
     const k = n.replace(/^StatTrak™ /, '').replace(/"/g, '');
     const i = SKIN_IDX[k];
@@ -1477,7 +1533,7 @@ function markFreeUsed() {
     if (free) {
       const ok = canOpenFree();
       note.className = 'free-note' + (ok ? '' : ' used');
-      note.innerHTML = ok ? '🎁 Бесплатное открытие доступно (1 раз в сутки)' : '⏳ Следующее открытие через <b>' + timeLeftStr() + '</b>';
+      note.innerHTML = ok ? icon('gift') + ' Бесплатное открытие доступно (1 раз в сутки)' : icon('clock') + ' Следующее открытие через <b>' + timeLeftStr() + '</b>';
       if (!running) btn.disabled = !ok;
     } else if (!running) {
       btn.disabled = false;
@@ -2036,7 +2092,7 @@ function markFreeUsed() {
   function showToast(text) {
     let t = document.getElementById('toast');
     if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
-    t.innerText = '⚠️ ' + text;
+    t.innerHTML = icon('warn') + '<span>' + escHTML(text) + '</span>';
     t.classList.add('show');
     clearTimeout(t._h);
     t._h = setTimeout(() => t.classList.remove('show'), 2200);
@@ -2054,7 +2110,7 @@ function markFreeUsed() {
     }
     m.innerHTML = `
       <div class="modal-box">
-        <div class="modal-icon">💰</div>
+        <div class="modal-icon">${icon('coin')}</div>
         <div class="modal-title">Вы точно хотите продать предметы?</div>
         <div class="modal-sub">${myInventory.length} шт. за <b>${formatPrice(total)} G</b></div>
         <div class="win-actions">
@@ -2234,13 +2290,13 @@ function markFreeUsed() {
     const invValue = myInventory.reduce((sum, it) => sum + itemPrice(it), 0);
     hero.innerHTML = heroBg() + `
       <div class="hero-bal"><span class="hero-bal-coin">G</span><div><div class="hero-bal-l">Баланс</div><span class="hero-bal-v"><span class="hero-bal-val">${fmtBalance(balance)}</span> <small>G</small></span></div></div>
-      <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">🎄</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
+      <div class="cs-hero-top"><div class="cs-hero-brand"><span class="logo-icon">${icon('tree')}</span><span class="logo-text">MIFDROP</span></div><div class="hero-auth" id="heroAuth"></div></div>
       <h1 class="cs-hero-title">Открывай <span>кейсы</span></h1>
       <p class="cs-hero-sub">Выбивай редкие скины, продавай их или улучшай до более дорогих.</p>
       <div class="cs-hero-stats">
-        <div class="cs-stat">🎒 Предметов<b>${myInventory.length}</b></div>
-        <div class="cs-stat">💰 Инвентарь<b>${formatPrice(invValue)} G</b></div>
-        <div class="cs-stat">🏆 Лучший дроп<b>${bestDrop ? formatPrice(bestDrop.price) + ' G' : '—'}</b></div>
+        <div class="cs-stat">${icon('bag')} Предметов<b>${myInventory.length}</b></div>
+        <div class="cs-stat">${icon('coin')} Инвентарь<b>${formatPrice(invValue)} G</b></div>
+        <div class="cs-stat">${icon('trophy')} Лучший дроп<b>${bestDrop ? formatPrice(bestDrop.price) + ' G' : '—'}</b></div>
       </div>
     `;
     let html = '';
@@ -2359,7 +2415,7 @@ function markFreeUsed() {
     if (!item) {
       return `<div class="upg-side" id="${id}" style="--c:#272e3f">
           <div class="upg-side-tag">${tag}</div>
-          <div class="upg-side-icon">❔</div>
+          <div class="upg-side-icon">${icon('question')}</div>
           <div class="upg-side-name" style="color:#64748b">${placeholder}</div>
           <div class="upg-side-price" style="color:#64748b">— G</div>
         </div>`;
@@ -2407,7 +2463,7 @@ function markFreeUsed() {
     if (ready) {
       const frac = maxBet > 0 ? Math.round(bet / maxBet * 1000) : 0;
       html += `<div class="upg-boost">
-        <div class="upg-boost-head"><span>💰 Добавить баланс к шансу</span><b id="upgBetVal">+${formatPrice(bet)} G</b></div>
+        <div class="upg-boost-head"><span>${icon('coin')} Добавить баланс к шансу</span><b id="upgBetVal">+${formatPrice(bet)} G</b></div>
         <input type="range" class="upg-range" id="upgRange" min="0" max="1000" step="1" value="${frac}" style="--p:${(frac / 10).toFixed(1)}%" ${maxBet > 0 ? '' : 'disabled'} oninput="onUpgBetInput(this.value)">
         <div class="upg-toolbar" style="margin:10px 0 0; justify-content:flex-start;">
           ${[0, 25, 50, 75, 100].map(p => `<button class="upg-chip" ${maxBet > 0 ? '' : 'disabled'} onclick="setUpgBetPct(${p})">${p === 100 ? 'Макс' : p + '%'}</button>`).join('')}
@@ -2420,7 +2476,7 @@ function markFreeUsed() {
         <div class="upg-stat">Прибыль<b id="upgStatProfit">${tp - sp - bet >= 0 ? '+' : '−'}${formatPrice(Math.abs(tp - sp - bet))} G</b></div>
       </div>`;
     }
-    html += `<button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()" ${ready ? '' : 'disabled'}>🚀 Улучшить</button>`;
+    html += `<button class="open-btn upg-go-btn" id="upgradeStartBtn" onclick="startUpgrade()" ${ready ? '' : 'disabled'}>${icon('rocket')} Улучшить</button>`;
     html += '<div id="upgPickers" style="margin-top:26px; padding-top:20px; border-top:1px solid #141b2d;">';
     html += '<div class="upg-cols"><div class="upg-col">';
     html += `<div class="preview-title">Ваш инвентарь (${myInventory.length})</div>`;
@@ -2622,7 +2678,7 @@ function markFreeUsed() {
       </div>
     ` : `
       <div class="win-box upg-result" style="display:block; margin-top:0; border:1px solid #eb4b4b44; background: radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%);">
-        <div class="win-icon" style="font-size:3.4rem;">💀</div>
+        <div class="win-icon" style="font-size:3.4rem;color:#eb4b4b;">${icon('skull')}</div>
         <div class="win-title" style="color:#eb4b4b;">Не повезло</div>
         <div class="win-rarity" style="color:#94a3b8">${srcs.length > 1 ? 'Потеряно предметов: ' + srcs.length + ' (' + formatPrice(sp) + ' G)' : 'Потерян: ' + item.emo + ' ' + item.name}${lastUpgradeBet ? ' + ' + formatPrice(lastUpgradeBet) + ' G' : ''}</div>
         <div style="color:#64748b; font-weight:700; font-size:0.85rem;">Шанс был ${fmtChance(currentUpgradeChance)}% — в следующий раз повезёт</div>
@@ -2680,7 +2736,7 @@ function markFreeUsed() {
   function renderContracts() {
     const box = document.getElementById('contractsContent');
     if (contractView === 'spin') {
-      box.innerHTML = '<div class="contract-spin"><div class="contract-spin-emo" id="contractSpinEmo">📜</div><div class="contract-spin-text">Подписываем контракт…</div></div>';
+      box.innerHTML = '<div class="contract-spin"><div class="contract-spin-emo" id="contractSpinEmo">' + icon('scroll') + '</div><div class="contract-spin-text">Подписываем контракт…</div></div>';
       return;
     }
     if (contractView === 'result' && contractResult) {
@@ -2834,7 +2890,7 @@ function loadMines() {
   }
   function renderMinesCountBar() {
     document.getElementById('minesCountBar').innerHTML = MINES_OPTIONS.map(n =>
-      `<button class="upg-chip ${n === minesCount ? 'active' : ''}" onclick="setMinesCount(${n})">💣 ${n}</button>`).join('');
+      `<button class="upg-chip ${n === minesCount ? 'active' : ''}" onclick="setMinesCount(${n})">${icon('bomb')} ${n}</button>`).join('');
   }
   function updateMinesStats() {
     const stat = (l, v) => `<div class="upg-stat">${l}<b>${v}</b></div>`;
@@ -2860,13 +2916,13 @@ function loadMines() {
         const isRev = g.revealed.includes(i), isMine = g.mines.includes(i);
         if (!g.over) {
           dis = isRev;
-          if (isRev) { cls += ' safe'; inner = '💎'; }
+          if (isRev) { cls += ' safe'; inner = icon('gem'); }
         } else if (isMine) {
           cls += ' mine' + (i === g.hit ? ' hit' : ' dim');
-          inner = i === g.hit ? '💥' : '💣';
+          inner = icon(i === g.hit ? 'burst' : 'bomb');
         } else {
           cls += ' safe' + (isRev ? '' : ' dim');
-          inner = '💎';
+          inner = icon('gem');
         }
         if (i === minesLastIdx) cls += ' pop';
       }
@@ -2907,14 +2963,14 @@ function loadMines() {
       box.style.border = '1px solid #16c78444';
       box.style.background = 'radial-gradient(circle at center, #16c78420 0%, #111726 100%)';
       box.innerHTML = `
-        <div class="win-icon">💎</div>
+        <div class="win-icon" style="color:#16c784">${icon('gem')}</div>
         <div class="win-title" style="color:#16c784;">Вы забрали ${formatPrice(payout)} G</div>
         <div class="win-rarity" style="color:#ffaa00; margin-bottom:0;">${fmtMult(mult)} · прибыль ${profit >= 0 ? '+' : ''}${formatPrice(profit)} G</div>`;
     } else {
       box.style.border = '1px solid #eb4b4b44';
       box.style.background = 'radial-gradient(circle at center, #eb4b4b18 0%, #111726 100%)';
       box.innerHTML = `
-        <div class="win-icon">💥</div>
+        <div class="win-icon" style="color:#eb4b4b">${icon('burst')}</div>
         <div class="win-title" style="color:#eb4b4b;">Мина! Ставка потеряна</div>
         <div class="win-rarity" style="color:#94a3b8; margin-bottom:0;">−${formatPrice(bet)} G</div>`;
     }
@@ -3217,9 +3273,9 @@ function loadPromoProgress() {
   }
   function showPromoMessage(text, type) {
     const msgBox = document.getElementById('promoMessage');
-    msgBox.innerText = (type === 'success' ? '✅ ' : '⚠️ ') + text;
+    msgBox.innerHTML = icon(type === 'success' ? 'check' : 'warn') + ' ' + escHTML(text);
     msgBox.className = 'promo-message promo-' + type + ' promo-msg-pop';
-    msgBox.style.display = 'block';
+    msgBox.style.display = 'flex'; msgBox.style.gap = '8px'; msgBox.style.alignItems = 'center';
     const wrap = document.getElementById('promoInputWrap');
     wrap.classList.remove('promo-shake', 'err');
     if (type === 'error') {
@@ -3333,7 +3389,7 @@ function loadBestDrop() {
     const rank = getRank();
     document.getElementById('pfHero').style.setProperty('--rc', rank[2]);
     document.getElementById('pfRank').innerText = rank[1];
-    document.getElementById('pfBestIcon').innerText = '🏆';
+    document.getElementById('pfBestIcon').innerHTML = icon('trophy');
     document.getElementById('pfBestPrice').innerText = '';
     document.getElementById('pfBest').style.setProperty('--c', '#64748b');
     const valueBox = document.getElementById('profileBestDropValue');
@@ -3426,10 +3482,10 @@ function loadBp() {
     if (!it) return { type: 'gold', amount: 100 };
     return { type: 'skin', item: { name: it.name, emo: it.emo, rarity: it.rarity, price: itemPrice(it) } };
   }
-  function showInfoToast(text) {
+  function showInfoToast(text, ic) {
     let t = document.getElementById('toast');
     if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
-    t.innerText = '🎁 ' + text;
+    t.innerHTML = icon(ic || 'gift') + '<span>' + escHTML(text) + '</span>';
     t.classList.add('show');
     clearTimeout(t._h);
     t._h = setTimeout(() => t.classList.remove('show'), 2400);
@@ -3460,13 +3516,13 @@ function loadBp() {
     const cls = (claimed ? 'claimed' : (isReady ? 'ready' : 'locked')) + (l === st.lvl + 1 ? ' next' : '') + (l % 5 === 0 ? ' ms' : '') + (l === BP_LEVELS ? ' final' : '');
     const gold = r.type === 'gold';
     const color = gold ? '#ffaa00' : rarityInfo[r.item.rarity].color;
-    const rar = l === BP_LEVELS ? '👑 Гранд-приз' : (gold ? 'Валюта' : rarityInfo[r.item.rarity].name);
+    const rar = l === BP_LEVELS ? icon('crown') + ' Гранд-приз' : (gold ? 'Валюта' : rarityInfo[r.item.rarity].name);
     const meta = gold
       ? `<div class="bp-rar" style="color:${color}">${rar}</div><div class="bp-name big">+${formatPrice(r.amount)} G</div>`
       : `<div class="bp-rar" style="color:${color}">${rar}</div><div class="bp-name">${escHTML(r.item.name)}</div><div class="bp-val">${formatPrice(r.item.price)} G</div>`;
-    const foot = claimed ? '✓ Получено' : (isReady ? 'Забрать' : '🔒 ещё ' + formatPrice(Math.max(0, bpCum(l) - bpXp)) + ' XP');
+    const foot = claimed ? '✓ Получено' : (isReady ? 'Забрать' : icon('lock') + ' ещё ' + formatPrice(Math.max(0, bpCum(l) - bpXp)) + ' XP');
     return `<div class="bp-tile ${cls}" style="--c:${color}" ${isReady ? `onclick="claimBpReward(${l})"` : ''}>
-        <div class="bp-lvchip">${l % 5 === 0 ? '★ ' : ''}Ур. ${l}</div>
+        <div class="bp-lvchip">${l % 5 === 0 ? icon('star') + ' ' : ''}Ур. ${l}</div>
         <div class="bp-ico">${gold ? bpCoin(r.amount) : ico(r.item)}</div>
         <div class="bp-meta">${meta}</div>
         <div class="bp-foot">${foot}</div>
@@ -3481,7 +3537,7 @@ function loadBp() {
     const pct = st.lvl >= BP_LEVELS ? 100 : Math.round(st.into / st.need * 100);
     let nextL = 0;
     for (let l = 1; l <= BP_LEVELS; l++) if (!bpClaimed.includes(l)) { nextL = l; break; }
-    let art = '<div class="bp-ico">🏆</div><div class="bp-card-lv">Всё получено</div>', rc = '#ffc83d';
+    let art = '<div class="bp-ico">' + icon('trophy') + '</div><div class="bp-card-lv">Всё получено</div>', rc = '#ffc83d';
     if (nextL) {
       const r = bpReward(nextL);
       rc = r.type === 'gold' ? '#ffaa00' : rarityInfo[r.item.rarity].color;
@@ -3537,7 +3593,7 @@ function loadBp() {
       <div class="bp-hero">
         <div class="bp-ring" style="--p:${(pct * 3.6).toFixed(1)}deg"><div class="bp-ring-in"><small>Уровень</small><b>${st.lvl}</b></div></div>
         <div class="bp-hero-main">
-          <h2 class="bp-hero-title">🎖️ <span>Батл пас</span></h2>
+          <h2 class="bp-hero-title">${icon('medal')} <span>Батл пас</span></h2>
           <div class="bp-hero-sub">Открывай кейсы, получай XP и забирай награды на каждом уровне: игровая валюта и скины.</div>
           <div class="bp-bar-wrap">
             <div class="bp-bar"><div class="bp-bar-fill" style="width:${pct}%"></div></div>
@@ -3548,16 +3604,16 @@ function loadBp() {
         ${ready ? `<button class="open-btn bp-claim-all" onclick="claimAllBp()">Забрать всё · ${ready}</button>` : (claimedCount === BP_LEVELS ? '<div class="bp-done">Все награды получены</div>' : '')}
       </div>
       <div class="bp-stats">
-        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon">⚡</div><div class="profile-stat-label">Всего XP</div><div class="profile-stat-value">${formatPrice(bpXp)}</div></div>
-        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon">🎁</div><div class="profile-stat-label">Получено</div><div class="profile-stat-value" style="color:#16c784;">${claimedCount} / ${BP_LEVELS}</div></div>
-        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon">💎</div><div class="profile-stat-label">Ценность наград</div><div class="profile-stat-value" style="color:#ffaa00;">${formatPrice(totalValue)} G</div></div>
+        <div class="pf-stat" style="--c:#8847ff"><div class="pf-stat-icon">${icon('bolt')}</div><div class="profile-stat-label">Всего XP</div><div class="profile-stat-value">${formatPrice(bpXp)}</div></div>
+        <div class="pf-stat" style="--c:#16c784"><div class="pf-stat-icon">${icon('gift')}</div><div class="profile-stat-label">Получено</div><div class="profile-stat-value" style="color:#16c784;">${claimedCount} / ${BP_LEVELS}</div></div>
+        <div class="pf-stat" style="--c:#ffaa00"><div class="pf-stat-icon">${icon('gem')}</div><div class="profile-stat-label">Ценность наград</div><div class="profile-stat-value" style="color:#ffaa00;">${formatPrice(totalValue)} G</div></div>
       </div>
       <div class="bp-sec">Награды по уровням</div>
       <div class="bp-grid">${tiles}</div>
       <div class="bp-sec">Как получать XP</div>
       <div class="bp-xp-grid">
-        ${xpItem('📦', 'Платный кейс', '3–40 XP')}
-        ${xpItem('🎁', 'Бесплатный кейс', '8 XP')}
+        ${xpItem(icon('box'), 'Платный кейс', '3–40 XP')}
+        ${xpItem(icon('gift'), 'Бесплатный кейс', '8 XP')}
       </div>`;
     window.scrollTo(0, y);
   }
@@ -3745,7 +3801,7 @@ function loadBp() {
     const key = albumBase(item.name);
     if (!ALBUM_OF[key]) return '';
     if (albumCollected.has(key)) return '<div class="inv-album-tag">✓ Уже в альбоме</div>';
-    return `<button class="inv-album-btn" onclick="albumAskAdd(${index})" title="Скин переносится в альбом навсегда">📖 В альбом</button>`;
+    return `<button class="inv-album-btn" onclick="albumAskAdd(${index})" title="Скин переносится в альбом навсегда">${icon('book')} В альбом</button>`;
   }
   function albumUpdateWinBtn() {
     const b = document.getElementById('albumWinBtn');
@@ -3787,7 +3843,7 @@ function loadBp() {
     const st = /^StatTrak™ /.test(item.name);
     m.innerHTML = `
       <div class="modal-box">
-        <div class="modal-icon">📖</div>
+        <div class="modal-icon">${icon('book')}</div>
         <div class="modal-title">Перенести в альбом навсегда?</div>
         <div class="alb-modal-name" style="color:${color}">${escHTML(item.name)}</div>
         <div class="modal-sub">Скин останется в коллекции «${escHTML(col.name)}» навсегда. Вернуть его в инвентарь, продать или отдать в апгрейд и контракт будет нельзя.</div>
@@ -3870,26 +3926,26 @@ function loadBp() {
     const shown = cards.filter(c => albumFilter === 'all' || c.state === albumFilter);
     const grid = shown.map(c => {
       const key = c.key, nm = escHTML(key);
-      const icon = ico({ name: key, emo: ALBUM_EMO[key] || '🎁' });
-      if (c.state === 'got') return `<div class="alb-card got r-${col.rarity}" style="--c:${color}"><div class="alb-ico">${icon}</div><div class="alb-name">${nm}</div><div class="alb-state">В альбоме</div></div>`;
-      if (c.state === 'have') return `<div class="alb-card have" style="--c:${color}" onclick="albumAskAddIdx('${col.id}', ${c.i})" role="button" tabindex="0" title="Скин переносится в альбом навсегда">${invCnt[key] > 1 ? `<span class="alb-cnt">×${invCnt[key]}</span>` : ''}<div class="alb-ico">${icon}</div><div class="alb-name">${nm}</div><button class="alb-add" type="button">📖 В альбом</button></div>`;
-      return `<div class="alb-card missing"><div class="alb-ico">${icon}</div><div class="alb-name">${nm}</div><div class="alb-state">Не найден</div></div>`;
+      const icn = ico({ name: key, emo: ALBUM_EMO[key] || '🎁' });
+      if (c.state === 'got') return `<div class="alb-card got r-${col.rarity}" style="--c:${color}"><div class="alb-ico">${icn}</div><div class="alb-name">${nm}</div><div class="alb-state">В альбоме</div></div>`;
+      if (c.state === 'have') return `<div class="alb-card have" style="--c:${color}" onclick="albumAskAddIdx('${col.id}', ${c.i})" role="button" tabindex="0" title="Скин переносится в альбом навсегда">${invCnt[key] > 1 ? `<span class="alb-cnt">×${invCnt[key]}</span>` : ''}<div class="alb-ico">${icn}</div><div class="alb-name">${nm}</div><button class="alb-add" type="button">${icon('book')} В альбом</button></div>`;
+      return `<div class="alb-card missing"><div class="alb-ico">${icn}</div><div class="alb-name">${nm}</div><div class="alb-state">Не найден</div></div>`;
     }).join('');
     wrap.innerHTML = `
       <div class="alb-hero">
-        <div class="alb-hero-title">📖 Коллекционный альбом</div>
+        <div class="alb-hero-title">${icon('book')} Коллекционный альбом</div>
         <div class="alb-hero-sub">Переносите выбитые скины в альбом и закрывайте сеты. Это чистое коллекционирование: награды в G не выдаются — только престиж.</div>
         <div class="alb-total"><span>Всего: <b>${allGot} / ${allTotal}</b></span><span>Закрыто сетов: <b>${closed} / ${ALBUM_COLLECTIONS.length}</b></span></div>
       </div>
       <div class="alb-tabs">${tabs}</div>
       <div class="alb-page" style="--c:${color}">
-        ${st.done ? '<div class="alb-done">🏆 Коллекция завершена 🏆</div>' : ''}
+        ${st.done ? '<div class="alb-done">' + icon('trophy') + ' Коллекция завершена ' + icon('trophy') + '</div>' : ''}
         <div class="alb-page-head">
           <div class="alb-page-title" style="color:${color}">${escHTML(col.name)}</div>
           <div class="alb-page-sub">Собрано: ${st.got} / ${st.total}</div>
         </div>
         <div class="alb-page-bar ${st.done ? 'done' : ''}"><b style="width:${st.total ? Math.round(st.got / st.total * 100) : 0}%"></b></div>
-        ${st.done ? '' : '<div class="alb-hint">💡 Пульсирующая карточка — скин уже в вашем инвентаре. Нажмите на неё, чтобы перенести его в альбом навсегда.</div>'}
+        ${st.done ? '' : '<div class="alb-hint">' + icon('bulb') + ' Пульсирующая карточка — скин уже в вашем инвентаре. Нажмите на неё, чтобы перенести его в альбом навсегда.</div>'}
         <div class="upg-toolbar">${filters}</div>
         <div class="alb-grid">${grid || '<div class="inventory-empty-text" style="grid-column:1/-1">В этом фильтре пока пусто</div>'}</div>
       </div>`;
@@ -3910,7 +3966,7 @@ function loadBp() {
     }).join('');
     box.innerHTML = `
       <div class="pf-col-head">
-        <div class="pf-col-title">🏅 Собранные коллекции <span>${closed} / ${ALBUM_COLLECTIONS.length}</span></div>
+        <div class="pf-col-title">${icon('shield')} Собранные коллекции <span>${closed} / ${ALBUM_COLLECTIONS.length}</span></div>
         <button class="pf-col-link" onclick="goToAlbum()">Открыть альбом</button>
       </div>
       <div class="alb-seals">${seals}</div>`;
@@ -4112,7 +4168,7 @@ function loadBp() {
       cloudLastJson = remoteJson;
       uSet('mifdrop_cloud_rev', rev);
       cloudReady = true;
-      try { showInfoToast('☁️ Прогресс загружен из облака'); } catch (e) {}
+      try { showInfoToast('Прогресс загружен из облака', 'cloud'); } catch (e) {}
     });
   }
   // Применяет данные из облака, если они новее нашей версии (общая часть для pull и realtime-подписки)
@@ -4129,7 +4185,7 @@ function loadBp() {
       uSet('mifdrop_cloud_rev', rev);
       cloudReady = true;
       cloudPulling = false;
-      try { showInfoToast('☁️ Прогресс обновлён из облака'); } catch (e) {}
+      try { showInfoToast('Прогресс обновлён из облака', 'cloud'); } catch (e) {}
     }, () => { if (gen === cloudGen) { cloudReady = true; cloudPulling = false; } });
   }
   // Разовая проверка облака (вернулись на вкладку / запись отклонена как устаревшая)
@@ -4405,12 +4461,12 @@ function requireAuth() {
     if (!el) return;
     el.textContent = '';
     el.classList.toggle('has-img', !!url);
-    if (!url) { el.textContent = fallback; return; }
+    if (!url) { if (fallback === '👤') el.innerHTML = icon('user'); else el.textContent = fallback; return; }
     const img = document.createElement('img');
     img.className = 'ava-img';
     img.alt = '';
     img.referrerPolicy = 'no-referrer';
-    img.onerror = () => { el.classList.remove('has-img'); el.textContent = fallback; };
+    img.onerror = () => { el.classList.remove('has-img'); if (fallback === '👤') el.innerHTML = icon('user'); else el.textContent = fallback; };
     img.src = url;
     el.appendChild(img);
   }
